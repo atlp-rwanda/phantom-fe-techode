@@ -10,12 +10,12 @@ module.exports = {
         publicPath: '/'
     },
     devServer: {
-        historyApiFallback: true,
-        contentBase: __dirname + "/public/",
-        inline: true,
-        host: '0.0.0.0',
-        port: 8080,
-    },
+        static: {
+          directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        port: 9000,
+      },
     module: {
         rules: [
             {
