@@ -10,17 +10,8 @@ module.exports = {
     publicPath: "/",
   },
   devServer: {
-    // contentBase
-    static: {
-      directory: path.join(__dirname, "public/"),
-    },
-    port: 8080,
-    // publicPath
-    devMiddleware: {
-      publicPath: "https://localhost:8080/dist/",
-    },
-    // hotOnly
-    hot: "only",
+    historyApiFallback: true,
+    port: 4000,
   },
   module: {
     rules: [
