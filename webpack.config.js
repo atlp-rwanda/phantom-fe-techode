@@ -6,7 +6,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js',
+        filename: 'bundle.js',
         publicPath: '/'
     },
     devServer: {
@@ -21,10 +21,12 @@ module.exports = {
             },
             {
                 test: /\.css?$/,
+                exclude: /node_modules/,
                 use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|j?g|svg|gif)?$/,
+                exclude: /node_modules/,
                 use: 'file-loader?name=./assets/[name].[ext]'
             },
         ],

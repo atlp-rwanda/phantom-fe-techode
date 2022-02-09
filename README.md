@@ -27,3 +27,9 @@ $ npm run dev
 ```
 $ npm run build
 ```
+
+## Start Application
+
+```
+$ npm start
+```
