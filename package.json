@@ -1,0 +1,54 @@
+{
+  "name": "phantom-fe-techode",
+  "version": "1.0.0",
+  "description": "application that allows simulating bus movements and enabling passengers to track their locations & movements. ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --entry ./src/index.js --output-filename ./dist/bundle.js --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlp-rwanda/phantom-fe-techode.git"
+  },
+  "author": "Techode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atlp-rwanda/phantom-fe-techode/issues"
+  },
+  "homepage": "https://github.com/atlp-rwanda/phantom-fe-techode#readme",
+  "dependencies": {
+    "browserslist": "^4.19.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.6.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
