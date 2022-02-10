@@ -1,8 +1,8 @@
 # phantom-fe-techode
 
 Application that allows simulating bus movements and enabling passengers to track their locations & movements. 
-
-![example workflow](https://https://https://github.com/atlp-rwanda/phantom-fe-techode/blob/ch-config-test-env-TP-27/.github/workflows/develop.yml/badge.svg)
+![GitHub Repo stars](https://img.shields.io/github/stars/atlp-rwanda/phantom-fe-techode?style=social)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/atlp-rwanda/phantom-fe-techode/CI)
 
 ## Enter Directory
 
