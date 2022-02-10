@@ -2,6 +2,8 @@
 
 Application that allows simulating bus movements and enabling passengers to track their locations & movements. 
 
+![example branch parameter](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?branch=ch-config-test-env-TP-27)
+
 ## Enter Directory
 
 ```
