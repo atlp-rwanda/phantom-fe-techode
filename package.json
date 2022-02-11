@@ -4,10 +4,10 @@
   "description": "application that allows simulating bus movements and enabling passengers to track their locations & movements. ",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve --mode development",
-    "build": "webpack --mode production",
+     "dev": "webpack-dev-server",
+    "build": "webpack --config ./webpack.config.js --mode='production'",
     "test": "react-scripts test",
-    "start": "webpack-dev-server --entry ./src/index.js --output-filename ./dist/bundle.js --mode development"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
