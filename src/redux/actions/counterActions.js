@@ -1,26 +1,28 @@
-import { ActionTypes } from "../constants/actionType"
+import  { ActionTypes } from "../constants/actionType"
+
+const { DECREMENT_COUNT_BY_VALUE,GET_COUNT, INCREMENT_COUNT,DECREMENT_COUNT,INCREMENT_COUNT_BY_VALUE } = ActionTypes ;
 
 export const getCount = () =>{
     return {
-        type:ActionTypes.GET_COUNT
+        type: GET_COUNT
     }
 }
 export const incrementCount = () =>{
     return {
-        type:ActionTypes.INCREMENT_COUNT
+        type: INCREMENT_COUNT
     }
 }
 
 export const decrementCount = () =>{
     return {
-        type:ActionTypes.DECREMENT_COUNT
+        type: DECREMENT_COUNT
     }
 }
 
 
 export const incrementBy = (count) =>{
     return {
-        type:ActionTypes.INCREMENT_COUNT_BY_VALUE,
+        type: INCREMENT_COUNT_BY_VALUE,
         payload: count
     }
 }
@@ -28,7 +30,7 @@ export const incrementBy = (count) =>{
 
 export const decrementBy = (count) =>{
     return {
-        type:ActionTypes.DECREMENT_COUNT_BY_VALUE,
+        type: DECREMENT_COUNT_BY_VALUE,
         payload: count
     }
 }

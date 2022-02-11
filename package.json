@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack --config ./webpack.config.js --mode='production'",
+    "build": "webpack --config ./webpack.config.js",
     "start": "node server.js"
   },
   "repository": {
@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/atlp-rwanda/phantom-fe-techode#readme",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.7.2",
     "browserslist": "^4.19.1",
     "express": "^4.17.2",
     "path": "^0.12.7",
