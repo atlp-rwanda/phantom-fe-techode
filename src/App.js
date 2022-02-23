@@ -7,7 +7,6 @@ import Register from './containers/RegisterDriverOperator/Register';
 const App = () => {
     return (  
        <Router>
-           <Navbar />
            <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/driver/register"  component={Register} />
