@@ -4,12 +4,11 @@
   "description": "application that allows simulating bus movements and enabling passengers to track their locations & movements. ",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server",   
+    "dev": "webpack-dev-server",
     "build": "webpack --config ./webpack.config.js --mode='production'",
     "testBuild": "webpack --config ./webpack.config.js ",
     "start": "node server.js",
     "test": "react-scripts test"
-    
   },
   "repository": {
     "type": "git",
@@ -40,6 +39,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.3.0",
     "react-scripts": "^5.0.0",
+    "react-table": "^7.7.0",
     "redux": "^4.1.2",
     "redux-mock-store": "^1.5.4",
     "sass-loader": "^12.6.0",

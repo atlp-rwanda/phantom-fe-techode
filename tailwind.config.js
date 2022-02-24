@@ -21,23 +21,34 @@ module.exports = {
             red: colors.red,
             green: colors.green,
             primary: {
-                '100': '#0384C6',
-                '200': 'rgba(3, 132, 198, 0.8)'
+                '100': 'rgba(3, 132, 198, 0.1)',
+                '200': 'rgba(3, 132, 198, 0.45)',
+                '300': 'rgba(3, 132, 198, 0.67)',
+                '400': 'rgba(3, 132, 198, 0.75)',
+                '500': 'rgba(3, 132, 198, 0.8)',
+                '600': '#0384C6'
             },
             secondary:{
                 '40': "#F3F6F9",
                 '50': 'rgba(0, 0, 0, 0.4)',
                 '100': 'rgba(0, 0, 0, 0.1)',
+                '150': 'rgba(0, 0, 0, 0.21)',
                 '200': 'rgba(0, 0, 0, 0.45)',
                 '300': 'rgba(0, 0, 0, 0.67)',
                 '400': 'rgba(0, 0, 0, 0.1)',
                 '500': 'rgba(0, 0, 0, 0.75)',
-                '600': 'rgba(0, 0, 0, 0.8)',
                 '600': '#000000'             
             },
             danger: colors.red,
             info: colors.blue,
-            success: colors.green,
+            success: {
+                '100': 'rgba(88, 149, 10, 0.1)',
+                '200': 'rgba(88, 149, 10, 0.45)',
+                '300': 'rgba(88, 149, 10, 0.67)',
+                '400': 'rgba(88, 149, 10, 0.75)',
+                '500': 'rgba(88, 149, 10, 0.8)',
+                '600': '#58950A',           
+            },
             mainColor: '#1CA0E3' ,
             active: '#1CA0E3',
         },
@@ -45,6 +56,9 @@ module.exports = {
             fontFamily: {
                 sans: ["Poppins", ...defaultTheme.fontFamily.sans],
             },
+            height: {
+                '95p': '95%',
+            }
         },
     },
     variants: {},
