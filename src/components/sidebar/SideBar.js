@@ -7,9 +7,40 @@ import dashboard from '../../assets/svgs/dashboard.svg';
 import driver from '../../assets/svgs/driver.svg'
 import userSvg from '../../assets/svgs/user.svg';
 import routes from '../../assets/svgs/routes.svg'
-import operator from '../../assets/svgs/operator.svg'
+import operatorIM from '../../assets/svgs/operator.svg'
+import { useLocation } from 'react-router-dom';
 
 const SideBar = ({shownav}) => {
+   
+    const location = useLocation();
+    const navLinks = [
+        {
+            linkName : 'Dashboard',
+            svgImage : dashboard,
+            to:'dashboard'
+        },
+        {
+            linkName : 'Driver',
+            svgImage : driver,
+            to:'drivers'
+        },
+        {
+            linkName : 'Routes',
+            svgImage : routes,
+            to:'routes'
+        },
+        {
+            linkName : 'Users',
+            svgImage : userSvg,
+            to:'Users'
+        },
+        {
+            linkName : 'Operators',
+            svgImage : operatorIM,
+            to:'operators'
+        },
+    ]
+
     return ( 
         <div className={`text-2lg text-black  main-bg-gradient h-screen pt-5 px-4 transition-all ${shownav == true ? `` :  `sidebar none-active`}`}>
             <div className="flex items-center justify-center flex-col mt-6 mb-4">
@@ -25,11 +56,11 @@ const SideBar = ({shownav}) => {
 
             <div className="nav-bar mt-14 flex flex-col align-middle justify-center ">
                 <div className="nav-links ">
-                    <Links svgimage={dashboard} linkname="Dashboard" to="" color='text-white'/>  
-                    <Links svgimage={driver} linkname="Driver" to="" color='text-active'/>
-                    <Links svgimage={routes} linkname="Routes" to="" color='text-white'/>
-                    <Links svgimage={userSvg} linkname="Users" to="" color='text-white'/>
-                    <Links svgimage={operator} linkname="Operator" to="" color='text-white'/>
+                    {
+                        navLinks.map( nav => (
+                            <Links svgimage={nav.svgImage} linkname={nav.linkName} to={`/${nav.to}`} color={ `/${nav.to}` == location.pathname ? `text-active` : `text-white`}/>
+                        ))
+                    }                    
                 </div>
             </div>
         </div>
