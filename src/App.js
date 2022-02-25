@@ -7,6 +7,10 @@ import Register from './containers/RegisterDriverOperator/Register';
 
 import RegisterDriver from './containers/RegisterDriverOperator/RegisterDriver';
 import RegisterOperator from './containers/RegisterDriverOperator/RegisterOperator';
+import 'react-toastify/dist/ReactToastify.css';
+import './assets/style/style-skeleton.css';
+import Dashboard from './containers/Dashboard/Dashboard';
+
 const App = () => {
     return (  
        <Router>
@@ -14,6 +18,7 @@ const App = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/logout" exact component={Logout} />
                 <Route path="/driver/register"  component={Register} />
+                <Route path="/dashboard"  component={Dashboard} />
                 <Route path="/drivers"  component={RegisterDriver} />
                 <Route path="/operators"  component={RegisterOperator} />
            </Switch>

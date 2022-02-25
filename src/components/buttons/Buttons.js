@@ -28,9 +28,9 @@ export const PrimaryButton = ({ name, onClick }) => {
  
 =======
  
-export const Primary = ({ name ,onclick }) => {
+export const Primary = ({ name ,onclick , styles }) => {
     return ( 
-        <button className="w-full bg-primary-600 rounded text-white shadow hover:bg-primary-400 font-sans sm:text-base md:font-medium md:text-sm  text-xs p-1 px-2" onClick={onclick} >
+        <button className={`w-full bg-primary-600 rounded text-white shadow hover:bg-primary-400 font-sans sm:text-sm md:font-medium   text-xs p-1 px-2 ${styles}`} onClick={onclick}  >
             {name}
         </button>
      );
