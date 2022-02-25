@@ -7,11 +7,11 @@
   }
   .skeleton.title {
     width: 200px;
-    height: 20px;
+    height: 15px;
   }
   .skeleton.avatar {
-    width: 100px;
-    height: 100px;
+    width:  65px;
+    height: 65px;
     border-radius: 50%;
   }
   .skeleton.icon {

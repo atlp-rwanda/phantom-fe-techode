@@ -3,7 +3,7 @@ import SkeletonElement from "./SkeletonElement";
 
 const SkeletonLogout = () => {
     return ( 
-        <div className="border border-slate-200 rounded-md h-full w-full md:w-1/4 md:mt-10 md:ml-10 animate-pulse">
+        <div className="h-full w-full md:h-full md:w-full md:h-full md:w-1/2 animate-pulse">
             <section className="flex items-center justify-center">
                 <SkeletonElement type="avatar" styles="w-1/5 h-1/5 md:w-1/3 md:h-1/3 mt-5" />
             </section>
