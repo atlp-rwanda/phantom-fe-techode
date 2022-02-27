@@ -55,7 +55,7 @@ const Logout = () => {
                 <div className='w-full'>
                 {profile && ( <SkeletonLogout />)}
                     {!profile && (
-                        <div className="h-full w-full md:h-full md:w-full md:h-full md:w-1/2">
+                        <div className="h-full w-full md:h-full md:w-full md:h-full md:w-full">
                             <section className="flex flex-col items-center justify-center">
                                 <img className="border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100" src="https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" alt="image" />
                                 <span className="text-secondary-300 mt-6 text-primary-600 text-xs md:text-sm font-sans font-semibold">Sezerano J Chrysostome</span>
