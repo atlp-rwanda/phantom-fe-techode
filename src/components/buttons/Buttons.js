@@ -33,3 +33,4 @@ export const Primary = ({ name ,onclick , styles }) => {
         </button>
      );
 }
+
