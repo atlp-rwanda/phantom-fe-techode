@@ -34,21 +34,21 @@ const Footer = () => {
   });
 
   return (
-    <div className="ph-footer w-full flex flex-col md:flex md:flex-row  flex-wrap py-10 px-10 justify-center items-center">
+    <div className="ph-footer w-full flex flex-col md:flex md:flex-row  flex-wrap py-9 px-10 justify-center">
       <div className="flex flex-col w-60 md:w-60 lg:w-1/2  mx-auto">
-        <h1 className="text-2xl md:text-4xl font-bold text-blue-500 font-sans py-20 top-0 ">
+        <h1 className="text-2xl md:text-4xl font-bold text-primary-600 font-sans py-10 top-0 ">
           Phantom
         </h1>
-        <h1 className="text-2xl nd:text-4xl text-blue-500 font-sans">
+        <h1 className="text-2xl md:text-4xl text-primary-600 font-sans md:mb-5">
           Let's get connected
         </h1>
-        <p className="md:text-xl text-gray-400 py-2.5">
+        <p className="md:text-xl text-gray-400 md:pr-10 ">
           when an unknown printer took a galley of type and scrambled it to make
           a type specimen bookwhen an unknown printer took a galley of type and
           scrambled
         </p>
         <div className="flex flex-col mt-2">
-          <span className="flex flex-row w-full">
+          <span className="flex flex-col md:flex md:flex-row w-full">
             <div className="w-5 h-5">
               <img src={mail} />
             </div>{" "}
@@ -56,6 +56,7 @@ const Footer = () => {
               techoders.andela@gmail.com
             </div>
           </span>
+       
           <span className="flex flex-row w-full">
             <div className="w-5 h-5">
               <img src={phone} />
@@ -70,8 +71,8 @@ const Footer = () => {
           </span>
         </div>
       </div>
-      <div className="flex flex-col w-60 md:w-60 lg:w-1/2">
-        <div className="text-2xl md:text-4xl font-bold text-blue-500 font-sans pb-10">
+      <div className="flex flex-col w-60 md:w-60 mt-10 lg:w-1/2 mx-auto">
+        <div className="text-2xl md:text-4xl font-bold text-primary-600 font-sans pb-10">
           Send us a message
         </div>
         <form onSubmit={formik.handleSubmit} className="w-full max-w-lg">
@@ -137,16 +138,16 @@ const Footer = () => {
             </div>
           </div>
           <div className="md:flex md:items-center">
-            <div className="md:w-1/3">
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Send
+            <div className="md:w-1/2">
+              <button type="submit" className="bg-primary-600 hover:bg-primary-400 text-white md:text-xl md:font-bold py-2 px-4 rounded">
+              Contact us Now
               </button>
             </div>
             <div className="md:w-2/3"></div>
           </div>
         </form>
       </div>
-      <div className="items-center text-xl font-bold text-blue-500 font-sans mt-10">
+      <div className="items-center text-xl md:font-bold text-primary-600 font-sans mt-10 mx-auto">
         © AndelaTechoders 2022
       </div>
     </div>

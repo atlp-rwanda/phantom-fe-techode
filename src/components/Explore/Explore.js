@@ -1,14 +1,20 @@
-import React from "react";
-import map from "../../assets/images/map.jpeg";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import './Explore.css'
 import search from '../../assets/svgs/search.svg'
+import {Map} from '../skeletons/Map/Map'
 
 const Explore = () => {
+  const [isLoading, setIsLoading] = useState(true)
+
+  setTimeout(() => {
+    setIsLoading(false)
+  }, 5000)
+
   return (
     <div className="flex flex-col w-full flex-wrap py-20 justify-center items-center">
       <div className="">
-        <h1 className="text-2xl md:text-4xl font-bold text-blue-500 font-sans ">Explore</h1>
+        <h1 className="text-2xl md:text-4xl font-bold text-primary-600 font-sans ">Explore</h1>
       </div>
 
       <div className='w-full justify-center items-center mx-auto'>
@@ -20,9 +26,8 @@ const Explore = () => {
         
         </div>
         <div className="w-full" id="map">
-          {/* <img src={map} /> */}
-          {/* 1.9567° S, 30.0636° E */}
-          <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}>
+          {isLoading && <Map />}
+          {!isLoading && <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -32,7 +37,8 @@ const Explore = () => {
                 Phantom solutions. <br /> Easy movements.
               </Popup>
             </Marker>
-          </MapContainer>
+          </MapContainer>}
+          
         </div>
       </div>
     </div>
