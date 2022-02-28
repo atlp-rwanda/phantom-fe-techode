@@ -6,39 +6,50 @@ import line from '../../assets/svgs/sideBarline.svg';
 import dashboard from '../../assets/svgs/dashboard.svg';
 import driver from '../../assets/svgs/driver.svg'
 import userSvg from '../../assets/svgs/user.svg';
-import routes from '../../assets/svgs/routes.svg'
-import operatorIM from '../../assets/svgs/operator.svg'
+import routes from '../../assets/svgs/routes.svg';
+import operatorIM from '../../assets/svgs/operator.svg';
+import roles from '../../assets/svgs/roles.svg'
 import { useLocation } from 'react-router-dom';
 
 const SideBar = ({shownav}) => {
    
     const location = useLocation();
     const navLinks = [
-        {
+        {   id: 1,
             linkName : 'Dashboard',
             svgImage : dashboard,
             to:'dashboard'
         },
         {
-            linkName : 'Driver',
+            id: 2,
+            linkName : 'Drivers',
             svgImage : driver,
             to:'drivers'
         },
         {
+            id: 3,
             linkName : 'Routes',
             svgImage : routes,
             to:'routes'
         },
         {
-            linkName : 'Users',
+            id: 4,
+            linkName : 'users',
             svgImage : userSvg,
             to:'Users'
         },
         {
+            id: 5,
             linkName : 'Operators',
             svgImage : operatorIM,
             to:'operators'
         },
+        {
+            id: 6,
+            linkName : 'Roles',
+            svgImage : roles,
+            to:'roles'
+        }
     ]
 
     return ( 
@@ -58,7 +69,7 @@ const SideBar = ({shownav}) => {
                 <div className="nav-links ">
                     {
                         navLinks.map( nav => (
-                            <Links svgimage={nav.svgImage} linkname={nav.linkName} to={`/${nav.to}`} color={ `/${nav.to}` == location.pathname ? `text-active` : `text-white`}/>
+                            <Links key={nav.id} svgimage={nav.svgImage} linkname={nav.linkName} to={`/${nav.to}`} color={ `/${nav.to}` == location.pathname ? `text-active` : `text-white`}/>
                         ))
                     }                    
                 </div>
