@@ -5,7 +5,7 @@ const Services = () => {
   return (
     <div className="flex flex-col flex-wrap py-10 justify-center items-center">
       <div className="">
-        <h1 className="text-4xl font-bold text-blue-500 font-sans ">
+        <h1 className="text-2xl md:text-4xl font-bold text-blue-500 font-sans ">
           Services
         </h1>
       </div>
@@ -24,7 +24,7 @@ const Services = () => {
         />
 
         <CardService
-          serviceTitle="Public bus stop track"
+          serviceTitle="Bus stop"
           serviceContent="Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's"
         />

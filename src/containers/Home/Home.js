@@ -12,8 +12,7 @@ import {SuccessButton , DangerButton , InfoButton} from '../../components/button
 import main from '../../assets/js/main'
 
 const Home = () => {
-   const { count } = useSelector((state) => state.counters);
-   const dispatch = useDispatch();
+
     return (
         <div className='min-h-full w-full font-body' style={main.style} >
             <div className='h-full w-full flex-col'>

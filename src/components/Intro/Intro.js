@@ -8,8 +8,8 @@ const Intro = () => {
             <h1 className="text-4xl font-bold text-blue-500 font-sans ">Introduction</h1>
         </div>
 
-        <div className='flex flex-col md:flex md:flex-row md:mx-20 py-10 mx-auto'>
-        <div className='w-60 md:w-80 lg:w-1/2 md:top-0 md:pt-10  mt-20 mx-auto'>
+        <div className='flex flex-col md:flex md:flex-row md:mx-20 mx-auto'>
+        <div className='w-60 md:w-80 lg:w-1/2 md:top-0 md:pt-10  mt-10 mx-auto'>
             <img src={introPhoto} />
         </div>
         <div className='w-60 ms:w-96 md:w-1/2 items-center mx-10'>
