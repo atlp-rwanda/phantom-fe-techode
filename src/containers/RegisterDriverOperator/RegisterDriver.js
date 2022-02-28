@@ -25,7 +25,7 @@ const RegisterDriver = () => {
     const [lastname , setLastname] = useState('');
     const [telephone , setTelephone ] = useState('');
     const [email , setEmail] = useState('');
-    const [bus, setBus] = useState('');
+    const [bus, setBus] = useState('RAF000D');
 
     /* ======== Start:: removing skeleton ======= */ 
         useEffect(() => {
@@ -112,10 +112,11 @@ const RegisterDriver = () => {
                             </div>  
                             <div className="input my-3 h-9 "> 
                                 <div className="grouped-input bg-secondary-40 flex items-center shadow h-full w-full rounded-md">
-                                    <input type="text" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Asign a bus" onChange={ e => setBus( e.target.value ) } value={bus}  />
-                                    <div className="w-1/5 flex justify-center cursor-pointer">
-                                        <img src={drop} alt="phantom"  />                        
-                                    </div>  
+                                    <select id="" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full" placeholder="Asign a bus" onChange={ e => setBus( e.target.value ) } value={bus}   >
+                                        <option value="RAF000D"> RAF000D </option>
+                                        <option value="RAF001D"> RAF001D </option>
+                                        <option value="RAF002D"> RAF002D </option>
+                                    </select>
                                 </div>                
                             </div>
                             <div className="w-full">
