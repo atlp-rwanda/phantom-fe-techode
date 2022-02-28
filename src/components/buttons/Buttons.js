@@ -22,3 +22,10 @@ export const InfoButton = ({ name ,onclick }) => {
      );
 }
  
+export const Primary = ({ name ,onclick }) => {
+    return ( 
+        <button className="w-full bg-primary-600 rounded text-white shadow hover:bg-primary-400 font-sans sm:text-base md:font-medium md:text-sm  text-xs p-1 px-2" onClick={onclick} >
+            {name}
+        </button>
+     );
+}

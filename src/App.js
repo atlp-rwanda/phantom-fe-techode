@@ -7,6 +7,8 @@ import NewPassword from './components/passwordReset/newpassword';
 
 import Register from './containers/RegisterDriverOperator/Register';
 
+import RegisterDriver from './containers/RegisterDriverOperator/RegisterDriver';
+import RegisterOperator from './containers/RegisterDriverOperator/RegisterOperator';
 const App = () => {
     return (  
        <Router>
@@ -17,6 +19,8 @@ const App = () => {
                 <Route path="/newpass"  component={NewPassword} />
              
                 <Route path="/driver/register"  component={Register} />
+                <Route path="/drivers"  component={RegisterDriver} />
+                <Route path="/operators"  component={RegisterOperator} />
            </Switch>
        </Router>
     );
