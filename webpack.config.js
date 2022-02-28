@@ -22,13 +22,12 @@ module.exports = {
             },
             {
                 test: /\.css?$/,
-                exclude: /node_modules/,
                 use: [ MiniCssExtractPlugin.loader , 'css-loader' , 'postcss-loader']
             },
             {
-                test: /\.(png|j?g|jpeg|svg|gif)?$/,
+                test: /\.(png|j?g|svg|gif|jpg|jpeg)?$/,
                 exclude: /node_modules/,
-                use: 'file-loader?name=./assets/images/[name].[ext]'
+                use: 'file-loader?name=./assets/[name].[ext]'
             }
             
         ],

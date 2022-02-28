@@ -111,7 +111,7 @@ const Header = () => {
                   </h3>
                 </div>
                 <div className="py-6">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white md:text-xl md:font-bold py-2 px-4 rounded">
+                  <button className="bg-primary-600 hover:bg-primary-400 text-white md:text-xl md:font-bold py-2 px-4 rounded">
                     Get Started
                   </button>
                 </div>
