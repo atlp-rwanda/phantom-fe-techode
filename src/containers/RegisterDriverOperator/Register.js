@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
+import DashBoardLayout from '../../components/dashBoardLayout/DashBoardLayout';
 
-const Register = () => {
-    return ( 
-        <div className="text-2lg">            
-        </div>
+
+const Register = () => {   
+    return (       
+        <DashBoardLayout>
+            <div className="data-set"></div>
+            <div className="profiler"></div>           
+        </DashBoardLayout>                   
     );
 }
  
