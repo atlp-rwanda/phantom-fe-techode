@@ -1,0 +1,156 @@
+import React from "react";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import "./Footer.css";
+import mail from "../../assets/svgs/mail.svg";
+import phone from "../../assets/svgs/phone.svg";
+import location from "../../assets/svgs/location.svg";
+
+const Footer = () => {
+
+  const formik = useFormik({
+    initialValues: {
+      cFullName: '',
+      cPhoneNumber: '',
+      cEmail: '',
+      cMessage: '',
+    },
+    validationSchema: Yup.object({
+      cFullName: Yup.string()
+        .max(35, 'Must be 15 characters or less')
+        .required('Required'),
+      cPhoneNumber: Yup.string()
+        .max(15, 'Must be 10 Numbers or less')
+        .required('Required'),
+      cEmail: Yup.string()
+        .email('Invalid email address')
+        .required('Required'),
+      cMessage: Yup.string()
+        .required('Required'),
+    }),
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    }
+  });
+
+  return (
+    <div className="ph-footer w-full flex flex-col md:flex md:flex-row  flex-wrap py-10 px-10 justify-center items-center">
+      <div className="flex flex-col w-60 md:w-60 lg:w-1/2  mx-auto">
+        <h1 className="text-2xl md:text-4xl font-bold text-blue-500 font-sans py-20 top-0 ">
+          Phantom
+        </h1>
+        <h1 className="text-2xl nd:text-4xl text-blue-500 font-sans">
+          Let's get connected
+        </h1>
+        <p className="md:text-xl text-gray-400 py-2.5">
+          when an unknown printer took a galley of type and scrambled it to make
+          a type specimen bookwhen an unknown printer took a galley of type and
+          scrambled
+        </p>
+        <div className="flex flex-col mt-2">
+          <span className="flex flex-row w-full">
+            <div className="w-5 h-5">
+              <img src={mail} />
+            </div>{" "}
+            <div className="md:text-xl text-gray-400 px-2.5">
+              techoders.andela@gmail.com
+            </div>
+          </span>
+          <span className="flex flex-row w-full">
+            <div className="w-5 h-5">
+              <img src={phone} />
+            </div>{" "}
+            <div className="md:text-xl text-gray-400 px-2.5">078882321</div>
+          </span>
+          <span className="flex flex-row w-full">
+            <div className="w-5 h-5">
+              <img src={location} />
+            </div>{" "}
+            <div className="md:text-xl text-gray-400 px-2.5">KN10ST</div>
+          </span>
+        </div>
+      </div>
+      <div className="flex flex-col w-60 md:w-60 lg:w-1/2">
+        <div className="text-2xl md:text-4xl font-bold text-blue-500 font-sans pb-10">
+          Send us a message
+        </div>
+        <form onSubmit={formik.handleSubmit} className="w-full max-w-lg">
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <input
+                className="cFullName appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="cFullName"
+                type="text"
+                placeholder="Full name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.cFullName}
+              />
+              {formik.touched.cFullName && formik.errors.cFullName ? (
+                <div className="text-red-500 text-xs italic">{formik.errors.cFullName}</div>
+              ) : null}
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <input
+                className="cPhoneNumber appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="cPhoneNumber"
+                type="text"
+                placeholder="Phone Number"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.cPhoneNumber}
+              />
+              {formik.touched.cFullName && formik.errors.cPhoneNumber ? (
+                <div className="text-red-500 text-xs italic">{formik.errors.cPhoneNumber}</div>
+              ) : null}
+            </div>
+            <div className="w-full md:w-1/2 px-3">
+              <input
+                className="cEmail appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="cEmail"
+                type="email"
+                placeholder="Email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.cEmail}
+              />
+               {formik.touched.cFullName && formik.errors.cEmail ? (
+                <div className="text-red-500 text-xs italic">{formik.errors.cEmail}</div>
+              ) : null}
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <textarea
+                className="cMessage no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
+                id="cMessage"
+                placeholder="Message"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.cMessage}
+              ></textarea>
+               {formik.touched.cFullName && formik.errors.cMessage ? (
+                <div className="text-red-500 text-xs italic">{formik.errors.cMessage}</div>
+              ) : null}
+            </div>
+          </div>
+          <div className="md:flex md:items-center">
+            <div className="md:w-1/3">
+              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Send
+              </button>
+            </div>
+            <div className="md:w-2/3"></div>
+          </div>
+        </form>
+      </div>
+      <div className="items-center text-xl font-bold text-blue-500 font-sans mt-10">
+        © AndelaTechoders 2022
+      </div>
+    </div>
+  );
+};
+
+export default Footer;
