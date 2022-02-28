@@ -20,7 +20,7 @@ const Explore = () => {
       <div className='w-full justify-center items-center mx-auto'>
         <div className="w-full flex justify-center items-center mx-auto my-10">
           <div className="ph-search flex justify-between items-center w-60 md:w-1/2 px-2.5 h-9 md:h-14">
-          <input type='text' className="bg-red-200 w-full h-full bg-transparent outline-none px-2.5" />
+          <input type='text' className="w-full h-full bg-transparent outline-none px-2.5" />
          <div><img src={search} /></div>
           </div>
         
