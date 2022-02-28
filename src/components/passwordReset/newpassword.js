@@ -48,7 +48,7 @@ export default function NewPassword() {
               <input
                 className=" w-5/6 flex justify-center md:justify-center bg-gray-50 md:w-full appearance-none rounded w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
                 id="newpass"
-                type="newpass"
+                type="password"
                 name="newpass"
                 placeholder="New password"
                 onBlur={formik.handleBlur}
@@ -61,7 +61,7 @@ export default function NewPassword() {
               <input
                 className="flex justify-center  bg-gray-50   appearance-none rounded w-5/6 md:w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
                 id="newpass"
-                type="newpass"
+                type="password"
                 name="confpass"
                 placeholder="Confirm password"
                 onBlur={formik.handleBlur}
