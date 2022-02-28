@@ -56,16 +56,16 @@ export default function PasswordReset() {
       
                   <div className=" h-1/2">
                       <img src={leftArrow} alt="" />
-                      <p className=" text-blue-500 font-extrabold text-xl text-center mb-2">
+                      <p className=" text-primary-500 font-extrabold text-2xl text-center mb-2">
                           Phantom
                       </p>
-                      <p className=" text-slate-50 text-l font-extrabold text-center mb-5">
-                          Forgot your password
+                      <p className=" text-white text-sm font-extrabold text-center mb-5">
+                          Forgot your password ?
                       </p>
 
                       <form action="" onSubmit={formik.handleSubmit}>
                           <input
-                              className=" flex justify-center w-30 bg-sky-50 w-full appearance-none rounded  py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
+                              className=" flex justify-center w-60 bg-sky-50 w-full appearance-none rounded  py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
                               id="email"
                               type="email"
                               name="email"
@@ -77,7 +77,7 @@ export default function PasswordReset() {
 
                           <button
 
-                              className="bg-sky-700  text-white text-xs  outline-black-2 font-bold py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
+                              className="bg-primary-300 mt-3 text-white text-xs  outline-black-2 shadow-4xl py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
                               type="submit"
                           >
                               Reset password
