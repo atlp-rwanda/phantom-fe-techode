@@ -41,7 +41,7 @@ export default function PasswordReset() {
             <div className=" mr-60 mt-10">
             <img src={leftArrow} alt="" />
             </div>
-        <div className="child-one w-screen  sm:w-1/3 md:w-2/3   ml-0 flex  w-screen h-screen  flex flex-col  justify-center items-center ">
+        <div className="testing child-one w-screen  sm:w-1/3 md:w-2/3   ml-0 flex  w-screen h-screen  flex flex-col  justify-center items-center ">
                   <div className=" h-1/2  flex flex-col items-center justify-center ">
                       <p className=" text-primary-500 font-extrabold text-2xl text-center mb-2">
                           Phantom
@@ -62,6 +62,7 @@ export default function PasswordReset() {
                               {formik.touched.email && formik.errors.email}
                           </div>
                           <button
+                          id="reset"
                               className="bg-primary-300 mt-3 text-white text-sm  outline-black-2 shadow-4xl py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
                               type="submit">
                               Reset password

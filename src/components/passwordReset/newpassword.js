@@ -30,7 +30,7 @@ export default function NewPassword() {
     <DashBoardLayout>
        <div className=" flex flex-col md:flex-col md:flex md:justify-center  w-screen md:flex md:flex-row lg:flex lg:flex-row justify-evenly">
       
-      <div className="  w-4/5  h-80 lg:flex lg:justify-content lg:mt-20 lg:w-full sm:w-1/2 md:ml-20 sm:flex md:flex md:justify-center  md:w-2/3 md:h-96 md:mt-0  bg-white  lg:w-1/3 rounded flex mt-10">
+      <section className="  w-4/5  h-80 lg:flex lg:justify-content lg:mt-20 lg:w-full sm:w-1/2 md:ml-20 sm:flex md:flex md:justify-center  md:w-2/3 md:h-96 md:mt-0  bg-white  lg:w-1/3 rounded flex mt-10">
         <div className="mt-5 md:mt-20">
           <div className="">
             <figure>
@@ -68,15 +68,15 @@ export default function NewPassword() {
 
               <button
                 className="bg-primary-600 shadow-2xl text-white text-xs font-bold py-2 w-full px-4 w-5/6 md:w-full rounded focus:outline-none focus:shadow-outline"
-                type="submit">Update
+                type="submit" id="update">Update
               </button>
             </form>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* <!===================================User profile ==========================================!> */}
- <div className="w-4/5  lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex ">
+ <section  className="w-4/5  lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex ">
         <div className="relative  ">
           <div>
             <div className="flex justify-center">
@@ -121,27 +121,8 @@ export default function NewPassword() {
             </button>
           </div>
         </div>
+      </section>
       </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </DashBoardLayout>
    
