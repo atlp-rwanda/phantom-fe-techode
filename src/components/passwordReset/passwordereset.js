@@ -61,6 +61,7 @@ export default function PasswordReset() {
                               {formik.touched.email && formik.errors.email}
                           </div>
                           <button
+                          id="reset"
                               className="bg-primary-300 mt-3 text-white text-sm  outline-black-2 shadow-4xl py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
                               type="submit">
                               Reset password
