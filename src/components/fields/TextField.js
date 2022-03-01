@@ -26,7 +26,7 @@ const TextField = () => {
     console.log(formik.touched)
     // console.log(formik.values) 
     return (  
-            <form onSubmit={formik.handleSubmit} className="flex flex-col">
+            <form id="form" onSubmit={formik.handleSubmit} className="flex flex-col">
                 <input className="mt-5 placeholder:text-slate-400 block bg-slate-200 w-full md:w-5/6 h-8 md:h-11 border border-slate-300 rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 text-sm" type="text" id="firstName" name="firstName" placeholder="John"  onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.firstName} />
                 <div className="text-red-600">
                     <p className="">{formik.touched.firstName && formik.errors.firstName}</p>
@@ -52,7 +52,7 @@ const TextField = () => {
                 </div>
 
                 <span className="text-primary-600 hover:text-primary-500 cursor-pointer mt-5 text-xs md:text-sm">Reset your password</span>
-                <PrimaryButton name="Update" />
+                <PrimaryButton name="Update" id="update"/>
             </form>
      );
 }
