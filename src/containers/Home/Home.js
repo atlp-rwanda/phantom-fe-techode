@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {SuccessButton , DangerButton , InfoButton} from '../../components/buttons/Buttons';
+import Logout from '../../components/logout/Logout';
 import { decrementBy, decrementCount, incrementBy, incrementCount } from '../../redux/actions/counterActions';
 
 const Home = () => {
