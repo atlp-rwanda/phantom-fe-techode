@@ -33,23 +33,28 @@ const Navbar = () => {
         `}>
           <ul className="flex flex-col md:flex md:flex-row w-full items-center">
             <li className="list-none md:mr-5 flex items-center justify-center">
-              <Link to="/" className="flex w-full text-primary-500 font-semibold hover:text-white cursor-pointer pt-2.5 px-2.5">
+              <Link to="/" className="flex w-full text-white font-semibold hover:text-primary-600 cursor-pointer pt-2.5 px-2.5">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/services" className="flex w-full text-primary-500 font-semibold hover:text-white cursor-pointer pt-2.5 px-2.5">
+              <Link to="/services" className="flex w-full text-white font-semibold hover:text-primary-600 cursor-pointer pt-2.5 px-2.5">
                 Services
               </Link>
             </li>
             <li>
-              <Link to="/whoweare" className="flex w-full text-primary-500 font-semibold hover:text-white cursor-pointer pt-2.5 px-2.5">
+              <Link to="/whoweare" className="flex w-full text-white font-semibold hover:text-primary-600 cursor-pointer pt-2.5 px-2.5">
                 Who we are
               </Link>
             </li>
             <li>
-              <Link to="/login" className="flex w-full text-primary-500 font-semibold hover:text-white cursor-pointer pt-2.5 px-2.5">
+              <Link to="/login" className="flex w-full text-white font-semibold hover:text-primary-600 cursor-pointer pt-2.5 px-2.5">
                 Login
+              </Link>
+            </li>
+            <li>
+              <Link to="/signup" className="flex w-full text-white font-semibold hover:text-primary-600 cursor-pointer pt-2.5 px-2.5">
+                Signup
               </Link>
             </li>
           </ul>

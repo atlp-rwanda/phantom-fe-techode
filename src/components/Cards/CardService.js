@@ -7,11 +7,11 @@ const CardService = ({image, serviceTitle, serviceContent}) => {
     <div className="w-10 h-10 md:w-16 md:h-16 items-center justify-center rounded-full mx-auto bg-transparent">
       <img src={image} className='w-full h-full p-0.5' />
     </div>
-    <h1 className="text-xl flex justify-center md:text-2xl font-bold text-primary-600 font-sans ">
+    <h1 className="text-xl flex justify-center md:text-2xl font-bold text-primary-600 font-sans p-1 md:p-2.5">
       {serviceTitle}
     </h1>
 
-    <p className='content'>
+    <p className='content p-1 md:p-0.5'>
       {serviceContent}
     </p>
   </div>

@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../Navbars/navbar/Navbar";
 import bus from "../../assets/images/bus.png";
 import "./Header.css";
+import { HashLink as Link } from "react-router-hash-link";
 
 const Header = () => {
   return (
@@ -95,8 +96,11 @@ const Header = () => {
                   </h3>
                 </div>
                 <div className="py-6">
-                  <button className="bg-primary-600 hover:bg-primary-400 text-white md:text-xl md:font-bold py-2 px-4 rounded">
-                    Get Started
+                  <button
+                    onClick={() => history.push("#explore")}
+                    className="bg-primary-600 hover:bg-primary-400 text-white md:text-xl md:font-bold py-2 px-4 rounded"
+                  >
+                    <Link to="#explore" smooth>Get Started</Link>
                   </button>
                 </div>
               </div>

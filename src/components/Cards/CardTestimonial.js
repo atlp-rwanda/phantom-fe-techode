@@ -7,9 +7,9 @@ const CardTestimonial = ({image, name, testimonialContent}) => {
       <div className="absolute w-10 h-10 md:w-20 md:h-20 -top-6 md:-top-12 rounded-full bg-gray-400 items-center mx-auto content-center justify-center">
         <img src={image} className="rounded-full w-full h-full" />
       </div>
-      <h1 className="text-xl md:text-2xl font-bold text-primary-600 font-sans ">{name}</h1>
+      <h1 className="text-xl md:text-2xl font-bold text-primary-600 font-sans p-1 md:p-2.5">{name}</h1>
 
-      <p className="content">
+      <p className="content p-1 md:p-0.5">
        {testimonialContent}
       </p>
     </div>

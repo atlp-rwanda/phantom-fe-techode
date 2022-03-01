@@ -21,24 +21,6 @@ const HowToStart = () => {
     <CardToStart title="Step IV: Enjoy your Journey" stepImage={step2} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled'/>
     
 
-    {/* <div className='w-full lg:w-3/6 xl:w-4/12 px-2.5 mb-5'>
-    <h1 className="text-2xl font-bold text-blue-500 font-sans "></h1>
-        <img src={step2} />
-        <p></p>
-    </div>
-
-    <div className='w-full lg:w-3/6 xl:w-4/12 px-2.5 mb-5'>
-    <h1 className="text-2xl font-bold text-blue-500 font-sans "></h1>
-        <img src={step3} />
-        <p> </p>
-    </div>
-
-    <div className='w-full lg:w-3/6 xl:w-4/12 px-2.5 mb-5'>
-    <h1 className="text-2xl font-bold text-blue-500 font-sans "></h1>
-        <img src={step2} />
-        <p> </p>
-    </div> */}
-
     </div>
 
 </div>

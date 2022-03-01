@@ -34,7 +34,8 @@ const Footer = () => {
   });
 
   return (
-    <div className="ph-footer w-full flex flex-col md:flex md:flex-row  flex-wrap py-9 px-10 justify-center">
+    <div className="ph-footer flex flex-col items-center justify-center">
+        <div className="w-full flex flex-col md:flex md:flex-row  flex-wrap py-9 px-10 justify-between">
       <div className="flex flex-col w-60 md:w-60 lg:w-1/2  mx-auto">
         <h1 className="text-2xl md:text-4xl font-bold text-primary-600 font-sans py-10 top-0 ">
           Phantom
@@ -71,7 +72,7 @@ const Footer = () => {
           </span>
         </div>
       </div>
-      <div className="flex flex-col w-60 md:w-60 mt-10 lg:w-1/2 mx-auto">
+      <div className="flex flex-col w-60 md:w-60 mt-10 lg:w-auto mx-auto"> 
         <div className="text-2xl md:text-4xl font-bold text-primary-600 font-sans pb-10">
           Send us a message
         </div>
@@ -147,10 +148,13 @@ const Footer = () => {
           </div>
         </form>
       </div>
-      <div className="items-center text-xl md:font-bold text-primary-600 font-sans mt-10 mx-auto">
-        © AndelaTechoders 2022
-      </div>
+     
     </div>
+     <div className="flex items-center text-xl md:font-bold text-primary-600 font-sans m-10 mx-auto">
+     © AndelaTechoders 2022
+   </div>
+    </div>
+    
   );
 };
 

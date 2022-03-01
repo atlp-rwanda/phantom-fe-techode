@@ -16,7 +16,7 @@ const Services = () => {
       <div className="flex flex-row flex-wrap justify-between items-center mx-auto md:mx-20 md:p-10 pt-10">
         <CardService
           image={map}
-          serviceTitle="Bus tracking"
+          serviceTitle="Tracking"
           serviceContent="Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's"
         />
