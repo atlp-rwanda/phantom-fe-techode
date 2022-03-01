@@ -8,6 +8,7 @@ import RegisterOperator from './containers/RegisterDriverOperator/RegisterOperat
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/style/style-skeleton.css';
 import Dashboard from './containers/Dashboard/Dashboard';
+import Register from './containers/RegisterDriverOperator/Register';
 
 const App = () => {
     return (  
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/dashboard"  component={Dashboard} />
                 <Route path="/drivers"  component={RegisterDriver} />
                 <Route path="/operators"  component={RegisterOperator} />
+                <Route path="/driver/register"  component={Register} />
            </Switch>
        </Router>
     );
