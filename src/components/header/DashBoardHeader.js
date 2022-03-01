@@ -6,7 +6,6 @@ import profile from "../../assets/img/profile.jpg";
 const DashBoardHeader = ({ shownav ,show }) => {
     return ( 
         <div className="w-full h-16 md:h-20 shadow-lg bg-gray-50 flex justify-between items-center px-3 sm:px-9 ">
-
             <div className={` bagger p-2 z-10 `}  onClick={() => show()} >
                 <img src={menu} alt="phantom"  />     
             </div>

@@ -15,13 +15,11 @@ const DashBoardLayout = ({ children }) => {
     return ( 
         <div className="flex flex-wrap w-screen h-screen overflow-hidden "   style={main.style} >
             {/* =============  Start::left ================= */}
-
                 <div className= {`transition-all  ${showNav == true ? ` w-4/12 lg:w-2/12 2xl:w-1/12` :  ` sidebar none-active`}` } >
                     {/*  Start::left side bar */}
                         <SideBar shownav={showNav} show={showNavSecion}  />
                     {/*  End::left side bar */}
                 </div>
-
             {/* ============= End::left ============= */}
 
             {/* ============= Start:: Right ============= */}
