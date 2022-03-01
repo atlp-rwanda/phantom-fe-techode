@@ -1,0 +1,36 @@
+.main-bg-gradient{
+    background: linear-gradient(0deg, rgba(5, 18, 58, 0.815), rgb(26, 40, 82)), linear-gradient(90.05deg, rgba(62, 71, 98, 0.897) 0.03%, rgba(10, 20, 49, 0.356) 98.32%);
+}
+
+.link{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+}
+.main-screen-bg{
+   
+    background-image: linear-gradient(0deg,  rgba(243, 246, 249, 0.1), rgba(243, 246, 249, 0.7)),url('../img/pipes.png');
+    background-repeat:'repeat';
+    background-size: '100px';
+}
+.sidebar.none-active{    
+    animation-name: grow;
+    animation-fill-mode: forwards;
+    animation:  disable-sidebar  0.3s forwards ease-in-out ;
+}
+@keyframes disable-sidebar {
+    0% {
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.1;
+    }
+    100% { 
+        opacity: 0;
+        display: none;
+        left: -200%;
+        width: 0%;
+     }
+}
