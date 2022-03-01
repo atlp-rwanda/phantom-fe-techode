@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-
 import { useFormik } from "formik";
-
-
 import profile from "../../assets/Image/profile.png";
 import onside from "../../assets/Image/onside.svg";
 import privilege from "../../assets/Image/privilege.svg";
-
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
 
 export default function NewPassword() {
   const history = useHistory();
-
   const formik = useFormik({
     initialValues: {
       newpass: "",
@@ -42,7 +37,6 @@ export default function NewPassword() {
               <img className="w-1/3 ml-20" src={profile} alt="" />
             </figure>
           </div>
-
           <div className="flex justify-center mt-10  ml-10 sm:ml-0 ">
             <form action="md:flex md:justify-center " className="w-full" onSubmit={formik.handleSubmit}>
               <input
@@ -61,7 +55,7 @@ export default function NewPassword() {
               <input
                 className="flex justify-center  bg-gray-50   appearance-none rounded w-5/6 md:w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
                 id="newpass"
-                type="password"
+                type=""
                 name="confpass"
                 placeholder="Confirm password"
                 onBlur={formik.handleBlur}
@@ -74,40 +68,14 @@ export default function NewPassword() {
 
               <button
                 className="bg-primary-600 shadow-2xl text-white text-xs font-bold py-2 w-full px-4 w-5/6 md:w-full rounded focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                Update
+                type="submit">Update
               </button>
             </form>
           </div>
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      {/* <!===================================User profile ==========================================!> */}
  <div className="w-4/5  lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex ">
         <div className="relative  ">
           <div>

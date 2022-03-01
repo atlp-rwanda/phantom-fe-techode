@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './containers/Home/Home';
 import passwordReset from './components/passwordReset/passwordereset';
 import NewPassword from './components/passwordReset/newpassword';
-import Navbar from './components/Navbars/navbar/Navbar'
+
 
 
 
@@ -17,7 +17,7 @@ import Dashboard from './containers/Dashboard/Dashboard';
 const App = () => {
     return (  
        <Router>
-           <Navbar />
+         
         
            <Switch>
                 <Route path="/" exact component={Home} />
