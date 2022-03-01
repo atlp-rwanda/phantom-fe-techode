@@ -26,7 +26,8 @@ module.exports = {
                 '300': 'rgba(3, 132, 198, 0.67)',
                 '400': 'rgba(3, 132, 198, 0.75)',
                 '500': 'rgba(3, 132, 198, 0.8)',
-                '600': '#0384C6'
+                '600': '#0384C6',
+                '200': 'rgba(3, 132, 198, 0.8)'
             },
             secondary:{
                 '40': "#F3F6F9",
@@ -63,9 +64,12 @@ module.exports = {
                 '500': 'rgba(88, 149, 10, 0.8)',
                 '600': 'rgba(88, 149, 10, 1)',           
             },
-            mainColor: '#1CA0E3',
             active: '#1CA0E3',
-            modelColor: "rgba(35, 29, 29, 0.44)"
+            modelColor: "rgba(35, 29, 29, 0.44)",               
+            danger: colors.red,
+            info: colors.blue,
+            success: colors.green,
+            mainColor: '#1CA0E3' 
         },
         extend: {
             fontFamily: {
