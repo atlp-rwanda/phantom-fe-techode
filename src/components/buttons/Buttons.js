@@ -22,7 +22,7 @@ export const InfoButton = ({ name ,onclick }) => {
      );
 }
 export const PrimaryButton = ({ name, onClick }) => {
-    return (<button type="submit" className="rounded-md bg-primary-600 text-white h-8 md:h-11 w-4/6 md:w-5/6 mt-5 hover:bg-sky-700 mb-10">{name}</button>) 
+    return (<button type="submit" className="rounded-md bg-primary-600 text-white h-8 md:h-11 w-full md:w-5/6 mt-5 hover:bg-sky-700 mb-10">{name}</button>) 
 }
  
  

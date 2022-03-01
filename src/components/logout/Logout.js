@@ -43,7 +43,7 @@ const Logout = () => {
                                     <img className="rounded-full border border-primary-600 w-16 h-16 hover:opacity-75" src="https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" alt="image" />
                                     <img src={profileEdit} className="mt-20 -ml-4" alt="profile" />
                                 </section>
-                                <section className="mt-5">
+                                <section className="mt-5 md:pl-20">
                                     <TextField/>
                                 </section>
                             </div>
@@ -58,7 +58,7 @@ const Logout = () => {
                         <div className="h-full w-full md:h-full md:w-full md:h-full md:w-full">
                             <section className="flex flex-col items-center justify-center">
                                 <img className="border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100" src="https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" alt="image" />
-                                <span className="text-secondary-300 mt-6 text-primary-600 text-xs md:text-sm font-sans font-semibold">Sezerano J Chrysostome</span>
+                                <span className="text-secondary-300 mt-6 text-primary-600 text-xs md:text-sm font-sans font-semibold">John Doe</span>
                             </section>
                             <section className="flex flex-col">
                                 <div className="flex flex-row">
@@ -74,10 +74,10 @@ const Logout = () => {
                                 
                                 <div className="flex flex-row">
                                     <div className="mt-5 px-6">
-                                        <img src={priveleges} alt="Priveleges"className="w-10"/>
+                                        <img src={priveleges} alt="Priveleges"className="w-7 md:w-10"/>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-primary-600 font-semibold mt-5 text-xs">Previleges</span>
+                                        <span className="text-primary-600 font-semibold mt-5 text-sm">Previleges</span>
                                         <div className="flex flex-row">
                                             <span className="text-success-500 font-semibold mt-2 text-xs hover:text-success-200 cursor-pointer">Locate bus</span>
                                             <img src={locate} alt="Locate bus" className="w-3 h-3 mt-1 ml-9 md:w-4 md:h-5 md:mt-1 md:ml-9 cursor-pointer"/>
@@ -92,7 +92,9 @@ const Logout = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <Link to="/" className="flex items-center justify-center rounded-md bg-primary-200 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-white hover:text-primary-600 border hover:border-primary-600">Logout from this account</Link>
+                                <div className="px-4">
+                                <Link to="/" className="flex items-center justify-center rounded-md bg-primary-200 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-white hover:text-primary-600">Logout from this account</Link>
+                                </div>
                             </section>
                         </div>
                     )
