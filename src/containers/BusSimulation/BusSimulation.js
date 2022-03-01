@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BusSim from "../../components/BusSim/BusSim";
 import { Primary } from "../../components/buttons/Buttons";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
-import LocationSim from "../../components/LocationSim/locationSimUpdate";
+import LocationSim from "../../components/LocationSim/LocationSim"
 import DriverSim from "../../components/LocationSim/DriverSim";
 import { updateActiveBus , start , speedControl } from '../../redux/actions/ActiveBus'
 

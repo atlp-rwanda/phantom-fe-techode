@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+=======
+.leaflet-routing-container{
+  display: none;
+ }
+
+ .leaflet-container{
+  height: 100%;
+ }
+
+>>>>>>> Fixing rebase confict
 #map {
   width: 100%;
   min-height: 100%;
@@ -9,4 +20,8 @@
 #map>div{
   height: 100%  !important;
   width: 100%  !important;
+<<<<<<< HEAD
 } 
+=======
+} 
+>>>>>>> Fixing rebase confict

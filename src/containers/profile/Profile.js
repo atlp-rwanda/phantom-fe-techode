@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SkeletonUpdate from "../../components/skeletons/SkeletonUpdate";
 import TextField from "../../components/fields/TextField";
 import profileEdit from "../../assets/svgs/lebals/profile.svg";
@@ -15,6 +15,7 @@ import { useDropzone } from "react-dropzone";
 import { setProfile } from '../../redux/actions/userActions';
 
 const Profile = (props ) => {
+  const history = useHistory()
   const [loading, setLoading] = useState(true);
   const { user , setProfile } = props;
  
@@ -55,6 +56,14 @@ const Profile = (props ) => {
       setProfile(newFile[0].preview);
     },
   });
+
+  const handleLogout = () => {
+    localStorage.clear();
+        setTimeout(() => {
+          window.location.pathname = "/"
+    }, 1000)
+   
+  }
 
   return (
     <DashBoardLayout>
@@ -182,12 +191,13 @@ const Profile = (props ) => {
                   )}
                   {/* =================== End:: only admin to see this =================== */}
                   <div className="">
-                    <Link
+                    <div
                       to="/"
                       className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-9/12 mt-5  hover:bg-primary-600 hover:text-white"
+                      onClick={handleLogout}
                     >
                       Logout from this account
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </div>

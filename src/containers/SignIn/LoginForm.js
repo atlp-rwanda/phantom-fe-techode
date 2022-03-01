@@ -10,12 +10,14 @@ import SkeletonUpdate from '../../components/signInSkeleton/SkeletonUpdate';
 import main from '../../assets/js/main'
 import { connect } from 'react-redux';
 import { update } from '../../redux/actions/userActions';
+import { isAuth } from '../../redux/actions/isAuthAction';
 
 
 const LoginForm = (props) => {
     const history = useHistory();
     const [signInSkeleton, setSignInSkeleton] = useState(true);
-    const { update } = props;    
+    const { update, isAuth } = props;  
+    const authentication = props.authentication
     useEffect(() => {
         setTimeout(() => {
             setSignInSkeleton(false);
@@ -57,6 +59,7 @@ const LoginForm = (props) => {
                 userInfo.type = "driver"
             }
             update(userInfo);
+            isAuth(true); 
             history.push('/dashboard');
         },
     });
@@ -158,8 +161,9 @@ const LoginForm = (props) => {
 
     const mapToState = (state) => {
         return{
-            user: state.user
+            user: state.user,
+            authentication: state.authentication,
         }
     }
 
-export default connect(mapToState,{update})(LoginForm)
+export default connect(mapToState,{ update, isAuth })(LoginForm)
