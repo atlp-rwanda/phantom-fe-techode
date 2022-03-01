@@ -17,6 +17,7 @@ const App = () => {
                 <Route path="/dashboard"  component={Dashboard} />
                 <Route path="/drivers"  component={RegisterDriver} />
                 <Route path="/operators"  component={RegisterOperator} />
+                <Route path="/*"  component={() => ({ "NotFound": 400 })} />
            </Switch>
        </Router>
     );
