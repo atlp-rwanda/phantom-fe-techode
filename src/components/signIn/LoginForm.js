@@ -106,10 +106,10 @@ const LoginForm = () => {
                 </div>
                         )}
             </div>
-            <div className="bg-white bg-no-repeat bg-center bg-cover w-3/5h-screen relative">
+            <div className="bg-white bg-no-repeat bg-center bg-cover w-3/5 h-screen relative">
                 <figure>
-                    <img className="lg:block md:block lg:mt-10 h-5/6 md:mt-28 md:h-96 lg:mb-20 mr-auto lg:w-10/12 lg:ml-12 hidden" src={Image} alt="" />
-                    <figcaption className="hidden lg:block md:block lg:absolute md:absolute lg:top-1/2 md:md:top-64 lg:left-1/2 md:left-1/2 lg:right-0 md:right-0 lg:bottom-0 md:bottom-0">  <h3 className="color-h1 font-sans font-bold leading-10 lg:text-4xl md:text-2xl lg:mb-2 md:mb-1 lg:mt-5 md:mt-20 not-italic">Fast and easy movement !</h3>
+                    <img className="lg:block md:block lg:mt-10 lg:h-5/6 md:mt-28 md:h-96 lg:mb-20 mr-auto lg:w-10/12 lg:ml-12 hidden" src={Image} alt="" />
+                    <figcaption className="hidden lg:block md:block lg:absolute md:absolute lg:top-1/2 md:top-64 lg:left-1/2 md:left-1/2 lg:right-0 md:right-0 lg:bottom-0 md:bottom-0">  <h3 className="color-h1 font-sans font-bold leading-10 lg:text-4xl md:text-2xl lg:mb-2 md:mb-1 lg:mt-5 md:mt-20 not-italic">Fast and easy movement !</h3>
                         <p className="right_side_content font-sans not-italic font-medium leading-10 md:text-xs md:mt-2 lg:mt-4 mt-8">Get notified anytime, anywhere bus is.Get notified anytime, anywhere bus is.Get notified anytime, anywhere bus is.Get notified anytime, anywhere bus is.</p></figcaption>
                 </figure>
             </div>
