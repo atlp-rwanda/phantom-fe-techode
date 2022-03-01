@@ -7,6 +7,7 @@ const DashBoardHeader = ({ shownav ,show }) => {
     return ( 
         <div className="w-full h-16 md:h-20 shadow-lg bg-gray-50 flex justify-between items-center px-3 sm:px-9 ">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className={` bagger p-2 z-10 `}  onClick={() => show()} >
                 <img src={menu} alt="phantom"  />     
             </div>
@@ -17,6 +18,12 @@ const DashBoardHeader = ({ shownav ,show }) => {
             </div>
             <div className="w-2/3 ml-2  search-input sm:w-1/4 h-8 md:h-9 flex items-center "> 
 >>>>>>> ac27f0b (Delivering responsive dashboard layout)
+=======
+            <div className={` bagger p-2 z-10 sm:hidden `}  onClick={() => show()} >
+                <img src={menu} alt="phantom"  />     
+            </div>
+            <div className="w-2/3 ml-2 search-input sm:w-1/4 h-8 md:h-9 flex items-center "> 
+>>>>>>> 295aa22 (Derivering responsiveness for drivers/operators)
                 <div className="grouped-input bg-secondary-40 flex items-center shadow h-full w-full rounded-md">
                     <input type="text" name="search" className="h-full bg-transparent border-0 outline-none px-5 font-sans font-medium text-secondary-50 w-4/5" placeholder="Search..." />
                     <div className="w-1/5 flex justify-center">
