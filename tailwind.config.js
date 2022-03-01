@@ -69,7 +69,9 @@ module.exports = {
             danger: colors.red,
             info: colors.blue,
             success: colors.green,
-            mainColor: '#1CA0E3' 
+            mainColor: '#1CA0E3',
+            active: '#1CA0E3',
+            modelColor: "rgba(35, 29, 29, 0.44)"
         },
         extend: {
             fontFamily: {

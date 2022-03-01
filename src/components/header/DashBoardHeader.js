@@ -8,6 +8,7 @@ const DashBoardHeader = ({ shownav ,show }) => {
         <div className="w-full h-16 md:h-20 shadow-lg bg-gray-50 flex justify-between items-center px-3 sm:px-9 ">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className={` bagger p-2 z-10 `}  onClick={() => show()} >
                 <img src={menu} alt="phantom"  />     
             </div>
@@ -20,6 +21,9 @@ const DashBoardHeader = ({ shownav ,show }) => {
 >>>>>>> ac27f0b (Delivering responsive dashboard layout)
 =======
             <div className={` bagger p-2 z-10 sm:hidden `}  onClick={() => show()} >
+=======
+            <div className={` bagger p-2 z-10 `}  onClick={() => show()} >
+>>>>>>> 51b1ae9 (Adding skeleton)
                 <img src={menu} alt="phantom"  />     
             </div>
             <div className="w-2/3 ml-2 search-input sm:w-1/4 h-8 md:h-9 flex items-center "> 
