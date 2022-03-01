@@ -33,15 +33,15 @@ export default function PasswordReset() {
   }  
 })
   return (
-    <div className="w-full parent sm: flex flex-row md:flex md:flex-row ">    
+    <div className="w-full parent sm:flex md:flex-row md:flex md:flex-row ">    
       {!loading && (
         <>
         <div></div>
-        <div className="h-screen bg-indigo-900 w-1/3 flex flex-col items-center  ">
+        <div className="h-screen w-screen  sm:w-1/2 sm:h-screen bg-indigo-900  flex flex-col items-center  ">
             <div className=" mr-60 mt-10">
             <img src={leftArrow} alt="" />
             </div>
-        <div className="child-one  sm:w-1/3 md:w-1/3   ml-0 flex  w-screen h-screen  flex flex-col  justify-center items-center ">
+        <div className="child-one w-screen  sm:w-1/3 md:w-2/3   ml-0 flex  w-screen h-screen  flex flex-col  justify-center items-center ">
                   <div className=" h-1/2  flex flex-col items-center justify-center ">
                       <p className=" text-primary-500 font-extrabold text-2xl text-center mb-2">
                           Phantom
@@ -70,14 +70,14 @@ export default function PasswordReset() {
                       </div>
                       </div>
                   </div>
-              </div><div className="child-two flex flex-col hidden sm:block md:block w-3/4 flex items-center justify-center relative  h-screen ">
-                      <div className="flex items-center justify-center h-full relative  ">
-                          <img className=" h-full " src={Frame5} alt="" />
-                          <div className="flex flex-col items-center justify-center h-1/2 absolute top-30 right-96 ">
-                              <h1 className="text-blue-500 text-5xl font-bold mt-5">
+              </div><div className="child-two hidden flex flex-col sm:block sm:w-3/5 sm:h-screen  md:block w-3/4 flex items-center justify-center relative  h-screen ">
+                      <div className="flex items-center h-full relative sm:h-full  sm:w-4/6  ">
+                          <img className=" h-5/6 md:ml-20 sm:ml-5 " src={Frame5} alt="" />
+                          <div className="flex flex-col items-center justify-center h-1/2 absolute top-30 left-20 sm:absolute   sm:w-5/6 sm:left-20">
+                              <h1 className="text-blue-500  md:ml-20  sm:w-4/5 sm:ml-0  md:text-5xl font-bold mt-5">
                                   we got you
                               </h1>
-                              <p className=" mt-7 text-sm   w-3/4">Write your email and click reset password button</p>   
+                              <p className=" mt-7 text-sm   sm:ml-10  sm:w-3/5  w-3/4">Write your email and click reset password button</p>   
                           </div>
                       </div>
                   </div></>
