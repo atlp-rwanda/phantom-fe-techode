@@ -91,7 +91,7 @@ export default function NewPassword() {
                   <div className=" text-red-600 text-xs md:text-lg">
                     {formik.touched.confpass && formik.errors.confpass}
                   </div>
-                  <PrimaryButton name="Update" />
+                  <PrimaryButton id="update" name="Update" />
                 </form>
             </section>
           </div>
