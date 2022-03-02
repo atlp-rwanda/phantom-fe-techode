@@ -17,7 +17,7 @@ const DashBoardLayout = ({ children }) => {
             {/* =============  Start::left ================= */}
                 <div className= {`transition-all  ${showNav == true ? ` w-4/12 lg:w-2/12 2xl:w-1/12` :  ` sidebar none-active`}` } >
                     {/*  Start::left side bar */}
-                        <SideBar shownav={showNav} show={showNavSecion}  />
+                        <SideBar shownav={showNav} show={showNavSecion} id="sidebar"   />
                     {/*  End::left side bar */}
                 </div>
             {/* ============= End::left ============= */}
@@ -26,7 +26,7 @@ const DashBoardLayout = ({ children }) => {
                 <div className={`max-w-full max-h-full overflow-hidden ${showNav == true ? ` w-8/12 lg:w-10/12 2xl:w-11/12` :  ` w-screen`}`}>
 
                     {/* Start:: header  */}
-                        <DashBoardHeader shownav={showNav} show={showNavSecion}  /> 
+                        <DashBoardHeader shownav={showNav} show={showNavSecion} id="header" /> 
                     {/* End:: Header */}
 
                     {/* Start:: Content */}
