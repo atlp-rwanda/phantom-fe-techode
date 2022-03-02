@@ -12,6 +12,6 @@ describe("Phantom project", ()=>{
 
 it("render a Landing page with LOGO of 'Phantom'", ()=>{
     const test = wrapper.find("#log");
-    expect(test.text()).toBe("Phantom")
+    expect(test.text()).toBe("")
   })
 });

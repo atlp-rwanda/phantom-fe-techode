@@ -1,31 +1,30 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import Explore from '../../components/Explore/Explore';
+import Footer from '../../components/Footer/Footer';
+import Header from '../../components/Header/Header';
+import HowToStart from '../../components/HowToStart/HowToStart';
+import Intro from '../../components/Intro/Intro';
+import Services from '../../components/Services/Services';
+import Testimonials from '../../components/Testimonials/Testimonials';
 import {SuccessButton , DangerButton , InfoButton} from '../../components/buttons/Buttons';
 import Logout from '../../components/logout/Logout';
 import { decrementBy, decrementCount, incrementBy, incrementCount } from '../../redux/actions/counterActions';
+import main from '../../assets/js/main'
 
 const Home = () => {
-   const { count } = useSelector((state) => state.counters);
-   const dispatch = useDispatch();
+
     return (
-        <div className='flex items-center justify-center flex-col' >
-            <h2>Home</h2>
-            <div>Redux setup</div>
-            <span>{ count }</span>
-            <div className="flex flex-wrap">
-                <div className="w-24 m-2">
-                   <SuccessButton name={`Incriment`} onclick={() => dispatch(incrementCount())}/>
-                </div>     
-                <div className="w-24 m-2">
-                   <DangerButton name={`Decrement`} onclick={() => dispatch(decrementCount())}/>
-                </div>
-                <div className="w-26 m-2">
-                   <InfoButton name={`Increment by 3 `} onclick={() => dispatch(incrementBy(3))}/>
-                </div>
-                <div className="w-26 m-2">
-                    <DangerButton name={`Decrement by 2`} onclick={() => dispatch(decrementBy(2))}/>
-                </div>              
+        <div className='min-h-full w-full font-body' style={main.style} >
+            <div className='h-full w-full flex-col'>
+            <Header />
+            <Intro />
+            <HowToStart />
+            <Explore />
+            <Services />
+            <Testimonials />
+            <Footer />
             </div>
         </div>
     );

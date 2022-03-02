@@ -55,7 +55,7 @@ const Logout = () => {
                 <div className='w-full'>
                 {profile && ( <SkeletonLogout />)}
                     {!profile && (
-                        <div className="h-full w-full md:h-full md:w-full md:h-full md:w-full">
+                        <div className="h-full w-full md:h-full">
                             <section className="flex flex-col items-center justify-center">
                                 <img className="border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100" src="https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" alt="image" />
                                 <span className="text-secondary-300 mt-6 text-primary-600 text-xs md:text-sm font-sans font-semibold">John Doe</span>
@@ -93,7 +93,7 @@ const Logout = () => {
                                     </div>
                                 </div>
                                 <div className="px-4">
-                                <Link to="/" className="flex items-center justify-center rounded-md bg-primary-200 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-white hover:text-primary-600">Logout from this account</Link>
+                                    <Link to="/" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white">Logout from this account</Link>
                                 </div>
                             </section>
                         </div>
