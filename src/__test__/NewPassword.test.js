@@ -11,12 +11,9 @@ describe("Phantom project", ()=>{
       wrapper = shallow (<NewPassword />);
     });
   
-  it("Check if Confirm new password component have Update button", ()=>{
-      wrapper = shallow(<PrimaryButton/>)
-      const test = wrapper.find("#update");
-      expect(test.text()).toBe("Update")
+    it("Check if Confirm new password component have Primary button", ()=>{
+      expect(wrapper.find(PrimaryButton)).toHaveLength(1) 
     })
-
     it("Check if Confirm new password component have layout", ()=>{
         expect(wrapper.find(DashBoardlayout)).toHaveLength(1) 
       })
