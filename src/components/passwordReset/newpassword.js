@@ -3,6 +3,9 @@ import { useFormik } from "formik";
 import profile from "../../assets/Image/profile.png";
 import onside from "../../assets/Image/onside.svg";
 import privilege from "../../assets/Image/privilege.svg";
+import common from '../../assets/img/common.jpg';
+import vector from '../../assets/img/vector.png';
+import carbon from '../../assets/img/carbon_task-add.png';
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
@@ -28,19 +31,19 @@ export default function NewPassword() {
   return (
 
     <DashBoardLayout>
-       <div className=" flex flex-col md:flex-col md:flex md:justify-center  w-screen md:flex md:flex-row lg:flex lg:flex-row justify-evenly">
+       <div className=" flex flex-col items-center md:flex-col md:flex md:justify-center  w-screen md:flex md:flex-row lg:flex lg:flex-row justify-evenly">
       
       <section className="  w-4/5  h-80 lg:flex lg:justify-content lg:mt-20 lg:w-full sm:w-1/2 md:ml-20 sm:flex md:flex md:justify-center  md:w-2/3 md:h-96 md:mt-0  bg-white  lg:w-1/3 rounded flex mt-10">
-        <div className="mt-5 md:mt-20">
-          <div className="">
-            <figure>
-              <img className="w-1/3 ml-20" src={profile} alt="" />
+        <div className=" flex flex-col items-center mt-5">
+          <div className="flex items-center justify-center    w-1/2 ">
+            <figure className="w-2/3 flex justify-center h-4/5">
+              <img className=" rounded-full" src={common} alt="" />
             </figure>
           </div>
-          <div className="flex justify-center mt-10  ml-10 sm:ml-0 ">
+          <div className="flex justify-center mt-5  w-3/5  sm:ml-0 ">
             <form action="md:flex md:justify-center " className="w-full" onSubmit={formik.handleSubmit}>
               <input
-                className=" w-5/6 flex justify-center md:justify-center bg-gray-50 md:w-full appearance-none rounded w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
+                className=" w-full flex justify-center md:justify-center bg-gray-50 md:w-full appearance-none rounded w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
                 id="newpass"
                 type="password"
                 name="newpass"
@@ -53,7 +56,7 @@ export default function NewPassword() {
                 {formik.touched.newpass && formik.errors.newpass}
               </div>
               <input
-                className="flex justify-center  bg-gray-50   appearance-none rounded w-5/6 md:w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
+                className="w-full flex justify-center md:justify-center bg-gray-50 md:w-full appearance-none rounded w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
                 id="newpass"
                 type=""
                 name="confpass"
@@ -67,7 +70,7 @@ export default function NewPassword() {
               </div>
 
               <button
-                className="bg-primary-600 shadow-2xl text-white text-xs font-bold py-2 w-full px-4 w-5/6 md:w-full rounded focus:outline-none focus:shadow-outline"
+                className="bg-primary-600 shadow-2xl text-white text-xs font-bold py-2   rounded focus:outline-none focus:shadow-outline      w-full flex justify-center md:justify-center md:w-full appearance-none rounded w-full py-2 px-3 mb-3  leading-tight"
                 type="submit" id="update">Update
               </button>
             </form>
@@ -76,45 +79,41 @@ export default function NewPassword() {
       </section>
 
       {/* <!===================================User profile ==========================================!> */}
- <section  className="w-4/5  lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex ">
-        <div className="relative  ">
+ <section id="passwordForm" className="w-4/5 lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex  justify-center ">
+        <div className="relative    w-full md:w-5/6 ">
           <div>
             <div className="flex justify-center">
               <figure className="">
-                <img className="w-20" src={profile} alt="" />
+                <img className="w-20 rounded-full" src={common} alt="" />
                 <figcaption className="text-center text-sm mt-3 font-extrabold">
                   John Doe
                 </figcaption>
               </figure>
             </div>
-            <div className="mb-5 flex flex-row mt-3 text-xs">
-              <div className="w-10 h-8 bg-sky-50 snap-center rounded-md outline-black-5">
-                <img className="mt-2 " src={onside} alt="" />
+ 
+            <div className="mb-5 flex flex-row text-xs w-full md:w-full  ">
+              <div className="w-10 h-8 bg-primary-100  flex items-center justify-center rounded-md">
+                <img className=" " src={onside} alt="" />
               </div>
-
-              <div className="flex flex-col ml-2">
-                <p className="text-blue-500">User Information</p>
-                <p>00000000000</p>
-                <p className="w-1/6">email.example.email.com</p>
+              <div className="flex flex-col ml-2  w-3/5">
+                <p className="text-blue-500">User information</p>
+                <p className=" ">00000000000</p>
+                <p className=" w-1/6 ">email.exampl</p>
               </div>
             </div>
-
-            <div className="mb-5 flex flex-row text-xs">
-              <div className="w-10 h-8 bg-sky-50 snap-center rounded-md outline-black-5">
-                <img className="mt-2 " src={privilege} alt="" />
+            <div className="mb-5  flex flex-row text-xs w-full md:w-full">
+              <div className="w-10 md:w-10 h-8 bg-primary-100  flex items-center justify-center rounded-md">
+                <img className=" " src={privilege} alt="" />
               </div>
-
-              <div className="flex flex-col ml-2">
+              <div className="flex flex-col ml-2  w-full">
                 <p className="text-blue-500">Priviliges</p>
-                <p>Locate bus</p>
-                <p>Update his own profile</p>
-
-                <p className="text-green-300 mb-3">Set new roles</p>
+                <p className="w-full flex justify-between ">Locate bus <span className="ml-2"><img src={vector} alt="" /></span></p>
+                <p className=" flex justify-between">Update his own profile <span><img src={vector} alt="" /></span></p>
+                <p className="text-green-300 mt-3 flex justify-between">Set new roles <span><img src={carbon} alt="" /></span></p>
               </div>
             </div>
-
             <button
-              className="bg-indigo-200 shadow-2xl w-full hover:bg-blue-400 text-xs text-blue-500 font-extrabold py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full bg-indigo-200 shadow-2xl w-full hover:bg-blue-400 text-xs text-blue-500 font-extrabold py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
             >
               Logout from this account{" "}
