@@ -44,7 +44,7 @@ const LoginForm = () => {
 
     return (
         <div className='lg:flex md:flex w-screen h-screen overflow-hidden' style={main.style}>
-            <div className=" letfSide_bg-color lg:w-5/12 md:w-7/12 flex flex-col ">
+            <div className=" letfSide_bg-color lg:w-5/12 md:w-7/12 flex flex-col md:p-12 lg:px-24 2xl:p-40 ">
                 <Link to="/"  className='w-full ' >
                     <span className="iconify">
                         <img src={leftArrow} alt="" />
@@ -64,7 +64,7 @@ const LoginForm = () => {
                                         Sign In
                                     </h1>                                    
                                 </div>
-                                <form onSubmit={formik.handleSubmit} className="login">
+                                <form onSubmit={formik.handleSubmit} className="">
 
                                     <input
                                         id="email"
@@ -75,9 +75,9 @@ const LoginForm = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.email}
                                         className={
-                                            "lg:w-3/4  w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 lg:ml-20 md:ml-6"} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 "} />
                                     {formik.touched.email && formik.errors.email ? (
-                                        <div className="lg:ml-20 md:ml-7 text-red-500 text-sm">{formik.errors.email}</div>
+                                        <div className="text-red-500 text-sm">{formik.errors.email}</div>
                                     ) : null}
 
                                     <input
@@ -89,11 +89,11 @@ const LoginForm = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.password}
                                         className={
-                                            "lg:w-3/4 w-full lg:ml-20 p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 md:ml-6"} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"} />
                                     {formik.touched.password && formik.errors.password ? (
-                                        <div className="lg:ml-20 md:ml-7 text-red-500 text-sm">{formik.errors.password}</div>
+                                        <div className="text-red-500 text-sm">{formik.errors.password}</div>
                                     ) : null}
-                                    <p className="font-sans font-medium lg:ml-20 md:ml-6 justify-center text-mainColor">
+                                    <p className="font-sans font-medium  justify-center text-mainColor">
                                         <Link to="/reset">Forget Password?</Link>
                                     </p>
 
@@ -103,13 +103,13 @@ const LoginForm = () => {
                                         id="btn__submit"
                                             type="submit"
                                             className={
-                                                "bg-primary-600 hover:bg-primary-400 font-sans text-white font-bold py-2 px-4 rounded lg:ml-20 md:ml-6 lg:w-3/4 md:w-full w-full"
+                                                "bg-primary-600 hover:bg-primary-400 font-sans text-white font-bold py-2 px-4 rounded md:w-full w-full"
                                             }
                                             value="Login">
                                             Login
                                         </button>
                                     </div>
-                                    <p className="font-sans font-medium lg:ml-20 md:ml-6 justify-center text-mainColor my-3">
+                                    <p className="font-sans font-medium  justify-center text-mainColor my-3">
                                         Dont have an account yet?
                                         <Link to="/">Sign Up</Link>
                                     </p>
