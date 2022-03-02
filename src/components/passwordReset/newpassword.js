@@ -4,7 +4,7 @@ import profile from "../../assets/Image/profile.png";
 import onside from "../../assets/Image/onside.svg";
 import privilege from "../../assets/Image/privilege.svg";
 import common from '../../assets/Image/common.jpg';
-import vector from '../../assets/Image/vector.png';
+import vector from '../../assets/Image/Vector.png';
 import carbon from '../../assets/Image/carbon_task-add.png';
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
