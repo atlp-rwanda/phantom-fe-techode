@@ -6,7 +6,7 @@ import stop from '../../assets/svgs/stop.svg'
 
 const Services = () => {
   return (
-    <div className="flex flex-col flex-wrap py-10 justify-center items-center">
+    <div id="services" className="flex flex-col flex-wrap py-10 justify-center items-center">
       <div className="">
         <h1 className="text-2xl md:text-4xl font-bold text-primary-600 font-sans ">
           Services
