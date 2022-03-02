@@ -74,35 +74,35 @@ const RegisterOperator = () => {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover /> 
-                <div className="bg-white w-full sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12 rounded-lg p-4 pb-8 ">
+                <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
                     <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
-                        <h3 className='font-bold text-sm text-center w-10/12' >
-                            Adding new Operator
+                    <h3 className='font-bold text-sm text-center w-11/12' >
+                            Adding new operator
                         </h3>
-                        <div className="close-icon w-2/12 cursor-pointer" onClick={() => removeModel() } >
-                            <img src={close} alt="Phantom" />
+                        <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => removeModel() } >
+                            <img src={close} alt="Phantom" className='float-right' />
                         </div>
                         <hr className=' bg-secondary-150 border my-3 w-full' />
                     </div>
                     <div className="card-body">
-                        <form onSubmit={registerOperator} action="/Operators">
+                        <form onSubmit={registerOperator} action="/Operators" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12'>
                         <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center shadow h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                                     <input type="text" name="firstname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="First name" value={ firstname } onChange={ e => setFirsname(e.target.value) } />                                   
                                 </div>                
                             </div>  
                             <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center shadow h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                                     <input type="text" name="lastname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ lastname } placeholder="Last name" onChange={ e => setLastname(e.target.value) }  />
                                 </div>                
                             </div>  
                             <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center shadow h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                                     <input type="email" name="email" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) } />                                   
                                 </div>                
                             </div>   
                             <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center shadow h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                                     <input type="telphone" name="tel" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Telephone" value={telephone} onChange={ e => setTelephone(e.target.value) } />                                   
                                 </div>                
                             </div>                          

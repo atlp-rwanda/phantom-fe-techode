@@ -25,7 +25,7 @@ module.exports = {
                 use: [ MiniCssExtractPlugin.loader , 'css-loader' , 'postcss-loader']
             },
             {
-                test: /\.(png|j?g|svg|gif|jpg)?$/,
+                test: /\.(png|j?g|svg|gif|jpg|jpeg)?$/,
                 exclude: /node_modules/,
                 use: 'file-loader?name=./assets/[name].[ext]'
             }

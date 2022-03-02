@@ -8,6 +8,15 @@ module.exports = {
       ],
     darkMode: false, // or 'media' or 'class'
     theme: {
+        screens: {
+            'sp':'400px',
+            'mp':'500px',
+            'sm': '640px',
+            'md': '768px',
+            'lg': '1024px',
+            'xl': '1280px',
+            '2xl': '1536px',
+          },
         colors:{
             transparent: 'transparent',
             current: 'currentColor',
@@ -26,7 +35,7 @@ module.exports = {
                 '300': 'rgba(3, 132, 198, 0.67)',
                 '400': 'rgba(3, 132, 198, 0.75)',
                 '500': 'rgba(3, 132, 198, 0.8)',
-                '600': '#0384C6'
+                '600': '#0384C6',
             },
             secondary:{
                 '40': "#F3F6F9",
@@ -35,16 +44,16 @@ module.exports = {
                 '150': 'rgba(0, 0, 0, 0.21)',
                 '200': 'rgba(0, 0, 0, 0.45)',
                 '300': 'rgba(0, 0, 0, 0.67)',
-                '400': 'rgba(0, 0, 0, 0.1)',
-                '500': 'rgba(0, 0, 0, 0.75)',
+                '400': 'rgba(0, 0, 0, 0.70)',
+                '500': 'rgba(0, 0, 0, 0.75)',              
                 '600': '#000000'             
             },
             danger: {               
                 '100': 'rgba(218, 30, 30, 0.1)',
                 '200': 'rgba(218, 30, 30, 0.45)',
                 '300': 'rgba(218, 30, 30, 0.67)',
-                '400': 'rgba(218, 30, 30, 0.75)',
-                '500': 'rgba(218, 30, 30, 0.8)',
+                '400': 'rgba(218, 30, 30, 0.70)',
+                '500': 'rgba(218, 30, 30, 0.75)',
                 '600': '#DA1E1E'             
             },
             info: {               
@@ -63,6 +72,11 @@ module.exports = {
                 '500': 'rgba(88, 149, 10, 0.8)',
                 '600': 'rgba(88, 149, 10, 1)',           
             },
+            active: '#1CA0E3',
+            modelColor: "rgba(35, 29, 29, 0.44)",               
+            danger: colors.red,
+            info: colors.blue,
+            success: colors.green,
             mainColor: '#1CA0E3',
             active: '#1CA0E3',
             modelColor: "rgba(35, 29, 29, 0.44)"
