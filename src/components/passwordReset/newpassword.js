@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import profile from "../../assets/Image/profile.png";
-import onside from "../../assets/Image/onside.svg";
-import privilege from "../../assets/Image/privilege.svg";
-import common from '../../assets/Image/common.jpg';
-import vector from '../../assets/Image/Vector.png';
-import carbon from '../../assets/Image/carbon_task-add.png';
 import * as Yup from "yup";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
+import SkeletonLogout from '../skeletons/SkeletonLogout';
+
+import info from '../svgs/info.svg'
+import priveleges from "../svgs/priveleges.svg"
+import locate from "../svgs/locate.svg"
+import setrole from "../svgs/setrole.svg"
+import { PrimaryButton } from "../buttons/Buttons";
+import { ToastContainer } from "react-toastify";
+import Notify from "../../functions/Notify";
 
 export default function NewPassword() {
   const history = useHistory();
@@ -24,103 +27,135 @@ export default function NewPassword() {
         .oneOf([Yup.ref("newpass"), null], "Passwordmust match"),
     }),
     onSubmit: (values) => {
-      history.push("/reset");
+      Notify('Updated', 'success')
+      setTimeout(() => {
+        history.push("/reset");
+      }, 2000)
     },
   });
 
+  const [profile, setProfile] = useState(true);
+
+    useEffect(() => {
+      setTimeout(() => {
+        setProfile(false);
+      }, 2000)
+    }, [])
+
   return (
-
     <DashBoardLayout>
-       <div className=" flex flex-col items-center md:flex-col md:flex md:justify-center  w-screen md:flex md:flex-row lg:flex lg:flex-row justify-evenly">
-      
-      <section className="  w-4/5  h-80 lg:flex lg:justify-content lg:mt-20 lg:w-full sm:w-1/2 md:ml-20 sm:flex md:flex md:justify-center  md:w-2/3 md:h-96 md:mt-0  bg-white  lg:w-1/3 rounded flex mt-10">
-        <div className=" flex flex-col items-center mt-5">
-          <div className="flex items-center justify-center    w-1/2 ">
-            <figure className="w-2/3 flex justify-center h-4/5">
-              <img className=" rounded-full" src={common} alt="" />
-            </figure>
-          </div>
-          <div className="flex justify-center mt-5  w-3/5  sm:ml-0 ">
-            <form action="md:flex md:justify-center " className="w-full" onSubmit={formik.handleSubmit}>
-              <input
-                className=" w-full flex justify-center md:justify-center bg-gray-50 md:w-full appearance-none rounded w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
-                id="newpass"
-                type="password"
-                name="newpass"
-                placeholder="New password"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.newpass}
-              />
-              <div className=" text-red-600 text-xs">
-                {formik.touched.newpass && formik.errors.newpass}
-              </div>
-              <input
-                className="w-full flex justify-center md:justify-center bg-gray-50 md:w-full appearance-none rounded w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
-                id="newpass"
-                type=""
-                name="confpass"
-                placeholder="Confirm password"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.confpass}
-              />
-              <div className=" text-red-600 text-xs">
-                {formik.touched.confpass && formik.errors.confpass}
-              </div>
-
-              <button
-                className="bg-primary-600 shadow-2xl text-white text-xs font-bold py-2   rounded focus:outline-none focus:shadow-outline      w-full flex justify-center md:justify-center md:w-full appearance-none rounded w-full py-2 px-3 mb-3  leading-tight"
-                type="submit" id="update">Update
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* <!===================================User profile ==========================================!> */}
- <section id="passwordForm" className="w-4/5 lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex  justify-center ">
-        <div className="relative    w-full md:w-5/6 ">
+      <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
+      <div className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
+        <div className="w-full">
           <div>
-            <div className="flex justify-center">
-              <figure className="">
-                <img className="w-20 rounded-full" src={common} alt="" />
-                <figcaption className="text-center text-sm mt-3 font-extrabold">
-                  John Doe
-                </figcaption>
-              </figure>
-            </div>
- 
-            <div className="mb-5 flex flex-row text-xs w-full md:w-full  ">
-              <div className="w-10 h-8 bg-primary-100  flex items-center justify-center rounded-md">
-                <img className=" " src={onside} alt="" />
-              </div>
-              <div className="flex flex-col ml-2  w-3/5">
-                <p className="text-blue-500">User information</p>
-                <p className=" ">00000000000</p>
-                <p className=" w-1/6 ">email.exampl</p>
-              </div>
-            </div>
-            <div className="mb-5  flex flex-row text-xs w-full md:w-full">
-              <div className="w-10 md:w-10 h-8 bg-primary-100  flex items-center justify-center rounded-md">
-                <img className=" " src={privilege} alt="" />
-              </div>
-              <div className="flex flex-col ml-2  w-full">
-                <p className="text-blue-500">Priviliges</p>
-                <p className="w-full flex justify-between ">Locate bus <span className="ml-2"><img src={vector} alt="" /></span></p>
-                <p className=" flex justify-between">Update his own profile <span><img src={vector} alt="" /></span></p>
-                <p className="text-green-300 mt-3 flex justify-between">Set new roles <span><img src={carbon} alt="" /></span></p>
-              </div>
-            </div>
-            <button
-              className="w-full bg-indigo-200 shadow-2xl w-full hover:bg-blue-400 text-xs text-blue-500 font-extrabold py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Logout from this account{" "}
-            </button>
+            <section className="flex items-center justify-center">
+              <img className="rounded-full border border-primary-600 w-16 h-16 hover:opacity-75" src="https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" alt="image" />
+              {/* <img src={profileEdit} className="mt-20 -ml-4" alt="profile" /> */}
+            </section>
+
+            <section className="mt-10 md:pl-20">
+                <form className="flex flex-col" onSubmit={formik.handleSubmit}>
+                  <div className="input my-3 h-11 w-full md:w-5/6  "> 
+                      <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                          <input
+                            className="bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-full w-full" 
+                            id="newpass"
+                            type="password"
+                            name="newpass"
+                            placeholder="New password"
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}
+                            value={formik.values.newpass}
+                          />                            
+                      </div>                
+                  </div>                    
+                  <div className="text-red-600 text-xs md:text-lg">
+                    {formik.touched.newpass && formik.errors.newpass}
+                  </div>
+
+                  <div className="input my-3 h-11  w-full md:w-5/6 "> 
+                      <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                        <input
+                          className="bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-full w-full" 
+                          id="newpass"
+                          type=""
+                          name="confpass"
+                          placeholder="Confirm password"
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                          value={formik.values.confpass}
+                        />                         
+                      </div>                
+                  </div>                    
+                  <div className=" text-red-600 text-xs md:text-lg">
+                    {formik.touched.confpass && formik.errors.confpass}
+                  </div>
+                  <PrimaryButton id="update" name="Update" />
+                </form>
+            </section>
           </div>
         </div>
-      </section>
+      </div>
+      
+      <div className="w-full h-min lg:w-4/12 bg-white rounded-md m-2 py-12">
+        <div className="w-full">
+          {profile && ( <SkeletonLogout />)}
+            {!profile && (
+                <div className="h-full w-full md:h-full">
+                    <section className="flex flex-col items-center justify-center">
+                        <img className="border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100" src="https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" alt="image" />
+                        <span className="text-secondary-300 mt-6 text-primary-600 text-xs md:text-sm font-sans font-semibold">John Doe</span>
+                    </section>
+                    <section className="flex flex-col">
+                        <div className="flex flex-row">
+                            <div className="mt-4 px-6">
+                                <img src={info} alt="user info" className="w-7 md:w-10"/>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-primary-600 font-semibold mt-4 text-sm font-sans">User information</span>
+                                <span className="text-secondary-200 font-semibold mt-2 text-xs">079*****</span>
+                                <span className="text-secondary-200 font-semibold mt-2 text-xs">Johndoe@email.com</span>
+                            </div>
+                        </div>
+                        
+                        <div className="flex flex-row">
+                            <div className="mt-5 px-6">
+                                <img src={priveleges} alt="Priveleges"className="w-7 md:w-10"/>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-primary-600 font-semibold mt-5 text-sm">Previleges</span>
+                                <div className="flex flex-row">
+                                    <span className="text-success-500 font-semibold mt-2 text-xs hover:text-success-200 cursor-pointer">Locate bus</span>
+                                    <img src={locate} alt="Locate bus" className="w-3 h-3 mt-1 ml-9 md:w-4 md:h-5 md:mt-1 md:ml-9 cursor-pointer"/>
+                                </div>
+                                <div className="flex flex-row">
+                                    <span className="text-success-500 font-semibold mt-2 text-xs hover:text-success-200 cursor-pointer">Update profile</span>
+                                    <img src={locate} alt="Update profile" className="w-3 h-3 mt-1 ml-3 md:w-4 md:h-5 md:mt-1 md:ml-4 cursor-pointer"/>
+                                </div>
+                                <div className="flex flex-row">
+                                    <span className="text-success-500 font-semibold mt-2 text-xs hover:text-success-200 cursor-pointer">Set new role</span>
+                                    <img src={setrole} alt="Set new Role" className="w-3 h-3 mt-2 ml-6 md:w-4 md:h-5 md:mt-1 md:ml-6 cursor-pointer"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="px-4">
+                            <Link to="/" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white">Logout from this account</Link>
+                        </div>
+                    </section>
+                </div>
+            )
+          }
+        </div>
       </div>
     </DashBoardLayout>
    
