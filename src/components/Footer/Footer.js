@@ -34,7 +34,7 @@ const Footer = () => {
   });
 
   return (
-    <div className="ph-footer flex flex-col items-center justify-center">
+    <div id="ph-footer" className="ph-footer flex flex-col items-center justify-center">
         <div className="w-full flex flex-col md:flex md:flex-row  flex-wrap py-9 px-10 justify-between">
       <div className="flex flex-col w-60 md:w-60 lg:w-1/2  mx-auto">
         <h1 className="text-2xl md:text-4xl font-bold text-primary-600 font-sans py-10 top-0 ">
