@@ -49,7 +49,7 @@ export default function PasswordReset() {
                     </blockquote>
                     <div className=" w-full">
                         <div className="flex items-center mt-3 justify-center">
-                            <h1 className="text-base font-sans font-medium text-primary mt-0 mb-6 text-white">
+                            <h1 className="text-base font-sans font-medium text-primary mt-0 mb-6 text-white" >
                                 Forgot password ?
                             </h1>                                    
                         </div>
@@ -69,11 +69,11 @@ export default function PasswordReset() {
 
                             <div className="flex items-center  mt-3">
                                 <button
-                                    id="btn__submit"
+                                    id="reset"
                                     type="submit"
                                     className={"bg-primary-600 hover:bg-primary-400 font-sans text-white font-semibold py-2 px-2 rounded w-full"}
                                     value="reset">
-                                    Reset  Password
+                                    Reset password
                                 </button>
                             </div>
                             
