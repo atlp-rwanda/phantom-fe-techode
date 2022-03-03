@@ -32,4 +32,12 @@ export const Primary = ({ name ,onclick , styles }) => {
         </button>
      );
 }
+export const PermissionButton = ({ name ,onclick , styles, type, svg, alt, styleDelete }) => {
+    return ( 
+        <button className={`border border-${type}-600 hover:border-${type}-400 rounded text-${type}-600 shadow font-sans sm:text-sm md:font-medium   text-xs p-1 px-2 ${styles}`} onClick={onclick}  >
+            {name}
+            <img src={svg} alt={alt} className={styleDelete} />
+        </button>
+     );
+}
 

@@ -10,6 +10,7 @@ import RegisterOperator from './containers/RegisterDriverOperator/RegisterOperat
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/style/style-skeleton.css';
 import Dashboard from './containers/Dashboard/Dashboard';
+import RemovePermission from './components/removePermission/RemovePermission';
 
 const App = () => {
     return (  
@@ -23,6 +24,7 @@ const App = () => {
                 <Route path="/drivers"  component={RegisterDriver} />
                 <Route path="/operators"  component={RegisterOperator} />
                 <Route path="/profile" exact component={Logout} />
+                <Route path="/removePermission" exact component={RemovePermission} />
                 <Route path="/*"  component={() => ({ "NotFound": 400 })} />
            </Switch>
        </Router>
