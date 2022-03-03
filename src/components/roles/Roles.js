@@ -12,20 +12,25 @@ import deletePermission from "../../assets/svgs/deletePermission.svg"
 import close from '../../assets/svgs/close.svg';
 import add from '../../assets/svgs/lebals/savePrevelage.svg';
 import { addRole } from "../../redux/actions/roleAction";
+import { addPermission } from '../../redux/actions/permissionAction'
 
 
 
 const Roles = () => {
     const [addRoleModal, setAddRoleModal] = useState(false)
     const [roleName , setRoleName] = useState('');    
-    const [addPermission, setAddPermission] = useState(false)
+    const [addPermissionModal, setAddPermissionModal] = useState(false)
     const [permissionName, setPermissionName] = useState('')
     const [assignPermission, setAssignPermission] = useState(false)
 
     /* ========== Start::  Getting current state ================== */ 
         const dispatch = useDispatch();
-        let counterId = 0;
-        const roles = useSelector(state => state.roles);        
+        let roleCounter = 1;
+        let permissionCounter = 1;
+        const roles = useSelector(state => state.roles); 
+        console.log("roles ", roles)  
+        const permissions = useSelector(statePermission => statePermission.permissions); 
+        console.log(permissions)  
     /* ============ End::  Getting current state ================== */ 
     
     const removeModal = () => {
@@ -33,9 +38,9 @@ const Roles = () => {
         let newState = !addRoleModal
         setAddRoleModal(newState)
     }
-    const addPermissionModal = () => {
-        let permissionState = !addPermission
-        setAddPermission(permissionState)
+    const removePermissionModal = () => {
+        let permissionState = !addPermissionModal
+        setAddPermissionModal(permissionState)
     }
     const assignPermissionModal = () => {
         let assignState = !assignPermission
@@ -62,12 +67,14 @@ const Roles = () => {
         /* =================================== Start:: validation ================================ */ 
             if(permissionName.trim().length == '') return Notify('please add permission', 'error' ) 
         /* =================================== End:: validation ================================ */ 
-        Notify('Permission has been added','success') ;   
+       
+       dispatch(addPermission(permissionName)); 
         setTimeout( () => {
-            addPermissionModal();
+            removeModal();
         },
          5000
         )  
+        Notify('Permission has been added','success') ;  
               
     }
     const assignNewPermission = (e) =>{
@@ -127,7 +134,7 @@ const Roles = () => {
         </div>
         {/* =========================== End:: Assign Permission Modal =============================== */}
         {/* =========================== Start:: Permission Modal =============================== */}        
-        <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addPermission === true ? 'block' : 'hidden' }`}>
+        <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addPermissionModal === true ? 'block' : 'hidden' }`}>
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -144,7 +151,7 @@ const Roles = () => {
                         <h3 className='font-bold text-sm text-center w-11/12' >
                             Adding new Permission
                         </h3>
-                        <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => addPermissionModal() } >
+                        <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => removePermissionModal() } >
                             <img src={close} alt="Phantom" className='float-right' />
                         </div>
                         <hr className=' bg-secondary-150 border my-3 w-full' />
@@ -154,11 +161,11 @@ const Roles = () => {
                         <form onSubmit={(e) => createPermission(e)} action="/drivers" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
                             <div className="input my-3 h-9 "> 
                                 <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <input type="text" name="roleName" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Add Permission" value={ roleName } onChange={ e => setPermissionName(e.target.value) } />                                   
+                                    <input type="text" name="permissionName" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Add Permission" value={ permissionName } onChange={ e => setPermissionName(e.target.value) } />                                   
                                 </div>                
                             </div>  
                             <div className="w-full flex justify-between">
-                                <InfoButton name={`Cancel`} onclick={(e) => addPermissionModal(e.preventDefault())} styles='py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 text-primary-500' />
+                                <InfoButton name={`Cancel`} onclick={(e) => removePermissionModal(e.preventDefault())} styles='py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 text-primary-500' />
                                 <Primary name={`Save`} styles='py-2 md:w-1/3' />
                             </div>
                         </form>
@@ -234,9 +241,9 @@ const Roles = () => {
                             {
                                 
                                 roles.map( role => (
-                                    <tr key={counterId} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                                    <tr key={roleCounter} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                         <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                            {counterId + 1}
+                                            {roleCounter++}
                                         </td>
                                         <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                             <LebalTextButton text='J' type='primary' /> {role.name}
@@ -254,21 +261,6 @@ const Roles = () => {
                             }                            
                         </tbody>
                     </table>
-                    {/* <div className="w-full flex items-center justify-center ">
-                        <div className="w-11/12 sm:w-6/12 md:w-6/12 p-1 px-4 shadow flex justify-between mt-3">
-                            <div className="next flex items-center justify-center rounded-md cursor-pointer hover:bg-secondary-100 w-9">
-                                <img src={prev} alt="Phantomm" />
-                            </div>
-                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">1</div>
-                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">2</div>
-                            <div className="flex items-center justify-center rounded-md cursor-pointer bg-primary-600 w-8 text-white">3</div>
-                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">...</div>
-                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">12</div>
-                            <div className="next flex items-center justify-center cursor-pointer rounded-md bg-secondary-100 hover:bg-secondary-200 w-9">
-                                <img src={next} alt="Phantomm" />
-                            </div>
-                        </div>
-                    </div>  */}
                 </div>
             </div>
             <div className="w-full h-min lg:w-4/12 bg-white rounded-md m-2 px-4 pt-4">
@@ -282,7 +274,7 @@ const Roles = () => {
                         </div> 
                     </div>
                     <div className="add-new-record">
-                        <Primary name="New Permission" onclick={addPermissionModal}/>
+                        <Primary name="New Permission" onclick={removePermissionModal}/>
                     </div>
                 </div>
                 <table className="min-w-full border-collapse border-0"  >
@@ -293,14 +285,20 @@ const Roles = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    1
-                                </td>
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    <LebalTextButton text='J' type='primary' /> Get routes
-                                </td>
-                            </tr>
+                     
+{
+                                
+                                permissions.map( permission => (
+                                    <tr key={permissionCounter} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                        {permissionCounter++}
+                                    </td>
+                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                        <LebalTextButton text='J' type='primary' /> {permission.name}
+                                    </td>
+                                </tr>
+                                ))
+                            }    
                             
                         </tbody>
                     </table>
