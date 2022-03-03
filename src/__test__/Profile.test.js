@@ -1,24 +1,24 @@
 import React from "react";
 import { shallow } from 'enzyme'
-import Logout from '../components/logout/Logout'
-import DashboardLayout from '../components/dashBoardLayout/DashBoardLayout'
+import Profile from '../containers/profile/Profile';
+import DashBoardLayout from '../components/dashBoardLayout/DashBoardLayout'
 import SkeletonUpdate from '../components/skeletons/SkeletonUpdate';
-import SkeletonLogout from '../components/skeletons/SkeletonLogout';
+import { OperatorProfile } from '../components/skeletons/cards/Profile';
 import TextField from '../components/fields/TextField'
 import { PrimaryButton } from "../components/buttons/Buttons";
 
-describe('<Logout />', () => {
+describe('<Profile />', () => {
     let wrapper;
     beforeEach(() => {
-        wrapper = shallow(<Logout />)
+        wrapper = shallow(<Profile />)
     })
-    it('it should render logout component with layout', () => {
-        expect(wrapper.find(DashboardLayout)).toHaveLength(1)
+    it('it should render profile component with layout', () => {
+        expect(wrapper.find(DashBoardLayout)).toHaveLength(1)
     })
-    it('it should render logout component with update profile skeleton', () => {
-        expect(wrapper.find(SkeletonLogout)).toHaveLength(1)
+    it('it should render profile component with update profile skeleton', () => {
+        expect(wrapper.find(OperatorProfile)).toHaveLength(1)
     })
-    it('it should render logout component logout section skeleton', () => {
+    it('it should render profile component profile section skeleton', () => {
         expect(wrapper.find(SkeletonUpdate)).toHaveLength(1)
     })
     it('Check if`Textfield component has form`', () => {
