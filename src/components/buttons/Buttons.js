@@ -14,9 +14,9 @@ export const SuccessButton = ({ name ,onclick }) => {
         </button>
      );
 }
-export const InfoButton = ({ name ,onclick }) => {
+export const InfoButton = ({ name ,onclick, styles }) => {
     return ( 
-        <button className="w-full p-2 bg-blue-500 rounded text-white shadow hover:bg-blue-400 font-sans font-medium text-1xl " onClick={onclick} >
+        <button className={`w-full p-2 bg-blue-500 rounded text-white shadow hover:bg-blue-400 font-sans font-medium text-1xl ${styles}`} onClick={onclick} >
             {name}
         </button>
      );
