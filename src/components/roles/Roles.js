@@ -224,7 +224,7 @@ const Roles = () => {
                                 <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                     <LebalTextButton text='J' type='primary' /> Driver
                                 </td>
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                <td  className='text-secondary-200 flex flex-col md:flex md:flex-row font-sans text-xs text-center md:text-sm md:font-sans'>
                                     <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
                                     <PermissionButton name="Get Bus" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
                                     <PermissionButton name="Create routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-28 -mt-4 pb-2" />
@@ -238,7 +238,7 @@ const Roles = () => {
                                 <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                     <LebalTextButton text='J' type='primary' /> Operator
                                 </td>
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                <td  className='flex flex-col md:flex md:flex-row text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                     <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
                                     <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
                                     <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
@@ -252,7 +252,7 @@ const Roles = () => {
                                 <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                     <LebalTextButton text='J' type='primary' /> Admin
                                 </td>
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                <td  className='flex flex-col md:flex md:flex-row text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                     <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
                                     <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
                                     <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
