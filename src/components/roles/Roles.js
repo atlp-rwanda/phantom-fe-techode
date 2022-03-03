@@ -2,19 +2,31 @@ import React, { useState } from "react";
 import { InfoButton, PermissionButton, Primary } from "../buttons/Buttons";
 import { LebalTextButton } from "../buttons/LebalButton";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
-import deletePermission from "../../assets/svgs/deletePermission.svg"
-import { ToastContainer } from "react-toastify";
-import close from '../../assets/svgs/close.svg';
 import Notify from "../../functions/Notify";
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+
+
+import deletePermission from "../../assets/svgs/deletePermission.svg"
+import close from '../../assets/svgs/close.svg';
+import add from '../../assets/svgs/lebals/savePrevelage.svg';
+import { addRole } from "../../redux/actions/roleAction";
+
+
 
 const Roles = () => {
     const [addRoleModal, setAddRoleModal] = useState(false)
-    const [roleName , setRoleName] = useState('');
-    
+    const [roleName , setRoleName] = useState('');    
     const [addPermission, setAddPermission] = useState(false)
     const [permissionName, setPermissionName] = useState('')
-
     const [assignPermission, setAssignPermission] = useState(false)
+
+    /* ========== Start::  Getting current state ================== */ 
+        const dispatch = useDispatch();
+        let counterId = 0;
+        const roles = useSelector(state => state.roles);        
+    /* ============ End::  Getting current state ================== */ 
     
     const removeModal = () => {
 
@@ -35,12 +47,12 @@ const Roles = () => {
       
         /* =================================== Start:: validation ================================ */ 
             if(roleName.trim().length == '') return Notify('please add role', 'error' ) 
-        /* =================================== End:: validation ================================ */ 
+        /* =================================== End:: validation ================================ */
+         
+        dispatch(addRole(roleName));
         setTimeout( () => {
-            removeModal();
-        },
-         5000
-        )
+              removeModal();
+            },5000)
         return Notify('Role has been added','success') ;     
               
     }
@@ -50,12 +62,12 @@ const Roles = () => {
         /* =================================== Start:: validation ================================ */ 
             if(permissionName.trim().length == '') return Notify('please add permission', 'error' ) 
         /* =================================== End:: validation ================================ */ 
+        Notify('Permission has been added','success') ;   
         setTimeout( () => {
             addPermissionModal();
         },
          5000
-        )
-        return Notify('Permission has been added','success') ;     
+        )  
               
     }
     const assignNewPermission = (e) =>{
@@ -64,12 +76,13 @@ const Roles = () => {
         /* =================================== Start:: validation ================================ */ 
             if(permissionName.trim().length == '') return Notify('please Choose atleast one permission', 'error' ) 
         /* =================================== End:: validation ================================ */ 
+        Notify('Permission has been added','success') ;
         setTimeout( () => {
+           
             assignPermissionModal();
         },
          5000
         )
-        return Notify('Permission has been added','success') ;     
               
     }
     return ( 
@@ -100,10 +113,10 @@ const Roles = () => {
                     <div className="card-body">
                         <h2 className="text-center text-secondary-500 text-xs md:text-sm">Assign new permission to Driver role</h2>
                         <div className="mt-3 text-center">
-                        <PermissionButton name="Get bus" type="success" styles="bg-success-100 text-success-600 hover:bg-success-300 mr-2" />
-                        <PermissionButton name="Get bus" type="success" styles="bg-success-100 text-success-600 hover:bg-success-300 mr-2" />
-                        <PermissionButton name="Get bus" type="success" styles="bg-primary-100 hover:bg-primary-100 mr-2" />
-                        <PermissionButton name="Get bus" type="success" styles="bg-primary-100 hover:bg-primary-100 mr-2" />
+                        <PermissionButton name="Get bus" type="success"  />
+                        <PermissionButton name="Get bus" type="success"  />
+                        <PermissionButton name="Get bus" type="success" />
+                        <PermissionButton name="Get bus" type="success" />
                         </div>
                         <div className="w-full flex justify-between md:mt-6">
                             <InfoButton name={`Cancel`} onclick={(e) => assignPermissionModal(e.preventDefault())} styles='py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 text-primary-500' />
@@ -111,7 +124,7 @@ const Roles = () => {
                         </div>
                     </div>
                 </div>                
-            </div>
+        </div>
         {/* =========================== End:: Assign Permission Modal =============================== */}
         {/* =========================== Start:: Permission Modal =============================== */}        
         <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addPermission === true ? 'block' : 'hidden' }`}>
@@ -151,47 +164,48 @@ const Roles = () => {
                         </form>
                     </div>
                 </div>                
-            </div>
+        </div>
         {/* =========================== End:: Permission Modal =============================== */}  
+
         {/* =========================== Start:: Role Modal =============================== */}        
         <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addRoleModal === true ? 'block' : 'hidden' }`}>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                /> 
-                <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
-                    <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
-                        <h3 className='font-bold text-sm text-center w-11/12' >
-                            Adding new Role
-                        </h3>
-                        <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => removeModal() } >
-                            <img src={close} alt="Phantom" className='float-right' />
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            /> 
+            <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
+                <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                    <h3 className='font-bold text-sm text-center w-11/12' >
+                        Adding new Role
+                    </h3>
+                    <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => removeModal() } >
+                        <img src={close} alt="Phantom" className='float-right' />
+                    </div>
+                    <hr className=' bg-secondary-150 border my-3 w-full' />
+                </div>
+                <div className="card-body">
+                    <h2 className="md:ml-12 text-secondary-500 text-xs md:text-sm">New Role</h2>
+                    <form onSubmit={(e) => createRole(e)} action="/drivers" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
+                        <div className="input my-3 h-9 "> 
+                            <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                <input type="text" name="roleName" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Add Role" value={ roleName } onChange={ e => setRoleName(e.target.value) } />                                   
+                            </div>                
+                        </div>  
+                        <div className="w-full flex justify-between">
+                            <InfoButton name={`Cancel`} onclick={(e) => removeModal(e.preventDefault())} styles='py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 text-primary-500' />
+                            <Primary name={`Save`} styles='py-2 md:w-1/3' />
                         </div>
-                        <hr className=' bg-secondary-150 border my-3 w-full' />
-                    </div>
-                    <div className="card-body">
-                        <h2 className="md:ml-12 text-secondary-500 text-xs md:text-sm">New Role</h2>
-                        <form onSubmit={(e) => createRole(e)} action="/drivers" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
-                            <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <input type="text" name="roleName" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Add Role" value={ roleName } onChange={ e => setRoleName(e.target.value) } />                                   
-                                </div>                
-                            </div>  
-                            <div className="w-full flex justify-between">
-                                <InfoButton name={`Cancel`} onclick={(e) => removeModal(e.preventDefault())} styles='py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 text-primary-500' />
-                                <Primary name={`Save`} styles='py-2 md:w-1/3' />
-                            </div>
-                        </form>
-                    </div>
-                </div>                
-            </div>
+                    </form>
+                </div>
+            </div>                
+        </div>
         {/* =========================== End:: Role Modal =============================== */}  
         <DashBoardLayout>
             <div className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
@@ -217,48 +231,27 @@ const Roles = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    1
-                                </td>
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    <LebalTextButton text='J' type='primary' /> Driver
-                                </td>
-                                <td  className='text-secondary-200 flex flex-col md:flex md:flex-row font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Get Bus" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Create routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-28 -mt-4 pb-2" />
-                                    <PermissionButton name="Add" type="success" onclick={assignPermissionModal} styles="bg-success-200 hover:bg-success-300 md:w-1/12" />
-                                </td>
-                            </tr>
-                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    2
-                                </td>
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    <LebalTextButton text='J' type='primary' /> Operator
-                                </td>
-                                <td  className='flex flex-col md:flex md:flex-row text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Add" type="success" onclick={assignPermissionModal} styles="bg-success-200 hover:bg-success-300 md:w-1/12" />
-                                </td>
-                            </tr>
-                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    2
-                                </td>
-                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    <LebalTextButton text='J' type='primary' /> Admin
-                                </td>
-                                <td  className='flex flex-col md:flex md:flex-row text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                    <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Get routes" type="danger" styles="bg-danger-100 hover:bg-danger-200 mr-4" svg={deletePermission} styleDelete="md:ml-24 -mt-4 pb-2"/>
-                                    <PermissionButton name="Add" type="success" onclick={assignPermissionModal} styles="bg-success-200 hover:bg-success-300 md:w-1/12" />
-                                </td>
-                            </tr>
+                            {
+                                
+                                roles.map( role => (
+                                    <tr key={counterId} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                                        <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                            {counterId + 1}
+                                        </td>
+                                        <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                            <LebalTextButton text='J' type='primary' /> {role.name}
+                                        </td>
+                                        <td  className=' text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans h-full'>
+                                            <div className="buttons h-full flex flex-col md:flex md:flex-row">
+                                                <PermissionButton name="Get routes" type="danger" styles="" svg={deletePermission} />
+                                                <PermissionButton name="Get Bus" type="danger" styles="" svg={deletePermission} />
+                                                <PermissionButton name="Create routes" type="danger" styles="" svg={deletePermission}/>
+                                                <PermissionButton name="Add" svg={add} type="success" onclick={assignPermissionModal} />
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                ))
+                            }                            
                         </tbody>
                     </table>
                     {/* <div className="w-full flex items-center justify-center ">

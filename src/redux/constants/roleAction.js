@@ -1,0 +1,5 @@
+export const RoleActions = {
+    ADD_ROLE : "ADD_ROLE",
+    DELETE_PERMISSION : "DELETE_PERMISSION",
+    ADD_PERMISSION : "ADD_PERMISSION"
+}
