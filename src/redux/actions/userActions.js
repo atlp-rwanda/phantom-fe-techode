@@ -1,10 +1,10 @@
 import  { userActionTypes } from "../constants/userActionTypes"
 
-const { UPDATE, GET_FIRSTNAME, GET_USERNAME } = userActionTypes;
-export const update = (count) =>{
+const { UPDATE, GET_FIRSTNAME, GET_USERNAME, GET_LASTNAME ,SET_PROFILE } = userActionTypes;
+export const update = (payload) =>{
     return {
         type: UPDATE,
-        payload: count
+        payload: payload
     }
 }
 
@@ -19,5 +19,18 @@ export const getUsername = () =>{
 export const getFirstname = () =>{
     return {
         type: GET_FIRSTNAME
+    }
+}
+
+export const getLastname = () =>{
+    return {
+        type: GET_LASTNAME
+    }
+}
+
+
+export const setProfile = () =>{
+    return {
+        type: SET_PROFILE
     }
 }

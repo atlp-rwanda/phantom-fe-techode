@@ -9,7 +9,7 @@ import Intro from '../../components/Intro/Intro';
 import Services from '../../components/Services/Services';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import {SuccessButton , DangerButton , InfoButton} from '../../components/buttons/Buttons';
-import Logout from '../../components/logout/Logout';
+import Logout from '../profile/Profile';
 import { decrementBy, decrementCount, incrementBy, incrementCount } from '../../redux/actions/counterActions';
 import main from '../../assets/js/main'
 
