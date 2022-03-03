@@ -120,7 +120,10 @@ const Profile = () => {
                                                 </div>
                                             </div>
                                         : '' }                                       
-                                        {/* =================== End:: only admin to see this =================== */}                               
+                                        {/* =================== End:: only admin to see this =================== */}    
+                                        <div className="">
+                                            <Link to="/" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-9/12 mt-5  hover:bg-primary-600 hover:text-white">Logout from this account</Link>
+                                        </div>                           
                                     </div>
                                 </div>
                             </div>    

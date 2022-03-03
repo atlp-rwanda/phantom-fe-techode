@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from 'enzyme'
-import Profile from '../containers/profile/Profile';
+import Profile from '../containers/Profile/Profile';
 import DashBoardLayout from '../components/dashBoardLayout/DashBoardLayout'
 import SkeletonUpdate from '../components/skeletons/SkeletonUpdate';
 import { OperatorProfile } from '../components/skeletons/cards/Profile';
