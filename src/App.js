@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/signIn/LoginForm';
 import Home from './containers/Home/Home';
-import Profile from './containers/Profile/Profile';
+import Profile from './containers/profile/Profile';
 import passwordReset from './components/passwordReset/passwordereset';
 import NewPassword from './components/passwordReset/newpassword';
 import RegisterDriver from './containers/RegisterDriverOperator/RegisterDriver';
