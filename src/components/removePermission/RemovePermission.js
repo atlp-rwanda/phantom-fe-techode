@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DangerButton, InfoButton, PermissionButton, Primary } from "../buttons/Buttons";
 import { LebalTextButton } from "../buttons/LebalButton";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
 import deletePermission from "../../assets/svgs/deletePerm.svg"
 import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
+import TableSkeleton from "../../components/skeletons/Tables/RemovePermisionSkeleton"
+
 
 const RemovePermission = () => {
 
-    const [permisionModal, setPermisionModal] = useState(false)
+    const [permisionModal, setPermisionModal] = useState(false);
+    const [loading , setLoading] = useState(true);
+
+    /* ======== Start:: removing skeleton ======= */ 
+    useEffect(() => {
+       setTimeout(() => {
+           setLoading(false); 
+       } , 2000)
+   } , [])       
+/* ======== End:: removing skeleton ======= */ 
 
     const removePermisionModal = () => {
 
         let newState = !permisionModal
         setPermisionModal(newState)
     }
+
 
     const removePermision = (e) => {
         e.preventDefault();
@@ -76,6 +88,11 @@ const RemovePermission = () => {
                                 <Primary name="New Role" />
                             </div>
                         </div>
+                        <div className="mt-3 mb-10"> 
+                        { loading &&( <TableSkeleton />  )
+                                }
+                                { !loading &&(
+                                    <>
                         <table className="min-w-full border-collapse border-0"  >
                             <thead>
                                 <tr className="border-b border-b-secondary-100" >
@@ -189,6 +206,12 @@ const RemovePermission = () => {
                                 </tr>
                             </tbody>
                         </table>
+                        </>
+                                                                      
+                                    )
+                                }
+                               
+                            </div> 
                     </div>
                 </div>
             </DashBoardLayout>
