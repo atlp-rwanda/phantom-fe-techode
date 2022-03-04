@@ -12,6 +12,8 @@ import { OperatorProfile } from "../../components/skeletons/cards/Profile";
 import userLabel from "../../assets/svgs/lebals/luser.svg";
 import lock from "../../assets/svgs/lebals/lock.svg";
 import { useDropzone } from "react-dropzone";
+import { useDispatch } from "react-redux";
+import { setProfile } from '../../redux/actions/userActions';
 
 const Profile = () => {
   const [loading, setLoading] = useState(true);
@@ -22,7 +24,9 @@ const Profile = () => {
     telephone,
     type: userType,
     username,
+    profile
   } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   /*  ===== Start:: fetching userinfo =====  */
   useEffect(() => {
@@ -49,7 +53,8 @@ const Profile = () => {
           preview: URL.createObjectURL(file),
         })
       );
-      setFiles([...files, ...newFile]);
+      console.log(newFile);
+      dispatch(setProfile(newFile[0].preview));
     },
   });
 
@@ -79,8 +84,8 @@ const Profile = () => {
                   {...getRootProps()}
                   className="rounded-full border border-primary-600 w-16 h-16 hover:opacity-75"
                   src={
-                    files.length > 0
-                      ? files[0].preview
+                    profile != ""
+                      ? profile
                       : "https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw"
                   }
                   alt="image"

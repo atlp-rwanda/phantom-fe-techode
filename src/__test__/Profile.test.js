@@ -6,12 +6,22 @@ import SkeletonUpdate from '../components/skeletons/SkeletonUpdate';
 import { OperatorProfile } from '../components/skeletons/cards/Profile';
 import TextField from '../components/fields/TextField'
 import { PrimaryButton } from "../components/buttons/Buttons";
+import store from '../redux/store'
+import { Provider } from 'react-redux'
+
 
 describe('<Profile />', () => {
-    let wrapper;
-    beforeEach(() => {
-        wrapper = shallow(<Profile />)
+    const wrapper = ({ children }) => (
+        <ReduxProvider reduxStore={store}>{children}</ReduxProvider>
+    );
+    const ReduxProvider = ({ children, reduxStore }) => (
+        <Provider store={reduxStore}>{children}</Provider>
+    )
+    beforeEach(() => {      
+        wrapper(<Profile />);       
     })
+
+   
     it('it should render profile component with layout', () => {
         expect(wrapper.find(DashBoardLayout)).toHaveLength(1)
     })

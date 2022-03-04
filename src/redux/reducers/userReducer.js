@@ -24,7 +24,7 @@ export const userReducer = (state = initialState , { type , payload}) =>{
             return state.lastname;
         case SET_PROFILE: 
             let clonedState = {...state};
-            clonedState.profile = payload.profile;
+            clonedState.profile = payload;
             state = clonedState;
             return state;
         case UPDATE: 

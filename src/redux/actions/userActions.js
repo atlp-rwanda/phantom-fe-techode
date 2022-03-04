@@ -29,8 +29,9 @@ export const getLastname = () =>{
 }
 
 
-export const setProfile = () =>{
+export const setProfile = (payload) =>{
     return {
-        type: SET_PROFILE
+        type: SET_PROFILE,
+        payload
     }
 }
