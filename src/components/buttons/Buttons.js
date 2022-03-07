@@ -14,15 +14,15 @@ export const SuccessButton = ({ name ,onclick }) => {
         </button>
      );
 }
-export const InfoButton = ({ name ,onclick }) => {
+export const InfoButton = ({ name ,onclick, styles }) => {
     return ( 
-        <button className="w-full p-2 bg-blue-500 rounded text-white shadow hover:bg-blue-400 font-sans font-medium text-1xl " onClick={onclick} >
+        <button className={`w-full p-2 bg-blue-500 rounded text-white shadow hover:bg-blue-400 font-sans font-medium text-1xl ${styles}`} onClick={onclick} >
             {name}
         </button>
      );
 }
-export const PrimaryButton = ({ name, onClick }) => {
-    return (<button type="submit" className="rounded-md bg-primary-600 text-white h-8 md:h-11 w-full md:w-5/6 mt-5 hover:bg-primary-600 mb-10">{name}</button>) 
+export const PrimaryButton = ({ name, onclick }) => {
+    return (<button type="submit" onClick={onclick} className="rounded-md bg-primary-600 text-white h-8 md:h-11 w-full md:w-5/6 mt-5 hover:bg-primary-600 mb-10">{name}</button>) 
 }
  
 export const Primary = ({ name ,onclick , styles }) => {
@@ -32,4 +32,13 @@ export const Primary = ({ name ,onclick , styles }) => {
         </button>
      );
 }
+export const PermissionButton = ({ name ,onclick , styles, type, svg, alt, styleDelete }) => {
+    return ( 
+        <button className={` rounded-md text-${type}-600 bg-${type}-200 font-sans text-sm flex items-center  justify-between p-1 my-1  mx-2 `} onClick={onclick}  >
+            {name}
+            <img src={svg} alt={alt} className={`mx-2`} />
+        </button>
+     );
+}
+
 
