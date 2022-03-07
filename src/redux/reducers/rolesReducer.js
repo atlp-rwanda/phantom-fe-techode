@@ -1,15 +1,13 @@
 import  { RoleActions } from "../constants/roleAction"
 
-const { ADD_ROLE,DELETE_PERMISSION, ADD_PERMISSION } = RoleActions ;
+const { ADD_ROLE, DELETE_ROLE,DELETE_PERMISSION, ASSIGN_PERMISSION } = RoleActions ;
 
 const roleState = [
     {
         id:1,
         name:'Admin',
         permissions:[
-            { id: 1 , permisionName: 'getBus'},
-            { id: 2 , permisionName: 'createRoute'},
-            { id: 3 , permisionName: 'getRoute'}
+            { id: 1 , permissionName: 'getBus'},
         ]
     }
 ]
@@ -26,19 +24,53 @@ export const rolesReducer = (state = roleState , { type , payload}) =>{
             clonedState.push(newRole);
             state = clonedState;
             return state;  
+        case DELETE_ROLE:
+            const clonedDelState = [...state];
+            const newRoles = clonedDelState.filter(current => current.id != payload);
+            state = newRoles;
+            return state;
         case DELETE_PERMISSION:
-            const { roleId , permissionid } = payload;
+            const { Role_Id , permissionId } = payload;
             const newClonedState = [...state];
-            const itemToBeUpdated = newClonedState.filter( currentState => currentState.id == roleId );
-            const targetRoleIndex = newClonedState.indexOf(itemToBeUpdated); 
-            const newPermission = itemToBeUpdated.permissions.filter(permission => permission.id != permissionid); 
-
-            itemToBeUpdated.permissions = newPermission;
-            newClonedState[targetRoleIndex] = itemToBeUpdated;
+            console.log("newClonedState(redux) ", newClonedState)
+            const itemToBeUpdated = newClonedState.filter( current => current.id == Role_Id );
+            const indexDel = newClonedState.findIndex(current => current.id == Role_Id)
+            console.log("itemToBeUpdated", itemToBeUpdated)
+            console.log("Role_Id(redux) ", Role_Id)
+            const deletedPermission = [...itemToBeUpdated[0].permissions];
+            const newPermission = deletedPermission.filter(permission => permission.id != permissionId); 
+            // itemToBeUpdated[0].permissions = newPermission;
+            // deletedPermission = newPermission;
+            newClonedState[indexDel].permissions = newPermission;
 
             state = newClonedState;
             return state;
-        case ADD_PERMISSION:
+        case ASSIGN_PERMISSION:
+            const {role_Id, assignedPermission} = payload;
+            console.log('redux' , role_Id, assignedPermission)
+            // const createPermission = {
+            //     id: state.length + 1,
+            //     name: assignedPermission
+            // }
+          
+            const assignState = [...state];
+            const roleToBeUpdated = assignState.filter(current => current.id == role_Id);
+            const index = assignState.findIndex(current => current.id == role_Id)
+            console.log("index ", index);
+            console.log("tobe updated ", roleToBeUpdated);
+            // console.log("tobe assigned ", createPermission);
+            console.log("path ", roleToBeUpdated[0].permissions);
+            const updatePermission = [...roleToBeUpdated[0].permissions]
+            let assignCounter =  roleToBeUpdated[0].permissions.length;
+            assignCounter = assignCounter + 1
+            updatePermission.push({
+                id: assignCounter,
+                permissionName: assignedPermission
+            });
+            // assignCounter = id
+            assignState[index].permissions = updatePermission;
+            state =  assignState;
+            console.log("final state", state);
             return state;             
         default:
             return state;

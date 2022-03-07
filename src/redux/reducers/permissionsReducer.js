@@ -5,7 +5,18 @@ const permissionState = [
     {
         id:1,
         name:'Get routes',
-    }
+    },
+    {
+        id:2,
+        name:'Get buses',
+    },{
+        id:3,
+        name:'Assign buses',
+    },
+    {
+        id:4,
+        name:'createRoute',
+    },
 ]
 
 export const permissionsReducer = (state = permissionState, { type , payload}) =>{
