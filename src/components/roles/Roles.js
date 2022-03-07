@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InfoButton, PermissionButton, Primary } from "../buttons/Buttons";
 import { LebalTextButton } from "../buttons/LebalButton";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
 import deletePermission from "../../assets/svgs/deletePermission.svg"
 import { ToastContainer } from "react-toastify";
 import close from '../../assets/svgs/close.svg';
+import prev from '../../assets/svgs/prev.svg';
+import next from '../../assets/svgs/next.svg';
+
 import Notify from "../../functions/Notify";
+import TableRolesSkeleton from "../skeletons/Tables/TableRolesSkeleton";
+import TablePermissionSkeleton from "../skeletons/Tables/TablePermissionsSkeleton";
 
 const Roles = () => {
+    const [loading, setLoading] = useState(true)
     const [addRoleModal, setAddRoleModal] = useState(false)
     const [roleName , setRoleName] = useState('');
     
@@ -16,6 +22,11 @@ const Roles = () => {
 
     const [assignPermission, setAssignPermission] = useState(false)
     
+    useEffect( ()=> {
+        setTimeout(()=>{
+            setLoading(false)
+        }, 3000)
+    }, [])
     const removeModal = () => {
 
         let newState = !addRoleModal
@@ -196,18 +207,21 @@ const Roles = () => {
         <DashBoardLayout>
             <div className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
                 <div className="w-full">
-                        <div className="card-header flex items-center justify-between">                        
-                            <div className="card-title">
-                                <div className="title mb-3">
-                                    <h4 className=' text-primary-500 font-bold text-xs md:text-base' >
-                                        List of Roles
-                                    </h4>
-                                </div> 
-                            </div>
-                            <div className="add-new-record">
-                                <Primary name="New Role" onclick={removeModal}/>
-                            </div>
+                    <div className="card-header flex items-center justify-between">                        
+                        <div className="card-title">
+                            <div className="title mb-3">
+                                <h4 className=' text-primary-500 font-bold text-xs md:text-base' >
+                                    List of Roles
+                                </h4>
+                            </div> 
                         </div>
+                        <div className="add-new-record">
+                            <Primary name="New Role" onclick={removeModal}/>
+                        </div>
+                    </div>
+                    {loading && (<TableRolesSkeleton/>)}
+                    {!loading && (
+                    <>
                     <table className="min-w-full border-collapse border-0"  >
                         <thead>
                             <tr className="border-b border-b-secondary-100" >
@@ -261,7 +275,7 @@ const Roles = () => {
                             </tr>
                         </tbody>
                     </table>
-                    {/* <div className="w-full flex items-center justify-center ">
+                    <div className="w-full flex items-center justify-center ">
                         <div className="w-11/12 sm:w-6/12 md:w-6/12 p-1 px-4 shadow flex justify-between mt-3">
                             <div className="next flex items-center justify-center rounded-md cursor-pointer hover:bg-secondary-100 w-9">
                                 <img src={prev} alt="Phantomm" />
@@ -275,7 +289,10 @@ const Roles = () => {
                                 <img src={next} alt="Phantomm" />
                             </div>
                         </div>
-                    </div>  */}
+                    </div>
+                    
+                    </>
+                    )} 
                 </div>
             </div>
             <div className="w-full h-min lg:w-4/12 bg-white rounded-md m-2 px-4 pt-4">
@@ -292,6 +309,9 @@ const Roles = () => {
                         <Primary name="New Permission" onclick={addPermissionModal}/>
                     </div>
                 </div>
+                {loading && (<TablePermissionSkeleton/>)}
+                {!loading && (
+                <>
                 <table className="min-w-full border-collapse border-0"  >
                         <thead>
                             <tr className="border-b border-b-secondary-100" >
@@ -310,7 +330,9 @@ const Roles = () => {
                             </tr>
                             
                         </tbody>
-                    </table>
+                </table>
+                </>
+                )}
                 </div>
             </div>
         </DashBoardLayout>
