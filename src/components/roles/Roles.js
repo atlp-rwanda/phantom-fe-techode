@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { InfoButton, PermissionButton, Primary } from "../buttons/Buttons";
 import { LebalButton, LebalTextButton } from "../buttons/LebalButton";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
@@ -16,10 +16,13 @@ import { addPermission } from "../../redux/actions/permissionAction";
 import { assignPermission } from "../../redux/actions/roleAction";
 import { deletePermission } from "../../redux/actions/roleAction";
 import deleteIcon from '../../assets/svgs/delete.svg';
+import TableRolesSkeleton from "../skeletons/Tables/TableRolesSkeleton";
+import TablePermissionSkeleton from "../skeletons/Tables/TablePermissionsSkeleton";
 
 
 
 const Roles = () => {
+  const [loading, setLoading] = useState(true)
   const [addRoleModal, setAddRoleModal] = useState(false);
   const [roleName, setRoleName] = useState("");
   const [addPermissionModal, setAddPermissionModal] = useState(false);
@@ -30,12 +33,17 @@ const Roles = () => {
   const [role_Id, setRoleId] = useState("");
   const [permissionId, setPermissionId] = useState("");
 
+  useEffect( ()=> {
+    setTimeout(()=>{
+        setLoading(false)
+    }, 3000)
+}, [])
+
   /* ========== Start::  Getting current state ================== */
   const dispatch = useDispatch();
   let roleCounter = 1;
   let permissionCounter = 1;
   const roles = useSelector((state) => state.roles);
-  console.log("roles ", roles);
   const permissions = useSelector(
     (statePermission) => statePermission.permissions
   );
@@ -52,7 +60,6 @@ const Roles = () => {
   };
   const assignPermissionModal = (role) => {
     setRoleId(role);
-    console.log("RoleId ", role_Id);
     let assignState = !assignPermissionM;
     setAssignPermission(assignState);
   };
@@ -64,12 +71,19 @@ const Roles = () => {
     if (roleName.trim().length == "") return Notify("please add role", "error");
     /* =================================== End:: validation ================================ */
 
-    dispatch(addRole(roleName));
-    setTimeout(() => {
-      removeModal();
-      // Notify("")
-    }, 4000);
-    Notify("Role has been added", "success");
+    let uniqueState = roles.find(element => element.name == roleName);
+
+    if (uniqueState) {
+      Notify("not unique", "error");
+    } else {
+      dispatch(addRole(roleName));
+       removeModal(); 
+    
+     Notify("Role has been added", "success");
+    }
+
+    setRoleName("");
+    
     
   };
 
@@ -90,7 +104,6 @@ const Roles = () => {
 
   const assigningPermission = (name) => {
     setAssignedPermission(name);
-    console.log("Assigned");
     Notify(name + " permission selected", "success");
   };
   const assignNewPermission = (e) => {
@@ -100,7 +113,6 @@ const Roles = () => {
     //   return Notify("please Choose atleast one permission", "error");
     /* =================================== End:: validation ================================ */
     dispatch(assignPermission({ role_Id, assignedPermission }));
-    console.log(role_Id, assignedPermission);
     assignPermissionModal();
     Notify("Permission has been added", "success");
   };
@@ -208,12 +220,13 @@ const Roles = () => {
             <h2 className="text-center text-secondary-500 text-xs md:text-sm">
               Assign new permission 
             </h2>
-            <div className="mt-3 text-center">
+            <div className="mt-3 text-center md:flex md:flex-row">
               {permissions.map((permission) => (
                 <PermissionButton
                   key={permission.id}
                   name={permission.name}
                   type="success"
+                  styles='bg-success-200 text-success-600 hover:bg-success-100'
                   onclick={() => assigningPermission(permission.name)}
                 />
                 //   <button
@@ -363,6 +376,10 @@ const Roles = () => {
                 <Primary name="New Role" onclick={removeModal} />
               </div>
             </div>
+            {/* Skeleton  */}
+            {loading && (<TableRolesSkeleton/>)}
+                    {!loading && (
+                    <>
             <table className="min-w-full border-collapse border-0">
               <thead>
                 <tr className="border-b border-b-secondary-100">
@@ -419,6 +436,9 @@ const Roles = () => {
                 ))}
               </tbody>
             </table>
+            </>
+                    )}
+          
           </div>
         </div>
         <div className="w-full h-min lg:w-4/12 bg-white rounded-md m-2 px-4 pt-4">
@@ -438,6 +458,9 @@ const Roles = () => {
                 /> */}
               </div>
             </div>
+            {loading && (<TablePermissionSkeleton/>)}
+                {!loading && (
+                <>
             <table className="min-w-full border-collapse border-0">
               <thead>
                 <tr className="border-b border-b-secondary-100">
@@ -466,6 +489,7 @@ const Roles = () => {
                 ))}
               </tbody>
             </table>
+            </>)}
           </div>
         </div>
       </DashBoardLayout>
