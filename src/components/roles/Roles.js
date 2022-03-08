@@ -74,12 +74,12 @@ const Roles = () => {
     let uniqueState = roles.find(element => element.name == roleName);
 
     if (uniqueState) {
-      Notify("not unique", "error");
+      Notify("Already exist", "error");
     } else {
       dispatch(addRole(roleName));
        removeModal(); 
     
-     Notify("Role has been added", "success");
+      Notify("Role has been added", "success");
     }
 
     setRoleName("");
@@ -91,15 +91,13 @@ const Roles = () => {
     e.preventDefault();
 
     /* =================================== Start:: validation ================================ */
-    if (permissionName.trim().length == "")
-      return Notify("please add permission", "error");
+    if (permissionName.trim().length == "") return Notify("please add permission", "error");
     /* =================================== End:: validation ================================ */
 
     dispatch(addPermission(permissionName));
     setTimeout(() => {
       removePermissionModal();
     }, 5000);
-    Notify("Permission has been added", "success");
   };
 
   const assigningPermission = (name) => {
@@ -131,7 +129,6 @@ const Roles = () => {
     setTimeout(() => {
       removeDeletePermissionModal();
     }, 5000);
-    return Notify("Permission has been removed", "success");
   };
 
   const deleteAssignedPermission = () => {
@@ -146,12 +143,7 @@ const Roles = () => {
   return (
     <>
       {/* =========================== Start:: Delete Permission  Model =============================== */}
-      <div
-        className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${
-          clearPermissionModal === true ? "block" : "hidden"
-        }`}
-      >
-        <ToastContainer
+      <ToastContainer
           position="top-right"
           autoClose={2000}
           hideProgressBar
@@ -161,7 +153,13 @@ const Roles = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
+          className={`z-50`}
         />
+      <div
+        className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${
+          clearPermissionModal === true ? "block" : "hidden"
+        }`}
+      >        
         <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12 text-danger-500">
