@@ -12,7 +12,7 @@ let initialState
           permissions: [{ id: 1, permissionName: "getBus" }],
         },
       ];
-    
+
   });
 
   it("should return the initialState for no action", () => {
@@ -25,35 +25,25 @@ let initialState
       {
         id: 1,
         name: "Admin",
-        permissions: [{ id: 1, permissionName: "getBus" }],
+        permissions:[
+          { id: 1 , permissionName: 'getBus'},
+        ]
       },
       {
         id: 2,
-        name: {
-          id: 2,
-          name: "Driver",
-          permissions: [
-            { id: 1, permissionName: "getBus" },
-            { id: 2, permissionName: "getRoute" },
-          ],
-        },
+        name:"Driver",
+        permissions:[]
       },
     ];
 
-    const newRole = {
-      id: 2,
-      name: "Driver",
-      permissions: [
-        { id: 1, permissionName: "getBus" },
-        { id: 2, permissionName: "getRoute" },
-      ],
-    };
-
-    const reducer = rolesReducer(undefined, {
+    const newRole = "Driver";
+      const reducer = rolesReducer(undefined, {
       type: RoleActions.ADD_ROLE,
       payload: newRole,
     });
-    expect(reducer).toEqual(state);
+    console.log(state);
+    console.log(reducer);
+    expect(JSON.stringify(reducer)).toEqual(JSON.stringify(state));
   });
 
   it("should accept the deletion of role", () => {

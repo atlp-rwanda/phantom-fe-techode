@@ -11,8 +11,6 @@ import TableRolesSkeleton from '../components/skeletons/Tables/TableRolesSkeleto
 import { LebalTextButton } from '../components/buttons/LebalButton';
 import TablePermissionSkeleton from '../components/skeletons/Tables/TablePermissionsSkeleton';
 
-
-
 describe('<Roles />', () =>{
   const props = {
           addRole: jest.fn(),
@@ -35,21 +33,19 @@ describe('<Roles />', () =>{
       wrapper = shallow (<Roles store={store} {...props} /> ).childAt(0).dive();
     });
 
-  it('It should match the snapshot', () => {
-      
-      expect(toJson(wrapper)).toMatchSnapshot();
+    it('It should match the snapshot', () => { 
+          expect(toJson(wrapper)).toMatchSnapshot();
+    });
+  
+    it('if it should render one TableRolesSkeleton', () =>{
+      expect(wrapper.find(TableRolesSkeleton).length).toBe(1);
+    });
+    
+    it('if it should render one DashBoardLayout', () =>{
+      expect(wrapper.find(DashBoardLayout).length).toBe(1);
+    });
+
+    it('if it should render one TablePermissionSkeleton', () =>{
+      expect(wrapper.find(TablePermissionSkeleton).length).toBe(1);
+    });
   });
-
-  it('if it should render one TableRolesSkeleton', () =>{
-    expect(wrapper.find(TableRolesSkeleton).length).toBe(1);
-});
-
-it('if it should render one DashBoardLayout', () =>{
-  expect(wrapper.find(DashBoardLayout).length).toBe(1);
-});
-
-it('if it should render one TablePermissionSkeleton', () =>{
-  expect(wrapper.find(TablePermissionSkeleton).length).toBe(1);
-});
-
-});

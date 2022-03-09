@@ -116,7 +116,28 @@ exports[`<Roles /> It should match the snapshot 1`] = `
         >
           <PermissionButton
             key="1"
-            name="Admin"
+            name="Get routes"
+            onclick={[Function]}
+            styles="bg-success-200 text-success-600 hover:bg-success-100"
+            type="success"
+          />
+          <PermissionButton
+            key="2"
+            name="Get buses"
+            onclick={[Function]}
+            styles="bg-success-200 text-success-600 hover:bg-success-100"
+            type="success"
+          />
+          <PermissionButton
+            key="3"
+            name="Assign buses"
+            onclick={[Function]}
+            styles="bg-success-200 text-success-600 hover:bg-success-100"
+            type="success"
+          />
+          <PermissionButton
+            key="4"
+            name="createRoute"
             onclick={[Function]}
             styles="bg-success-200 text-success-600 hover:bg-success-100"
             type="success"
