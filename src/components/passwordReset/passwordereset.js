@@ -14,7 +14,6 @@ export default function PasswordReset() {
     setEmail(e.target.value);
   };
   const [loading, setLoading] = useState(false);
-
   const validate = Yup.object({
     email: Yup.string().email("Invalid email").required("required"),
   });
