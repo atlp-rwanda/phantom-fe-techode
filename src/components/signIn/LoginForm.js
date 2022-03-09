@@ -12,7 +12,6 @@ import main from '../../assets/js/main'
 
 const LoginForm = () => {
     const history = useHistory()
-
     const [signInSkeleton, setSignInSkeleton] = useState(true)
     useEffect(() => {
         setTimeout(() => {

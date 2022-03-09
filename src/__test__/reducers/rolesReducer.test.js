@@ -41,8 +41,6 @@ let initialState
       type: RoleActions.ADD_ROLE,
       payload: newRole,
     });
-    console.log(state);
-    console.log(reducer);
     expect(JSON.stringify(reducer)).toEqual(JSON.stringify(state));
   });
 
