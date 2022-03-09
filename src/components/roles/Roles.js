@@ -3,7 +3,7 @@ import { InfoButton, PermissionButton, Primary } from "../buttons/Buttons";
 import { LebalButton, LebalTextButton } from "../buttons/LebalButton";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
 import Notify from "../../functions/Notify";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 
@@ -21,7 +21,7 @@ import TablePermissionSkeleton from "../skeletons/Tables/TablePermissionsSkeleto
 
 
 
-const Roles = () => {
+const Roles = (props) => {
   const [loading, setLoading] = useState(true)
   const [addRoleModal, setAddRoleModal] = useState(false);
   const [roleName, setRoleName] = useState("");
@@ -32,6 +32,7 @@ const Roles = () => {
   const [assignedPermission, setAssignedPermission] = useState("");
   const [role_Id, setRoleId] = useState("");
   const [permissionId, setPermissionId] = useState("");
+  const { addRole, addPermission, deleteRole, assignPermission, deletePermission } = props
 
   useEffect( ()=> {
     setTimeout(()=>{
@@ -40,13 +41,10 @@ const Roles = () => {
 }, [])
 
   /* ========== Start::  Getting current state ================== */
-  const dispatch = useDispatch();
   let roleCounter = 1;
   let permissionCounter = 1;
-  const roles = useSelector((state) => state.roles);
-  const permissions = useSelector(
-    (statePermission) => statePermission.permissions
-  );
+  const roles = props.roles;
+  const permissions = props.roles
   console.log(permissions);
   /* ============ End::  Getting current state ================== */
 
@@ -76,7 +74,7 @@ const Roles = () => {
     if (uniqueState) {
       Notify("Already exist", "error");
     } else {
-      dispatch(addRole(roleName));
+      addRole(roleName);
        removeModal(); 
     
       Notify("Role has been added", "success");
@@ -94,7 +92,7 @@ const Roles = () => {
     if (permissionName.trim().length == "") return Notify("please add permission", "error");
     /* =================================== End:: validation ================================ */
 
-    dispatch(addPermission(permissionName));
+    addPermission(permissionName);
     setTimeout(() => {
       removePermissionModal();
     }, 5000);
@@ -110,7 +108,7 @@ const Roles = () => {
     // if (assignedPermission.trim().length == "")
     //   return Notify("please Choose atleast one permission", "error");
     /* =================================== End:: validation ================================ */
-    dispatch(assignPermission({ role_Id, assignedPermission }));
+    assignPermission({ role_Id, assignedPermission });
     assignPermissionModal();
     Notify("Permission has been added", "success");
   };
@@ -133,7 +131,7 @@ const Roles = () => {
 
   const deleteAssignedPermission = () => {
     // console.log("RoleId " + role_Id + " Permission " + permissionId)
-    dispatch(deletePermission({ Role_Id: role_Id, permissionId }));
+    deletePermission({ Role_Id: role_Id, permissionId });
     setTimeout(() => {
       removeDeletePermissionModal();
     }, 2000);
@@ -427,7 +425,7 @@ const Roles = () => {
                     </td>
                     <td>
                       <div>
-                        <LebalButton type={'danger'} svg={deleteIcon} onclick={() => dispatch(deleteRole(role.id))} />
+                        <LebalButton type={'danger'} svg={deleteIcon} onclick={() => deleteRole(role.id)} />
                       </div>
                     </td>
                   </tr>
@@ -495,4 +493,11 @@ const Roles = () => {
   );
 };
 
-export default Roles;
+const mapToState = (state) => {
+ return {
+   roles: state.roles,
+   permissions: state.permissions
+ }
+}
+
+export default connect(mapToState, { addRole, addPermission, deleteRole, assignPermission, deletePermission })(Roles);
