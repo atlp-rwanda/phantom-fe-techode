@@ -3,40 +3,41 @@ import { shallow  } from 'enzyme';
 import Roles from '../components/roles/Roles';
 import DashBoardLayout from '../components/dashBoardLayout/DashBoardLayout';
 import { InfoButton, PermissionButton } from '../components/buttons/Buttons';
-import { Provider } from 'react-redux';
-import store from '../redux/store';
+import { addRole, deleteRole } from '../redux/actions/roleAction';
+import store from "../redux/store"
+import { Provider } from 'react-redux'
 
 describe("Tests of create roles & set permissions", ()=>{
 
-  let wrapper;
+    let wrapper;
+    beforeEach(()=>{
+      wrapper = shallow (<Provider store={store}><Roles /></Provider>);
+    });
 
-  const Provide = () => {
-    return(
-      // <Provider store={store}>
-        < Roles />
-      // </Provider>
-    );   
-  }
-  
-  beforeEach(()=>{
-    wrapper = shallow (<Provide />);
-  });
-//   it("render a Landing page with LOGO of 'Phantom'", ()=>{
-//       const test = wrapper.find("#update");
-//       expect(test.text()).toBe("Update")
-//     })
+    it("dispatches ADD_ROLE action and returns an error", async () => {
+      
+      try { 
+        await store.dispatch(addRole());
+      } catch {
+        const actions = store.getActions();
+    
+        expect.assertions(4);
+        expect(actions[0].type).toEqual("ADD_ROLE");
+      }
+    });
+
+    it("dispatches DELETE_ROLE action and returns an error", async () => {
+      
+      try { 
+        await store.dispatch(deleteRole());
+      } catch {
+        const actions = store.getActions();
+    
+        expect.assertions(4);
+        expect(actions[1].type).toEqual("DELETE_ROLE");
+      }
+    });
 
 
-    it("render a Landing page with LOGO of 'Phantom'", ()=>{
-        console.log(wrapper)
-        expect(wrapper.find(<DashBoardLayout />)).toHaveLength(0) 
-      })
 
-      it("Should have <InfoButton />'", ()=>{
-        expect(wrapper.find(InfoButton)).toHaveLength(0) 
-      })
-
-      it("Should have <PermissionButton />'", ()=>{
-        expect(wrapper.find(PermissionButton)).toHaveLength(0) 
-      })
   });
