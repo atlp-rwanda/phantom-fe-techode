@@ -7,16 +7,17 @@ import deletePreveleg from "../../assets/svgs/lebals/deletePrevelage.svg";
 import setrole from "../../assets/svgs/lebals/savePrevelage.svg";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import { ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { OperatorProfile } from "../../components/skeletons/cards/Profile";
 import userLabel from "../../assets/svgs/lebals/luser.svg";
 import lock from "../../assets/svgs/lebals/lock.svg";
 import { useDropzone } from "react-dropzone";
-import { useDispatch } from "react-redux";
 import { setProfile } from '../../redux/actions/userActions';
 
-const Profile = () => {
+const Profile = (props ) => {
   const [loading, setLoading] = useState(true);
+  const { user , setProfile } = props;
+ 
   const {
     email,
     firstname,
@@ -25,8 +26,7 @@ const Profile = () => {
     type: userType,
     username,
     profile
-  } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  } = user;
 
   /*  ===== Start:: fetching userinfo =====  */
   useEffect(() => {
@@ -54,7 +54,7 @@ const Profile = () => {
         })
       );
       console.log(newFile);
-      dispatch(setProfile(newFile[0].preview));
+      setProfile(newFile[0].preview);
     },
   });
 
@@ -208,7 +208,13 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps,{setProfile})(Profile);
 
 
 

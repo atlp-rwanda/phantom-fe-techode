@@ -19,6 +19,7 @@ export const rolesReducer = (state = roleState , { type , payload}) =>{
             const newRole =  {
                 id:state.length + 1,
                 name:payload,
+                permissions:[]
             }
             clonedState.push(newRole);
             state = clonedState;
