@@ -20,9 +20,6 @@ export const rolesReducer = (state = roleState , { type , payload}) =>{
                 id:state.length + 1,
                 name:payload,
             }
-            // clonedState.map(rolesArray => {
-            //     if 
-            // })
             clonedState.push(newRole);
             state = clonedState;
             return state;  
@@ -34,34 +31,19 @@ export const rolesReducer = (state = roleState , { type , payload}) =>{
         case DELETE_PERMISSION:
             const { Role_Id , permissionId } = payload;
             const newClonedState = [...state];
-            console.log("newClonedState(redux) ", newClonedState)
             const itemToBeUpdated = newClonedState.filter( current => current.id == Role_Id );
             const indexDel = newClonedState.findIndex(current => current.id == Role_Id)
-            console.log("itemToBeUpdated", itemToBeUpdated)
-            console.log("Role_Id(redux) ", Role_Id)
             const deletedPermission = [...itemToBeUpdated[0].permissions];
             const newPermission = deletedPermission.filter(permission => permission.id != permissionId); 
-            // itemToBeUpdated[0].permissions = newPermission;
-            // deletedPermission = newPermission;
             newClonedState[indexDel].permissions = newPermission;
 
             state = newClonedState;
             return state;
         case ASSIGN_PERMISSION:
             const {role_Id, assignedPermission} = payload;
-            console.log('redux' , role_Id, assignedPermission)
-            // const createPermission = {
-            //     id: state.length + 1,
-            //     name: assignedPermission
-            // }
-          
             const assignState = [...state];
             const roleToBeUpdated = assignState.filter(current => current.id == role_Id);
             const index = assignState.findIndex(current => current.id == role_Id)
-            console.log("index ", index);
-            console.log("tobe updated ", roleToBeUpdated);
-            // console.log("tobe assigned ", createPermission);
-            console.log("path ", roleToBeUpdated[0].permissions);
             const updatePermission = [...roleToBeUpdated[0].permissions]
             let assignCounter =  roleToBeUpdated[0].permissions.length;
             assignCounter = assignCounter + 1
@@ -72,7 +54,6 @@ export const rolesReducer = (state = roleState , { type , payload}) =>{
             // assignCounter = id
             assignState[index].permissions = updatePermission;
             state =  assignState;
-            console.log("final state", state);
             return state;             
         default:
             return state;

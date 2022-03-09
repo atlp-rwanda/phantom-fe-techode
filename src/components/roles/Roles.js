@@ -45,7 +45,6 @@ const Roles = (props) => {
   let permissionCounter = 1;
   const roles = props.roles;
   const permissions = props.roles
-  console.log(permissions);
   /* ============ End::  Getting current state ================== */
 
   const removeModal = () => {
@@ -118,8 +117,6 @@ const Roles = (props) => {
     setClearPermissionModal(deleteState);
     setPermissionId(permissionId);
     setRoleId(role_Id);
-    console.log("PermissionID ", permissionId)
-    console.log("Role_ID ", role_Id)
   };
 
   const removePermission = (e) => {
@@ -130,7 +127,6 @@ const Roles = (props) => {
   };
 
   const deleteAssignedPermission = () => {
-    // console.log("RoleId " + role_Id + " Permission " + permissionId)
     deletePermission({ Role_Id: role_Id, permissionId });
     setTimeout(() => {
       removeDeletePermissionModal();
