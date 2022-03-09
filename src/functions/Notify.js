@@ -21,6 +21,9 @@ const Notify = (messsage , type) => {
                 progress: undefined,
                 });     
             break;
+        case "":
+            toast.dismiss();
+            break;
         default:
             break           
     } 

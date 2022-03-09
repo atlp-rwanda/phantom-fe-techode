@@ -1,8 +1,8 @@
 import React from 'react';
-export const LebalButton = ({ type ,svg }) => {
+export const LebalButton = ({ type ,svg, onclick }) => {
     return (        
         <button className={`p-1 md:p-2 border border-${type}-600 rounded-md  bg-${type}-100 hover:border-${type}-400 hover:bg-${type}-200 mr-2`} >
-            <img src={svg} alt="Phantom" />                                                                        
+            <img src={svg} alt="Phantom" onClick={onclick} />                                                                        
         </button> 
      );
 }

@@ -18,6 +18,7 @@ import close from '../../assets/svgs/close.svg';
 import drop from '../../assets/svgs/drop.svg';
 import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
+import { useSelector } from 'react-redux';
 const RegisterDriver = () => {   
     const [addDriver , setAddDriver] = useState(false);
     const [loading , setLoading] = useState(true);
@@ -34,6 +35,10 @@ const RegisterDriver = () => {
             } , 2000)
         } , [])       
     /* ======== End:: removing skeleton ======= */ 
+    const {
+        type: userType,
+      } = useSelector((state) => state.user);
+    
     
     const removeModel = () => {
         let newState = !addDriver;
@@ -145,9 +150,13 @@ const RegisterDriver = () => {
                                         </h4>
                                     </div> 
                                 </div>
-                                <div className="add-new-record">
-                                    <Primary name="New driver" onclick={removeModel} />
-                                </div>
+                                {userType == "admin" ? (
+                                    <div className="add-new-record">
+                                        <Primary name="New driver" onclick={removeModel} />
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                             <div className="mt-3 mb-10"> 
                                 { loading &&( <TableSkeleton />  )
@@ -160,7 +169,7 @@ const RegisterDriver = () => {
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Driver name</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Phone</th>
-                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Action</th>
+                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Action</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -175,10 +184,20 @@ const RegisterDriver = () => {
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
+                                                 
                                                 </tr>
                                                 <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
@@ -191,9 +210,18 @@ const RegisterDriver = () => {
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type='primary' svg={edit} />
-                                                        <LebalButton type='danger' svg={deleteIcon} />
-                                                        <LebalButton type='info' svg={more} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
+                                                        <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
                                                 <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
@@ -207,8 +235,17 @@ const RegisterDriver = () => {
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
@@ -223,8 +260,17 @@ const RegisterDriver = () => {
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
@@ -239,8 +285,16 @@ const RegisterDriver = () => {
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
@@ -319,13 +373,26 @@ const RegisterDriver = () => {
                                         <div className="flex flex-wrap">
                                             <p className='text-secondary-200 font-semibold text-xs md:text-sm w-3/4 mb-2'>Driver</p>
                                             <div className="w-1/4">
-                                                <img src={deletePrivelegeIcon} alt="phantom"  />
+                                                {userType == "admin" ? (
+                                                    <img src={deletePrivelegeIcon} alt="phantom"  />
+                                                ) : (
+                                                    ""
+                                                )}                                                   
                                             </div>
                                         </div> 
                                         <div className="flex flex-wrap">
-                                            <p className='font-semibold text-xs  w-3/4 text-success-500'>Add new privilege</p>
-                                            <div className='w-1/4' >                                          
-                                                <img src={privelege} alt="Phantom" />                                           
+                                            {userType == "admin" ? (
+                                               <p className='font-semibold text-xs  w-3/4 text-success-500'>Add new privilege</p>
+                                            ) : (
+                                                ""
+                                            )}    
+                                            
+                                            <div className='w-1/4' >      
+                                                {userType == "admin" ? (
+                                                <img src={privelege} alt="Phantom" />   
+                                                ) : (
+                                                    ""
+                                                )}                                      
                                             </div>
                                         </div>                                       
                                     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/signIn/LoginForm';
 import Home from './containers/Home/Home';
-import Logout from './components/logout/Logout';
+import Profile from './containers/profile/Profile';
 import passwordReset from './components/passwordReset/passwordereset';
 import NewPassword from './components/passwordReset/newpassword';
 import RegisterDriver from './containers/RegisterDriverOperator/RegisterDriver';
@@ -10,6 +10,9 @@ import RegisterOperator from './containers/RegisterDriverOperator/RegisterOperat
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/style/style-skeleton.css';
 import Dashboard from './containers/Dashboard/Dashboard';
+import Roles from './components/roles/Roles';
+
+
 
 const App = () => {
     return (  
@@ -17,12 +20,13 @@ const App = () => {
            <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/reset"  component={passwordReset} />
+                <Route path="/newpassword"  component={NewPassword} />
                 <Route path="/login" exact component={Login} />
-                <Route path="/newpass"  component={NewPassword} />
                 <Route path="/dashboard"  component={Dashboard} />
                 <Route path="/drivers"  component={RegisterDriver} />
                 <Route path="/operators"  component={RegisterOperator} />
-                <Route path="/profile" exact component={Logout} />
+                <Route path="/profile" exact component={Profile} />
+                <Route path="/roles" exact component={Roles}/>
                 <Route path="/*"  component={() => ({ "NotFound": 400 })} />
            </Switch>
        </Router>

@@ -5,10 +5,10 @@ import { Link, useHistory } from "react-router-dom";
 import DashBoardLayout from "../dashBoardLayout/DashBoardLayout";
 import SkeletonLogout from '../skeletons/SkeletonLogout';
 
-import info from '../svgs/info.svg'
-import priveleges from "../svgs/priveleges.svg"
-import locate from "../svgs/locate.svg"
-import setrole from "../svgs/setrole.svg"
+import info from '../../assets/svgs/lebals/info.svg'
+import priveleges from "../../assets/svgs/lebals/priveleges.svg"
+import locate from "../../assets/svgs/lebals/deletePrevelage.svg"
+import setrole from "../../assets/svgs/lebals/savePrevelage.svg"
 import { PrimaryButton } from "../buttons/Buttons";
 import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
@@ -45,16 +45,16 @@ export default function NewPassword() {
   return (
     <DashBoardLayout>
       <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+      />
       <div className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
         <div className="w-full">
           <div>
