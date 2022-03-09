@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SkeletonUpdate from "../../components/skeletons/SkeletonUpdate";
 import TextField from "../../components/fields/TextField";
 import profileEdit from "../../assets/svgs/lebals/profile.svg";
@@ -7,7 +7,7 @@ import deletePreveleg from "../../assets/svgs/lebals/deletePrevelage.svg";
 import setrole from "../../assets/svgs/lebals/savePrevelage.svg";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import { ToastContainer } from "react-toastify";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { OperatorProfile } from "../../components/skeletons/cards/Profile";
 import userLabel from "../../assets/svgs/lebals/luser.svg";
 import lock from "../../assets/svgs/lebals/lock.svg";
@@ -15,6 +15,7 @@ import { useDropzone } from "react-dropzone";
 import { setProfile } from '../../redux/actions/userActions';
 
 const Profile = (props ) => {
+  const history = useHistory()
   const [loading, setLoading] = useState(true);
   const { user , setProfile } = props;
  
@@ -37,7 +38,6 @@ const Profile = (props ) => {
   /*  ===== End:: fetching userinfo =====  */
 
   /*=============================Upload==================== */
-  const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png, image/jpg",
     onDrop: (acceptedFiles) => {
@@ -53,10 +53,17 @@ const Profile = (props ) => {
           preview: URL.createObjectURL(file),
         })
       );
-      console.log(newFile);
       setProfile(newFile[0].preview);
     },
   });
+
+  const handleLogout = () => {
+    localStorage.clear();
+        setTimeout(() => {
+          window.location.pathname = "/"
+    }, 1000)
+   
+  }
 
   return (
     <DashBoardLayout>
@@ -76,22 +83,17 @@ const Profile = (props ) => {
           {loading && <SkeletonUpdate />}
           {!loading && (
             <div className="">
-              <section
-                className="flex items-center justify-center"
-               
-              >
-                <img
-                  {...getRootProps()}
-                  className="rounded-full border border-primary-600 w-16 h-16 hover:opacity-75"
-                  src={
-                    profile != ""
-                      ? profile
-                      : "https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw"
-                  }
-                  alt="image"
-                />
-                
-                <img src={profileEdit} className="mt-20 -ml-4" alt="profile" />
+              <section className="flex items-center justify-center " >
+                <div className="profile-container">
+                  <img
+                    {...getRootProps()} className="rounded-full border border-primary-600 w-10 h-10 sm:w-16 sm:h-16 hover:opacity-75"
+                    src={
+                      profile != "" ? profile : "https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" 
+                    } alt="image" />
+                  <div className="edit-image-svg-container relative mt-2">
+                    <img src={profileEdit} className=" absolute bottom-0 right-0" alt="profile" />
+                  </div>    
+                </div> 
               </section>
               <section className="mt-5 md:pl-20">
                 <TextField setLoading={setLoading} />
@@ -189,12 +191,13 @@ const Profile = (props ) => {
                   )}
                   {/* =================== End:: only admin to see this =================== */}
                   <div className="">
-                    <Link
+                    <div
                       to="/"
                       className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-9/12 mt-5  hover:bg-primary-600 hover:text-white"
+                      onClick={handleLogout}
                     >
                       Logout from this account
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </div>

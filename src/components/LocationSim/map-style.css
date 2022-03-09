@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+=======
+.leaflet-routing-container{
+  display: none;
+ }
+
+ .leaflet-container{
+  height: 100%;
+ }
+
+>>>>>>> Fixing rebase confict
+#map {
+  width: 100%;
+  min-height: 100%;
+  z-index: 2 !important;
+}
+.location-btn{
+  z-index: 2000 !important;
+}
+#map>div{
+  height: 100%  !important;
+  width: 100%  !important;
+<<<<<<< HEAD
+} 
+=======
+} 
+>>>>>>> Fixing rebase confict

@@ -11,10 +11,12 @@ describe("Phantom project", ()=>{
       wrapper = shallow (<NewPassword />);
     });
   
-    it("Check if Confirm new password component have Primary button", ()=>{
-      expect(wrapper.find(PrimaryButton)).toHaveLength(1) 
+  it("render a Landing page with LOGO of 'Phantom'", ()=>{
+      const test = wrapper.find("#update");
+      expect(test.text()).toBe("Update")
     })
-    it("Check if Confirm new password component have layout", ()=>{
+
+    it("render a Landing page with LOGO of 'Phantom'", ()=>{
         expect(wrapper.find(DashBoardlayout)).toHaveLength(1) 
       })
   });

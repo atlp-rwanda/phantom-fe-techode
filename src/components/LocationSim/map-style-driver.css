@@ -1,0 +1,14 @@
+.leaflet-routing-container{
+ display: none;
+}
+
+#map {
+    width: 100%;
+    min-height: 90vh !important;
+    z-index: 2 !important;
+}
+
+#map>div{
+    height: 100%  !important;
+    width: 100%  !important;
+  } 

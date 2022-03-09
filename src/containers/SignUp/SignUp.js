@@ -6,53 +6,59 @@ import * as Yup from 'yup';
 import Image from '../../assets/style/signin-images/Image1.png';
 import leftArrow from "../../assets/Image/left-arrow.svg"
 import '../../assets/style/LoginForm.css';
-import SkeletonUpdate from '../signInSkeleton/SkeletonUpdate';
+import SkeletonUpdate from '../../components/signInSkeleton/SkeletonUpdate';
 import main from '../../assets/js/main'
+import { connect } from 'react-redux';
 
 
-const LoginForm = () => {
-    const history = useHistory()
-
-    const [signInSkeleton, setSignInSkeleton] = useState(true)
+const SignUp = () => {
+    const history = useHistory();
+    const [loading, setloading] = useState(true);  
     useEffect(() => {
         setTimeout(() => {
-            setSignInSkeleton(false);
+            setloading(false);
         }, 2000)
     }, [])
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
     const formik = useFormik({
         initialValues: {
+            firstname:'',
+            lastname:'',
+            telephone:'',
             email: '',
             password: '',
 
         },
         validationSchema: Yup.object({
-
+            firstname: Yup.string()
+                .required('firstname required'),
+            lastname: Yup.string()
+                .required('lastname required'),
+            telephone: Yup.string()
+                .matches(phoneRegExp,'Please make sure you phone number is valid')
+                .required("Phone number can not be empty"),
             password: Yup.string()
-                .oneOf(["test123"], "Password doesn't match with Email address")
                 .required('Password required'),
             email: Yup.string()
-                .oneOf(["admin@andela.com"], "Email does not match")
                 .email('Invalid email address')
                 .required('Email required'),
         }),
         onSubmit: () => {
-            history.push('/dashboard')
+            history.push('/login');
         },
     });
 
 
     return (
         <div className='lg:flex md:flex w-screen h-screen overflow-hidden' style={main.style}>
-            <div className=" letfSide_bg-color lg:w-5/12 md:w-7/12 flex flex-col md:p-12 lg:px-24 2xl:p-40 ">
-                <Link to="/"  className='w-full ' >
-                    <span className="iconify">
-                        <img src={leftArrow} alt="" />
-                    </span>
-                </Link>
+            <div className=" letfSide_bg-color lg:w-5/12 md:w-7/12 flex flex-col p-6 md:p-12 lg:px-24 2xl:p-40 ">                
+                <span className="iconify" onClick={() => { history.goBack() }} >
+                    <img src={leftArrow} alt="" />
+                </span>
                 <div className=" w-full h-screen flex items-center flex-wrap">
-                    {signInSkeleton && (<SkeletonUpdate />)}
-                    {!signInSkeleton && (
+                    {loading && (<SkeletonUpdate />)}
+                    {!loading && (
                     <div className="w-full">                        
                         <div className="form-container min-h-full">
                             <blockquote className="text-2xl font-medium text-center">
@@ -61,21 +67,66 @@ const LoginForm = () => {
                             <div className="">
                                 <div className="flex items-center mt-3 justify-center">
                                     <h1 className="text-xl md:text-2xl font-sans font-medium text-primary mt-0 mb-6 text-white">
-                                        Sign In
+                                        Sign Up
                                     </h1>                                    
                                 </div>
                                 <form onSubmit={formik.handleSubmit} className="">
+                                    
+                                    <input
+                                        id="firstname"
+                                        type="text"
+                                        name="firstname"
+                                        placeholder="firstname"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.firstname}
+                                        className={
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
+                                    {formik.touched.firstname && formik.errors.firstname ? (
+                                        <div className="text-red-500 text-sm">{formik.errors.firstname}</div>
+                                    ) : null}
+
+                                                                        
+                                    <input
+                                        id="lastname"
+                                        type="text"
+                                        name="lastname"
+                                        placeholder="lastname"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.lastname}
+                                        className={
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
+                                    {formik.touched.lastname && formik.errors.lastname ? (
+                                        <div className="text-red-500 text-sm">{formik.errors.lastname}</div>
+                                    ) : null}
+
+                                    
+
+                                    <input
+                                        id="telephone"
+                                        type="text"
+                                        name="telephone"
+                                        placeholder="telephone"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.telephone}
+                                        className={
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
+                                    {formik.touched.telephone && formik.errors.telephone ? (
+                                        <div className="text-red-500 text-sm">{formik.errors.telephone}</div>
+                                    ) : null}
 
                                     <input
                                         id="email"
                                         type="email"
                                         name="email"
-                                        placeholder="Email"
+                                        placeholder="example@email.com"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.email}
                                         className={
-                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 "} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
                                     {formik.touched.email && formik.errors.email ? (
                                         <div className="text-red-500 text-sm">{formik.errors.email}</div>
                                     ) : null}
@@ -89,7 +140,7 @@ const LoginForm = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.password}
                                         className={
-                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
                                     {formik.touched.password && formik.errors.password ? (
                                         <div className="text-red-500 text-sm">{formik.errors.password}</div>
                                     ) : null}
@@ -97,21 +148,13 @@ const LoginForm = () => {
                                         <Link to="/reset">Forget Password?</Link>
                                     </p>
 
-
                                     <div className="flex items-center mt-6">
-                                        <button
-                                        id="btn__submit"
-                                            type="submit"
-                                            className={
-                                                "bg-primary-600 hover:bg-primary-400 font-sans text-white font-bold py-2 px-4 rounded md:w-full w-full"
-                                            }
-                                            value="Login">
-                                            Login
+                                        <button id="btn__submit" type="submit" className={  "bg-primary-600 hover:bg-primary-400 font-sans text-white font-bold py-2 px-4 rounded md:w-full w-full" }  value="Login">
+                                            Submit
                                         </button>
                                     </div>
                                     <p className="font-sans font-medium  justify-center text-mainColor my-3">
-                                        Dont have an account yet?
-                                        <Link to="/">Sign Up</Link>
+                                        <Link to="/login">Already have an account? Login</Link>
                                     </p>
                                 </form>
                             </div>    
@@ -135,4 +178,11 @@ const LoginForm = () => {
             </div>
         </div>
     )}
-export default LoginForm
+
+    const mapToState = (state) => {
+        return{
+            user: state.user
+        }
+    }
+
+export default connect(mapToState,{})(SignUp)

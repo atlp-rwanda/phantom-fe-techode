@@ -4,13 +4,13 @@ const { UPDATE, GET_FIRSTNAME, GET_USERNAME ,GET_LASTNAME ,SET_PROFILE } = userA
 
 
 const initialState = {
-    id: 1, 
-    username: 'Doej',
-    firstname: 'John',
-    lastname: 'Doe',
-    telephone: '0700000000',
-    email:'email@gmail.com', 
-    type:'operator',
+    id: 0, 
+    username: '',
+    firstname: '',
+    lastname: '',
+    telephone: '',
+    email:'', 
+    type:'',
     profile:''  
 }
 
@@ -35,6 +35,9 @@ export const userReducer = (state = initialState , { type , payload}) =>{
             updates.telephone = payload.phone;
             updates.firstname = payload.firstName;
             updates.lastname = payload.lastName;
+            if(payload.type){
+                updates.type = payload.type
+            }
             state = updates;
             return state;       
         default:

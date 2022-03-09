@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.pagination {
+    background: #444;
+
+}
+.pagination span {
+    background: #000;
+    color: white;
+    font-weight: bolder;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: .2rem 1rem;
+}

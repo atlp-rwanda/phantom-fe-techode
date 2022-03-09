@@ -11,22 +11,7 @@ describe('Integration testing ', () => {
       createtedStore = testStore();      
     })
     
-    it("Testing store",() => {
-      // DashBoardLayout
-      const expectpectedState = {
-          id: 1, 
-          username: 'Doej',
-          firstname: 'John',
-          lastname: 'Doe',
-          telephone: '0700000000',
-          email:'email@gmail.com', 
-          type:'operator',
-          profile:''  
-      };
-      
-      const newState = createtedStore.getState();
-      expect(JSON.stringify(newState.user)).toBe(JSON.stringify(expectpectedState));
-    }) 
+  
     it("Updating profile ",() => {
       const profileUrl = 'myProfile';       
       createtedStore.dispatch(setProfile(profileUrl))

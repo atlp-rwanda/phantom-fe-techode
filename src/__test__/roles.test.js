@@ -1,43 +1,51 @@
 import React from 'react';
-import { shallow  } from 'enzyme';
 import Roles from '../components/roles/Roles';
 import DashBoardLayout from '../components/dashBoardLayout/DashBoardLayout';
 import { InfoButton, PermissionButton } from '../components/buttons/Buttons';
 import { addRole, deleteRole } from '../redux/actions/roleAction';
 import store from "../redux/store"
 import { Provider } from 'react-redux'
+import { shallow, mount } from 'enzyme';
+import toJson from 'enzyme-to-json';
+import TableRolesSkeleton from '../components/skeletons/Tables/TableRolesSkeleton';
+import { LebalTextButton } from '../components/buttons/LebalButton';
+import TablePermissionSkeleton from '../components/skeletons/Tables/TablePermissionsSkeleton';
 
-describe("Tests of create roles & set permissions", ()=>{
+describe('<Roles />', () =>{
+  const props = {
+          addRole: jest.fn(),
+          deleteRole: jest.fn(),
+          assignPermission: jest.fn(),
+          deletePermission: jest.fn(),
+          roles:[
+            {
+                id:1,
+                name:'Admin',
+                permissions:[
+                    { id: 1 , permissionName: 'getBus'},
+                ]
+            }
+        ]
+      }
 
-    let wrapper;
+      let wrapper;
     beforeEach(()=>{
-      wrapper = shallow (<Provider store={store}><Roles /></Provider>);
+      wrapper = shallow (<Roles store={store} {...props} /> ).childAt(0).dive();
     });
 
-    it("dispatches ADD_ROLE action and returns an error", async () => {
-      
-      try { 
-        await store.dispatch(addRole());
-      } catch {
-        const actions = store.getActions();
+    it('It should match the snapshot', () => { 
+          expect(toJson(wrapper)).toMatchSnapshot();
+    });
+  
+    it('if it should render one TableRolesSkeleton', () =>{
+      expect(wrapper.find(TableRolesSkeleton).length).toBe(1);
+    });
     
-        expect.assertions(4);
-        expect(actions[0].type).toEqual("ADD_ROLE");
-      }
+    it('if it should render one DashBoardLayout', () =>{
+      expect(wrapper.find(DashBoardLayout).length).toBe(1);
     });
 
-    it("dispatches DELETE_ROLE action and returns an error", async () => {
-      
-      try { 
-        await store.dispatch(deleteRole());
-      } catch {
-        const actions = store.getActions();
-    
-        expect.assertions(4);
-        expect(actions[1].type).toEqual("DELETE_ROLE");
-      }
+    it('if it should render one TablePermissionSkeleton', () =>{
+      expect(wrapper.find(TablePermissionSkeleton).length).toBe(1);
     });
-
-
-
   });

@@ -1,7 +1,10 @@
 #map {
   height: 70vh;
-  background-color: blue;
 }
+#map>div{
+  height: 100%  !important;
+  width: 100%  !important;
+} 
 
 .leaflet-container {
   height: 100%;
