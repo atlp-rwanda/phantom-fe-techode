@@ -42,7 +42,7 @@ const SideBar = ({shownav}) => {
         <div className={`text-2lg text-black  main-bg-gradient h-screen pt-5 px-4 transition-all ${shownav == true ? `` :  `sidebar none-active`}`}>
             <div className="flex items-center justify-center flex-col mt-6 mb-4">
                 <div className="logo">
-                    <img src={logo} alt="phantom"  />
+                    <img src={logo} alt="phantom app"  />
                 </div>
                 <div className="logo-name text-mainColor text-1xl font-bold font-sans mt-2 ">
                     Phantom
