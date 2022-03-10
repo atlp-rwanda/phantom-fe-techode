@@ -45,8 +45,6 @@ let initialState
   });
 
   it("should accept the deletion of role", () => {
-
-
     const reducer = rolesReducer(initialState, {
       type: RoleActions.DELETE_ROLE,
       payload: 1,
