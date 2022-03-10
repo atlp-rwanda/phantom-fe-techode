@@ -21,6 +21,16 @@ const Notify = (messsage , type) => {
                 progress: undefined,
                 });     
             break;
+        case 'info':
+            toast.info(`${messsage}`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                });     
+            break;
         case "":
             toast.dismiss();
             break;
