@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './assets/style/style-skeleton.css';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Roles from './components/roles/Roles';
+import BusSimulation from './containers/BusSimulation/BusSimulation';
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
                 <Route path="/operators"  component={RegisterOperator} />
                 <Route path="/profile" exact component={Profile} />
                 <Route path="/roles" exact component={Roles}/>
+                <Route path="/simulation" exact component={BusSimulation}/>
                 <Route path="/*"  component={() => ({ "NotFound": 400 })} />
            </Switch>
        </Router>
