@@ -126,21 +126,21 @@ const RegisterOperator = () => {
                                 <div className="card-title">
                                     <div className="title mb-3">
                                         <h4 className=' text-primary-500 font-bold text-xs md:text-base' >
-                                            List of drivers
+                                            List of operators
                                         </h4>
                                     </div> 
                                     <div className="sub-title">
                                         <h4 className='text-secondary-200  font-bold text-xs' >
-                                            Drivers
+                                            Operators
                                         </h4>
                                     </div> 
                                 </div>
-                                {userType == "operator" ? (
-                                    ""
-                                ) : (
+                                {userType == "admin" ? (
                                     <div className="add-new-record">
                                         <Primary name="New Operator" onclick={ () => removeModel() }  />
                                     </div>
+                                ) : (
+                                    ""
                                 )}
                             </div>
                             <div className="mt-3 mb-10">

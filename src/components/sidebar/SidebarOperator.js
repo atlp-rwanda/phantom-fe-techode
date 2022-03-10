@@ -22,7 +22,7 @@ const SideBar = ({shownav}) => {
             id: 2,
             linkName : 'Drivers',
             svgImage : driver,
-            to:'drivers'
+            to:'assign_drivers_buses'
         },
         {
             id: 3,
