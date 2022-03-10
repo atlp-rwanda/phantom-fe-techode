@@ -11,14 +11,14 @@ describe('<App />', () => {
     })
 
     it('should render <App /> with <Switch/>', () => {
-        expect(wrapper.find(Switch)).toHaveLength(1);
+        expect(wrapper.find(Switch)).toHaveLength(1)
     })
     it('should render <App /> with eight <Route />', () => {
 
-        expect(wrapper.find(Route)).toHaveLength(15);
+        expect(wrapper.find(Route)).toHaveLength(15)
     })
     it('should render <App /> with <Router />', () => {
-        expect(wrapper.find(Router)).toHaveLength(1);
+        expect(wrapper.find(Router)).toHaveLength(1)
     })
 
 })
