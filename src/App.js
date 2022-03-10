@@ -19,6 +19,7 @@ import BusSimulation from './containers/BusSimulation/BusSimulation';
 
 import OperatorAssignBus from './containers/OperatorDriverBus/OperatorAssignBus'
 
+import DashboardOperator from './containers/Dashboard/DashboardOperator'
 
 const App = () => {
     return (  
