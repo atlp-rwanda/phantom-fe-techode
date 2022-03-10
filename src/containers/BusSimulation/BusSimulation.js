@@ -6,10 +6,10 @@ import LocationSim from "../../components/LocationSim/LocationSim";
 const BusSimulation = () => {
     return ( 
         <DashBoardLayout>
-            <div className="w-full bg-red-700">
+            <div className="w-full">
                 <LocationSim />
             </div>     
-            <div className="w-full bg-gray-700">
+            <div className="w-full">
                 <BusSim />
             </div>       
         </DashBoardLayout>

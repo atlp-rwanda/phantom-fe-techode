@@ -41,4 +41,11 @@ export const PermissionButton = ({ name ,onclick , styles, type, svg, alt }) => 
      );
 }
 
-
+export const ActionLabel = ({ name ,onclick , styles, svg, alt }) => {
+    return ( 
+        <button className={` rounded-md text-primary-600 bg-primary-200 font-sans text-sm flex items-center  justify-between p-1 my-1  mx-2 ${styles}`} onClick={onclick}  >
+            {name}
+            <img src={svg} alt={alt} className={`mx-2`} />
+        </button>
+     );
+}
