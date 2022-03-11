@@ -4,6 +4,11 @@ import { ToastContainer } from 'react-toastify';
 import Notify from '../../functions/Notify';
 import { LebalTextButton } from '../buttons/LebalButton';
 import { OperatorProfile } from '../skeletons/cards/Profile';
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {Map} from '../skeletons/Map/Map'
+
+import location from '../../assets/svgs/locationInfo.svg';
+
 
 const LocationSim = ( props ) => {
     const {} = props;
@@ -44,28 +49,57 @@ const LocationSim = ( props ) => {
                 </div>
                 {/* ==================== End:: Buttons ========================================= */}
                 {/* ==================== Start:: Bus similation ================================ */}
-                <div className="flex flex-wrap items-center">
+                <div className="flex flex-wrap">
                     {/* ==================== Start:: Bus Profile =============================== */}
-                    <div className="bus-info-location w-full sm:w-3/12 bg-white rounded-md p-5">
+                    <div className="bus-info-location w-full sm:w-3/12 sm:p-4 my-2">
                         {/* ==================== Start: Operator profile ================== */}
                         {loading && <OperatorProfile />}
                         {!loading && (                   
                             <>
-                                <section className="flex items-center justify-center " >
-                                    <div className="profile-container">
-                                        <img className="rounded-full border border-primary-600 w-10 h-10 sm:w-12 sm:h-12 hover:opacity-75"  src={"https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw"} alt="image" /> 
+                                <section className="flex flex-col items-center justify-center bg-white rounded-md  p-2" >
+                                    <div className="profile-content-container mt-2  flex items-center w-full">
+                                        <div className="location-svg h-full m-4 ">
+                                            <img src={location} alt="phantom" srcset="" />    
+                                        </div>
+                                        <div className="location-info">
+                                            <h1 className="text-mainColor font-sans text-sm font-bold sm:text-xs" > Route information </h1>
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Finish: Kn 674 st 3</span>   
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Start: Kn 766 st 4</span>       
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Distance: 16 Km </span>   
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Duration: 16 Minutes </span>                                                                                                                      
+                                        </div>
                                     </div> 
-                                </section>
-                                <section className="">
-                                    
-                                </section>
+                                </section>                              
                             </>                        
                         )}
                         {/* =================== End: Operator Profile ==================== */}
                     </div>
                     {/* ==================== End:: Bus Profile ================================= */}
                     {/* ==================== Start:: Bus on Map ================================ */}
-                    <div className="map-location-card">
+                    <div className="map-location-card w-full sm:w-9/12 sm:p-4">                      
+                        <div className="bg-white w-full  rounded-lg p-4">
+                            <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                                <h3 className="font-bold text-base text-center w-11/12 text-mainColor">
+                                    Nyamirambo - Downtown 401
+                                </h3>
+                                <hr className=" bg-secondary-150 border my-3 w-full" />
+                            </div>
+                            <div className="card-body  h-3/6 sm:h-2/6">
+                                <div className="w-full" id="map">
+                                    {loading && <Map />}
+                                    {!loading && 
+                                        <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}>
+                                            <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                                            <Marker position={[-1.985070, 30.031855]}>
+                                                <Popup>
+                                                    Phantom solutions. <br /> Easy movements.
+                                                </Popup>
+                                            </Marker>
+                                        </MapContainer>
+                                    }                                
+                                </div>                                                                
+                            </div>
+                        </div>
                     </div>
                     {/* ====================== End:: Bus on Map ================================ */}
                 </div>        
