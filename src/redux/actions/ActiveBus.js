@@ -1,9 +1,17 @@
 import  { activeBusActionTypes } from "../constants/activeBusActionTypes"
 
-const { UPDATE } = activeBusActionTypes;
+const { UPDATE ,START } = activeBusActionTypes;
+
 export const update = (payload) =>{
     return {
         type: UPDATE,
-        payload: payload
+        payload
+    }
+}
+
+export const start = (payload) => {
+    return {
+        type: START,
+        payload
     }
 }

@@ -1,3 +1,4 @@
 export const activeBusActionTypes = {
-    UPDATE : "UPDATE"
+    UPDATE : "UPDATE",
+    START: "START"
 }

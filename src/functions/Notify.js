@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 const Notify = (messsage , type) => {
     switch (type){
         case 'success':

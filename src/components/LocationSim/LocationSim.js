@@ -10,11 +10,13 @@ import {Map} from '../skeletons/Map/Map'
 import location from '../../assets/svgs/locationInfo.svg';
 
 
+
 const LocationSim = ( props ) => {
-    const {} = props;
+    const { revealModel , showModel , showModelStart , activeBus } = props;
+    console.log(activeBus);
     const [loading ,setLoading] = useState(false);
-    const handleBusStart = () => {
-        Notify("The bus is on going now" , 'success' );         
+    const handleBusStart = () => {        
+        revealModel("start");   
     }
     const handleBusStop = () => {
         Notify("The bus has been stopped" , 'info' );         
@@ -22,6 +24,7 @@ const LocationSim = ( props ) => {
     //TODO:: BUS CAN NOT STOP UNLESS IS ON THE MOVE 
     return (
         <>
+ 
             {/* ==================== Start:: ToastContainer ==================================== */}
             <ToastContainer
                 position="top-right"
@@ -40,23 +43,26 @@ const LocationSim = ( props ) => {
             <div className='w-full rounded-md'>
                 {/* ==================== Start:: Buttons ======================================= */}
                 <div className="action-button flex flex-wrap justify-around items-center my-3 ">
-                    <div className="start-btn w-3/12 sm:w-20">
-                        <LebalTextButton text="Start" type="info" onclick={handleBusStart} />
+                    <div className="start-btn w-3/12 sm:w-20 md:w-30">
+                        <LebalTextButton text="Start" type="info" styles={"md:text-base"} onclick={handleBusStart} />
                     </div>
-                    <div className="end-btn w-3/12 sm:w-20">
-                        <LebalTextButton text="Stop" type="danger" onclick={handleBusStop}/>
+                    <div className="passenger-btn w-3/12 sm:w-20 md:w-30">
+                        <LebalTextButton text="Alight" type="secondary" styles={"md:text-base"} onclick={revealModel}/>
+                    </div>
+                    <div className="end-btn w-3/12 sm:w-20 md:w-30">
+                        <LebalTextButton text="Stop" type="success" styles={"md:text-base"} onclick={handleBusStop}/>
                     </div>                                    
                 </div>
                 {/* ==================== End:: Buttons ========================================= */}
                 {/* ==================== Start:: Bus similation ================================ */}
                 <div className="flex flex-wrap">
                     {/* ==================== Start:: Bus Profile =============================== */}
-                    <div className="bus-info-location w-full sm:w-3/12 sm:p-4 my-2">
+                    <div className="bus-info-location w-full sm:w-3/12 sm:p-4 my-2 flex flex-col">
                         {/* ==================== Start: Operator profile ================== */}
                         {loading && <OperatorProfile />}
                         {!loading && (                   
                             <>
-                                <section className="flex flex-col items-center justify-center bg-white rounded-md  p-2" >
+                                <section className="flex flex-col items-center justify-center bg-white rounded-md  p-2 w-full my-2" >
                                     <div className="profile-content-container mt-2  flex items-center w-full">
                                         <div className="location-svg h-full m-4 ">
                                             <img src={location} alt="phantom" srcset="" />    
@@ -69,7 +75,21 @@ const LocationSim = ( props ) => {
                                             <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Duration: 16 Minutes </span>                                                                                                                      
                                         </div>
                                     </div> 
-                                </section>                              
+                                </section>  
+                                <section className="flex flex-col items-center justify-center bg-white rounded-md  p-2 w-full my-2" >
+                                    <div className="profile-content-container mt-2  flex items-center w-full">
+                                        <div className="location-svg h-full m-4 ">
+                                            <img src={location} alt="phantom" srcset="" />    
+                                        </div>
+                                        <div className="location-info">
+                                            <h1 className="text-mainColor font-sans text-sm font-bold sm:text-xs" > Bus information </h1>
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Driver: {activeBus[0].driver.name} </span>   
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Plate: {activeBus[0].bus.plate} </span>   
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Passengers: {activeBus[0].passengers} </span>   
+                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Status: {activeBus[0].busStatus} </span>                                               
+                                        </div>
+                                    </div> 
+                                </section>                                
                             </>                        
                         )}
                         {/* =================== End: Operator Profile ==================== */}
@@ -85,7 +105,7 @@ const LocationSim = ( props ) => {
                                 <hr className=" bg-secondary-150 border my-3 w-full" />
                             </div>
                             <div className="card-body  h-3/6 sm:h-2/6">
-                                <div className="w-full" id="map">
+                                <div className={`w-full ${ showModel == true || showModelStart == true ? "hidden" : "" }`} id="map">
                                     {loading && <Map />}
                                     {!loading && 
                                         <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}>

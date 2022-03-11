@@ -20,7 +20,7 @@ const buttonMaker = (color , text, style = "" , onclick ) => {
             );
         case "primary":
             return(
-                <button onClick={onclick} className={`p-1 ${style} md:px-2 border border-primary-600 rounded-md text-primary-600 text-xs  bg-primary-100 hover:border-primary-400 hover:bg-primary-200 mr-2`} >
+                <button onClick={onclick} className={`p-1 w-full h-full ${style} md:px-2 border border-primary-600 rounded-md text-primary-600 text-xs  bg-primary-100 hover:border-primary-400 hover:bg-primary-200 mr-2`} >
                     <p> 
                         {text}
                     </p>                                                                        
@@ -36,7 +36,7 @@ const buttonMaker = (color , text, style = "" , onclick ) => {
             );
         case "secondary":
             return(
-                <button onClick={onclick} className={`p-1 ${style} md:px-2 border border-secondary-600 rounded-md text-secondary-600 text-xs  bg-secondary-100 hover:border-secondary-400 hover:bg-secondary-200 mr-2`} >
+                <button onClick={onclick} className={`p-1 w-full h-full ${style} md:px-2 border border-secondary-600 rounded-md text-secondary-600 text-xs  bg-secondary-100 hover:border-secondary-400 hover:bg-secondary-200 mr-2`} >
                     <p> 
                         {text}
                     </p>                                                                        
@@ -44,7 +44,7 @@ const buttonMaker = (color , text, style = "" , onclick ) => {
             );
         case "success":
             return(
-                <button onClick={onclick} className={`p-1 ${style} md:px-2 border border-success-600 rounded-md text-success-600 text-xs  bg-success-100 hover:border-success-400 hover:bg-success-200 mr-2`} >
+                <button onClick={onclick} className={`p-1 w-full h-full ${style} md:px-2 border border-success-600 rounded-md text-success-600 text-xs  bg-success-100 hover:border-success-400 hover:bg-success-200 mr-2`} >
                     <p> 
                         {text}
                     </p>                                                                        
@@ -59,7 +59,7 @@ const buttonMaker = (color , text, style = "" , onclick ) => {
     }
 }
 
-export const LebalTextButton = ({ type : colorType , text , style , onclick  }) => {
+export const LebalTextButton = ({ type : colorType , text , styles : style , onclick  }) => {
     const Button = buttonMaker(colorType , text , style , onclick);
     return (Button);
 }
