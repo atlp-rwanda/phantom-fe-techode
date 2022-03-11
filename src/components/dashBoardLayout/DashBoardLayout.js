@@ -6,7 +6,7 @@ import main from '../../assets/js/main'
 
 
 const DashBoardLayout = ({ children }) => {
-    const [showNav , setShowNav] = useState(true);
+    const [showNav , setShowNav] = useState(false);
     const [showModel , setShowModel] = useState(false);
     const showNavSecion = () => {
         let show = !showNav;

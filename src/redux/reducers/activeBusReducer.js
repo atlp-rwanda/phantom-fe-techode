@@ -4,7 +4,8 @@ const { UPDATE } = activeBusActionTypes ;
 
 const initialState = [
         {
-            count: 0
+            driver: { id:1 , name: 'John Doe'},
+            bus: { id:1 , plate: "RAE107D" , lat : 30.21503 , lon: -30.620  }            
         }
     ]
 
