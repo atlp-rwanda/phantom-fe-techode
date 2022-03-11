@@ -14,8 +14,10 @@ const LocationSim = ( props ) => {
     const handleBusStop = () => {
         Notify("The bus has been stopped" , 'info' );         
     }
+    //TODO:: BUS CAN NOT STOP UNLESS IS ON THE MOVE 
     return (
         <>
+            {/* ==================== Start:: ToastContainer ==================================== */}
             <ToastContainer
                 position="top-right"
                 autoClose={2000}
@@ -28,7 +30,10 @@ const LocationSim = ( props ) => {
                 pauseOnHover
                 className={`z-50`}
             />
+            {/* ==================== End:: ToastContainer ==================================== */}
+            {/* ==================== Start:: Contents ========================================== */}
             <div className='w-full rounded-md'>
+                {/* ==================== Start:: Buttons ======================================= */}
                 <div className="action-button flex flex-wrap justify-around items-center my-3 ">
                     <div className="start-btn w-3/12 sm:w-20">
                         <LebalTextButton text="Start" type="info" onclick={handleBusStart} />
@@ -37,7 +42,10 @@ const LocationSim = ( props ) => {
                         <LebalTextButton text="Stop" type="danger" onclick={handleBusStop}/>
                     </div>                                    
                 </div>
+                {/* ==================== End:: Buttons ========================================= */}
+                {/* ==================== Start:: Bus similation ================================ */}
                 <div className="flex flex-wrap items-center">
+                    {/* ==================== Start:: Bus Profile =============================== */}
                     <div className="bus-info-location w-full sm:w-3/12 bg-white rounded-md p-5">
                         {/* ==================== Start: Operator profile ================== */}
                         {loading && <OperatorProfile />}
@@ -55,10 +63,15 @@ const LocationSim = ( props ) => {
                         )}
                         {/* =================== End: Operator Profile ==================== */}
                     </div>
+                    {/* ==================== End:: Bus Profile ================================= */}
+                    {/* ==================== Start:: Bus on Map ================================ */}
                     <div className="map-location-card">
                     </div>
-                </div>                
-            </div>        
+                    {/* ====================== End:: Bus on Map ================================ */}
+                </div>        
+                {/* ==================== End:: Bus similation ================================== */}        
+            </div>    
+            {/* ==================== End:: Contents ========================================== */}    
         </>
     )
 }
