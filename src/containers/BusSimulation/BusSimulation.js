@@ -9,7 +9,7 @@ const BusSimulation = () => {
             <div className="w-full bg-red-700">
                 <LocationSim />
             </div>     
-            <div className="w-full bg-gray-700">
+            <div className="w-full">
                 <BusSim />
             </div>       
         </DashBoardLayout>
