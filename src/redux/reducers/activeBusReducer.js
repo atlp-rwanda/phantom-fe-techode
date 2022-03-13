@@ -15,6 +15,13 @@ const initialState = [
 export const activeBusReducer = (state = initialState , { type , payload}) =>{
     switch (type) {
         case UPDATE:
+            const alightState = [...state];
+            const alightToBeUpdated = alightState.filter(alightInfo => alightInfo.driver.id == payload.driverId);
+            const indexAlight = alightState.findIndex(alightInfo => alightInfo.driver.id == payload.driverId);
+            alightToBeUpdated[0].passengers = Number(alightToBeUpdated[0].passengers) +  (payload.joining - payload.alighting);
+            alightToBeUpdated[0].busStatus = "On Board";
+            alightState[indexAlight] = alightToBeUpdated[0];
+            state = alightState;
             return state;     
         case START:
             const clonedState = [...state];
@@ -24,7 +31,7 @@ export const activeBusReducer = (state = initialState , { type , payload}) =>{
             busInfoToUpdate[0].passengers = payload.passengers;
             
             clonedState[indexToUpdate] = busInfoToUpdate[0];
-            clonedState[indexToUpdate].busStatus = "On board";
+            clonedState[indexToUpdate].busStatus = "On Board";
             console.log(busInfoToUpdate);
             state = clonedState;
             return state;         

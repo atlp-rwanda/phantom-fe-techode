@@ -15,9 +15,16 @@ const LocationSim = ( props ) => {
     const { revealModel , showModel , showModelStart , activeBus } = props;
     console.log(activeBus);
     const [loading ,setLoading] = useState(false);
-    const handleBusStart = () => {        
+    const handleBusStart = () => {    
+        activeBus[0].busStatus = "Starting";    
         revealModel("start");   
     }
+
+    const handleBusAlight = () => {    
+        activeBus[0].busStatus = "Bus Stopped";    
+        revealModel("update");   
+    }
+
     const handleBusStop = () => {
         Notify("The bus has been stopped" , 'info' );         
     }
@@ -47,7 +54,7 @@ const LocationSim = ( props ) => {
                         <LebalTextButton text="Start" type="info" styles={"md:text-base"} onclick={handleBusStart} />
                     </div>
                     <div className="passenger-btn w-3/12 sm:w-20 md:w-30">
-                        <LebalTextButton text="Alight" type="secondary" styles={"md:text-base"} onclick={revealModel}/>
+                        <LebalTextButton text="Alight" type="secondary" styles={"md:text-base"} onclick={handleBusAlight}/>
                     </div>
                     <div className="end-btn w-3/12 sm:w-20 md:w-30">
                         <LebalTextButton text="Stop" type="success" styles={"md:text-base"} onclick={handleBusStop}/>
