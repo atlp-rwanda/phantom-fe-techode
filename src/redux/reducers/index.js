@@ -3,12 +3,16 @@ import { counterReducer } from "./countReducer";
 import { rolesReducer } from "./rolesReducer";
 import { permissionsReducer } from "./permissionsReducer";
 import { userReducer } from "./userReducer"; 
+import { busesReducer } from "./busesReducer";
+
+busesReducer
 
 const reducers =  combineReducers({
     counters :  counterReducer,
     roles: rolesReducer,
     permissions: permissionsReducer,
-    user: userReducer
+    user: userReducer,
+    buses: busesReducer
 })
 
 export default reducers;
