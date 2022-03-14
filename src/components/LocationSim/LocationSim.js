@@ -5,9 +5,13 @@ import Notify from '../../functions/Notify';
 import { LebalTextButton } from '../buttons/LebalButton';
 import { OperatorProfile } from '../skeletons/cards/Profile';
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import { iconBus,iconStoppedBus,iconOnBoardBus } from "../../components/icons/Icons"
+
 import {Map} from '../skeletons/Map/Map'
 
 import location from '../../assets/svgs/locationInfo.svg';
+import { Primary } from '../buttons/Buttons';
 
 
 
@@ -117,11 +121,43 @@ const LocationSim = ( props ) => {
                                     {!loading && 
                                         <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}>
                                             <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                                            <Marker position={[-1.985070, 30.031855]}>
-                                                <Popup>
-                                                    Phantom solutions. <br /> Easy movements.
-                                                </Popup>
-                                            </Marker>
+                                            <MarkerClusterGroup>
+                                                <Marker position={[ -1.944103,30.056790]} icon={iconBus}>
+                                                    <Popup>
+                                                        Driver: John doe 
+                                                    </Popup>
+                                                </Marker>
+                                                <Marker position={[-1.9443809,30.0565809]} icon={iconBus} >
+                                                    <Popup>
+                                                        Driver: John doe 
+                                                    </Popup>
+                                                </Marker>   
+                                                <Marker position={[ -1.9437671,30.05701]} icon={iconBus} >
+                                                    <Popup>
+                                                        <Primary name={"Locate"} onclick={ () => Notify("Bus has been located" , "info") } /> 
+                                                    </Popup>
+                                                </Marker> 
+                                                <Marker position={[-1.9460644,30.0556179]} icon={iconBus} >
+                                                    <Popup>
+                                                        Driver: John doe 
+                                                    </Popup>
+                                                </Marker>    
+                                                <Marker position={[-1.9496852,30.0583005]} icon={iconBus} >
+                                                    <Popup>
+                                                        Driver: John doe 
+                                                    </Popup>
+                                                </Marker>     
+                                                <Marker position={[-1.9801872,30.0413067]} icon={iconStoppedBus} >
+                                                    <Popup>
+                                                        Driver: John doe 
+                                                    </Popup>
+                                                </Marker>   
+                                                <Marker position={[-1.9567121,30.0584473]} icon={iconOnBoardBus} >
+                                                    <Popup>
+                                                        Driver: John doe
+                                                    </Popup>
+                                                </Marker>                                           
+                                            </MarkerClusterGroup>
                                         </MapContainer>
                                     }                                
                                 </div>                                                                
