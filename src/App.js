@@ -13,6 +13,10 @@ import './assets/style/style-skeleton.css';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Roles from './components/roles/Roles';
 import OperatorAssignBus from './containers/OperatorDriverBus/OperatorAssignBus'
+import AddRoute from './containers/Routes/AddRoute';
+
+
+
 
 
 const App = () => {
@@ -31,6 +35,8 @@ const App = () => {
                 <Route path="/profile" exact component={Profile} />
                 <Route path="/roles" exact component={Roles}/>
                 <Route path="/buses" component={RegisterBus} />
+                <Route path="/routes" exact component={AddRoute}/>
+               
                 <Route path="/*"  component={() => ({ "NotFound": 400 })} />
            </Switch>
        </Router>
