@@ -6,6 +6,7 @@ import { assignBusActionType } from '../constants/assignBusActionTypes'
 const assignBusState = [
     {
         id: 1,
+<<<<<<< HEAD
         driverName: "John Doe",
         telephone: "788966656",
         email: "test111@gmail.com",
@@ -36,6 +37,17 @@ const assignBusState = [
         assignedBus : [
     ]
     },
+=======
+        driverName: "Driver",
+        assignedBus : [
+            {
+                id:1,
+                busName: "YUTONG",
+                plateNumber: "RAF90"
+            }
+        ]
+    }
+>>>>>>> redux for assign bus
 ]
 
 export const assignBusReducer = (state = assignBusState, {type, payload }) => {
