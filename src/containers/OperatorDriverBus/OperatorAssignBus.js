@@ -16,15 +16,18 @@ import more from '../../assets/svgs/more.svg';
 import close from '../../assets/svgs/close.svg';
 import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
-import { useSelector } from 'react-redux';
-const RegisterDriver = () => {   
-    const [addDriver , setAddDriver] = useState(false);
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { assignBus, removeBus } from '../../redux/actions/assignBusAction'
+
+
+const AssignBuses = (props) => {   
+    const dispatch = useDispatch()
+    const [assignB , setAssignBus] = useState(false);
     const [loading , setLoading] = useState(true);
-    const [firstname , setFirsname] = useState('');
-    const [lastname , setLastname] = useState('');
-    const [telephone , setTelephone ] = useState('');
-    const [email , setEmail] = useState('');
-    const [bus, setBus] = useState('RAF000D');
+    const [bus, setBus] = useState('');
+    const[plate, setPlate] = useState('')
+    const [driverId, setDriverId] = useState("")
+    const { assignBus, removeBus } = props
 
     /* ======== Start:: removing skeleton ======= */ 
         useEffect(() => {
@@ -33,43 +36,92 @@ const RegisterDriver = () => {
             } , 2000)
         } , [])       
     /* ======== End:: removing skeleton ======= */ 
+
+    /* ========== Start::  Getting current state ================== */
+
+        const assignedBus = [
+            {
+                id: 1,
+                busName: "HYUNDAI",
+                plateNumber: "DFG0001"
+            },
+            {
+                id: 2,
+                busName: "BENZ",
+                plateNumber: "DFG0002"
+            },
+            {
+                id: 3,
+                busName: "TOYOTA",
+                plateNumber: "DFG0003"
+            }
+        ]
+        const driverList = [
+            {
+                id: 1,
+                driverName: "MUSA",
+                telephone: "0001"
+            },
+            {
+                id: 2,
+                driverName: "G_THANG",
+                telephone: "0002"
+            },
+            {
+                id: 3,
+                driverName: "MAZO",
+                telephone: "0003"
+            }
+        ]
+        let driverCounter = 1;
+        let busesCounter = 1;
+        const drivers = props.drivers;
+        const buses = props.drivers.buses;
+        // console.log("Drivers", drivers)
+        // console.log("Drivers List", driverList)
+    /* ============ End::  Getting current state ================== */
     const {
         type: userType,
       } = useSelector((state) => state.user);
-    
-    
-    const removeModel = () => {
-        let newState = !addDriver;
-        setAddDriver( newState );
         
+    const assignModal = (id) => {
+        setDriverId(id)
+        console.log("driver id", id)
+        let newState = !assignB;
+        setAssignBus( newState );
+        // console.log("assignB", newState)
     }
-    
-    const registerDriver = (e) =>{
+    const assignBusSelect = (name) =>{
+        let busPlate = name.split('-')
+        setBus(busPlate[0])
+        setPlate(busPlate[1])
+        console.log("Bus selected", busPlate[0])
+        console.log("Just plate",busPlate[1])
+    }
+    const assignBusFunc = (e) =>{
         e.preventDefault(); 
       
         /* =================================== Start:: validation ================================ */ 
-            if(firstname.trim().length == '') return Notify('First name field should not be empty', 'error' ) ;
-            if(lastname.trim().length == '') return Notify('Last name field should not be empty', 'error' ) ;
-            if(telephone.trim().length == '') return Notify('Please provide Telphone number', 'error' ) ;
-            if(email.trim().length == '') return Notify('Email field required', 'error') ;
-            if(bus.trim().length == '') return Notify('You need to assign atleast on bus to this driver','error') ;
+            if(bus.trim().length == '') return Notify('You need to assign at least on bus to this driver','error') ;
 
-            let isValidEmail = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
-            if(isValidEmail) return Notify('Invalid email address', 'error' ) ;
         /* =================================== End:: validation ================================ */ 
+        console.log("Driver id TO GIVE", driverId)
+        console.log("BUS TO GIVE", bus)
+        console.log("BUS TO GIVE", plate)
+        assignBus({driverId, bus, plate})
         setTimeout( () => {
-            removeModel();
+            assignModal();
         },
-         5000
+         1000
         )
-        return Notify('New driver have been added','success') ;     
+        return Notify('Bus assigned successfully','success') ;     
               
     }
    
     return (
         <>  
         {/* =========================== Start:: Model =============================== */}        
-            <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addDriver === true ? 'block' : 'hidden' }`}>
+            <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ assignB === true ? 'block' : 'hidden' }`}>
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -82,43 +134,26 @@ const RegisterDriver = () => {
                     pauseOnHover
                 /> 
                 <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
-                    <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
-                        <h3 className='font-bold text-sm text-center w-11/12' >
-                            Adding new driver
-                        </h3>
-                        <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => removeModel() } >
-                            <img src={close} alt="Phantom" className='float-right' />
-                        </div>
-                        <hr className=' bg-secondary-150 border my-3 w-full' />
-                    </div>
                     <div className="card-body">
-                        <form onSubmit={(e) => registerDriver(e)} action="/drivers" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
+                        <form onSubmit={(e) => assignBusFunc(e)} action="/drivers" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
+                            <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                                <h3 className="font-bold text-sm text-center w-11/12">
+                                    Select a Bus
+                                </h3>
+                                <div
+                                className="close-icon w-1/12 cursor-pointer float-right"
+                                onClick={() => assignModal()}
+                                >
+                                <img src={close} alt="Phantom" className="float-right" />
+                                </div>
+                                <hr className=" bg-secondary-150 border my-3 w-full" />
+                            </div>
                             <div className="input my-3 h-9 "> 
                                 <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <input type="text" name="firstname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="First name" value={ firstname } onChange={ e => setFirsname(e.target.value) } />                                   
-                                </div>                
-                            </div>  
-                            <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <input type="text" name="lastname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ lastname } placeholder="Last name" onChange={ e => setLastname(e.target.value) }  />
-                                </div>                
-                            </div>  
-                            <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <input type="email" name="email" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) } />                                   
-                                </div>                
-                            </div>   
-                            <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <input type="telphone" name="tel" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Telephone" value={telephone} onChange={ e => setTelephone(e.target.value) } />                                   
-                                </div>                
-                            </div>  
-                            <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <select id="" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full" placeholder="Asign a bus" onChange={ e => setBus( e.target.value ) } value={bus}   >
-                                        <option value="RAF000D"> RAF000D </option>
-                                        <option value="RAF001D"> RAF001D </option>
-                                        <option value="RAF002D"> RAF002D </option>
+                                    <select id="" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full" placeholder="Asign a bus" onChange={ e => assignBusSelect( e.target.value ) }>
+                                        {assignedBus.map((buzz) => (
+                                            <option key={buzz.id} value={buzz.busName + `-` + buzz.plateNumber} value={buzz.busName + `-` + buzz.plateNumber}>{buzz.busName + `-` + buzz.plateNumber}</option>
+                                        ) )}
                                     </select>
                                 </div>                
                             </div>
@@ -150,7 +185,7 @@ const RegisterDriver = () => {
                                 </div>
                                 {userType == "admin" ? (
                                     <div className="add-new-record">
-                                        <Primary name="New driver" onclick={removeModel} />
+                                        <Primary name="New driver" onclick={assignModal} />
                                     </div>
                                 ) : (
                                     ""
@@ -171,15 +206,18 @@ const RegisterDriver = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                                                {driverList.map((driver) => (
+                                                <tr 
+                                                key={driverCounter}
+                                                className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        1
+                                                        {driverCounter++}
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                        <LebalTextButton text='J' type='primary' /> {driver.driverName}
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        2507000000
+                                                        {driver.telephone}
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                     {/* =================== Start:: only admin to see this =================== */}
@@ -192,125 +230,19 @@ const RegisterDriver = () => {
                                                             ""
                                                         )}
                                                     {/* =================== End:: only admin to see this =================== */}
-                                                    
+                                                        
                                                         <div className='flex flex-col md:flex md:flex-row ml-12'>
-                                                            <LebalButton type={'info'} svg={more}/>
-                                                            <PermissionButton type={'success'} svg={add} name={'Assign Bus'} styles={'ml-4'} />
+                                                            {drivers[0].assignedBus.map((bus) => 
+                                                                (<PermissionButton key={bus.id} type={'danger'} name={bus.busName + '-' + bus.plateNumber}
+                                                                onclick={() => assignModal(driver.id) }/>)
+                                                            )}
+                                                            <PermissionButton type={'success'} svg={add} name={'Assign Bus'}
+                                                            onclick={() => assignModal(driver.id) }/>
                                                         </div>
                                                     </td>
                                                  
                                                 </tr>
-                                                <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        2
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        2507000000
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}
-                                                    
-                                                        <div className='flex flex-col md:flex md:flex-row ml-8'>
-                                                            <LebalButton type={'info'} svg={more}/>
-                                                            <PermissionButton type={'success'} svg={add} name={'Assign Bus'} styles={'ml-4'} />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        3
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        2507000000
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}
-                                                    
-                                                        <div className='flex flex-col md:flex md:flex-row ml-8'>
-                                                            <LebalButton type={'info'} svg={more}/>
-                                                            <PermissionButton type={'success'} svg={add} name={'Assign Bus'} styles={'ml-4'} />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        4
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        2507000000
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}
-                                                    
-                                                        <div className='flex flex-col md:flex md:flex-row ml-8'>
-                                                            <LebalButton type={'info'} svg={more}/>
-                                                            <PermissionButton type={'success'} svg={add} name={'Assign Bus'} styles={'ml-4'} />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        5
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        2507000000
-                                                    </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}                                                    
-                                                        <div className='flex flex-col md:flex md:flex-row ml-8'>
-                                                            <LebalButton type={'info'} svg={more}/>
-                                                            <PermissionButton type={'success'} svg={add} name={'Assign Bus'} styles={'ml-4'} />
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                ))}
                                             </tbody>
                                         </table>
                                         <div className="w-full flex items-center justify-center ">
@@ -406,5 +338,10 @@ const RegisterDriver = () => {
         </>
     );
 }
- 
-export default RegisterDriver;
+const mapStateToProps = (state) => {
+    return ({
+        drivers: state.driverBusAssignment,
+        buses: state.buses
+    })
+}
+export default connect(mapStateToProps, {assignBus, removeBus})(AssignBuses)
