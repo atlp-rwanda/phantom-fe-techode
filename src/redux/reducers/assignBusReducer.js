@@ -7,6 +7,7 @@ const assignBusState = [
     {
         id: 1,
 <<<<<<< HEAD
+<<<<<<< HEAD
         driverName: "John Doe",
         telephone: "788966656",
         email: "test111@gmail.com",
@@ -39,12 +40,26 @@ const assignBusState = [
     },
 =======
         driverName: "Driver",
+=======
+        driverName: "John Doe",
+>>>>>>> failing test
         assignedBus : [
             {
                 id:1,
                 busName: "YUTONG",
                 plateNumber: "RAF90"
             }
+        ]
+    },
+    {
+        id: 2,
+        driverName: "MAZO",
+        assignedBus : [
+        {
+            id:1,
+            busName: "",
+            plateNumber: ""
+        }
         ]
     }
 >>>>>>> redux for assign bus
