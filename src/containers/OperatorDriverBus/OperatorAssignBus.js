@@ -78,7 +78,7 @@ const AssignBuses = (props) => {
         const drivers = props.drivers;
         const buses = props.drivers.buses;
         // console.log("Drivers", drivers)
-        // console.log("Drivers List", driverList)
+        // console.log("Drivers List", drivers)
     /* ============ End::  Getting current state ================== */
     const {
         type: userType,
@@ -89,14 +89,13 @@ const AssignBuses = (props) => {
         console.log("driver id", id)
         let newState = !assignB;
         setAssignBus( newState );
-        // console.log("assignB", newState)
+        console.log("DRIVER ID", driverId)
     }
     const assignBusSelect = (name) =>{
         let busPlate = name.split('-')
         setBus(busPlate[0])
         setPlate(busPlate[1])
-        console.log("Bus selected", busPlate[0])
-        console.log("Just plate",busPlate[1])
+        Notify(name + " Bus selected", "success")
     }
     const assignBusFunc = (e) =>{
         e.preventDefault(); 
@@ -206,7 +205,7 @@ const AssignBuses = (props) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {driverList.map((driver) => (
+                                                {drivers.map((driver) => (
                                                 <tr 
                                                 key={driverCounter}
                                                 className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
