@@ -212,6 +212,11 @@ const Busesoperat = (props) => {
                     </div>
                 </div>
             </div>
+
+
+
+
+            
             <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${createBusModel === true ? 'block' : 'hidden'}`}>
                 <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
                     <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
@@ -279,7 +284,7 @@ const Busesoperat = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
+                <div className=" lg:-mt-24 w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
                     <div className="w-full">
 
                         {/* Start:  Bus content */}
@@ -368,7 +373,7 @@ const Busesoperat = (props) => {
                         {/* End:  Bus content */}
                     </div>
                 </div>
-                <div className=" w-full h-min lg:w-4/12 bg-white rounded-md m-2 ">
+                <div className=" lg:-mt-24 w-full h-min lg:w-4/12 bg-white rounded-md m-2 ">
                     <div className="w-full">
                         {/* =================== Start: Bus Information ==================== */}
                         {loading && (<Profile />)}
