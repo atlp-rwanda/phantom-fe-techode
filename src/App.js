@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './assets/style/style-skeleton.css';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Roles from './components/roles/Roles';
-import Busesoperat from './components/busesOp/Busesoperat';
+import Busesoperat from './containers/busesOp/Busesoperat'
 
 
 
