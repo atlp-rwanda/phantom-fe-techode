@@ -20,7 +20,7 @@ describe('Integration testing ', () => {
           lastname: 'Doe',
           telephone: '0700000000',
           email:'email@gmail.com', 
-          type:'operator',
+          type:'driver',
           profile:''  
       };
       

@@ -4,13 +4,13 @@ import { Primary } from "../../components/buttons/Buttons";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import LocationSim from "../../components/LocationSim/LocationSim";
 import DriverSim from "../../components/LocationSim/DriverSim";
-import { update , start } from '../../redux/actions/ActiveBus'
+import { updateActiveBus , start } from '../../redux/actions/ActiveBus'
 
 import close from "../../assets/svgs/close.svg";
 import { connect } from "react-redux";
 import Notify from "../../functions/Notify";
 const BusSimulation = ( props ) => {
-    const { activeBus , update , start , user } = props;
+    const { activeBus , updateActiveBus , start , user } = props;
     const [ showModel , setShowModel ] = useState(false);
     const [ showModelStart , setShowModelStart ] = useState(false);
     const { type: userType } = user ;
@@ -32,7 +32,7 @@ const BusSimulation = ( props ) => {
         e.preventDefault();
         if(alighting.trim() == "" ) return Notify("Please make sure alighting passengers field is not empty","error");
         if(joining.trim() == "" ) return Notify("Please make sure joining passengers field is not empty","error");
-        update({driverId: 1, alighting, joining});
+        updateActiveBus({driverId: 1, alighting, joining});
         setAlighting("");
         setJoining("");
     }
@@ -145,4 +145,4 @@ const mapStateTo = (state) =>{
         activeBus: state.activeBus
     }
 }
-export default connect( mapStateTo , { update , start })(BusSimulation);
+export default connect( mapStateTo , { updateActiveBus , start })(BusSimulation);
