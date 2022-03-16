@@ -8,23 +8,13 @@ const assignBusState = [
         id: 1,
         driverName: "John Doe",
         assignedBus : [
-            {
-                id:1,
-                busName: "YUTONG",
-                plateNumber: "RAF90"
-            }
         ]
     },
     {
         id: 2,
         driverName: "MAZO",
         assignedBus : [
-        {
-            id:1,
-            busName: "",
-            plateNumber: ""
-        }
-        ]
+    ]
     }
 ]
 

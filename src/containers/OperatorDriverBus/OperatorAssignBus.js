@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 import DashBoardOperatorLayout from '../../components/dashBoardLayout/DashboardOperatorLayout';
 import { Primary, PermissionButton } from '../../components/buttons/Buttons'
 import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton';
@@ -56,23 +57,7 @@ const AssignBuses = (props) => {
                 plateNumber: "DFG0003"
             }
         ]
-        const driverList = [
-            {
-                id: 1,
-                driverName: "MUSA",
-                telephone: "0001"
-            },
-            {
-                id: 2,
-                driverName: "G_THANG",
-                telephone: "0002"
-            },
-            {
-                id: 3,
-                driverName: "MAZO",
-                telephone: "0003"
-            }
-        ]
+        
         let driverCounter = 1;
         let busesCounter = 1;
         const drivers = props.drivers;
@@ -89,7 +74,6 @@ const AssignBuses = (props) => {
         console.log("driver id", id)
         let newState = !assignB;
         setAssignBus( newState );
-        console.log("DRIVER ID", driverId)
     }
     const assignBusSelect = (name) =>{
         let busPlate = name.split('-')
@@ -104,24 +88,19 @@ const AssignBuses = (props) => {
             if(bus.trim().length == '') return Notify('You need to assign at least on bus to this driver','error') ;
 
         /* =================================== End:: validation ================================ */ 
-        console.log("Driver id TO GIVE", driverId)
-        console.log("BUS TO GIVE", bus)
-        console.log("BUS TO GIVE", plate)
         assignBus({driverId, bus, plate})
         setTimeout( () => {
             assignModal();
         },
          1000
         )
-        return Notify('Bus assigned successfully','success') ;     
-              
+        // sendMail()     
+        return Notify('Bus assigned successfully','success') ;              
     }
    
     return (
-        <>  
-        {/* =========================== Start:: Model =============================== */}        
-            <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ assignB === true ? 'block' : 'hidden' }`}>
-                <ToastContainer
+        <> 
+        <ToastContainer
                     position="top-right"
                     autoClose={5000}
                     hideProgressBar
@@ -131,7 +110,9 @@ const AssignBuses = (props) => {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
-                /> 
+                />  
+        {/* =========================== Start:: Model =============================== */}        
+            <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ assignB === true ? 'block' : 'hidden' }`}>
                 <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
                     <div className="card-body">
                         <form onSubmit={(e) => assignBusFunc(e)} action="/drivers" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
@@ -231,7 +212,8 @@ const AssignBuses = (props) => {
                                                     {/* =================== End:: only admin to see this =================== */}
                                                         
                                                         <div className='flex flex-col md:flex md:flex-row ml-12'>
-                                                            {drivers[0].assignedBus.map((bus) => 
+                                                            {/* {console.log("BVBV",drivers)} */}
+                                                            {driver.assignedBus.map((bus) => 
                                                                 (<PermissionButton key={bus.id} type={'danger'} name={bus.busName + '-' + bus.plateNumber}
                                                                 onclick={() => assignModal(driver.id) }/>)
                                                             )}
