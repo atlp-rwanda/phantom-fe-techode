@@ -9,6 +9,7 @@ import userSvg from '../../assets/svgs/user.svg';
 import routes from '../../assets/svgs/routes.svg';
 import operatorIM from '../../assets/svgs/operator.svg';
 import roles from '../../assets/svgs/roles.svg'
+import bus from '../../assets/svgs/bus.svg';
 import { useLocation } from 'react-router-dom';
 
 const SideBar = ({shownav}) => {
@@ -49,6 +50,12 @@ const SideBar = ({shownav}) => {
             linkName : 'Roles',
             svgImage : roles,
             to:'roles'
+        },
+        {
+            id: 7,
+            linkName : 'Buses',
+            svgImage : bus,
+            to:'buses'
         }
     ]
 

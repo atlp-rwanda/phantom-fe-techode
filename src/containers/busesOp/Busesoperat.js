@@ -5,10 +5,11 @@ import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
 import TableSkeleton from "../../components/skeletons/Tables/RemovePermisionSkeleton"
 import { Profile } from '../../components/skeletons/cards/InfSkeleton';
-import DashboardLayout from "../../components/dashBoardLayout/DashboardOperatorLayout";
+import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 
 import deleteIcon from '../../assets/svgs/delete.svg';
 import edit from '../../assets/svgs/edit.svg';
+import list from '../../assets/svgs/list.svg'
 import more from '../../assets/svgs/more.svg';
 import prev from '../../assets/svgs/prev.svg';
 import busPark from '../../assets/Image/busPark.jpg';
@@ -23,6 +24,7 @@ const Busesoperat = (props) => {
 
     const [busModel, setBusModel] = useState(false);
 
+    const [isList,setIsList] =  useState(false)
     const [updateModel, setUpdateModel] = useState(false);
     const [createBusModel, setCreateBusModel] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -35,6 +37,8 @@ const Busesoperat = (props) => {
             route: ""
         }
     ]);
+
+
     const getSelectedBus = (id) => {
         const select = buses.filter(bus => bus.id == id);
         setSelectedBusId(select);
@@ -154,7 +158,9 @@ const Busesoperat = (props) => {
         setBusId(bus_Id);
     }
 
-
+  const handleList = ()=>{
+   setIsList((prev)=>!prev)
+  }
 
     return (
         <>          
@@ -174,7 +180,7 @@ const Busesoperat = (props) => {
                 <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
                     <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
                         <h3 className='font-bold text-sm text-center w-11/12' >
-                            Creating a new bus
+                            Update Bus Information
                         </h3 >
                         <hr className=' bg-secondary-150 border my-3 w-full' />
                     </div>
@@ -265,13 +271,13 @@ const Busesoperat = (props) => {
                 </div>
             </div>
             {/* =========================== End:: DeleteBusModel =============================== */}
-            <DashboardLayout>
+            <DashBoardLayout>
 
                 <div className="w-full" >
                     <div className=" w-full lg:w-1/2 -lg:mb-96 lg:mt-8 md:w-1/2">
                         <div className=" flex justify-between">
                             <Primary name={`Route +`} styles='lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200 ' />
-                            <Primary name={`Add a new bus`} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel}/>
+                            <Primary name={`List `} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={handleList}/>
                         </div>
                     </div>
                 </div>
@@ -293,6 +299,8 @@ const Busesoperat = (props) => {
                                     </h4>
                                 </div>
                             </div>
+                            {!isList&&( <Primary name={`Add a new bus`} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel}/>)}
+                               
                         </div>
                         <div className="mt-3 mb-10">
                             {loading && (<TableSkeleton />)
@@ -311,7 +319,7 @@ const Busesoperat = (props) => {
                                         </thead>
                                         <tbody>
 
-                                            {
+                                            {!isList?
                                                 buses.map(bus => (
                                                     <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
@@ -332,10 +340,30 @@ const Busesoperat = (props) => {
                                                             <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
                                                         </td>
                                                     </tr>
+                                                )):buses.map((bus)=>(
+                                                    <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {bus.id}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        <LebalTextButton text='J' type='primary' /> {bus.busType}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {bus.route}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {bus.plate}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                            <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
+                                                        </td>
+                                                </tr>
                                                 ))
+                                               
                                             }
                                         </tbody>
                                     </table>
+                                    {/* ======================= START:: PAGINATION ============================ */}
                                     <div className="w-full flex items-center justify-center ">
                                         <div className="w-11/12 sm:w-6/12 md:w-6/12 p-1 px-4 shadow flex justify-between mt-3">
                                             <div className="next flex items-center justify-center rounded-md cursor-pointer hover:bg-secondary-100 w-9">
@@ -350,6 +378,7 @@ const Busesoperat = (props) => {
                                             </div>
                                         </div>
                                     </div>
+                                    {/* ======================== START:: PAGINATION ============================ */}
                                 </>
 
                             )
@@ -400,7 +429,7 @@ const Busesoperat = (props) => {
                         {/* ===================== End: Bus Information ==================== */}
                     </div>
                 </div>
-            </DashboardLayout>
+            </DashBoardLayout>
 
         </>
     );
