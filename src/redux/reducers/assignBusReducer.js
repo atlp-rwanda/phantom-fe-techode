@@ -44,23 +44,13 @@ const assignBusState = [
         driverName: "John Doe",
 >>>>>>> failing test
         assignedBus : [
-            {
-                id:1,
-                busName: "YUTONG",
-                plateNumber: "RAF90"
-            }
         ]
     },
     {
         id: 2,
         driverName: "MAZO",
         assignedBus : [
-        {
-            id:1,
-            busName: "",
-            plateNumber: ""
-        }
-        ]
+    ]
     }
 >>>>>>> redux for assign bus
 ]
