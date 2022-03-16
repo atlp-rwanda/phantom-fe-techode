@@ -3,16 +3,17 @@ import BusSim from "../../components/BusSim/BusSim";
 import { Primary } from "../../components/buttons/Buttons";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import LocationSim from "../../components/LocationSim/LocationSim";
+import DriverSim from "../../components/LocationSim/DriverSim";
 import { update , start } from '../../redux/actions/ActiveBus'
 
 import close from "../../assets/svgs/close.svg";
 import { connect } from "react-redux";
 import Notify from "../../functions/Notify";
 const BusSimulation = ( props ) => {
-    const { activeBus , update , start } = props;
+    const { activeBus , update , start , user } = props;
     const [ showModel , setShowModel ] = useState(false);
     const [ showModelStart , setShowModelStart ] = useState(false);
-
+    const { type: userType } = user ;
     /* ================= Start:: form infromation managimment ============= */ 
     const [passengers , setPassenger ] = useState("");
     const [alighting, setAlighting] = useState("");
@@ -54,7 +55,7 @@ const BusSimulation = ( props ) => {
     return ( 
         <>
             {/* ===================================== Start:: Alight Model =============================== */}        
-            <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center z-50 px-4 ${ showModel === true ? 'block' : 'hidden' }`}>
+                <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center z-50 px-4 ${ showModel === true ? 'block' : 'hidden' }`}>
                     <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
                         <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
                             <h3 className='font-bold text-sm text-center w-11/12' >
@@ -84,8 +85,8 @@ const BusSimulation = ( props ) => {
                         </div>
                     </div>                
                 </div>
-                {/* ====================================== End:: Alight Model =============================== */}   
-                {/* ===================================== Start:: Start Model ================================ */}        
+            {/* ======================================= End:: Alight Model =============================== */}   
+            {/* ===================================== Start:: Start Model ================================ */}        
                 <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center z-50 px-4 ${ showModelStart === true ? 'block' : 'hidden' }`}>
                     <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
                         <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
@@ -114,12 +115,25 @@ const BusSimulation = ( props ) => {
             {/* ====================================== End:: Start Model =============================== */}          
             <DashBoardLayout>
                 
+               
                 <div className="w-full">
-                    <LocationSim revealModel={revealModel} showModel={showModel} showModelStart={showModelStart}/>
-                </div>     
-                <div className="w-full">
-                    <BusSim />
-                </div>       
+                    {
+                        userType != "driver" ?
+                            <LocationSim revealModel={revealModel} showModel={showModel} showModelStart={showModelStart}/>
+                        :
+                            <DriverSim revealModel={revealModel} showModel={showModel} showModelStart={showModelStart}/>                        
+                    }                    
+                </div> 
+
+                <div className="w-full mt-6">
+                    {
+                        userType != "driver" ?                        
+                            <BusSim />                        
+                        :
+                        ""                       
+                    }
+                </div>    
+                     
             </DashBoardLayout>
         </>
      );

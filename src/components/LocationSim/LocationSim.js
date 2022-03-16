@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { ToastContainer } from 'react-toastify';
 import Notify from '../../functions/Notify';
-import { LebalTextButton } from '../buttons/LebalButton';
 import { OperatorProfile } from '../skeletons/cards/Profile';
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
@@ -16,8 +15,11 @@ import { Primary } from '../buttons/Buttons';
 
 
 const LocationSim = ( props ) => {
-    const { revealModel , showModel , showModelStart , activeBus } = props;
-    console.log(activeBus);
+    const { revealModel , showModel , showModelStart , activeBus , user } = props;
+    /* ============ Start: Getting user =============== */ 
+    const { type: userType } = user ;
+    console.log(user);
+    /* ============== End: Getting user =============== */ 
     const [loading ,setLoading] = useState(false);
     const handleBusStart = () => {    
         activeBus[0].busStatus = "Starting";    
@@ -51,20 +53,8 @@ const LocationSim = ( props ) => {
             />
             {/* ==================== End:: ToastContainer ==================================== */}
             {/* ==================== Start:: Contents ========================================== */}
-            <div className='w-full rounded-md'>
-                {/* ==================== Start:: Buttons ======================================= */}
-                <div className="action-button flex flex-wrap justify-around items-center my-3 ">
-                    <div className="start-btn w-3/12 sm:w-20 md:w-30">
-                        <LebalTextButton text="Start" type="info" styles={"md:text-base"} onclick={handleBusStart} />
-                    </div>
-                    <div className="passenger-btn w-3/12 sm:w-20 md:w-30">
-                        <LebalTextButton text="Alight" type="secondary" styles={"md:text-base"} onclick={handleBusAlight}/>
-                    </div>
-                    <div className="end-btn w-3/12 sm:w-20 md:w-30">
-                        <LebalTextButton text="Stop" type="success" styles={"md:text-base"} onclick={handleBusStop}/>
-                    </div>                                    
-                </div>
-                {/* ==================== End:: Buttons ========================================= */}
+            <div className='w-full rounded-md'>              
+               
                 {/* ==================== Start:: Bus similation ================================ */}
                 <div className="flex flex-wrap">
                     {/* ==================== Start:: Bus Profile =============================== */}
@@ -75,29 +65,27 @@ const LocationSim = ( props ) => {
                             <>
                                 <section className="flex flex-col items-center justify-center bg-white rounded-md  p-2 w-full my-2" >
                                     <div className="profile-content-container mt-2  flex items-center w-full">
-                                        <div className="location-svg h-full m-4 ">
+                                        <div className="location-svg h-full m-4  flex items-center">
                                             <img src={location} alt="phantom" srcset="" />    
                                         </div>
                                         <div className="location-info">
                                             <h1 className="text-mainColor font-sans text-sm font-bold sm:text-xs" > Route information </h1>
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Finish: Kn 674 st 3</span>   
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Start: Kn 766 st 4</span>       
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Distance: 16 Km </span>   
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Duration: 16 Minutes </span>                                                                                                                      
+                                            <span className="block my-1 sm:text-xs" > <span className='fa-solid fa-id-card text-gray-500'></span> <span className='text-gray-500 font-sans text-xs' >Kn 674 st 3</span> </span>   
+                                            <span className="block my-1 sm:text-xs" > <span className='fa-solid fa-id-card text-gray-500'></span> <span className='text-gray-500 font-sans text-xs' >Kn 766 st 4</span></span>       
+                                            <span className="block my-1 sm:text-xs" > <span className='fa-solid fa-id-card text-gray-500'></span> <span className='text-gray-500 font-sans text-xs' >16 Km</span> </span>                                                                                                                   
                                         </div>
                                     </div> 
                                 </section>  
                                 <section className="flex flex-col items-center justify-center bg-white rounded-md  p-2 w-full my-2" >
                                     <div className="profile-content-container mt-2  flex items-center w-full">
-                                        <div className="location-svg h-full m-4 ">
+                                        <div className="location-svg h-full m-4  flex items-center ">
                                             <img src={location} alt="phantom" srcset="" />    
                                         </div>
                                         <div className="location-info">
                                             <h1 className="text-mainColor font-sans text-sm font-bold sm:text-xs" > Bus information </h1>
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Driver: {activeBus[0].driver.name} </span>   
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Plate: {activeBus[0].bus.plate} </span>   
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Passengers: {activeBus[0].passengers} </span>   
-                                            <span className="block text-secondary-300 text-sm my-1 sm:text-xs" > Status: {activeBus[0].busStatus} </span>                                               
+                                            <span className="block my-1 sm:text-xs" > <span className='fa-solid fa-id-card text-gray-500'></span> <span className='text-gray-500 font-sans text-xs' > {activeBus[0].driver.name} </span>  </span>   
+                                            <span className="block my-1 sm:text-xs" > <span className='fa-solid fa-id-card text-gray-500'></span> <span className='text-gray-500 font-sans text-xs' > {activeBus[0].bus.plate} </span>  </span>   
+                                            <span className="block my-1 sm:text-xs" > <span className='fa-solid fa-id-card text-gray-500'></span> <span className='text-gray-500 font-sans text-xs' > {activeBus[0].passengers} </span>   </span>                                               
                                         </div>
                                     </div> 
                                 </section>                                
@@ -123,38 +111,50 @@ const LocationSim = ( props ) => {
                                             <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                             <MarkerClusterGroup>
                                                 <Marker position={[ -1.944103,30.056790]} icon={iconBus}>
-                                                    <Popup>
-                                                        Driver: John doe 
+                                                    <Popup  className="min-w-full">
+                                                        <div >
+                                                            <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
+                                                        </div>    
                                                     </Popup>
                                                 </Marker>
                                                 <Marker position={[-1.9443809,30.0565809]} icon={iconBus} >
-                                                    <Popup>
-                                                        Driver: John doe 
+                                                    <Popup  className="min-w-full">
+                                                        <div >
+                                                            <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
+                                                        </div>     
                                                     </Popup>
                                                 </Marker>   
                                                 <Marker position={[ -1.9437671,30.05701]} icon={iconBus} >
-                                                    <Popup>
-                                                        <Primary name={"Locate"} onclick={ () => Notify("Bus has been located" , "info") } /> 
+                                                    <Popup  className="min-w-full">
+                                                        <div >
+                                                            <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
+                                                        </div>    
                                                     </Popup>
                                                 </Marker> 
                                                 <Marker position={[-1.9460644,30.0556179]} icon={iconBus} >
-                                                    <Popup>
-                                                        Driver: John doe 
+                                                    <Popup  className="min-w-full">
+                                                        <div >
+                                                            <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
+                                                        </div>    
                                                     </Popup>
                                                 </Marker>    
                                                 <Marker position={[-1.9496852,30.0583005]} icon={iconBus} >
-                                                    <Popup>
-                                                        Driver: John doe 
+                                                    <Popup  className="min-w-full">
+                                                        <div >
+                                                            <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
+                                                        </div>    
                                                     </Popup>
                                                 </Marker>     
                                                 <Marker position={[-1.9801872,30.0413067]} icon={iconStoppedBus} >
-                                                    <Popup>
+                                                    <Popup  className="min-w-full">
                                                         Driver: John doe 
                                                     </Popup>
                                                 </Marker>   
                                                 <Marker position={[-1.9567121,30.0584473]} icon={iconOnBoardBus} >
-                                                    <Popup>
-                                                        Driver: John doe
+                                                    <Popup  className="min-w-full">
+                                                        <div >
+                                                            <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
+                                                        </div>    
                                                     </Popup>
                                                 </Marker>                                           
                                             </MarkerClusterGroup>
