@@ -82,7 +82,8 @@ module.exports = {
             success: colors.green,
             mainColor: '#1CA0E3',
             active: '#1CA0E3',
-            modelColor: "rgba(35, 29, 29, 0.44)"
+            modelColor: "rgba(35, 29, 29, 0.44)",
+            noneActive: "#228DC5"
         },
         extend: {
             fontFamily: {

@@ -26,6 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@react-leaflet/core": "^1.1.1",
+    "@tailwindui/react": "^0.1.1",
     "@testing-library/jest-dom": "^5.16.2",
     "autoprefixer": "^10.4.2",
     "browserslist": "^4.19.1",
@@ -68,6 +69,7 @@
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@iconify/react": "^3.1.4",
     "@testing-library/react": "^12.1.2",
     "@types/leaflet": "^1.7.9",
     "babel-loader": "^8.2.3",
@@ -93,6 +95,12 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js"
     ]
   }
 }

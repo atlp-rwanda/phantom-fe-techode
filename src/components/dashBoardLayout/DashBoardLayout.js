@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBar from '../sidebar/SideBar';
 import DashBoardHeader from '../header/DashBoardHeader';
 import '../../assets/style/siderbar.css';
@@ -6,8 +6,25 @@ import main from '../../assets/js/main'
 
 
 const DashBoardLayout = ({ children }) => {
-    const [showNav , setShowNav] = useState(false);
+    const [showNav , setShowNav] = useState(true);
     const [showModel , setShowModel] = useState(false);
+    const [deviceWidth, setWidth] = useState(window.innerWidth);
+
+    const isMobile = deviceWidth <= 768;
+    function handleWindowSizeChange() {
+        setWidth(window.innerWidth);
+        if(isMobile) setShowNav(false);     
+    }
+    useEffect(() => {
+            window.addEventListener('resize',() =>{
+                handleWindowSizeChange();
+                console.log(window.innerHeight);
+            } );
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
+    }, []); 
+
     const showNavSecion = () => {
         let show = !showNav;
         setShowNav(show);
