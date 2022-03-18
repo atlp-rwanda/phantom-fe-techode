@@ -40,7 +40,7 @@ const AssignBuses = (props) => {
             setTimeout(() => {
                 setLoading(false); 
             } , 2000)
-            setProfileInfo(drivers[3])
+            setProfileInfo(drivers[0])
         } , [])       
     /* ======== End:: removing skeleton ======= */ 
 
@@ -63,7 +63,7 @@ const AssignBuses = (props) => {
                 plateNumber: "DFG0003"
             }
         ]
-        
+        let count = 0
         let driverCounter = 1;
         let busesCounter = 1;
         const drivers = props.drivers;
@@ -82,7 +82,6 @@ const AssignBuses = (props) => {
         
     const assignModal = (id) => {
         setDriverId(id)
-        console.log("driver id", id)
         let newState = !assignB;
         setAssignBus( newState );
     }
@@ -90,7 +89,6 @@ const AssignBuses = (props) => {
         let busPlate = name.split('-')
         setBus(busPlate[0])
         setPlate(busPlate[1])
-        Notify(name + " Bus selected", "success")
     }
     const assignBusFunc = (e) =>{
         e.preventDefault(); 
@@ -192,7 +190,6 @@ const AssignBuses = (props) => {
                                                 <tr className="border-b border-b-secondary-100" >
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Driver name</th>
-                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Phone</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Email</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2 text-center"  >Action</th>                                                    
                                                 </tr>
@@ -200,34 +197,30 @@ const AssignBuses = (props) => {
                                             <tbody>
                                                 {currentPosts.map((driver) => (
                                                 <tr 
-                                                key={driverCounter} onClick={() => setProfileInfo(currentPosts[0])}
+                                                key={driver.id} onClick={() => setProfileInfo(currentPosts[count++])}
                                                 className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        {console.log("profile",currentPosts[driverCounter])}{driverCounter++}
+                                                    {driver.id}
                                                     </td>
                                                     <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         <LebalTextButton text='J' type='primary' /> {driver.driverName}
                                                     </td>
                                                     <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        {driver.telephone}
-                                                    </td>
-                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         {driver.email}
                                                     </td>
-                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}
-                                                        
-                                                        <div className='flex flex-col md:flex md:flex-row ml-12'>
-                                                            {/* {console.log("BVBV",drivers)} */}
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans h-full'> 
+                                                        <div className='buttons h-full flex flex-col md:flex md:flex-row'>
+                                                            {/* =================== Start:: only admin to see this =================== */}
+                                                            {userType == "admin" ? (
+                                                                <>
+                                                                    <LebalButton type={'primary'} svg={edit} />
+                                                                    <LebalButton type={'danger'} svg={deleteIcon} />
+                                                                </>
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                            {/* =================== End:: only admin to see this =================== */}
+                                                            
                                                             {driver.assignedBus.map((bus) => 
                                                                 (<PermissionButton key={bus.id} type={'danger'} name={bus.busName + '-' + bus.plateNumber}
                                                                 onclick={() => assignModal(driver.id) }/>)
@@ -270,7 +263,7 @@ const AssignBuses = (props) => {
                                 </div>    
                                 <div className="mt-6">
                                     <div className="profiler-name">
-                                        <p className=' text-xs font-semibold font-sans md:text-sm text-secondary-300'> Sezerano J Chrysostome</p>                                    
+                                        <p className=' text-xs font-semibold font-sans md:text-sm text-secondary-300'> {profileInfo.driverName}</p>                                    
                                     </div>
                                 </div>   
                                 <div className="driver-info w-full flex justify-between mt-4  px-6">

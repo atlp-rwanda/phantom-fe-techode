@@ -8,12 +8,32 @@ describe("Testing => assignBus reducer(state, action)", () => {
             {
                 id: 1,
                 driverName: "John Doe",
+                telephone: "788966656",
+                email: "test111@gmail.com",
                 assignedBus : [
                 ]
             },
             {
                 id: 2,
                 driverName: "MAZO",
+                telephone: "788966656",
+                email: "test1111@gmail.com",
+                assignedBus : [
+            ]
+            },
+            {
+                id: 3,
+                driverName: "Jane Doe",
+                email: "test1@gmail.com",
+                telephone: "788966656",
+                assignedBus : [
+                ]
+            },
+            {
+                id: 4,
+                driverName: "GANG",
+                email: "test11@gmail.com",
+                telephone: "788966656",
                 assignedBus : [
             ]
             }
@@ -30,20 +50,40 @@ describe("Testing => assignBus reducer(state, action)", () => {
             {
                 id: 1,
                 driverName: "John Doe",
+                telephone: "788966656",
+                email: "test111@gmail.com",
+                assignedBus : [
+                ]
+            },
+            {
+                id: 2,
+                driverName: "MAZO",
+                telephone: "788966656",
+                email: "test1111@gmail.com",
                 assignedBus : [
                     {
                         id: 1,
                         busName:"TOYOTA",
                         plateNumber: "PLATE908",
                     }
-                ]
+            ]
             },
             {
-                id: 2,
-                driverName: "MAZO",
+                id: 3,
+                driverName: "Jane Doe",
+                email: "test1@gmail.com",
+                telephone: "788966656",
                 assignedBus : [
                 ]
             },
+            {
+                id: 4,
+                driverName: "GANG",
+                email: "test11@gmail.com",
+                telephone: "788966656",
+                assignedBus : [
+            ]
+            }
           ];
     
         const reducer = assignBusReducer(initialState, {

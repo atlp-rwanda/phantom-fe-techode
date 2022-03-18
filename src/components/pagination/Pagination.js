@@ -7,7 +7,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
-    console.log(totalPosts, postsPerPage)
+    // console.log(totalPosts, postsPerPage)
   }
 
   return (
