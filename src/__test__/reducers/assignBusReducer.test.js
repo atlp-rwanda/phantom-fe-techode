@@ -53,6 +53,11 @@ describe("Testing => assignBus reducer(state, action)", () => {
                 telephone: "788966656",
                 email: "test111@gmail.com",
                 assignedBus : [
+                    {
+                        id: 1,
+                        busName:"TOYOTA",
+                        plateNumber: "PLATE908",
+                    }
                 ]
             },
             {
@@ -61,11 +66,6 @@ describe("Testing => assignBus reducer(state, action)", () => {
                 telephone: "788966656",
                 email: "test1111@gmail.com",
                 assignedBus : [
-                    {
-                        id: 1,
-                        busName:"TOYOTA",
-                        plateNumber: "PLATE908",
-                    }
             ]
             },
             {

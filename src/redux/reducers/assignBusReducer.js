@@ -35,7 +35,7 @@ const assignBusState = [
         telephone: "788966656",
         assignedBus : [
     ]
-    }
+    },
 ]
 
 export const assignBusReducer = (state = assignBusState, {type, payload }) => {
