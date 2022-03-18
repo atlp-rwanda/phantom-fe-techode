@@ -6,12 +6,9 @@ import { assignBusActionType } from '../constants/assignBusActionTypes'
 const assignBusState = [
     {
         id: 1,
-<<<<<<< HEAD
-<<<<<<< HEAD
         driverName: "John Doe",
         telephone: "788966656",
         email: "test111@gmail.com",
-<<<<<<< HEAD
         assignedBus : [
         ]
     },
@@ -39,41 +36,6 @@ const assignBusState = [
         assignedBus : [
     ]
     },
-=======
-        driverName: "Driver",
-=======
-        driverName: "John Doe",
->>>>>>> failing test
-=======
->>>>>>> ft(pagination): adds pagination on operator's assign bus to driver
-        assignedBus : [
-        ]
-    },
-    {
-        id: 2,
-        driverName: "MAZO",
-        telephone: "788966656",
-        email: "test1111@gmail.com",
-        assignedBus : [
-    ]
-    },
-    {
-        id: 3,
-        driverName: "Jane Doe",
-        email: "test1@gmail.com",
-        telephone: "788966656",
-        assignedBus : [
-        ]
-    },
-    {
-        id: 4,
-        driverName: "GANG",
-        email: "test11@gmail.com",
-        telephone: "788966656",
-        assignedBus : [
-    ]
-    }
->>>>>>> redux for assign bus
 ]
 
 export const assignBusReducer = (state = assignBusState, {type, payload }) => {
