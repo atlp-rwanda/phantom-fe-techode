@@ -1,9 +1,9 @@
 import React from "react";
-import DashboardOpatorLayout from "../../components/dashBoardLayout/DashboardOperatorLayout"
+import DashboardLayout from "../../components/dashBoardLayout/DashBoardLayout"
 
 const RegisterBus = () => {
     return ( 
-        <DashboardOpatorLayout></DashboardOpatorLayout>
+        <DashboardLayout></DashboardLayout>
      );
 }
  

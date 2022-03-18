@@ -15,8 +15,6 @@ import Roles from './components/roles/Roles';
 import OperatorAssignBus from './containers/OperatorDriverBus/OperatorAssignBus'
 
 
-import DashboardOperator from './containers/Dashboard/DashboardOperator'
-
 const App = () => {
     return (  
        <Router>
@@ -26,7 +24,7 @@ const App = () => {
                 <Route path="/newpassword"  component={NewPassword} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/dashboard"  component={Dashboard} />
-                <Route path="/dashboard_operator"  component={DashboardOperator} />
+                <Route path="/dashboard_operator"  component={Dashboard} />
                 <Route path="/drivers"  component={RegisterDriver} />
                 <Route path="/assign_drivers_buses"  component={OperatorAssignBus} />
                 <Route path="/operators"  component={RegisterOperator} />

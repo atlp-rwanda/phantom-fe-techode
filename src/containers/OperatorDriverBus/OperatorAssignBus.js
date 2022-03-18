@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import DashBoardOperatorLayout from '../../components/dashBoardLayout/DashboardOperatorLayout';
+import DashBoardLayout from '../../components/dashBoardLayout/DashBoardLayout';
 import { Primary, PermissionButton } from '../../components/buttons/Buttons'
 import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton';
 import { ToastContainer } from 'react-toastify';
@@ -19,6 +19,7 @@ import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { assignBus, removeBus } from '../../redux/actions/assignBusAction'
+import Pagination from '../../components/pagination/Pagination';
 
 
 const AssignBuses = (props) => {   
@@ -29,12 +30,17 @@ const AssignBuses = (props) => {
     const[plate, setPlate] = useState('')
     const [driverId, setDriverId] = useState("")
     const { assignBus, removeBus } = props
+    const [profileInfo, setProfileInfo] = useState("")
+
+    const [currentPage, setCurrentpage] = useState(1)
+    const [postsPerPage] = useState(2)
 
     /* ======== Start:: removing skeleton ======= */ 
         useEffect(() => {
             setTimeout(() => {
                 setLoading(false); 
             } , 2000)
+            setProfileInfo(drivers[3])
         } , [])       
     /* ======== End:: removing skeleton ======= */ 
 
@@ -62,9 +68,14 @@ const AssignBuses = (props) => {
         let busesCounter = 1;
         const drivers = props.drivers;
         const buses = props.drivers.buses;
-        // console.log("Drivers", drivers)
-        // console.log("Drivers List", drivers)
     /* ============ End::  Getting current state ================== */
+    /* ============ Start::  Getting current driver lis ================== */
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = drivers.slice(indexOfFirstPost, indexOfLastPost);
+    
+    const paginate = pageNumber => setCurrentpage(pageNumber)
+    
     const {
         type: userType,
       } = useSelector((state) => state.user);
@@ -146,7 +157,7 @@ const AssignBuses = (props) => {
             </div>
         {/* =========================== Start:: Model =============================== */}    
         {/* =========================== End:: Dashboard =============================== */}  
-            <DashBoardOperatorLayout>  
+            <DashBoardLayout>  
                 <div className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
                     <div className="w-full">
                         {/* Start:  Driver content */}
@@ -182,24 +193,28 @@ const AssignBuses = (props) => {
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Driver name</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Phone</th>
+                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Email</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2 text-center"  >Action</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {drivers.map((driver) => (
+                                                {currentPosts.map((driver) => (
                                                 <tr 
-                                                key={driverCounter}
+                                                key={driverCounter} onClick={() => setProfileInfo(currentPosts[0])}
                                                 className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        {driverCounter++}
+                                                        {console.log("profile",currentPosts[driverCounter])}{driverCounter++}
                                                     </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         <LebalTextButton text='J' type='primary' /> {driver.driverName}
                                                     </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         {driver.telephone}
                                                     </td>
-                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {driver.email}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                     {/* =================== Start:: only admin to see this =================== */}
                                                       {userType == "admin" ? (
                                                           <>
@@ -226,21 +241,11 @@ const AssignBuses = (props) => {
                                                 ))}
                                             </tbody>
                                         </table>
-                                        <div className="w-full flex items-center justify-center ">
-                                            <div className="w-11/12 sm:w-6/12 md:w-6/12 p-1 px-4 shadow flex justify-between mt-3">
-                                                <div className="next flex items-center justify-center rounded-md cursor-pointer hover:bg-secondary-100 w-9">
-                                                    <img src={prev} alt="Phantomm" />
-                                                </div>
-                                                <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">1</div>
-                                                <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">2</div>
-                                                <div className="flex items-center justify-center rounded-md cursor-pointer bg-primary-600 w-8 text-white">3</div>
-                                                <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">...</div>
-                                                <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">12</div>
-                                                <div className="next flex items-center justify-center cursor-pointer rounded-md bg-secondary-100 hover:bg-secondary-200 w-9">
-                                                    <img src={next} alt="Phantomm" />
-                                                </div>
-                                            </div>
-                                        </div>          
+                                        <Pagination 
+                                            postsPerPage={postsPerPage}
+                                            totalPosts={drivers.length}
+                                            paginate={paginate}
+                                        />          
                                     </>
                                                                       
                                     )
@@ -279,10 +284,10 @@ const AssignBuses = (props) => {
                                             <p className='text-primary-600 font-semibold mb-2 text-sm w-full ' >User information</p>
                                         </div>   
                                         <div className="flex flex-wrap">
-                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>250700000000</p>
+                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>{profileInfo.telephone}</p>
                                         </div> 
                                         <div className="flex flex-wrap">
-                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>email@site.net</p>
+                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>{profileInfo.email}</p>
                                         </div>                                       
                                     </div>
                                 </div>
@@ -314,7 +319,7 @@ const AssignBuses = (props) => {
                         {/* ===================== End: Driver profile ==== ================ */}
                     </div>               
                 </div>         
-            </DashBoardOperatorLayout>
+            </DashBoardLayout>
         {/* =========================== End:: Dashboard =============================== */}                    
         </>
     );
