@@ -19,7 +19,10 @@ import BusSimulation from './containers/BusSimulation/BusSimulation';
 
 import OperatorAssignBus from './containers/OperatorDriverBus/OperatorAssignBus'
 
+<<<<<<< HEAD
 import DashboardOperator from './containers/Dashboard/DashboardOperator'
+=======
+>>>>>>> ft(pagination): adds pagination on operator's assign bus to driver
 
 const App = () => {
     return (  
