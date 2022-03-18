@@ -1,3 +1,4 @@
+import  { RouteActionType } from "../constants/RouteActionType"
 import { UPDATE , CREATE , DELETE , MORE_INFO } from "../constants/RouteActionType";
 
 export const updateRouteInfo = (payload) =>{

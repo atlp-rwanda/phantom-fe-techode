@@ -1,17 +1,57 @@
 import { DELETE, CREATE, UPDATE } from "../constants/RouteActionType";
 
-const initialState = [];
+const initialState = [
+  {
+    id: 1,
+    name: 'kn',
+    code: 1200,
+    startLocation: 'kabeza',
+    endLocation: 'Kicukiro',
+    distance: 'km5',
+    duration: 'min30',
+  },
+  {
+    id: 2,
+    name: 'kn',
+    code: 1200,
+    startLocation: 'kabeza',
+    endLocation: 'Kicukiro',
+    distance: 'km5',
+    duration: 'min30',
+  },
+  {
+    id: 3,
+    name: 'kn',
+    code: 1200,
+    startLocation: 'kabeza',
+    endLocation: 'Kicukiro',
+    distance: 'km5',
+    duration: 'min30',
+  },
+  {
+    id: 4,
+    name: 'kn',
+    code: 1200,
+    startLocation: 'kabeza',
+    endLocation: 'Kicukiro',
+    distance: 'km5',
+    duration: 'min30',
+  },
+  
+];
 export function RoutesReducer(state = initialState, { type, payload }) {
   switch (type) {
     case DELETE:
-        const {routeId}  = payload
-        const clonedRemoveState = [...state];
-        const itemToBeDeleted = clonedRemoveState.filter(route => route.id != routeId);
+      const { routeId } = payload;
+      const clonedRemoveState = [...state];
+      const itemToBeDeleted = clonedRemoveState.filter(
+        (route) => route.id != routeId
+      );
 
-        state = itemToBeDeleted;
-        console.log(payload)
-       
-        return state;
+      state = itemToBeDeleted;
+      console.log(payload);
+
+      return state;
 
     case CREATE:
       const clonedState = [...state];
@@ -26,18 +66,19 @@ export function RoutesReducer(state = initialState, { type, payload }) {
       };
       clonedState.push(newRoute);
       state = clonedState;
-     
 
     case UPDATE:
       const cloneState = [...state];
-      const indexTobeUpdated = cloneState.findIndex(route => route.id == payload.id);
+      const indexTobeUpdated = cloneState.findIndex(
+        (route) => route.id == payload.id
+      );
 
       cloneState[indexTobeUpdated] = payload;
       state = cloneState;
 
       return state;
     default:
-        console.log(payload, type)
+      console.log(payload, type);
       return state;
   }
 }
