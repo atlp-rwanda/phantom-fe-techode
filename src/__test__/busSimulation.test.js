@@ -33,9 +33,9 @@ describe('<BusSimulation />', () => {
         wrapper = shallow(<BusSimulation store={store} {...props} />).childAt(0).dive();
     });
 
-    // it('It should match the bus simulation snapshot', () => {
-    //     expect(toJson(wrapper)).toMatchSnapshot();
-    // })
+    it('It should match the bus simulation snapshot', () => {
+        expect(toJson(wrapper)).toMatchSnapshot();
+    })
 
     it('if it should render one DashBoardLayout', () =>{
         expect(wrapper.find(DashBoardLayout).length).toBe(1);

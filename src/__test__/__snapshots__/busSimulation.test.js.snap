@@ -144,18 +144,84 @@ exports[`<BusSimulation /> It should match the bus simulation snapshot 1`] = `
       </div>
     </div>
   </div>
-  <DashBoardLayout>
+  <div
+    className="h-screen w-screen bg-modelColor absolute flex items-center justify-center z-50 px-4 hidden"
+  >
     <div
-      className="w-full"
+      className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8"
     >
-      <Connect(DriverSim)
-        revealModel={[Function]}
-        showModel={false}
-        showModelStart={false}
-      />
+      <div
+        className="card-body"
+      >
+        <form
+          className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12"
+          onSubmit={[Function]}
+        >
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <select
+                className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
+                onChange={[Function]}
+                value=""
+              >
+                <option
+                  value=""
+                >
+                  Select departure
+                </option>
+                <option
+                  value="1"
+                >
+                  Downtown
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <select
+                className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
+                onChange={[Function]}
+                value=""
+              >
+                <option
+                  value=""
+                >
+                  Select destination
+                </option>
+                <option
+                  value="2"
+                >
+                  Nyamirambo
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            className="w-full"
+          >
+            <Primary
+              name="Track"
+              styles="py-2"
+            />
+          </div>
+        </form>
+      </div>
     </div>
-    <div
-      className="w-full mt-6"
+  </div>
+  <DashBoardLayout>
+    <Connect(LocationSim)
+      revealModel={[Function]}
+      showModel={false}
+      showModelStart={false}
     />
   </DashBoardLayout>
 </Fragment>
