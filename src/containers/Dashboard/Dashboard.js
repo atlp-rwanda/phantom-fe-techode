@@ -7,29 +7,22 @@ const Dashboard = (props) => {
     const { user } = props;
     const { type : userType } = user ;
 
+    const places = [ "Kigali" , "Huye" , "Gisenyi" ];
+
     return ( 
         <DashBoardLayout>            
             {/* ===================== Start: User view ============================  */}
                 {
-                    userType == "driver" ?
-                        <>
-                            <div className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12 h-2">
-                                <RouteCard />                            
-                            </div>  
-                            <div className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
-                                <RouteCard />                            
-                            </div>
-                            <div className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
-                                <RouteCard />                            
-                            </div>
-                            <div className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
-                                <RouteCard />                            
-                            </div>
-                            <div className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
-                                <RouteCard />                            
-                            </div>                                                   
-                        </>                        
-                        
+                    userType != "driver" ?
+                        places.map(place => {
+                            return(
+                                <div className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
+                                    <RouteCard placeName={place} />                            
+                                </div> 
+                            )
+                        })
+                          
+                       
                     :""                                    
                 }                
             {/* ======================= End: User view ============================  */}

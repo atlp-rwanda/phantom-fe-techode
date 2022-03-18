@@ -10,7 +10,7 @@ const initialState = {
     lastname: 'Doe',
     telephone: '0700000000',
     email:'email@gmail.com', 
-    type:'driver',
+    type:'',
     profile:''  
 }
 
@@ -35,6 +35,9 @@ export const userReducer = (state = initialState , { type , payload}) =>{
             updates.telephone = payload.phone;
             updates.firstname = payload.firstName;
             updates.lastname = payload.lastName;
+            if(payload.type){
+                updates.type = payload.type
+            }
             state = updates;
             return state;       
         default:

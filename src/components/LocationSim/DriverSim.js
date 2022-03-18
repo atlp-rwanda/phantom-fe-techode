@@ -20,7 +20,6 @@ const DriverSim = ( props ) => {
     const { revealModel , showModel , showModelStart , activeBus , user } = props;
     /* ============ Start: Getting user =============== */ 
     const { type: userType } = user ;
-    console.log(user);
     /* ============== End: Getting user =============== */ 
     const [loading ,setLoading] = useState(false);
     const handleBusStart = () => {    
@@ -98,8 +97,8 @@ const DriverSim = ( props ) => {
                                                             <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                                         </div>                                                        
                                                     </Popup>
-                                                    <RoutingMachine />
-                                                </Marker>                                                                                  
+                                                </Marker>   
+                                                <RoutingMachine from={[-1.944103,30.056790]} to={[-1.9801872,30.0413067]} />                                                                               
                                             </MarkerClusterGroup>
                                         </MapContainer>
                                     }                                

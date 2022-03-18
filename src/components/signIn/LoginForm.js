@@ -8,11 +8,14 @@ import leftArrow from "../../assets/Image/left-arrow.svg"
 import '../../assets/style/LoginForm.css';
 import SkeletonUpdate from '../signInSkeleton/SkeletonUpdate';
 import main from '../../assets/js/main'
+import { connect } from 'react-redux';
+import { update } from '../../redux/actions/userActions';
 
 
-const LoginForm = () => {
-    const history = useHistory()
-    const [signInSkeleton, setSignInSkeleton] = useState(true)
+const LoginForm = (props) => {
+    const history = useHistory();
+    const [signInSkeleton, setSignInSkeleton] = useState(true);
+    const { update } = props;    
     useEffect(() => {
         setTimeout(() => {
             setSignInSkeleton(false);
@@ -31,12 +34,30 @@ const LoginForm = () => {
                 .oneOf(["test123"], "Password doesn't match with Email address")
                 .required('Password required'),
             email: Yup.string()
-                .oneOf(["admin@andela.com"], "Email does not match")
+                .oneOf(["admin@andela.com","driver@andela.com","operator@andela.com"], "Email does not match")
                 .email('Invalid email address')
                 .required('Email required'),
         }),
         onSubmit: () => {
-            history.push('/dashboard')
+            const userInfo = {
+                username: "JohnDoe",
+                firstName: "John",
+                lastName: "Doe",
+                email: formik.values.email,
+                phone:  "123456789",
+                type: ""
+            }
+            if(formik.values.email == "admin@andela.com" ){
+                userInfo.type = "admin"
+            }
+            if(formik.values.email == "operator@andela.com" ){
+                userInfo.type = "operator"
+            }
+            if(formik.values.email == "driver@andela.com" ){
+                userInfo.type = "driver"
+            }
+            update(userInfo);
+            history.push('/dashboard');
         },
     });
 
@@ -134,4 +155,11 @@ const LoginForm = () => {
             </div>
         </div>
     )}
-export default LoginForm
+
+    const mapToState = (state) => {
+        return{
+            user: state.user
+        }
+    }
+
+export default connect(mapToState,{update})(LoginForm)

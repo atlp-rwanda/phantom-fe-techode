@@ -11,13 +11,15 @@ import operatorIM from '../../assets/svgs/operator.svg';
 import roles from '../../assets/svgs/roles.svg'
 import busLink from '../../assets/svgs/busLink.svg';
 import { useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const SideBar = ({shownav}) => {
+const SideBar = ({user,shownav}) => {
    
     const location = useLocation();
+    const { type: userType } = user;
     const navLinks = [
         {   id: 1,
-            linkName : 'Dashboard',
+            linkName : userType == "admin" || userType == "operator"  ? 'Dashboard' : "Home" ,
             svgImage : dashboard,
             to:'dashboard'
         },
@@ -59,6 +61,18 @@ const SideBar = ({shownav}) => {
         }
     ]
 
+    const navProtector = () =>{
+        if(userType == "admin"){
+            navLinks.push( 
+            {
+                id: 6,
+                linkName : 'Operators',
+                svgImage : operatorIM,
+                to:'operators'
+            });
+        }        
+    }
+    navProtector();
     return ( 
         <div className={`text-2lg text-black  main-bg-gradient h-screen pt-5 px-4 transition-all ${shownav == true ? `` :  `sidebar none-active`}`}>
             <div className="flex items-center justify-center flex-col mt-6 mb-4">
@@ -85,4 +99,9 @@ const SideBar = ({shownav}) => {
     );
 }
  
-export default SideBar;
+const mapToState = (state) => {
+    return{
+        user :  state.user
+    }
+}
+export default connect(mapToState,{})(SideBar);
