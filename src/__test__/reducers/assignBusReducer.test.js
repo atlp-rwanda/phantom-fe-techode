@@ -8,18 +8,12 @@ describe("Testing => assignBus reducer(state, action)", () => {
             {
                 id: 1,
                 driverName: "John Doe",
-<<<<<<< HEAD
                 telephone: "788966656",
                 email: "test111@gmail.com",
-=======
->>>>>>> ch(tests): test assign driver bus reducer
-                assignedBus : [
-                ]
             },
             {
                 id: 2,
                 driverName: "MAZO",
-<<<<<<< HEAD
                 telephone: "788966656",
                 email: "test1111@gmail.com",
                 assignedBus : [
@@ -38,8 +32,6 @@ describe("Testing => assignBus reducer(state, action)", () => {
                 driverName: "GANG",
                 email: "test11@gmail.com",
                 telephone: "788966656",
-=======
->>>>>>> ch(tests): test assign driver bus reducer
                 assignedBus : [
             ]
             }
@@ -56,23 +48,14 @@ describe("Testing => assignBus reducer(state, action)", () => {
             {
                 id: 1,
                 driverName: "John Doe",
-<<<<<<< HEAD
                 telephone: "788966656",
                 email: "test111@gmail.com",
-=======
->>>>>>> ch(tests): test assign driver bus reducer
                 assignedBus : [
-                    {
-                        id: 1,
-                        busName:"TOYOTA",
-                        plateNumber: "PLATE908",
-                    }
                 ]
             },
             {
                 id: 2,
                 driverName: "MAZO",
-<<<<<<< HEAD
                 telephone: "788966656",
                 email: "test1111@gmail.com",
                 assignedBus : [
@@ -94,11 +77,6 @@ describe("Testing => assignBus reducer(state, action)", () => {
                 assignedBus : [
             ]
             }
-=======
-                assignedBus : [
-                ]
-            },
->>>>>>> ch(tests): test assign driver bus reducer
           ];
     
         const reducer = assignBusReducer(initialState, {
