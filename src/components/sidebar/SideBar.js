@@ -25,7 +25,7 @@ const SideBar = ({user,shownav}) => {
         },
         {
             id: 2,
-            linkName : 'Navigation',
+            linkName : 'Track',
             svgImage : busLink,
             to:'simulation'
         },
@@ -53,23 +53,19 @@ const SideBar = ({user,shownav}) => {
             svgImage : operatorIM,
             to:'operators'
         },
-        {
-            id: 7,
-            linkName : 'Roles',
-            svgImage : roles,
-            to:'roles'
-        }
+       
     ]
 
     const navProtector = () =>{
         if(userType == "admin"){
             navLinks.push( 
-            {
-                id: 6,
-                linkName : 'Operators',
-                svgImage : operatorIM,
-                to:'operators'
-            });
+                {
+                    id: navLinks.length + 1,
+                    linkName : 'Roles',
+                    svgImage : roles,
+                    to:'roles'
+                }
+            );
         }        
     }
     navProtector();
