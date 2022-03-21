@@ -18,7 +18,12 @@ const LocationSim = ( props ) => {
     /* ============ Start: Getting user =============== */ 
     const { type: userType } = user ;
     /* ============== End: Getting user =============== */ 
-    const [loading ,setLoading] = useState(false);
+    const [isLoading ,setIsLoading] = useState(true);
+
+    setTimeout(() => {
+        setIsLoading(false)
+      }, 5000)
+
     const handleBusStart = () => {    
         activeBus[0].busStatus = "Starting";    
         revealModel("start");   
@@ -64,8 +69,8 @@ const LocationSim = ( props ) => {
                 {/* ==================== Start:: Bus similation ================================ */}
                 <div className="flex flex-wrap h-full">               
                     <div className={`w-full h-full ${ showModel == true || showModelStart == true ? "hidden" : "" }`} id="map">
-                        {loading && <Map />}
-                        {!loading && 
+                        {isLoading && <Map />}
+                        {!isLoading && 
                             <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}  >
                                 <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                 <MarkerClusterGroup>

@@ -21,7 +21,12 @@ const DriverSim = ( props ) => {
     /* ============ Start: Getting user =============== */ 
     const { type: userType } = user ;
     /* ============== End: Getting user =============== */ 
-    const [loading ,setLoading] = useState(false);
+    const [isLoading ,setIsLoading] = useState(true);
+
+    setTimeout(() => {
+        setIsLoading(false)
+      }, 5000)
+
     const handleBusStart = () => {    
         activeBus[0].busStatus = "Starting";    
         revealModel("start");   
@@ -86,8 +91,8 @@ const DriverSim = ( props ) => {
                             </div>
                             <div className="card-body">
                                 <div className={`w-full ${ showModel == true || showModelStart == true ? "hidden" : "" }`} id="map">
-                                    {loading && <Map />}
-                                    {!loading && 
+                                    {isLoading && <Map />}
+                                    {!isLoading && 
                                         <MapContainer center={[-1.944103,30.056790]} zoom={13} scrollWheelZoom={true}>
                                             <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                             <MarkerClusterGroup>
