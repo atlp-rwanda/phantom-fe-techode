@@ -16,6 +16,7 @@ import busPark from '../../assets/Image/busPark.jpg';
 import next from '../../assets/svgs/next.svg';
 import { connect } from 'react-redux';
 import { createBus, updateBusInfo, deleteBus } from "../../redux/actions/busAction";
+import Pagination from "../../components/pagination/Pagination";
 
 const Busesoperat = (props) => {
 
@@ -28,6 +29,9 @@ const Busesoperat = (props) => {
     const [updateModel, setUpdateModel] = useState(false);
     const [createBusModel, setCreateBusModel] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const [currentPage, setCurrentpage] = useState(1)
+    const [postsPerPage] = useState(2)
     //for selecting 
     const [selectedBus, setSelectedBusId] = useState([
         {
@@ -64,7 +68,11 @@ const Busesoperat = (props) => {
         type: userType,
     } = user;
 
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = buses.slice(indexOfFirstPost, indexOfLastPost);
 
+    const paginate = pageNumber => setCurrentpage(pageNumber)
 
     const removeModel = () => {
         let newState = !createBusModel;
@@ -320,7 +328,7 @@ const Busesoperat = (props) => {
                                         <tbody>
 
                                             {!isList?
-                                                buses.map(bus => (
+                                                currentPosts.map(bus => (
                                                     <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             {bus.id}
@@ -340,7 +348,7 @@ const Busesoperat = (props) => {
                                                             <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
                                                         </td>
                                                     </tr>
-                                                )):buses.map((bus)=>(
+                                                )):currentPosts.map((bus)=>(
                                                     <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                     <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         {bus.id}
@@ -364,20 +372,11 @@ const Busesoperat = (props) => {
                                         </tbody>
                                     </table>
                                     {/* ======================= START:: PAGINATION ============================ */}
-                                    <div className="w-full flex items-center justify-center ">
-                                        <div className="w-11/12 sm:w-6/12 md:w-6/12 p-1 px-4 shadow flex justify-between mt-3">
-                                            <div className="next flex items-center justify-center rounded-md cursor-pointer hover:bg-secondary-100 w-9">
-                                                <img src={prev} alt="Phantomm" />
-                                            </div>
-                                            <div className="flex items-center justify-center rounded-md cursor-pointer bg-primary-600 w-8 text-white">1</div>
-                                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">2</div>
-                                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">...</div>
-                                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">3</div>
-                                            <div className="next flex items-center justify-center cursor-pointer rounded-md bg-secondary-100 hover:bg-secondary-200 w-9">
-                                                <img src={next} alt="Phantomm" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <Pagination 
+                                        postsPerPage={postsPerPage}
+                                        totalPosts={buses.length}
+                                        paginate={paginate}
+                                    />
                                     {/* ======================== START:: PAGINATION ============================ */}
                                 </>
 
