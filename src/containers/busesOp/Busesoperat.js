@@ -394,29 +394,32 @@ const Busesoperat = (props) => {
                         {!loading && (
                             <div className=" flex flex-col items-center justify-center">
                                 <div className="profile ">
-                                    <div className="  border border-primary-600 w-20 h-20 mt-4 rounded-full flex items-center justify-center bg-primary-100">
+                                    <div className="w-20 h-20 mt-4 rounded-full flex items-center justify-center bg-primary-100">
 
-                                        <img src={busPark} alt="Bus" className="border border-primary-600 w-20 h-20 rounded-full flex items-center justify-center bg-primary-100" />
+                                        <img src={busPark} alt="Bus" className="w-20 h-20 rounded-full flex items-center justify-center bg-primary-100" />
 
                                     </div>
                                 </div>
                                 <div className="mt-6">
                                     <div className="profiler-name">
-                                        <p className=' text-xs font-semibold font-sans md:text-2xl text-secondary-300 underline'>Bus Information</p>
+                                        <p className=' text-xs font-semibold font-sans md:text-xl text-secondary-300'>Bus Information</p>
                                     </div>
                                 </div>
                                 {
                                     selectedBus.map(bus => (
                                         <div key={bus.id} className="driver-info w-full flex items-center ml-16 justify-between mt-4 px-6">
                                             <div className="w-5/6">
-                                                <div className="title flex flex-row font-sans " >
-                                                    <p className='text-secondary-200 font-semibold text-2xl  w-full'>{bus.busType}</p>
+                                            <div className="title flex flex-row font-sans" >
+                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Bus Model</p>
+                                                    <p className='text-secondary-200 font-semibold text-xs w-1/2 md:pl-10'>{bus.busType}</p>
                                                 </div>
                                                 <div className="title flex flex-row font-sans " >
-                                                    <p className='text-secondary-200 font-semibold text-2xl  w-full'>{bus.route}</p>
+                                                <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Route Code</p>
+                                                    <p className='text-secondary-200 font-semibold text-xs w-1/2  md:pl-10'>{bus.route}</p>
                                                 </div>
                                                 <div className="title flex flex-row font-sans " >
-                                                    <p className='text-secondary-200 font-semibold text-2xl mb-7 w-3/4'>{bus.plate}</p>
+                                                <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Plate number</p>
+                                                    <p className='text-secondary-200 font-semibold text-xs w-1/2  md:pl-10'>{bus.plate}</p>
                                                 </div>
                                             </div>
                                         </div>
