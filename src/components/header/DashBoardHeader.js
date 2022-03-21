@@ -4,6 +4,7 @@ import search from '../../assets/svgs/search.svg';
 import defaultProfile from "../../assets/img/profile.jpg";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Notification from '../notification/Notification';
 
 const DashBoardHeader = ({ shownav ,show }) => {
     const redirect = useHistory();
@@ -25,6 +26,7 @@ const DashBoardHeader = ({ shownav ,show }) => {
                 </div>                
             </div>     
             <div className="w-1/3 sm:w-2/4 h-12 flex items-center float-right mr-6 cursor-pointer" onClick={() => redirect.push('/profile')} >
+                <Notification />
                 <div className="profile w-full">
                     <img src={profile == "" ? defaultProfile : profile } alt="phantom" className="rounded-full h-9 w-9 md:h-12 md:w-12 float-right border-2 border-mainColor" />    
                 </div>                                        

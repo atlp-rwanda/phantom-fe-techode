@@ -13,10 +13,7 @@ import lock from '../../assets/svgs/lebals/lock.svg';
 import deleteIcon from '../../assets/svgs/delete.svg';
 import edit from '../../assets/svgs/edit.svg';
 import add from "../../assets/svgs/lebals/savePrevelage.svg";
-import more from '../../assets/svgs/more.svg';
 import close from '../../assets/svgs/close.svg';
-import prev from '../../assets/svgs/prev.svg';
-import next from '../../assets/svgs/next.svg';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { assignBus, removeBus } from '../../redux/actions/assignBusAction'
 import Pagination from '../../components/pagination/Pagination';
@@ -66,6 +63,7 @@ const AssignBuses = (props) => {
         let count = 0
         let driverCounter = 1;
         let busesCounter = 1;
+        let firstChar = ""
         const drivers = props.drivers;
         const buses = props.drivers.buses;
     /* ============ End::  Getting current state ================== */
@@ -257,7 +255,9 @@ const AssignBuses = (props) => {
                                 <div className="profile ">
                                     <div className="  border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100">
                                         <p className='text-primary-600 text-xl font-sans font-bold' >
-                                            j
+                                            {
+                                                profileInfo.driverName.charAt(0)
+                                            }
                                         </p>
                                     </div>
                                 </div>    
