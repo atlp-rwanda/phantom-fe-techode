@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from 'enzyme'
 import BusOperation from '../containers/busesOp/Busesoperat';
 import store from '../redux/store'
-import DashboardLayout from "../components/dashBoardLayout/dashBoardLayout";
+import DashboardLayout from "../components/dashBoardLayout/DashBoardLayout";
 /* ========== Start::configuration =========== */ 
 import { applyMiddleware , createStore } from 'redux';
 import reducers from '../redux/reducers/index';
