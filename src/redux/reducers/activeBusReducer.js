@@ -32,7 +32,6 @@ export const activeBusReducer = (state = initialState , { type , payload}) =>{
             
             clonedState[indexToUpdate] = busInfoToUpdate[0];
             clonedState[indexToUpdate].busStatus = "On Board";
-            console.log(busInfoToUpdate);
             state = clonedState;
             return state;         
         default:

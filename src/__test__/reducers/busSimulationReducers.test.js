@@ -1,10 +1,11 @@
-import { activeBusReducer } from "../../redux/reducers/activeBusReducer";
-import { activeBusActionTypes } from '../../redux/constants/activeBusActionTypes';
+import { start } from "../../redux/actions/ActiveBus" 
+import { testStore } from "../../utls/testStore";
 
 describe("Testing => activeBusReducer(state, action)", () => {
-    let initialState
+    let state
+    let store
     beforeEach(() => {
-        initialState = [
+        state = [
             {
                 driver: { id:1 , name: 'John Doe'},
                 bus: { id:1 , plate: "RAE107D" },
@@ -13,12 +14,22 @@ describe("Testing => activeBusReducer(state, action)", () => {
                 busStatus:"parked"
             },
         ];
+        store = testStore();
     });
 
     it("should return the initialState for no action", () => {
-        const reducer = activeBusReducer(undefined, {});
-        expect(reducer).toEqual(initialState);
-      });
+        const activeBusState = store.getState().activeBus;
+        expect(activeBusState).toEqual(state);
+    });
+    it("On start bus should return onrbard status", () => {
+        const activeBusState = store.getState().activeBus;
+        const payload = {busId:1,passengers:8};
+        store.dispatch(start(payload));
+        state[0].busStatus = "On Board";
+        state[0].passengers = 8;
+        expect(activeBusState).toEqual(state);
+        
+    });
 
 
 
