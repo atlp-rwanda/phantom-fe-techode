@@ -64,7 +64,7 @@ const LoginForm = (props) => {
 
     return (
         <div className='lg:flex md:flex w-screen h-screen overflow-hidden' style={main.style}>
-            <div className=" letfSide_bg-color lg:w-5/12 md:w-7/12 flex flex-col md:p-12 lg:px-24 2xl:p-40 ">
+            <div className=" letfSide_bg-color lg:w-5/12 md:w-7/12 flex flex-col p-6 md:p-12 lg:px-24 2xl:p-40 ">
                 <Link to="/"  className='w-full ' >
                     <span className="iconify">
                         <img src={leftArrow} alt="" />

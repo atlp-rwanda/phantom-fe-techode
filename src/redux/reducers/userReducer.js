@@ -14,7 +14,6 @@ const initialState = {
     profile:''  
 }
 
-
 export const userReducer = (state = initialState , { type , payload}) =>{
     switch (type) {
         case GET_USERNAME:

@@ -22,9 +22,9 @@ const Dashboard = (props) => {
                 {/* ======== End: skeleton =========  */}             
                 {!loading &&
                     userType != "driver" ?
-                        places.map(place => {
+                        places.map((place,index) => {
                             return(
-                                <div className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
+                                <div key={index++} className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
                                     <RouteCard placeName={place} />                            
                                 </div> 
                             )
