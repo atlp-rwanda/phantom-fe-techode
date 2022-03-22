@@ -71,7 +71,7 @@ const SideBar = ({user,shownav}) => {
     navProtector();
     return ( 
         <div className={`text-2lg text-black  main-bg-gradient h-screen pt-5 px-4 transition-all ${shownav == true ? `` :  `sidebar none-active`}`}>
-            <div className="flex items-center justify-center flex-col mt-6 mb-4">
+            <div className="flex items-center justify-center flex-col mt-8 mb-4">
                 <div className="logo">
                     <img src={logo} alt="phantom"  />
                 </div>
