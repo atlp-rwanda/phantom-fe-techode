@@ -7,15 +7,18 @@ import dashboard from '../../assets/svgs/dashboard.svg';
 import driver from '../../assets/svgs/driver.svg'
 import userSvg from '../../assets/svgs/user.svg';
 import routes from '../../assets/svgs/routes.svg';
+import bus from '../../assets/svgs/bus.svg';
 import operatorIM from '../../assets/svgs/operator.svg';
 import roles from '../../assets/svgs/roles.svg'
 import bus from '../../assets/svgs/bus.svg';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SideBar = ({shownav}) => {
    
     const location = useLocation();
-    const navLinks = [
+    let navLinks =[]
+    navLinks = [
         {   id: 1,
             linkName : 'Dashboard',
             svgImage : dashboard,
@@ -58,6 +61,39 @@ const SideBar = ({shownav}) => {
             to:'buses'
         }
     ]
+
+    const changenav = () => {
+        const user = useSelector((state) => state.user)
+        
+        if (user.type == 'operator'){
+            navLinks = [
+                    {   id: 1,
+                        linkName : 'Dashboard',
+                        svgImage : dashboard,
+                        to:'dashboard_operator'
+                    },
+                    {
+                        id: 2,
+                        linkName : 'Drivers',
+                        svgImage : driver,
+                        to:'assign_drivers_buses'
+                    },
+                    {
+                        id: 3,
+                        linkName : 'Routes',
+                        svgImage : routes,
+                        to:'routes'
+                    },
+                    {
+                        id: 4,
+                        linkName : 'Buses',
+                        svgImage : bus,
+                        to:'buses'
+                    },
+                ]
+    }
+}
+    changenav()
 
     return ( 
         <div className={`text-2lg text-black  main-bg-gradient h-screen pt-5 px-4 transition-all ${shownav == true ? `` :  `sidebar none-active`}`}>
