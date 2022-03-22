@@ -17,8 +17,9 @@ const Dashboard = (props) => {
     return ( 
         <DashBoardLayout>            
             {/* ===================== Start: User view ============================  */}
+                
                 {/* ====== Start: skeleton =========  */}
-                    { loading && <TrackCard /> }   
+                    { userType != "driver" && loading && <TrackCard /> }   
                 {/* ======== End: skeleton =========  */}             
                 {!loading &&
                     userType != "driver" ?

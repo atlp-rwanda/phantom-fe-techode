@@ -1,4 +1,5 @@
 export const activeBusActionTypes = {
     UPDATE : "UPDATE_ACTIVE_BUS",
-    START: "START"
+    START: "START",
+    SPEED_CONTROLLER: "SPEED_CONTROLLER"
 }

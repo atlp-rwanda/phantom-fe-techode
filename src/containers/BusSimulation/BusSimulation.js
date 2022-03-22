@@ -4,13 +4,13 @@ import { Primary } from "../../components/buttons/Buttons";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import LocationSim from "../../components/LocationSim/locationSimUpdate";
 import DriverSim from "../../components/LocationSim/DriverSim";
-import { updateActiveBus , start } from '../../redux/actions/ActiveBus'
+import { updateActiveBus , start , speedControl } from '../../redux/actions/ActiveBus'
 
 import close from "../../assets/svgs/close.svg";
 import { connect } from "react-redux";
 import Notify from "../../functions/Notify";
 const BusSimulation = ( props ) => {
-    const { updateActiveBus , start , user } = props;
+    const { updateActiveBus , start , user , speedControl } = props;
     const [ showModel , setShowModel ] = useState(false);
     const [ showModelStart , setShowModelStart ] = useState(false);
     const [ routeLocatorForm , setRouteLocatorForm ] = useState(false);
@@ -26,21 +26,15 @@ const BusSimulation = ( props ) => {
     const [destination, setDestination] = useState("");
     /* =================== End:: form infromation managimment ============= */ 
 
-    
-    const aquaticCreatures = [
-        { label: 'Shark', value: 'Shark' },
-        { label: 'Dolphin', value: 'Dolphin' },
-        { label: 'Whale', value: 'Whale' },
-        { label: 'Octopus', value: 'Octopus' },
-        { label: 'Crab', value: 'Crab' },
-        { label: 'Lobster', value: 'Lobster' },
-    ];
 
     /* ================== Start Passenger funstion ======================== */
     const handleStartTrip = (e) => {
         e.preventDefault();
         if(passengers.trim() == "" ) return Notify("Please make sure passengers field is not empty","error");
         start({ busId: 1 , passengers });
+        /* speed update */
+            speedControl({ busId: 1 , speed: 89 });
+        /* speed update */
         setPassenger("")
     } 
 
@@ -53,6 +47,9 @@ const BusSimulation = ( props ) => {
         if(alighting.trim() == "" ) return Notify("Please make sure alighting passengers field is not empty","error");
         if(joining.trim() == "" ) return Notify("Please make sure joining passengers field is not empty","error");
         updateActiveBus({driverId: 1, alighting, joining});
+        /* speed update */
+            speedControl({ busId: 1 , speed: 12 });
+        /* speed update */
         setAlighting("");
         setJoining("");
     }
@@ -185,4 +182,4 @@ const mapStateTo = (state) =>{
         activeBus: state.activeBus
     }
 }
-export default connect( mapStateTo , { updateActiveBus , start })(BusSimulation);
+export default connect( mapStateTo , { updateActiveBus , start ,speedControl })(BusSimulation);

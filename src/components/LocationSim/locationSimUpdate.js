@@ -10,6 +10,7 @@ import "./map-style.css"
 import { Icon } from '@iconify/react';
 import RanderMyLocation from '../../functions/RanderMyLocation';
 import RoutingMachine from '../../functions/RoutingMachine';
+import BusTrack from '../../functions/BusTrack';
 
 
 
@@ -24,19 +25,6 @@ const LocationSim = ( props ) => {
         setIsLoading(false)
       }, 5000)
 
-    const handleBusStart = () => {    
-        activeBus[0].busStatus = "Starting";    
-        revealModel("start");   
-    }
-
-    const handleBusAlight = () => {    
-        activeBus[0].busStatus = "Bus Stopped";    
-        revealModel("update");   
-    }
-
-    const handleBusStop = () => {
-        Notify("The bus has been stopped" , 'info' );         
-    }
    
 
     return (
@@ -74,8 +62,24 @@ const LocationSim = ( props ) => {
                             <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}  >
                                 <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                 <MarkerClusterGroup>
+                                    <BusTrack icon={iconBus} data={{latitude:  -1.944103 , longitude:  30.056790}} >
+                                        <Popup  className="w-36">
+                                                <div >
+                                                    <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
+                                                </div>  
+                                                <div >
+                                                    <i class="fa fa-car text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >RAB407X</span>  
+                                                </div>  
+                                                <div >
+                                                    <i class="fa fa-location-arrow text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >Bus stop</span>  
+                                                </div> 
+                                                <div >
+                                                    <i class="fa fa-road text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >305</span>  
+                                                </div>    
+                                        </Popup>
+                                    </BusTrack>
                                     <Marker position={[ -1.944103,30.056790]} icon={iconBus}>
-                                        <Popup  className="min-w-full">
+                                        <Popup  className="w-36">
                                             <div >
                                                 <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                             </div>  
@@ -91,7 +95,7 @@ const LocationSim = ( props ) => {
                                         </Popup>
                                     </Marker>
                                     <Marker position={[-1.9443809,30.0565809]} icon={iconBus} >
-                                        <Popup  className="min-w-full">
+                                        <Popup  className="w-36">
                                             <div >
                                                 <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                             </div>  
@@ -107,7 +111,7 @@ const LocationSim = ( props ) => {
                                         </Popup>
                                     </Marker>   
                                     <Marker position={[ -1.9437671,30.05701]} icon={iconBus} >
-                                        <Popup  className="min-w-full">
+                                        <Popup  className="w-36">
                                             <div >
                                                 <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                             </div>   
@@ -123,7 +127,7 @@ const LocationSim = ( props ) => {
                                         </Popup>
                                     </Marker> 
                                     <Marker position={[-1.9460644,30.0556179]} icon={iconBus} >
-                                        <Popup  className="min-w-full">
+                                        <Popup  className="w-36">
                                             <div >
                                                 <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                             </div>  
@@ -139,7 +143,7 @@ const LocationSim = ( props ) => {
                                         </Popup>
                                     </Marker>    
                                     <Marker position={[-1.9496852,30.0583005]} icon={iconBus} >
-                                        <Popup  className="min-w-full">
+                                        <Popup  className="w-36">
                                             <div >
                                                 <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                             </div>  
@@ -155,7 +159,7 @@ const LocationSim = ( props ) => {
                                         </Popup>
                                     </Marker>     
                                     <Marker position={[-1.9801872,30.0413067]} icon={iconStoppedBus} >
-                                        <Popup  className="min-w-full">
+                                        <Popup  className="w-36">
                                         <div >
                                                 <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                             </div>
@@ -171,7 +175,7 @@ const LocationSim = ( props ) => {
                                         </Popup>
                                     </Marker>   
                                     <Marker position={[-1.9567121,30.0584473]} icon={iconOnBoardBus} >
-                                        <Popup  className="min-w-full">
+                                        <Popup  className="w-36">
                                             <div >
                                                 <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
                                             </div>  
@@ -187,7 +191,7 @@ const LocationSim = ( props ) => {
                                         </Popup>
                                     </Marker> 
                                     <RoutingMachine from={selectedRoute.from} to={selectedRoute.to} />
-                                    {/* <RanderMyLocation />                                                                             */}
+                                    <RanderMyLocation />                                                                            
                                 </MarkerClusterGroup>
                             </MapContainer>
                         } 

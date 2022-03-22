@@ -13,7 +13,6 @@ const RanderMyLocation = () => {
         map.flyTo(e.latlng, map.getZoom());
         const radius = e.accuracy;
         const circle = L.circle(e.latlng, radius);
-        circle.addTo(map);
         setBbox(e.bounds.toBBoxString().split(","));
         console.log(position);
         // setPosition({

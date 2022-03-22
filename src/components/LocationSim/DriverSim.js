@@ -2,22 +2,20 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { ToastContainer } from 'react-toastify';
 import Notify from '../../functions/Notify';
-import { LebalTextButton } from '../buttons/LebalButton';
-import { OperatorProfile } from '../skeletons/cards/Profile';
+import "./map-style-driver.css"
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { iconBus,iconStoppedBus,iconOnBoardBus } from "../../components/icons/Icons"
-
+import { iconOnBoardBus } from "../../components/icons/Icons"
 import {Map} from '../skeletons/Map/Map'
-
-import location from '../../assets/svgs/locationInfo.svg';
-import { DangerButton, Primary, SuccessButton, WarningButton } from '../buttons/Buttons';
+import { DangerButton, SuccessButton, WarningButton } from '../buttons/Buttons';
 import RoutingMachine from '../../functions/RoutingMachine';
+import { speedControl } from '../../redux/actions/ActiveBus'
+
 
 
 
 const DriverSim = ( props ) => {
-    const { revealModel , showModel , showModelStart , activeBus , user } = props;
+    const { revealModel , showModel , showModelStart , activeBus , user,speedControl } = props;
     /* ============ Start: Getting user =============== */ 
     const { type: userType } = user ;
     /* ============== End: Getting user =============== */ 
@@ -38,9 +36,11 @@ const DriverSim = ( props ) => {
     }
 
     const handleBusStop = () => {
+        /* Speed update */
+            speedControl({ busId: 1 , speed: 0 });
+        /* Speed update */ 
         Notify("The bus has been stopped" , 'info' );         
-    }
-    //TODO:: BUS CAN NOT STOP UNLESS IS ON THE MOVE 
+    } 
     return (
         <>
  
@@ -83,32 +83,30 @@ const DriverSim = ( props ) => {
                     {/* ==================== Start:: Bus on Map ================================ */}
                     <div className="map-location-card w-full sm:p-4">                      
                         <div className="bg-white w-full  rounded-lg p-4">
-                            <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
-                                <h3 className="font-bold text-base text-center w-11/12 text-mainColor">
-                                    Nyamirambo - Downtown 401
-                                </h3>
-                                <hr className=" bg-secondary-150 border my-3 w-full" />
-                            </div>
-                            <div className="card-body">
-                                <div className={`w-full ${ showModel == true || showModelStart == true ? "hidden" : "" }`} id="map">
-                                    {isLoading && <Map />}
-                                    {!isLoading && 
-                                        <MapContainer center={[-1.944103,30.056790]} zoom={13} scrollWheelZoom={true}>
-                                            <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                                            <MarkerClusterGroup>
-                                                <Marker position={[ -1.944103,30.056790]} icon={iconOnBoardBus}>
-                                                    <Popup className="min-w-full">
-                                                        <div >
-                                                            <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >John doe</span>  
-                                                        </div>                                                        
-                                                    </Popup>
-                                                </Marker>   
-                                                <RoutingMachine from={[-1.944103,30.056790]} to={[-1.9801872,30.0413067]} />                                                                               
-                                            </MarkerClusterGroup>
-                                        </MapContainer>
-                                    }                                
-                                </div>                                                                
-                            </div>
+                            <div className={`w-full ${ showModel == true || showModelStart == true ? "hidden" : "" }`} id="map">
+                                {isLoading && <Map />}
+                                {!isLoading && 
+                                    <MapContainer center={[-1.944103,30.056790]} zoom={13} scrollWheelZoom={true}>
+                                        <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                                        <MarkerClusterGroup>
+                                            <Marker position={[ -1.944103,30.056790]} icon={iconOnBoardBus}>
+                                                <Popup  className=" w-40">
+                                                    <div className='w-full' >
+                                                        <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >{ activeBus[0].driver.name }</span>  
+                                                    </div>  
+                                                    <div className='w-full' >
+                                                        <i class="fa fa-car text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >{activeBus[0].bus.plate}</span>  
+                                                    </div> 
+                                                    <div className='w-full' >
+                                                        <i class="fa fa-road text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >{activeBus[0].speedStatus == 1 ? activeBus[0].speed.current : activeBus[0].speedStatus}</span>  
+                                                    </div>    
+                                                </Popup>     
+                                            </Marker>   
+                                            <RoutingMachine from={[-1.944103,30.056790]} to={[-1.9801872,30.0413067]} />                                                                               
+                                        </MarkerClusterGroup>
+                                    </MapContainer>
+                                }                                
+                            </div> 
                         </div>
                     </div>
                     {/* ====================== End:: Bus on Map ================================ */}
@@ -126,4 +124,4 @@ const mapStateTo = (state) =>{
         activeBus: state.activeBus
     }
 }
-export default connect( mapStateTo , {})(DriverSim);
+export default connect( mapStateTo , {speedControl})(DriverSim);
