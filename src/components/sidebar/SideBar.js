@@ -10,7 +10,6 @@ import routes from '../../assets/svgs/routes.svg';
 import bus from '../../assets/svgs/bus.svg';
 import operatorIM from '../../assets/svgs/operator.svg';
 import roles from '../../assets/svgs/roles.svg'
-import bus from '../../assets/svgs/bus.svg';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

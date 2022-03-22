@@ -12,7 +12,7 @@ const reducers =  combineReducers({
     roles: rolesReducer,
     permissions: permissionsReducer,
     user: userReducer,
-    buses: busesReducer
+    buses: busesReducer,
     driverBusAssignment: assignBusReducer
 })
 
