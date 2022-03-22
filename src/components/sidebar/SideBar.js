@@ -7,21 +7,26 @@ import dashboard from '../../assets/svgs/dashboard.svg';
 import driver from '../../assets/svgs/driver.svg'
 import userSvg from '../../assets/svgs/user.svg';
 import routes from '../../assets/svgs/routes.svg';
+import bus from '../../assets/svgs/bus.svg';
 import operatorIM from '../../assets/svgs/operator.svg';
 import roles from '../../assets/svgs/roles.svg'
 import busLink from '../../assets/svgs/busLink.svg';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const SideBar = ({user,shownav}) => {
    
     const location = useLocation();
     const { type: userType } = user;
-    const navLinks = [
+
+
+    /* ======== Start:: Public routes ===========  */ 
+    let navLinks = [
         {   id: 1,
             linkName : userType == "admin" || userType == "operator"  ? 'Dashboard' : "Home" ,
             svgImage : dashboard,
-            to:'dashboard'
+            to: userType == "admin" || userType == "driver"  || userType == "" ? 'dashboard' : "dashboard_operator"
         },
         {
             id: 2,
@@ -41,23 +46,26 @@ const SideBar = ({user,shownav}) => {
             svgImage : routes,
             to:'routes'
         },
-        {
-            id: 5,
-            linkName : 'users',
-            svgImage : userSvg,
-            to:'Users'
-        },
-        {
-            id: 6,
-            linkName : 'Operators',
-            svgImage : operatorIM,
-            to:'operators'
-        },
-       
     ]
-
+    /* ======== End:: Public routes ===========  */ 
     const navProtector = () =>{
         if(userType == "admin"){
+            navLinks.push( 
+                {
+                    id: navLinks.length + 1,
+                    linkName : 'users',
+                    svgImage : userSvg,
+                    to:'Users'
+                }
+            );
+            navLinks.push( 
+                {
+                    id: navLinks.length + 1,
+                    linkName : 'Operators',
+                    svgImage : operatorIM,
+                    to:'operators'
+                }
+            );
             navLinks.push( 
                 {
                     id: navLinks.length + 1,
@@ -66,7 +74,11 @@ const SideBar = ({user,shownav}) => {
                     to:'roles'
                 }
             );
-        }        
+           
+        }   
+        if(userType == "operator"){
+            navLinks[2].to = "assign_drivers_buses"
+        }
     }
     navProtector();
     return ( 
@@ -101,3 +113,4 @@ const mapToState = (state) => {
     }
 }
 export default connect(mapToState,{})(SideBar);
+

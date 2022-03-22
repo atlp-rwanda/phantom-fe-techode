@@ -5,6 +5,7 @@ import { permissionsReducer } from "./permissionsReducer";
 import { userReducer } from "./userReducer"; 
 import { activeBusReducer } from "./activeBusReducer";
 import { selectedRouteReducer } from "./SelectedRouteReducer";
+import { assignBusReducer } from "./assignBusReducer"
 
 const reducers =  combineReducers({
     counters :  counterReducer,
@@ -12,7 +13,8 @@ const reducers =  combineReducers({
     permissions: permissionsReducer,
     user: userReducer,
     activeBus: activeBusReducer,
-    selectedRoute: selectedRouteReducer
+    selectedRoute: selectedRouteReducer,
+    driverBusAssignment: assignBusReducer
 })
 
 export default reducers;

@@ -27,7 +27,7 @@ const RoutingMachine = createControlComponent(createRoutineMachineLayer);
 
 export const getRouteInfo = (props) => {
   const { from , to } = props;
-  const routeInfo = {
+  let routeInfo = {
     distance: 0,
     duration: 0,
   }
