@@ -298,7 +298,7 @@ const Busesoperat = (props) => {
                             <div className="card-title">
                                 <div className="title mb-3">
                                     <h4 className=' text-primary-500 font-bold text-xl md:text-2xl' >
-                                        Buses
+                                        Buses 
                                     </h4>
                                 </div>
                                 <div className="sub-title">
