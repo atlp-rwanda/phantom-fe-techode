@@ -9,7 +9,6 @@ export const updateRouteInfo = (payload) =>{
 }
 
 export const deleteRoute = (payload) =>{
-    console.log(payload)
     return {
         type: DELETE,
         payload

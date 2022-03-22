@@ -3,7 +3,7 @@ import { DELETE, CREATE, UPDATE } from "../constants/RouteActionType";
 const initialState = [
   {
     id: 1,
-    name: 'kn',
+    name: 'KN',
     code: 1200,
     startLocation: 'kabeza',
     endLocation: 'Kicukiro',
@@ -12,7 +12,7 @@ const initialState = [
   },
   {
     id: 2,
-    name: 'kn',
+    name: 'KK',
     code: 1200,
     startLocation: 'kabeza',
     endLocation: 'Kicukiro',
@@ -21,7 +21,7 @@ const initialState = [
   },
   {
     id: 3,
-    name: 'kn',
+    name: 'KG',
     code: 1200,
     startLocation: 'kabeza',
     endLocation: 'Kicukiro',
@@ -30,7 +30,7 @@ const initialState = [
   },
   {
     id: 4,
-    name: 'kn',
+    name: 'KM',
     code: 1200,
     startLocation: 'kabeza',
     endLocation: 'Kicukiro',
@@ -49,7 +49,6 @@ export function RoutesReducer(state = initialState, { type, payload }) {
       );
 
       state = itemToBeDeleted;
-      console.log(payload);
 
       return state;
 

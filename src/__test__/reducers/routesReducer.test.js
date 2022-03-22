@@ -11,7 +11,7 @@ describe("routes", () => {
     initialState = [
         {
             id: 1,
-            name: 'kn',
+            name: 'KN',
             code: 1200,
             startLocation: 'kabeza',
             endLocation: 'Kicukiro',
@@ -20,7 +20,7 @@ describe("routes", () => {
         },
         {
           id: 2,
-          name: 'kn',
+          name: 'KK',
           code: 1200,
           startLocation: 'kabeza',
           endLocation: 'Kicukiro',
@@ -29,7 +29,7 @@ describe("routes", () => {
       },
       {
         id: 3,
-        name: 'kn',
+        name: 'KG',
         code: 1200,
         startLocation: 'kabeza',
         endLocation: 'Kicukiro',
@@ -38,7 +38,7 @@ describe("routes", () => {
     },
     {
       id: 4,
-      name: 'kn',
+      name: 'KM',
       code: 1200,
       startLocation: 'kabeza',
       endLocation: 'Kicukiro',

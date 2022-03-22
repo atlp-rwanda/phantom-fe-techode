@@ -43,7 +43,6 @@ import {
 function AddRoute(props) {
   const { routes, createRoute, updateRouteInfo, deleteRoute } = props;
   const dispatch = useDispatch();
-  console.log("routes", routes);
 
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
@@ -75,8 +74,7 @@ function AddRoute(props) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      console.log("loading");
-    }, 5000);
+    }, 1000);
   };
 
   const createNewRoute = (e) => {
@@ -106,7 +104,6 @@ function AddRoute(props) {
       distance: distance,
       duration: duration,
     };
-    console.log(newRoute);
 
     createRoute(newRoute);
     setTimeout(() => {
@@ -149,10 +146,10 @@ function AddRoute(props) {
     setListModal(newState);
   };
   const [deleteModal, setDeleteModal] = useState(false);
-  const viewDeleteModal = (route_Id) => {
+  const viewDeleteModal = (route_Id, id) => {
     let newState = !deleteModal;
     setDeleteModal(newState);
-    setRouteId(route_Id);
+    setRouteId(id);
     setListModal(false);
   };
 
@@ -165,11 +162,13 @@ function AddRoute(props) {
   };
 
   const { type: userType } = routes;
+
   const deleteroute = (e) => {
     e.preventDefault();
     deleteRoute({ routeId });
-    setTimeout(() => {}, 2000);
-    Notify("deleted", "success");
+    setDeleteModal(false)
+    setListModal(true)
+    return Notify("Delete route successfully", "success");
   };
   const [selectedRoute, setSelectedRouteId] = useState("");
   const getSelectedRoute = (id) => {
@@ -195,19 +194,12 @@ function AddRoute(props) {
 
 
   
-  const count = 0
+  let count = 0
   useEffect(() => {
     
     setProfileInfo(routes[0])
 } , [])       
   const [selectedRouteName, setSelectedRouteName] = useState("");
-  const routeName = (id = null) =>{
-    if(id != null){
-      const select = routes.filter(route => route.id == id);
-      setSelectedRouteName(select[0].name);
-    }
-
-  }
 const [profileInfo, setProfileInfo] = useState("")
   const updateRoute = (e) => {
     e.preventDefault();
@@ -651,8 +643,7 @@ const [profileInfo, setProfileInfo] = useState("")
                                   type={"danger"}
                                   svg={deleteIcon}
                                   onclick={() => {
-                                    viewDeleteModal(!deleteModal);
-                                    routeName(route.id);
+                                    viewDeleteModal(!deleteModal, route.id);
                                   }}
                                 />
 
@@ -660,8 +651,7 @@ const [profileInfo, setProfileInfo] = useState("")
                                   type={"info"}
                                   svg={more}
                                   onclick={() => {
-                                    viewSelectedMore(route.id)
-                                    routeNameToView(route.id);
+                                    setProfileInfo(currentPosts[route.id])
                                   } }
                                   
                                 />

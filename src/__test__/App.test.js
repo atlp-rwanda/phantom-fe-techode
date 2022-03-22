@@ -14,11 +14,7 @@ describe('<App />', () => {
         expect(wrapper.find(Switch)).toHaveLength(1);
     })
     it('should render <App /> with eight <Route />', () => {
-<<<<<<< HEAD
-        expect(wrapper.find(Route)).toHaveLength(13);
-=======
-        expect(wrapper.find(Route)).toHaveLength(11);
->>>>>>> ft(pagination, more, test):addition of test, pagination, more and scrolling
+        expect(wrapper.find(Route)).toHaveLength(14);
     })
     it('should render <App /> with <Router />', () => {
         expect(wrapper.find(Router)).toHaveLength(1);
