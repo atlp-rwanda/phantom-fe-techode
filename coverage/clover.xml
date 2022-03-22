@@ -1,0 +1,1062 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1647940364958" clover="3.2.0">
+  <project timestamp="1647940364958" name="All files">
+    <metrics statements="708" coveredstatements="258" conditionals="304" coveredconditionals="50" methods="243" coveredmethods="31" elements="1255" coveredelements="339" complexity="0" loc="708" ncloc="708" packages="42" files="74" classes="74"/>
+    <package name="src">
+      <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <file name="App.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/App.js">
+        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.assets.js">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="main.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/assets/js/main.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="8" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.BusSim">
+      <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="BusSim.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/BusSim/BusSim.js">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Cards">
+      <metrics statements="23" coveredstatements="5" conditionals="5" coveredconditionals="0" methods="11" coveredmethods="0"/>
+      <file name="CardService.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Cards/CardService.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+      <file name="CardTestimonial.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Cards/CardTestimonial.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+      <file name="CardToStart.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Cards/CardToStart.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+      <file name="RouteCard.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Cards/RouteCard.js">
+        <metrics statements="17" coveredstatements="2" conditionals="5" coveredconditionals="0" methods="8" coveredmethods="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="148" count="1" type="stmt"/>
+        <line num="149" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Explore">
+      <metrics statements="5" coveredstatements="1" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="Explore.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Explore/Explore.js">
+        <metrics statements="5" coveredstatements="1" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Footer">
+      <metrics statements="4" coveredstatements="1" conditionals="16" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="Footer.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Footer/Footer.js">
+        <metrics statements="4" coveredstatements="1" conditionals="16" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Header">
+      <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="Header.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Header/Header.js">
+        <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.HowToStart">
+      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="HowToStart.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/HowToStart/HowToStart.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Intro">
+      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="Intro.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Intro/Intro.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.LocationSim">
+      <metrics statements="51" coveredstatements="6" conditionals="30" coveredconditionals="0" methods="18" coveredmethods="0"/>
+      <file name="DriverSim.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/LocationSim/DriverSim.js">
+        <metrics statements="17" coveredstatements="2" conditionals="10" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="123" count="2" type="stmt"/>
+        <line num="124" count="0" type="stmt"/>
+      </file>
+      <file name="LocationSim.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/LocationSim/LocationSim.js">
+        <metrics statements="16" coveredstatements="2" conditionals="12" coveredconditionals="0" methods="5" coveredmethods="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="176" count="1" type="stmt"/>
+        <line num="177" count="0" type="stmt"/>
+      </file>
+      <file name="locationSimUpdate.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/LocationSim/locationSimUpdate.js">
+        <metrics statements="18" coveredstatements="2" conditionals="8" coveredconditionals="0" methods="7" coveredmethods="0"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="205" count="2" type="stmt"/>
+        <line num="206" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Navbars.navbar">
+      <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="1"/>
+      <file name="Navbar.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Navbars/navbar/Navbar.js">
+        <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="1"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Services">
+      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="Services.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Services/Services.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Testimonials">
+      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="Testimonials.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/Testimonials/Testimonials.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.buttons">
+      <metrics statements="30" coveredstatements="12" conditionals="9" coveredconditionals="0" methods="11" coveredmethods="0"/>
+      <file name="Buttons.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/buttons/Buttons.js">
+        <metrics statements="16" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="0"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="5" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="51" count="5" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+      </file>
+      <file name="LebalButton.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/buttons/LebalButton.js">
+        <metrics statements="14" coveredstatements="4" conditionals="9" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="12" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.dashBoardLayout">
+      <metrics statements="17" coveredstatements="1" conditionals="6" coveredconditionals="0" methods="6" coveredmethods="0"/>
+      <file name="DashBoardLayout.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/dashBoardLayout/DashBoardLayout.js">
+        <metrics statements="17" coveredstatements="1" conditionals="6" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.fields">
+      <metrics statements="10" coveredstatements="1" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="TextField.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/fields/TextField.js">
+        <metrics statements="10" coveredstatements="1" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.header">
+      <metrics statements="7" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="DashBoardHeader.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/header/DashBoardHeader.js">
+        <metrics statements="7" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.icons">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Icons.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/icons/Icons.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.inputs">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="SearchInput.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/inputs/SearchInput.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.components.links">
+      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="Links.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/links/Links.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.passwordReset">
+      <metrics statements="22" coveredstatements="12" conditionals="12" coveredconditionals="7" methods="9" coveredmethods="2"/>
+      <file name="newpassword.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/passwordReset/newpassword.js">
+        <metrics statements="10" coveredstatements="5" conditionals="8" coveredconditionals="5" methods="5" coveredmethods="1"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+      </file>
+      <file name="passwordereset.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/passwordReset/passwordereset.js">
+        <metrics statements="12" coveredstatements="7" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="1"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.roles">
+      <metrics statements="90" coveredstatements="31" conditionals="22" coveredconditionals="10" methods="38" coveredmethods="3"/>
+      <file name="Roles.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/roles/Roles.js">
+        <metrics statements="90" coveredstatements="31" conditionals="22" coveredconditionals="10" methods="38" coveredmethods="3"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="27" count="4" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="33" count="4" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="37" count="4" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="44" count="4" type="stmt"/>
+        <line num="45" count="4" type="stmt"/>
+        <line num="46" count="4" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="64" count="4" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="73" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="87" count="4" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="100" count="4" type="stmt"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="104" count="4" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="111" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="115" count="4" type="stmt"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="118" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="122" count="4" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
+        <line num="124" count="0" type="stmt"/>
+        <line num="125" count="0" type="stmt"/>
+        <line num="129" count="4" type="stmt"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="132" count="0" type="stmt"/>
+        <line num="134" count="0" type="stmt"/>
+        <line num="137" count="4" type="stmt"/>
+        <line num="170" count="0" type="stmt"/>
+        <line num="176" count="0" type="stmt"/>
+        <line num="205" count="0" type="stmt"/>
+        <line num="217" count="16" type="stmt"/>
+        <line num="222" count="0" type="stmt"/>
+        <line num="234" count="0" type="stmt"/>
+        <line num="262" count="0" type="stmt"/>
+        <line num="273" count="0" type="stmt"/>
+        <line num="285" count="0" type="stmt"/>
+        <line num="292" count="0" type="stmt"/>
+        <line num="316" count="0" type="stmt"/>
+        <line num="327" count="0" type="stmt"/>
+        <line num="339" count="0" type="stmt"/>
+        <line num="346" count="0" type="stmt"/>
+        <line num="391" count="0" type="stmt"/>
+        <line num="405" count="0" type="stmt"/>
+        <line num="408" count="0" type="stmt"/>
+        <line num="418" count="0" type="stmt"/>
+        <line num="424" count="0" type="stmt"/>
+        <line num="469" count="0" type="stmt"/>
+        <line num="491" count="2" type="stmt"/>
+        <line num="492" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.sidebar">
+      <metrics statements="12" coveredstatements="2" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="SideBar.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/sidebar/SideBar.js">
+        <metrics statements="12" coveredstatements="2" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="98" count="5" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.signIn">
+      <metrics statements="20" coveredstatements="2" conditionals="18" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <file name="LoginForm.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/signIn/LoginForm.js">
+        <metrics statements="20" coveredstatements="2" conditionals="18" coveredconditionals="0" methods="5" coveredmethods="0"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="159" count="2" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.signInSkeleton">
+      <metrics statements="5" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="SkeletonElement.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/signInSkeleton/SkeletonElement.js">
+        <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+      <file name="SkeletonUpdate.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/signInSkeleton/SkeletonUpdate.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.skeletons">
+      <metrics statements="7" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <file name="SkeletonElement.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/SkeletonElement.js">
+        <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+      <file name="SkeletonLogout.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/SkeletonLogout.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+      <file name="SkeletonUpdate.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/SkeletonUpdate.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.skeletons.Map">
+      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="Map.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/Map/Map.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.skeletons.Tables">
+      <metrics statements="6" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <file name="TablePermissionsSkeleton.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/Tables/TablePermissionsSkeleton.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+      <file name="TableRolesSkeleton.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/Tables/TableRolesSkeleton.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+      <file name="TableSkeleton.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/Tables/TableSkeleton.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.skeletons.cards">
+      <metrics statements="12" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <file name="Profile.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/cards/Profile.js">
+        <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="77" count="3" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+      </file>
+      <file name="TrackCard.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/skeletons/cards/TrackCard.js">
+        <metrics statements="8" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.table">
+      <metrics statements="11" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="0"/>
+      <file name="Table.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/components/table/Table.js">
+        <metrics statements="11" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.containers.BusSimulation">
+      <metrics statements="49" coveredstatements="19" conditionals="19" coveredconditionals="4" methods="16" coveredmethods="2"/>
+      <file name="BusSimulation.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/containers/BusSimulation/BusSimulation.js">
+        <metrics statements="49" coveredstatements="19" conditionals="19" coveredconditionals="4" methods="16" coveredmethods="2"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="54" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="60" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="62" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="78" count="3" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="125" count="0" type="stmt"/>
+        <line num="128" count="0" type="stmt"/>
+        <line num="144" count="0" type="stmt"/>
+        <line num="147" count="0" type="stmt"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="182" count="2" type="stmt"/>
+        <line num="183" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.containers.Dashboard">
+      <metrics statements="11" coveredstatements="2" conditionals="6" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="Dashboard.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/containers/Dashboard/Dashboard.js">
+        <metrics statements="11" coveredstatements="2" conditionals="6" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.containers.Home">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="Home.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/containers/Home/Home.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.containers.RegisterDriverOperator">
+      <metrics statements="67" coveredstatements="2" conditionals="78" coveredconditionals="0" methods="27" coveredmethods="0"/>
+      <file name="RegisterDriver.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/containers/RegisterDriverOperator/RegisterDriver.js">
+        <metrics statements="35" coveredstatements="1" conditionals="40" coveredconditionals="0" methods="14" coveredmethods="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="54" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="55" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="57" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+      </file>
+      <file name="RegisterOperator.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/containers/RegisterDriverOperator/RegisterOperator.js">
+        <metrics statements="32" coveredstatements="1" conditionals="38" coveredconditionals="0" methods="13" coveredmethods="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="140" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.containers.profile">
+      <metrics statements="17" coveredstatements="9" conditionals="14" coveredconditionals="6" methods="7" coveredmethods="2"/>
+      <file name="Profile.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/containers/profile/Profile.js">
+        <metrics statements="17" coveredstatements="9" conditionals="14" coveredconditionals="6" methods="7" coveredmethods="2"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="204" count="2" type="stmt"/>
+        <line num="205" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.functions">
+      <metrics statements="30" coveredstatements="4" conditionals="7" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <file name="Notify.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/functions/Notify.js">
+        <metrics statements="11" coveredstatements="1" conditionals="5" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+      </file>
+      <file name="RanderMyLocation.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/functions/RanderMyLocation.js">
+        <metrics statements="14" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
+      </file>
+      <file name="RoutingMachine.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/functions/RoutingMachine.js">
+        <metrics statements="5" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.redux">
+      <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="0" coveredmethods="0"/>
+      <file name="store.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/store.js">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="0" coveredmethods="0"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="10" count="5" type="cond" truecount="1" falsecount="1"/>
+      </file>
+    </package>
+    <package name="src.redux.actions">
+      <metrics statements="42" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="18" coveredmethods="4"/>
+      <file name="ActiveBus.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/actions/ActiveBus.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+      </file>
+      <file name="counterActions.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/actions/counterActions.js">
+        <metrics statements="11" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+      </file>
+      <file name="permissionAction.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/actions/permissionAction.js">
+        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+      <file name="roleAction.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/actions/roleAction.js">
+        <metrics statements="9" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+      </file>
+      <file name="selectedRouteAction.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/actions/selectedRouteAction.js">
+        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+      <file name="userActions.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/actions/userActions.js">
+        <metrics statements="11" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="2"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.redux.constants">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="actionType.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/constants/actionType.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+      </file>
+      <file name="activeBusActionTypes.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/constants/activeBusActionTypes.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+      </file>
+      <file name="permissionActionType.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/constants/permissionActionType.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+      </file>
+      <file name="roleAction.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/constants/roleAction.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="7" type="stmt"/>
+      </file>
+      <file name="selectedRouteActionTypes.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/constants/selectedRouteActionTypes.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+      </file>
+      <file name="userActionTypes.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/constants/userActionTypes.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.redux.reducers">
+      <metrics statements="115" coveredstatements="81" conditionals="32" coveredconditionals="20" methods="16" coveredmethods="14"/>
+      <file name="SelectedRouteReducer.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/reducers/SelectedRouteReducer.js">
+        <metrics statements="13" coveredstatements="5" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="11" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="24" type="cond" truecount="1" falsecount="1"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="24" type="stmt"/>
+      </file>
+      <file name="activeBusReducer.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/reducers/activeBusReducer.js">
+        <metrics statements="21" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="5" coveredmethods="3"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="15" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="24" type="cond" truecount="2" falsecount="1"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="23" type="stmt"/>
+      </file>
+      <file name="countReducer.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/reducers/countReducer.js">
+        <metrics statements="14" coveredstatements="5" conditionals="7" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="9" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="24" type="cond" truecount="1" falsecount="5"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="24" type="stmt"/>
+      </file>
+      <file name="index.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/reducers/index.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="9" count="5" type="stmt"/>
+      </file>
+      <file name="permissionsReducer.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/reducers/permissionsReducer.js">
+        <metrics statements="10" coveredstatements="5" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="22" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="23" count="24" type="cond" truecount="1" falsecount="1"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="34" count="24" type="stmt"/>
+      </file>
+      <file name="rolesReducer.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/reducers/rolesReducer.js">
+        <metrics statements="34" coveredstatements="34" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="15" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="29" type="cond" truecount="5" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="60" count="25" type="stmt"/>
+      </file>
+      <file name="userReducer.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/redux/reducers/userReducer.js">
+        <metrics statements="22" coveredstatements="18" conditionals="9" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="17" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="18" count="24" type="cond" truecount="3" falsecount="3"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="22" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.skeleton">
+      <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="skeletonElement.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/skeleton/skeletonElement.js">
+        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.utls">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="testStore.js" path="/home/livesetup/Desktop/Desktop/Andela/ATLP Cohort 5/phantom-fe-techode/src/utls/testStore.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

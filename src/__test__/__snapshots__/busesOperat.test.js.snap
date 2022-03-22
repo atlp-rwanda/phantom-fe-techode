@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BusesOperat /> It should match the snapshot 1`] = `
+<Fragment>
+  <ToastContainer
+    autoClose={5000}
+    closeButton={[Function]}
+    closeOnClick={true}
+    draggable={true}
+    draggableDirection="x"
+    draggablePercent={80}
+    hideProgressBar={true}
+    newestOnTop={false}
+    pauseOnFocusLoss={true}
+    pauseOnHover={true}
+    position="top-right"
+    role="alert"
+    rtl={false}
+    theme="light"
+    transition={[Function]}
+  />
+  <div
+    className="h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 hidden"
+  >
+    <div
+      className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8"
+    >
+      <div
+        className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  "
+      >
+        <h3
+          className="font-bold text-sm text-center w-11/12"
+        >
+          Update Bus Information
+        </h3>
+        <hr
+          className=" bg-secondary-150 border my-3 w-full"
+        />
+      </div>
+      <div
+        className="card-body"
+      >
+        <form
+          action="/buses"
+          className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12"
+          onSubmit={[Function]}
+        >
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <input
+                className=" bg-transparent border-0 outline-none px-5 font-sans md:text-sm text-xs h-5 w-4/5"
+                name="busName"
+                onChange={[Function]}
+                placeholder="Bus Type"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <input
+                className=" bg-transparent border-0 outline-none px-5 font-sans md:text-sm text-xs h-5 w-4/5"
+                name="busName"
+                onChange={[Function]}
+                placeholder="Route"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <input
+                className=" bg-transparent border-0 outline-none px-5 font-sans md:text-sm text-xs h-5 w-4/5"
+                name="busName"
+                onChange={[Function]}
+                placeholder="Plate Number"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="w-full flex justify-between"
+          >
+            <InfoButton
+              name="Cancel"
+              onclick={[Function]}
+              styles="py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 font-sans text-sm text-white-600"
+            />
+            <Primary
+              name="Update"
+              styles="text-white-600 py-2 md:w-1/3"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    className="h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 hidden"
+  >
+    <div
+      className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8"
+    >
+      <div
+        className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  "
+      >
+        <h3
+          className="font-bold text-sm text-center w-11/12"
+        >
+          Creating a new bus
+        </h3>
+        <hr
+          className=" bg-secondary-150 border my-3 w-full"
+        />
+      </div>
+      <div
+        className="card-body"
+      >
+        <form
+          action="/buses"
+          className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12"
+          onSubmit={[Function]}
+        >
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <input
+                className=" bg-transparent border-0 outline-none px-5 font-sans md:text-sm text-xs h-5 w-4/5"
+                name="busName"
+                onChange={[Function]}
+                placeholder="Bus Type"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <input
+                className=" bg-transparent border-0 outline-none px-5 font-sans md:text-sm text-xs h-5 w-4/5"
+                name="busName"
+                onChange={[Function]}
+                placeholder="Route"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="input my-3 h-9 "
+          >
+            <div
+              className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md"
+            >
+              <input
+                className=" bg-transparent border-0 outline-none px-5 font-sans md:text-sm text-xs h-5 w-4/5"
+                name="busName"
+                onChange={[Function]}
+                placeholder="Plate Number"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="w-full flex justify-between"
+          >
+            <InfoButton
+              name="Cancel"
+              onclick={[Function]}
+              styles="py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 font-sans text-sm text-white-600"
+            />
+            <Primary
+              name="Save"
+              styles="text-white-600 py-2 md:w-1/3"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    className="h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 hidden"
+  >
+    <div
+      className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8"
+    >
+      <div
+        className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  "
+      >
+        <h3
+          className="font-bold text-sm text-center w-11/12 text-danger-500"
+        >
+          Deleting bus
+        </h3>
+        <hr
+          className=" bg-secondary-150 border my-3 w-full"
+        />
+      </div>
+      <div
+        className="card-body"
+      >
+        <h2
+          className="md:ml-12 text-secondary-500 mt-3 mb-6 text-xs md:text-sm font-sans font-bold"
+        >
+          Do you want to remove this bus?
+        </h2>
+        <div
+          className="w-full flex justify-between"
+        >
+          <InfoButton
+            name="Cancel"
+            onclick={[Function]}
+            styles="py-2 md:w-1/3 bg-primary-200 hover:bg-primary-100 font-sans text-sm text-white-600"
+          />
+          <Primary
+            name="Remove"
+            onclick={[Function]}
+            styles=" bg-danger-200 hover:bg-danger-100 text-danger-600 py-2 md:w-1/3"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <DashBoardLayout>
+    <div
+      className="w-full"
+    >
+      <div
+        className=" w-full lg:w-1/2 -lg:mb-96 lg:mt-8 md:w-1/2"
+      >
+        <div
+          className=" flex justify-between"
+        >
+          <Primary
+            name="Route +"
+            styles="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200 "
+          />
+          <Primary
+            name="List "
+            onclick={[Function]}
+            styles=" lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className=" lg:-mt-44 w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2"
+    >
+      <div
+        className="w-full"
+      >
+        <div
+          className="card-header flex items-center justify-between"
+        >
+          <div
+            className="card-title"
+          >
+            <div
+              className="title mb-3"
+            >
+              <h4
+                className=" text-primary-500 font-bold text-xl md:text-2xl"
+              >
+                Buses
+              </h4>
+            </div>
+            <div
+              className="sub-title"
+            >
+              <h4
+                className="text-secondary-200  font-bold text-xl"
+              >
+                List
+              </h4>
+            </div>
+          </div>
+          <Primary
+            name="Add a new bus"
+            onclick={[Function]}
+            styles=" lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200"
+          />
+        </div>
+        <div
+          className="mt-3 mb-10"
+        >
+          <TableSkeleton />
+        </div>
+      </div>
+    </div>
+    <div
+      className=" lg:-mt-44 w-full h-min lg:w-4/12 bg-white rounded-md m-2 "
+    >
+      <div
+        className="w-full"
+      >
+        <Profile />
+      </div>
+    </div>
+  </DashBoardLayout>
+</Fragment>
+`;
