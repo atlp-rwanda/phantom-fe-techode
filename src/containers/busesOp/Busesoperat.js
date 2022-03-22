@@ -25,18 +25,18 @@ const Busesoperat = (props) => {
 
     const [busModel, setBusModel] = useState(false);
 
-    const [isList,setIsList] =  useState(false)
+    const [isList, setIsList] = useState(false)
     const [updateModel, setUpdateModel] = useState(false);
     const [createBusModel, setCreateBusModel] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const [currentPage, setCurrentpage] = useState(1)
-    const [postsPerPage] = useState(2)
+    const [postsPerPage] = useState(3)
     //for selecting 
     const [selectedBus, setSelectedBusId] = useState([
         {
             id: 0,
-            busType: "No bus has been currently selected",
+            busType: "",
             plate: "",
             route: ""
         }
@@ -104,22 +104,28 @@ const Busesoperat = (props) => {
 
         /* =================================== End:: validation ================================ */
 
+        let uniqueState = buses.find(element => element.plate == bus);
         const newBus = {
             busType: busName,
             route,
             plate: bus
         }
-        createBus(newBus);
-        setTimeout(() => {
-            removeModel();
-            setBusId(0)
-            setBus("");
-            setRoute("");
-            setbusName("");
-        },
-            2000
-        )
-        return Notify('New Bus have been added', 'success');
+        if (uniqueState) {
+            Notify("Plate number already exist", "error");
+        } else {
+
+            createBus(newBus);
+            setTimeout(() => {
+                removeModel();
+                setBusId(0)
+                setBus("");
+                setRoute("");
+                setbusName("");
+            },
+                2000
+            )
+            return Notify('New Bus have been added', 'success');
+        }
 
     }
     const updateBus = (e) => {
@@ -166,12 +172,12 @@ const Busesoperat = (props) => {
         setBusId(bus_Id);
     }
 
-  const handleList = ()=>{
-   setIsList((prev)=>!prev)
-  }
+    const handleList = () => {
+        setIsList((prev) => !prev)
+    }
 
     return (
-        <>          
+        <>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -285,7 +291,7 @@ const Busesoperat = (props) => {
                     <div className=" w-full lg:w-1/2 -lg:mb-96 lg:mt-8 md:w-1/2">
                         <div className=" flex justify-between">
                             <Primary name={`Route +`} styles='lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200 ' />
-                            <Primary name={`List `} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={handleList}/>
+                            <Primary name={`List `} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={handleList} />
                         </div>
                     </div>
                 </div>
@@ -298,7 +304,7 @@ const Busesoperat = (props) => {
                             <div className="card-title">
                                 <div className="title mb-3">
                                     <h4 className=' text-primary-500 font-bold text-xl md:text-2xl' >
-                                        Buses 
+                                        Buses
                                     </h4>
                                 </div>
                                 <div className="sub-title">
@@ -307,8 +313,7 @@ const Busesoperat = (props) => {
                                     </h4>
                                 </div>
                             </div>
-                            {!isList&&( <Primary name={`Add a new bus`} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel}/>)}
-                               
+                            {!isList && (<Primary name={`Add a new bus`} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel} />)}
                         </div>
                         <div className="mt-3 mb-10">
                             {loading && (<TableSkeleton />)
@@ -327,7 +332,7 @@ const Busesoperat = (props) => {
                                         </thead>
                                         <tbody>
 
-                                            {!isList?
+                                            {!isList ?
                                                 currentPosts.map(bus => (
                                                     <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
@@ -348,31 +353,31 @@ const Busesoperat = (props) => {
                                                             <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
                                                         </td>
                                                     </tr>
-                                                )):currentPosts.map((bus)=>(
+                                                )) : currentPosts.map((bus) => (
                                                     <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        {bus.id}
-                                                    </td>
-                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> {bus.busType}
-                                                    </td>
-                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        {bus.route}
-                                                    </td>
-                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        {bus.plate}
-                                                    </td>
-                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                            {bus.id}
+                                                        </td>
+                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                            <LebalTextButton text='J' type='primary' /> {bus.busType}
+                                                        </td>
+                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                            {bus.route}
+                                                        </td>
+                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                            {bus.plate}
+                                                        </td>
+                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
                                                         </td>
-                                                </tr>
+                                                    </tr>
                                                 ))
-                                               
+
                                             }
                                         </tbody>
                                     </table>
                                     {/* ======================= START:: PAGINATION ============================ */}
-                                    <Pagination 
+                                    <Pagination
                                         postsPerPage={postsPerPage}
                                         totalPosts={buses.length}
                                         paginate={paginate}
@@ -409,17 +414,17 @@ const Busesoperat = (props) => {
                                     selectedBus.map(bus => (
                                         <div key={bus.id} className="driver-info w-full flex items-center ml-16 justify-between mt-4 px-6">
                                             <div className="w-5/6">
-                                            <div className="title flex flex-row font-sans" >
-                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Bus Model</p>
-                                                    <p className='text-secondary-200 font-semibold text-xs w-1/2 md:pl-10'>{bus.busType}</p>
+                                                <div className="title flex flex-row font-sans mb-3" >
+                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600 md:mr-7'>Bus Type</p>
+                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2 md:pl-10'>{bus.busType}</p>
                                                 </div>
-                                                <div className="title flex flex-row font-sans " >
-                                                <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Route Code</p>
-                                                    <p className='text-secondary-200 font-semibold text-xs w-1/2  md:pl-10'>{bus.route}</p>
+                                                <div className="title flex flex-row font-sans mb-3" >
+                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600 md:mr-3'>Route Code</p>
+                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.route}</p>
                                                 </div>
-                                                <div className="title flex flex-row font-sans " >
-                                                <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Plate number</p>
-                                                    <p className='text-secondary-200 font-semibold text-xs w-1/2  md:pl-10'>{bus.plate}</p>
+                                                <div className="title flex flex-row font-sans mb-3" >
+                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Plate number</p>
+                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.plate}</p>
                                                 </div>
                                             </div>
                                         </div>
