@@ -8,6 +8,7 @@ import { busesReducer } from "./busesReducer";
 import { activeBusReducer } from "./activeBusReducer";
 import { selectedRouteReducer } from "./SelectedRouteReducer";
 import { assignBusReducer } from "./assignBusReducer"
+import { addNotificationReducer } from "./notificationReducer"
 
 const reducers =  combineReducers({
     counters :  counterReducer,
@@ -17,7 +18,8 @@ const reducers =  combineReducers({
     buses: busesReducer,
     activeBus: activeBusReducer,
     selectedRoute: selectedRouteReducer,
-    driverBusAssignment: assignBusReducer
+    driverBusAssignment: assignBusReducer,
+    notifications: addNotificationReducer,
 })
 
 export default reducers;

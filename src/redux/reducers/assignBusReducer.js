@@ -1,8 +1,5 @@
 import { assignBusActionType } from '../constants/assignBusActionTypes'
 
-// const { ASSIGN_BUS, REMOVE_BUS } = assignBusActionType
-
-
 const assignBusState = [
     {
         id: 1,
@@ -57,7 +54,17 @@ export const assignBusReducer = (state = assignBusState, {type, payload }) => {
             clonedState[assignIndex].assignedBus = updateAssignedBus
             state = clonedState
             return state
+        case assignBusActionType.REMOVE_BUS:
+            const currentState = [...state]
+            const { idDriver, busId } = payload
+            const driverToBeRemoved = currentState.filter(current => current.id == idDriver)
+            const indexDel = currentState.findIndex(current => current.id == idDriver)
+            const busToDelete = [...driverToBeRemoved[0].assignedBus]
+            const newAssignedBus = busToDelete.filter(bus => bus.id != busId)
+            currentState[indexDel].assignedBus = newAssignedBus
+            state = currentState
+            return state
         default:
             return state
-    }
+    } 
 }

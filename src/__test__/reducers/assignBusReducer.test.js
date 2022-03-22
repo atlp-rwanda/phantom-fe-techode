@@ -10,6 +10,8 @@ describe("Testing => assignBus reducer(state, action)", () => {
                 driverName: "John Doe",
                 telephone: "788966656",
                 email: "test111@gmail.com",
+                assignedBus : [
+                ]
             },
             {
                 id: 2,
@@ -34,7 +36,7 @@ describe("Testing => assignBus reducer(state, action)", () => {
                 telephone: "788966656",
                 assignedBus : [
             ]
-            }
+            },
         ]
     })
     it("should return the initialState for no action", () => {
