@@ -10,7 +10,7 @@ const initialState = {
     lastname: 'Doe',
     telephone: '0700000000',
     email:'email@gmail.com', 
-    type:'driver',
+    type:'',
     profile:''  
 }
 

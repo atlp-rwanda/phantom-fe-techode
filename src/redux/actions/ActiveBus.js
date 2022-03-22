@@ -4,14 +4,14 @@ const { UPDATE_ACTIVE_BUS ,START } = activeBusActionTypes;
 
 export const updateActiveBus = (payload) =>{
     return {
-        type: UPDATE_ACTIVE_BUS,
+        type: "UPDATE_ACTIVE_BUS",
         payload
     }
 }
 
 export const start = (payload) => {
     return {
-        type: START,
+        type: "START",
         payload
     }
 }

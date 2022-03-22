@@ -218,7 +218,7 @@ exports[`<BusSimulation /> It should match the bus simulation snapshot 1`] = `
     </div>
   </div>
   <DashBoardLayout>
-    <Connect(DriverSim)
+    <Connect(LocationSim)
       revealModel={[Function]}
       showModel={false}
       showModelStart={false}
