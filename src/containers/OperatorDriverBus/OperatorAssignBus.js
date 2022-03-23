@@ -141,7 +141,7 @@ const AssignBuses = (props) => {
                                 <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                     <select id="" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full" placeholder="Asign a bus" onChange={ e => assignBusSelect( e.target.value ) }>
                                         {assignedBus.map((buzz) => (
-                                            <option key={buzz.id} value={buzz.busName + `-` + buzz.plateNumber} value={buzz.busName + `-` + buzz.plateNumber}>{buzz.busName + `-` + buzz.plateNumber}</option>
+                                            <option key={buzz.id} value={buzz.busName + `-` + buzz.plateNumber}>{buzz.busName + `-` + buzz.plateNumber}</option>
                                         ) )}
                                     </select>
                                 </div>                
@@ -203,7 +203,7 @@ const AssignBuses = (props) => {
                                                     {driver.id}
                                                     </td>
                                                     <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> {driver.driverName}
+                                                     {driver.driverName}
                                                     </td>
                                                     <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         {driver.email}

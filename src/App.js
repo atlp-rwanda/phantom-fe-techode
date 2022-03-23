@@ -12,6 +12,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import './assets/style/style-skeleton.css';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Roles from './components/roles/Roles';
+
+import Busesoperat from './containers/busesOp/Busesoperat'
+
 import BusSimulation from './containers/BusSimulation/BusSimulation';
 
 import OperatorAssignBus from './containers/OperatorDriverBus/OperatorAssignBus'
@@ -32,6 +35,7 @@ const App = () => {
                 <Route path="/operators"  component={RegisterOperator} />
                 <Route path="/profile" exact component={Profile} />
                 <Route path="/roles" exact component={Roles}/>
+                <Route path="/buses" exact component={Busesoperat}/>
                 <Route path="/simulation" exact component={BusSimulation}/>
                 <Route path="/buses" component={RegisterBus} />
                 <Route path="/*"  component={() => ({ "NotFound": 400 })} />
