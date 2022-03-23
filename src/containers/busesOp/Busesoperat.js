@@ -332,7 +332,7 @@ const Busesoperat = (props) => {
                                                             {bus.id}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            <LebalTextButton text='J' type='primary' /> {bus.busType}
+                                                            {bus.busType}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             {bus.route}
@@ -352,7 +352,7 @@ const Busesoperat = (props) => {
                                                             {bus.id}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            <LebalTextButton text='J' type='primary' /> {bus.busType}
+                                                           {bus.busType}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             {bus.route}
