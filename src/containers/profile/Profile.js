@@ -7,7 +7,7 @@ import deletePreveleg from "../../assets/svgs/lebals/deletePrevelage.svg";
 import setrole from "../../assets/svgs/lebals/savePrevelage.svg";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import { ToastContainer } from "react-toastify";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { OperatorProfile } from "../../components/skeletons/cards/Profile";
 import userLabel from "../../assets/svgs/lebals/luser.svg";
 import lock from "../../assets/svgs/lebals/lock.svg";
@@ -37,7 +37,6 @@ const Profile = (props ) => {
   /*  ===== End:: fetching userinfo =====  */
 
   /*=============================Upload==================== */
-  const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png, image/jpg",
     onDrop: (acceptedFiles) => {
@@ -53,7 +52,6 @@ const Profile = (props ) => {
           preview: URL.createObjectURL(file),
         })
       );
-      console.log(newFile);
       setProfile(newFile[0].preview);
     },
   });
@@ -76,22 +74,17 @@ const Profile = (props ) => {
           {loading && <SkeletonUpdate />}
           {!loading && (
             <div className="">
-              <section
-                className="flex items-center justify-center"
-               
-              >
-                <img
-                  {...getRootProps()}
-                  className="rounded-full border border-primary-600 w-16 h-16 hover:opacity-75"
-                  src={
-                    profile != ""
-                      ? profile
-                      : "https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw"
-                  }
-                  alt="image"
-                />
-                
-                <img src={profileEdit} className="mt-20 -ml-4" alt="profile" />
+              <section className="flex items-center justify-center " >
+                <div className="profile-container">
+                  <img
+                    {...getRootProps()} className="rounded-full border border-primary-600 w-10 h-10 sm:w-16 sm:h-16 hover:opacity-75"
+                    src={
+                      profile != "" ? profile : "https://i.picsum.photos/id/188/200/200.jpg?hmac=TipFoTVq-8WOmIswCmTNEcphuYngcdkCBi4YR7Hv6Cw" 
+                    } alt="image" />
+                  <div className="edit-image-svg-container relative mt-2">
+                    <img src={profileEdit} className=" absolute bottom-0 right-0" alt="profile" />
+                  </div>    
+                </div> 
               </section>
               <section className="mt-5 md:pl-20">
                 <TextField setLoading={setLoading} />

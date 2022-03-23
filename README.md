@@ -1,12 +1,9 @@
+[![Continuous Integration](https://github.com/atlp-rwanda/phantom-fe-techode/actions/workflows/develop.yml/badge.svg?branch=ch-config-env-test-TP-27)](https://github.com/atlp-rwanda/phantom-fe-techode/actions/workflows/develop.yml)   [![Maintainability](https://api.codeclimate.com/v1/badges/b2a893093a6c5a09c923/maintainability)](https://codeclimate.com/github/atlp-rwanda/phantom-fe-techode/maintainability)   [![Test Coverage](https://api.codeclimate.com/v1/badges/b2a893093a6c5a09c923/test_coverage)](https://codeclimate.com/github/atlp-rwanda/phantom-fe-techode/test_coverage)
+
 # phantom-fe-techode
 
 Application that allows simulating bus movements and enabling passengers to track their locations & movements. 
 
-[![Continuous Integration](https://github.com/atlp-rwanda/phantom-fe-techode/actions/workflows/develop.yml/badge.svg?branch=ch-config-env-test-TP-27)](https://github.com/atlp-rwanda/phantom-fe-techode/actions/workflows/develop.yml)
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/b2a893093a6c5a09c923/maintainability)](https://codeclimate.com/github/atlp-rwanda/phantom-fe-techode/maintainability)
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/b2a893093a6c5a09c923/test_coverage)](https://codeclimate.com/github/atlp-rwanda/phantom-fe-techode/test_coverage)
 
 ## Enter Directory
 

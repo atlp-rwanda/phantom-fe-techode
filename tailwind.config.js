@@ -72,6 +72,9 @@ module.exports = {
                 '500': 'rgba(88, 149, 10, 0.8)',
                 '600': 'rgba(88, 149, 10, 1)',           
             },
+            warning:{
+                '100': "#C79907"
+            },
             active: '#1CA0E3',
             modelColor: "rgba(35, 29, 29, 0.44)",               
             danger: colors.red,
@@ -79,7 +82,8 @@ module.exports = {
             success: colors.green,
             mainColor: '#1CA0E3',
             active: '#1CA0E3',
-            modelColor: "rgba(35, 29, 29, 0.44)"
+            modelColor: "rgba(35, 29, 29, 0.44)",
+            noneActive: "#228DC5"
         },
         extend: {
             fontFamily: {
