@@ -36,9 +36,9 @@ const Busesoperat = (props) => {
     const [selectedBus, setSelectedBusId] = useState([
         {
             id: 0,
-            busType: "",
-            plate: "",
-            route: ""
+            busType: "Yutong",
+            plate: "RAF102F",
+            route: "401"
         }
     ]);
 
@@ -73,6 +73,7 @@ const Busesoperat = (props) => {
     const currentPosts = buses.slice(indexOfFirstPost, indexOfLastPost);
 
     const paginate = pageNumber => setCurrentpage(pageNumber)
+    let uniqueState = buses.find(element => element.plate == bus);
 
     const removeModel = () => {
         let newState = !createBusModel;
@@ -104,7 +105,6 @@ const Busesoperat = (props) => {
 
         /* =================================== End:: validation ================================ */
 
-        let uniqueState = buses.find(element => element.plate == bus);
         const newBus = {
             busType: busName,
             route,
@@ -144,17 +144,17 @@ const Busesoperat = (props) => {
             route,
             plate: bus
         }
-        updateBusInfo(newBusInfo);
-        setTimeout(() => {
-            setUpdateModel(false);
-            setBusId(0)
-            setBus("");
-            setRoute("");
-            setbusName("");
-        },
-            2000
-        )
-        return Notify('Bus have been updated', 'success');
+            updateBusInfo(newBusInfo);
+            setTimeout(() => {
+                setUpdateModel(false);
+                setBusId(0)
+                setBus("");
+                setRoute("");
+                setbusName("");
+            },
+                2000
+            )
+            return Notify('Bus have been updated', 'success');
 
     }
     const deleteAssignedBus = (e) => {
@@ -290,7 +290,6 @@ const Busesoperat = (props) => {
                 <div className="w-full" >
                     <div className=" w-full lg:w-1/2 -lg:mb-96 lg:mt-8 md:w-1/2">
                         <div className=" flex justify-between">
-                            <Primary name={`Route +`} styles='lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200 ' />
                             <Primary name={`List `} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={handleList} />
                         </div>
                     </div>
@@ -305,11 +304,6 @@ const Busesoperat = (props) => {
                                 <div className="title mb-3">
                                     <h4 className=' text-primary-500 font-bold text-xl md:text-2xl' >
                                         Buses
-                                    </h4>
-                                </div>
-                                <div className="sub-title">
-                                    <h4 className='text-secondary-200  font-bold text-xl' >
-                                        List
                                     </h4>
                                 </div>
                             </div>
