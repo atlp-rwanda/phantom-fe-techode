@@ -45,7 +45,13 @@ const SideBar = ({user,shownav}) => {
             linkName : 'Routes',
             svgImage : routes,
             to:'routes'
-        },
+        },,
+        {
+            id: 5,
+            linkName : 'Buses',
+            svgImage : bus,
+            to:'buses'
+        }
     ]
     /* ======== End:: Public routes ===========  */ 
     const navProtector = () =>{
@@ -74,6 +80,7 @@ const SideBar = ({user,shownav}) => {
                     to:'roles'
                 }
             );
+           
            
         }   
         if(userType == "operator"){

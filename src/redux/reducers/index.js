@@ -3,6 +3,8 @@ import { counterReducer } from "./countReducer";
 import { rolesReducer } from "./rolesReducer";
 import { permissionsReducer } from "./permissionsReducer";
 import { userReducer } from "./userReducer"; 
+import { busesReducer } from "./busesReducer";
+
 import { activeBusReducer } from "./activeBusReducer";
 import { selectedRouteReducer } from "./SelectedRouteReducer";
 import { assignBusReducer } from "./assignBusReducer"
@@ -15,6 +17,7 @@ const reducers =  combineReducers({
     user: userReducer,
     driverBusAssignment: assignBusReducer,
     routes: RoutesReducer,
+    buses: busesReducer,
     activeBus: activeBusReducer,
     selectedRoute: selectedRouteReducer,
     driverBusAssignment: assignBusReducer
