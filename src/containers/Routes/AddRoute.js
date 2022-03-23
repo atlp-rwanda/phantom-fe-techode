@@ -234,7 +234,7 @@ const [profileInfo, setProfileInfo] = useState("")
       {/* =========================== Start:: Model =============================== */}
 
       <div
-        className={` z-20 h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
+        className={` z-50 h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
           deleteModal === true ? "block" : "hidden"
         }`}
       >
@@ -298,7 +298,7 @@ const [profileInfo, setProfileInfo] = useState("")
       </div>
 
       <div
-        className={`z-20 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           updateModel === true ? "block" : "hidden"
         }`}
       >
@@ -440,7 +440,7 @@ const [profileInfo, setProfileInfo] = useState("")
       </div>
 
       <div
-        className={`z-20 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           show === true ? "block" : "hidden"
         }`}
       >
@@ -600,7 +600,7 @@ const [profileInfo, setProfileInfo] = useState("")
         </div>
       </div>
       <div
-        className={`z-20 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           listModal === true ? "block" : "hidden"
         }`}
       >
@@ -683,7 +683,6 @@ const [profileInfo, setProfileInfo] = useState("")
                               </td>
 
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                <LebalTextButton text="J" type="primary" />{" "}
                                 {route.name}
                               </td>
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
@@ -888,7 +887,7 @@ const [profileInfo, setProfileInfo] = useState("")
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className=" text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
