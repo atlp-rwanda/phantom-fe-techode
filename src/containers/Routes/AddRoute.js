@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import RouteInfoSkeleton from "./RouteInfoSkeleton";
 import Pagination from "../../components/pagination/Pagination";
 import deleteIcon from "../../assets/svgs/delete.svg";
+import edit from '../../assets/svgs/edit.svg';
 import more from "../../assets/svgs/more.svg";
 import close from "../../assets/svgs/close.svg";
 import imageBus from "../../assets/img/imageBus.png";
@@ -107,7 +108,8 @@ function AddRoute(props) {
       setDuration("");
       setFrom({lat: 0, lng: 0});
       setEnd({lat: 0, lng: 0});
-    }, 2000);
+      setShow(!show)
+    }, 1000);
     return Notify("New route have been added", "success");
   };
 
@@ -148,6 +150,10 @@ function AddRoute(props) {
     setSelectedRouteId(select);
   };
 
+  const closeModel = (e) => {
+    e.preventDefault();
+    setUpdateModel(!updateModel);
+  }
   const updateRouteModel = (id = null) => {
     setUpdateModel(!updateModel);
     if (id != null) {
@@ -228,7 +234,7 @@ const [profileInfo, setProfileInfo] = useState("")
       {/* =========================== Start:: Model =============================== */}
 
       <div
-        className={`h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
+        className={` z-20 h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
           deleteModal === true ? "block" : "hidden"
         }`}
       >
@@ -292,7 +298,7 @@ const [profileInfo, setProfileInfo] = useState("")
       </div>
 
       <div
-        className={`h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`z-20 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           updateModel === true ? "block" : "hidden"
         }`}
       >
@@ -423,9 +429,9 @@ const [profileInfo, setProfileInfo] = useState("")
                     readOnly                    
                   />
                 </div>
-                <div className="flex justify-between gap-5 mt-5">
-                  <DangerButton  name={`cancel`} styles='py-2 w-1/3' onClick={() => setUpdateModel(!updateModel)} />
-                  <InfoButton  name={`Update`} styles='py-2 w-1/3' onClick={!updateModel}/>
+                <div className="w-full flex flex-wrap justify-between items-center mt-4">
+                  <InfoButton  name={`Cancel`} styles='py-2 w-5/12 ' onclick={(e) => closeModel(e)}/>
+                  <Primary  name={`Update`} styles='py-2 w-5/12 ' onClick={!updateModel}/>
                 </div>                
               </div>
             </form>
@@ -434,7 +440,7 @@ const [profileInfo, setProfileInfo] = useState("")
       </div>
 
       <div
-        className={`h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`z-20 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           show === true ? "block" : "hidden"
         }`}
       >
@@ -594,7 +600,7 @@ const [profileInfo, setProfileInfo] = useState("")
         </div>
       </div>
       <div
-        className={`h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`z-20 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           listModal === true ? "block" : "hidden"
         }`}
       >
@@ -701,7 +707,7 @@ const [profileInfo, setProfileInfo] = useState("")
                                 {/* =================== End:: only admin to see this =================== */}
                                 <LebalButton
                                   type={"primary"}
-                                  svg={more}
+                                  svg={edit}
                                   onclick={() => updateRouteModel(route.id)}
                                 />
                                 <LebalButton
@@ -744,7 +750,7 @@ const [profileInfo, setProfileInfo] = useState("")
       {/* =========================== Start:: Dashboard =============================== */}
       <DashBoardLayout>
         <div className="flex-col w-full p-5">
-          <div className=" w-full  flex-col h-20  sm:w-2/5 flex justify-between lg:w-1/3  md:flex-row justify-between mb-10">
+          <div className=" w-full  flex-col h-20  sm:w-2/5 flex lg:w-1/3  md:flex-row justify-between mb-10">
             <button
               onClick={() => setShow(!show)}
               className="w-32 bg-primary-100 h-8 rounded border border-cyan-2 text-primary-500 font-bold md:w-32 text-center shadow-4xl"
@@ -774,7 +780,7 @@ const [profileInfo, setProfileInfo] = useState("")
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className="  text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
@@ -801,7 +807,7 @@ const [profileInfo, setProfileInfo] = useState("")
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className=" text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
@@ -828,7 +834,7 @@ const [profileInfo, setProfileInfo] = useState("")
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className="  text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
@@ -855,7 +861,7 @@ const [profileInfo, setProfileInfo] = useState("")
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className=" text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
