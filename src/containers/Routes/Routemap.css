@@ -50,9 +50,13 @@
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #0384C6; 
-    border-radius: 50px;
-    max-width: 3px !important;
+    border-radius: 20px;
+    max-width: 1px !important;
     margin-top: 2rem;
+  }
+
+  .leaflet-routing-container {
+    display: none !important;
   }
   
   /* Handle on hover */

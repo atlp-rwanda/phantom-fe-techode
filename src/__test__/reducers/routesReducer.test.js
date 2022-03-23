@@ -9,23 +9,29 @@ describe("routes", () => {
     let initialState
   beforeEach(()=>{
     initialState = [
-        {
-            id: 1,
-            name: 'KN',
-            code: 1200,
-            startLocation: 'kabeza',
-            endLocation: 'Kicukiro',
-            distance: 'km5',
-            duration: 'min30',
-        },
-        {
-          id: 2,
-          name: 'KK',
-          code: 1200,
-          startLocation: 'kabeza',
-          endLocation: 'Kicukiro',
-          distance: 'km5',
-          duration: 'min30',
+      {
+        id: 1,
+        name: 'KN',
+        code: 1200,
+        startLocation: 'kabeza',
+        endLocation: 'Kicukiro',
+        distance: 'km5',
+        duration: 'min30',
+        city:"Kigali",
+        from:{lat: 0, lng: 0},
+        to:{lat: 0, lng: 0}
+      },
+      {
+        id: 2,
+        name: 'KK',
+        code: 1200,
+        startLocation: 'kabeza',
+        endLocation: 'Kicukiro',
+        distance: 'km5',
+        duration: 'min30',
+        city:"Kigali",
+        from:{lat: 0, lng: 0},
+        to:{lat: 0, lng: 0}
       },
       {
         id: 3,
@@ -35,17 +41,23 @@ describe("routes", () => {
         endLocation: 'Kicukiro',
         distance: 'km5',
         duration: 'min30',
-    },
-    {
-      id: 4,
-      name: 'KM',
-      code: 1200,
-      startLocation: 'kabeza',
-      endLocation: 'Kicukiro',
-      distance: 'km5',
-      duration: 'min30',
-  },
-      ];
+        city:"Kigali",
+        from:{lat: 0, lng: 0},
+        to:{lat: 0, lng: 0}
+      },
+      {
+        id: 4,
+        name: 'KM',
+        code: 1200,
+        startLocation: 'kabeza',
+        endLocation: 'Kicukiro',
+        distance: 'km5',
+        duration: 'min30',
+        city:"Kigali",
+        from:{lat: 0, lng: 0},
+        to:{lat: 0, lng: 0}
+      },
+    ];
 
   });
 

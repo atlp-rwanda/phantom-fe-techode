@@ -1,58 +1,51 @@
 import React, { useState, useEffect } from "react";
-
-import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import RouteInfoSkeleton from "./RouteInfoSkeleton";
 import Pagination from "../../components/pagination/Pagination";
-
 import deleteIcon from "../../assets/svgs/delete.svg";
-import edit from "../../assets/svgs/edit.svg";
 import more from "../../assets/svgs/more.svg";
 import close from "../../assets/svgs/close.svg";
-import prev from "../../assets/svgs/prev.svg";
-import next from "../../assets/svgs/next.svg";
 import imageBus from "../../assets/img/imageBus.png";
-
 import location_route from "../../assets/img/location_route.png";
 import vector from "../../assets/img/Vector2.png";
 import profile_admin from "../../assets/img/profile_admin.png";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import LocationMarker from "./LocationMarker";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "./Routemap.css";
-import {
-  LebalButton,
-  LebalTextButton,
-} from "../../components/buttons/LebalButton";
-
+import { LebalButton,LebalTextButton,} from "../../components/buttons/LebalButton";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import { Primary } from "../../components/buttons/Buttons";
 import { DangerButton } from "../../components/buttons/Buttons";
 import { InfoButton } from "../../components/buttons/Buttons";
-
 import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
+import  GetRouteInfo  from "../../functions/GetRouteInfo";
 import TableSkeleton from "../../components/skeletons/Tables/TableSkeleton";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
+import { createRoute,updateRouteInfo,deleteRoute} from "../../redux/actions/RoutesAction";
 
-import {
-  createRoute,
-  updateRouteInfo,
-  deleteRoute,
-} from "../../redux/actions/RoutesAction";
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+const provider = new OpenStreetMapProvider();
+
+
 
 function AddRoute(props) {
   const { routes, createRoute, updateRouteInfo, deleteRoute } = props;
-  const dispatch = useDispatch();
-
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [startLocation, setStartLocation] = useState("");
   const [endLocation, setEndLocation] = useState("");
+  const [city, setCity] = useState("");
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loadingMap, setLoadingMap] = useState(true);
   const [currentPage, setCurrentpage] = useState(1);
   const [postsPerPage] = useState(2);
+
+  /* ============= For search =================== */
+    const [ from , setFrom ] = useState({  lat: -1.9447501 , lng: 30.058433});
+    const [ end , setEnd ] = useState({  lat: -1.98507, lng: 30.031855 }); 
+  
+  /* ============= For search =================== */
 
   /* ============ Start::  Getting current driver lis ================== */
   const indexOfLastPost = currentPage * postsPerPage;
@@ -61,24 +54,20 @@ function AddRoute(props) {
 
   const paginate = (pageNumber) => setCurrentpage(pageNumber);
 
-  //   const {
-  //     type: routeType,
-  // } = route;
   const [createRouteModel, setCreateRouteModel] = useState(false);
   const removeModel = () => {
     let newState = !createRouteModel;
     setCreateRouteModel(newState);
   };
 
-  window.onload = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
+  setTimeout(() => {
+    setLoading(false);
+    setLoadingMap(false);
+  }, 1000);
 
   const createNewRoute = (e) => {
     e.preventDefault();
+    setLoadingMap(false);
 
     /* =================================== Start:: validation ================================ */
     if (name.trim().length == "")
@@ -89,13 +78,12 @@ function AddRoute(props) {
       return Notify("start location field should not be empty", "error");
     if (endLocation.trim().length == "")
       return Notify("end location field should not be empty", "error");
-    if (distance.trim().length == "")
-      return Notify("distance field should not be empty", "error");
-    if (duration.trim().length == "")
-      return Notify("duration field should not be empty", "error");
-
+    if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
+      return Notify("For us to calcurate distance you need to be accurate when you adding starting place", "error");
+  
     /* =================================== End:: validation ================================ */
 
+    
     const newRoute = {
       name: name,
       code: code,
@@ -103,6 +91,9 @@ function AddRoute(props) {
       endLocation: endLocation,
       distance: distance,
       duration: duration,
+      city,
+      from,
+      to:end
     };
 
     createRoute(newRoute);
@@ -114,31 +105,14 @@ function AddRoute(props) {
       setEndLocation("");
       setDistance("");
       setDuration("");
+      setFrom({lat: 0, lng: 0});
+      setEnd({lat: 0, lng: 0});
     }, 2000);
     return Notify("New route have been added", "success");
   };
 
-  const location = useLocation();
-  const [edit, setEdit] = useState(null);
   const [routeId, setRouteId] = useState("");
-
-  useEffect(() => {
-    if (location.state) {
-      setEdit(location.state.detail);
-      console.log("location ", location);
-    }
-  }, [location]);
-
-  const history = useHistory();
-
   const [show, setShow] = useState(false);
-  const [routeModal, setRouteModal] = useState(false);
-
-  const addRouteModal = () => {
-    let newState = !routeModal;
-    setRouteModal(newState);
-  };
-
   const [listModal, setListModal] = useState(false);
 
   const viewListModal = () => {
@@ -160,8 +134,6 @@ function AddRoute(props) {
     setRouteId(route_Id);
     setListModal(false);
   };
-
-  const { type: userType } = routes;
 
   const deleteroute = (e) => {
     e.preventDefault();
@@ -189,6 +161,9 @@ function AddRoute(props) {
       setEndLocation(select[0].endLocation);
       setDistance(select[0].distance);
       setDuration(select[0].duration);
+      setCity(select[0].city);
+      setFrom(select[0].from);
+      setEnd(select[0].to)
     }
   };
 
@@ -200,6 +175,7 @@ function AddRoute(props) {
     setProfileInfo(routes[0])
 } , [])       
   const [selectedRouteName, setSelectedRouteName] = useState("");
+
 const [profileInfo, setProfileInfo] = useState("")
   const updateRoute = (e) => {
     e.preventDefault();
@@ -213,11 +189,9 @@ const [profileInfo, setProfileInfo] = useState("")
       return Notify("start location field should not be empty", "error");
     if (endLocation.trim().length == "")
       return Notify("end location field should not be empty", "error");
-    if (distance.trim().length == "")
-      return Notify("distance field should not be empty", "error");
-    if (duration.trim().length == "")
-      return Notify("duration field should not be empty", "error");
-
+    if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
+      return Notify("For us to calcurate distance you need to be accurate when you adding starting place", "error");
+  
     /* =================================== End:: validation ================================ */
 
     const newRouteInfo = {
@@ -228,10 +202,14 @@ const [profileInfo, setProfileInfo] = useState("")
       endLocation: endLocation,
       distance: distance,
       duration: duration,
+      city,
+      from,
+      to:end
     };
     updateRouteInfo(newRouteInfo);
     setTimeout(() => {
       setUpdateModel(false);
+      setLoadingMap(false);
       setRouteId(0);
       setName("");
       setCode("");
@@ -239,6 +217,8 @@ const [profileInfo, setProfileInfo] = useState("")
       setEndLocation("");
       setDistance("");
       setDuration("");
+      setFrom({lat: 0, lng: 0});
+      setEnd({lat: 0, lng: 0});
     }, 2000);
     return Notify("route have been updated", "success");
   };
@@ -248,7 +228,7 @@ const [profileInfo, setProfileInfo] = useState("")
       {/* =========================== Start:: Model =============================== */}
 
       <div
-        className={`h-screen  w-screen bg-modelColor modalss absolute flex items-center justify-center px-4 ${
+        className={`h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
           deleteModal === true ? "block" : "hidden"
         }`}
       >
@@ -289,7 +269,10 @@ const [profileInfo, setProfileInfo] = useState("")
                 <form className="mt-5 w-4/5 mb-5" action="">
                   <div className="flex justify-between  w-full">
                     <button
-                      onClick={() => setDeleteModal(!deleteModal)}
+                      onClick={() => {
+                        setDeleteModal(!deleteModal);
+                      
+                      }}
                       className="bg-indigo-300 text-blue-500 w-24 h-8 rounded font-bold text-sm"
                     >
                       Cancel
@@ -309,45 +292,34 @@ const [profileInfo, setProfileInfo] = useState("")
       </div>
 
       <div
-        className={`h-screen w-screen modalss bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           updateModel === true ? "block" : "hidden"
         }`}
       >
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <div className="bg-white w-full h-full  lg:h-4/5   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 2xl:h-3/6 rounded-lg p-4 pb-8">
+        <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
               Update Route
             </h3>
             <div
               className="close-icon w-1/12 cursor-pointer float-right"
-              onClick={() => setUpdateModel(!updateModel)}
+              onClick={() => {
+                setUpdateModel(!updateModel);
+                setLoadingMap(false);
+              }}
             >
               <img src={close} alt="Phantom" className="float-right" />
             </div>
             <hr className=" bg-secondary-150 border my-3 w-full" />
           </div>
-          <div className="card-body ">
-            <form
-              onSubmit={(e) => updateRoute(e)}
-              className=" sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12"
-            >
-              <div className="input my-3 h-9 ">
+          <div className="card-body  ">
+            <form onSubmit={(e) => updateRoute(e)} className=" sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12">
+              <div className="input my-3 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
                     placeholder="route name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -355,59 +327,106 @@ const [profileInfo, setProfileInfo] = useState("")
                 </div>
                 <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full  rounded-md">
                   <input
-                    type="text"
+                    type="number"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
                     placeholder="route code"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
                   />
                 </div>
+                <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full  rounded-md">
+                  <input
+                    type="text"
+                    name="name"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
+                    placeholder="City"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
                 <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
                     placeholder="start location"
                     value={startLocation}
-                    onChange={(e) => setStartLocation(e.target.value)}
+                    onChange={(e) => {
+                      setStartLocation(e.target.value);
+                       /* ============= Start:: Searching  route info ======================= */ 
+                        provider.search({ query: `rwanda ${e.target.value}` })
+                        .then(function (result) {
+                          console.log(result)
+                          
+                          if(result.length != 0){
+                            setFrom({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
+                            setLoadingMap(true);
+                          }
+                          else{
+                            setFrom({lat: 0, lng: 0});
+                          }
+                        })
+                        .catch(error =>{
+                          console.log(error)
+                        })
+                      /* ============= end:: Searching  route info ========================= */ 
+                    }}
                   />
                 </div>
                 <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
                     placeholder="end location"
                     value={endLocation}
-                    onChange={(e) => setEndLocation(e.target.value)}
+                    onChange={(e) => {
+                      setEndLocation(e.target.value)
+                       /* ============= Start:: Searching  route info ======================= */ 
+                       provider.search({ query: `rwanda ${e.target.value}` })
+                       .then(function (result) {
+                         console.log(result)
+                         
+                         if(result.length != 0){
+                          setEnd({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
+                          setLoadingMap(true);
+                         }
+                         else{
+                          setEnd({lat: 0, lng: 0});
+                         }
+                       })
+                       .catch(error =>{
+                         console.log(error)
+                       })
+                     /* ============= end:: Searching  route info ========================= */ 
+                    }}
                   />
                 </div>
                 <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
                     placeholder="Distance"
                     value={distance}
-                    onChange={(e) => setDistance(e.target.value)}
+                    readOnly
                   />
                 </div>
                 <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
                     placeholder="Duration"
                     value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
+                    readOnly                    
                   />
                 </div>
                 <div className="flex justify-between gap-5 mt-5">
-                <DangerButton  name={`cancel`} styles='py-2 w-1/3' onClick={() => setUpdateModel(!updateModel)} />
-                <InfoButton  name={`Update`} styles='py-2 w-1/3' onClick={!updateModel}/>
-                </div>
-                
+                  <DangerButton  name={`cancel`} styles='py-2 w-1/3' onClick={() => setUpdateModel(!updateModel)} />
+                  <InfoButton  name={`Update`} styles='py-2 w-1/3' onClick={!updateModel}/>
+                </div>                
               </div>
             </form>
           </div>
@@ -415,125 +434,171 @@ const [profileInfo, setProfileInfo] = useState("")
       </div>
 
       <div
-        className={`h-screen w-screen modalss bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           show === true ? "block" : "hidden"
         }`}
       >
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <div className="bg-white modal w-full h-full  lg:h-4/5   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 2xl:h-3/6 rounded-lg p-4 pb-8">
+       
+        <div className="bg-white w-full  lg:h-4/5   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 2xl:h-3/6 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
               Adding new Route
             </h3>
             <div
               className="close-icon w-1/12 cursor-pointer float-right"
-              onClick={() => setShow(!show)}
+              onClick={() => {
+                 setShow(!show)
+                 setLoadingMap(false);
+                }}
             >
               <img src={close} alt="Phantom" className="float-right" />
             </div>
             <hr className=" bg-secondary-150 border my-3 w-full" />
           </div>
           <div className="card-body ">
-            <form
-              onSubmit={(e) => createNewRoute(e)}
-              className=" sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12 "
-            >
+            <form onSubmit={(e) => createNewRoute(e)} className=" py-3 sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12 ">
+              
               <div className="input my-3 h-9 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
                     placeholder="route name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
-                </div>
-                <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full  rounded-md">
+                </div>              
+              </div> 
+              <div className="input my-3 h-9 ">
+                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
-                    type="text"
+                    type="number"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className="bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
                     placeholder="route code"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
                   />
                 </div>
-                <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
+              </div>
+              
+              <div className="input my-3 h-9 ">
+                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className="bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
+                    placeholder="City name"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="input my-3 h-9 ">                
+                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
+                  <input
+                    type="text"
+                    name="name"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
                     placeholder="start location"
                     value={startLocation}
-                    onChange={(e) => setStartLocation(e.target.value)}
+                    onChange={(e) => {
+                      setStartLocation(e.target.value)
+                       /* ============= Start:: Searching  route info ======================= */ 
+                       provider.search({ query: `rwanda ${e.target.value}` })
+                       .then(function (result) {
+                         console.log(result)
+                         
+                         if(result.length != 0){
+                          setFrom({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
+                          setLoadingMap(true);
+                         }
+                         else{
+                          setFrom({lat: 0, lng: 0});
+                         }
+                       })
+                       .catch(error =>{
+                         console.log(error)
+                       })
+                     /* ============= end:: Searching  route info ========================= */ 
+                    }}
                   />
                 </div>
-                <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
+              </div>
+              <div className="input my-3 h-9 ">
+                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className="bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
                     placeholder="end location"
                     value={endLocation}
-                    onChange={(e) => setEndLocation(e.target.value)}
+                    onChange={(e) => {
+                      setEndLocation(e.target.value)
+                     /* ============= Start:: Searching  route info ======================= */ 
+                      provider.search({ query: `rwanda ${e.target.value}` })
+                      .then(function (result) {
+                        console.log(result)
+                        
+                        if(result.length != 0){
+                          setEnd({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
+                          setLoadingMap(true);
+                        }
+                        else{
+                          setEnd({lat: 0, lng: 0});
+                        }
+                      })
+                      .catch(error =>{
+                        console.log(error)
+                      })
+                   /* ============= end:: Searching  route info ========================= */ 
+                    }}
                   />
                 </div>
-                <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
+              </div> 
+
+              <div className="input my-3 h-9 ">
+                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className="bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
                     placeholder="Distance"
                     value={distance}
-                    onChange={(e) => setDistance(e.target.value)}
+                    readOnly
                   />
                 </div>
-                <div className="grouped-input bg-secondary-40  mt-5  flex items-center h-full w-full rounded-md">
+              </div>
+
+              <div className="input my-3 h-9 ">
+                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
                     name="name"
-                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5"
+                    className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
                     placeholder="Duration"
                     value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
+                    readOnly                    
                   />
-                </div>
-                <div className="w-full mt-5">
-                                <Primary name={`Add Route`} styles='py-2' onClick={createNewRoute}/>
-                            </div>
-                {/* <button onClick={createNewRoute}>Submit</button> */}
+                </div>              
+              </div>
+
+              <div className="w-full">
+                <div className="flex justify-between gap-5 mt-5">
+                  <Primary name={`Add Route`} styles='py-2' onclick={createNewRoute}/>
+                </div>    
               </div>
             </form>
           </div>
         </div>
       </div>
       <div
-        className={`h-screen w-screen modalss bg-modelColor absolute flex items-center justify-center px-4 ${
+        className={`h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
           listModal === true ? "block" : "hidden"
         }`}
       >
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        
         <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
@@ -698,8 +763,7 @@ const [profileInfo, setProfileInfo] = useState("")
             <>
               <div className="w-full h-min    md:w-full  rounded-md  m-2">
                 {/* <div className="w-screen overflow-x-scroll  flex flex-col md:flex-row gap-10 lg:flex-row"> */}
-                <div className="scroll-parent ">
-                  
+                <div className="scroll-parent p-3 ">                  
                   <article className="scroll-article ">
                     <img
                       className="h-full  w-2/5 md:w-1/2 md:h-full  "
@@ -992,8 +1056,10 @@ const [profileInfo, setProfileInfo] = useState("")
                       <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                      <LocationMarker />
+
+                      { !loadingMap && <GetRouteInfo from={from} to={end} setDuration={setDuration} setDistance={setDistance} />  }               
                     </MapContainer>
+                    
                   </div>
                 </div>
               </div>{" "}

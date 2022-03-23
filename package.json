@@ -32,6 +32,8 @@
     "jest": "^27.5.1",
     "jest-enzyme": "^7.1.2",
     "leaflet": "^1.7.1",
+    "leaflet-geosearch": "^3.6.0",
+    "leaflet-routing-machine": "^3.2.12",
     "mini-css-extract-plugin": "^2.5.3",
     "path": "^0.12.7",
     "postcss": "^8.4.6",

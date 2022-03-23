@@ -9,6 +9,9 @@ const initialState = [
     endLocation: 'Kicukiro',
     distance: 'km5',
     duration: 'min30',
+    city:"Kigali",
+    from:{lat: 0, lng: 0},
+    to:{lat: 0, lng: 0}
   },
   {
     id: 2,
@@ -18,6 +21,9 @@ const initialState = [
     endLocation: 'Kicukiro',
     distance: 'km5',
     duration: 'min30',
+    city:"Kigali",
+    from:{lat: 0, lng: 0},
+    to:{lat: 0, lng: 0}
   },
   {
     id: 3,
@@ -27,6 +33,9 @@ const initialState = [
     endLocation: 'Kicukiro',
     distance: 'km5',
     duration: 'min30',
+    city:"Kigali",
+    from:{lat: 0, lng: 0},
+    to:{lat: 0, lng: 0}
   },
   {
     id: 4,
@@ -36,6 +45,9 @@ const initialState = [
     endLocation: 'Kicukiro',
     distance: 'km5',
     duration: 'min30',
+    city:"Kigali",
+    from:{lat: 0, lng: 0},
+    to:{lat: 0, lng: 0}
   },
   
 ];
@@ -62,6 +74,9 @@ export function RoutesReducer(state = initialState, { type, payload }) {
         endLocation: payload.endLocation,
         distance: payload.distance,
         duration: payload.duration,
+        city:payload.city,
+        from:{...payload.from},
+        to:{...payload.to}
       };
       clonedState.push(newRoute);
       state = clonedState;
@@ -77,7 +92,6 @@ export function RoutesReducer(state = initialState, { type, payload }) {
 
       return state;
     default:
-      console.log(payload, type);
       return state;
   }
 }
