@@ -178,7 +178,7 @@ const RegisterDriver = () => {
                                                         1
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                         John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
@@ -204,7 +204,7 @@ const RegisterDriver = () => {
                                                         2
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                        John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
@@ -229,7 +229,7 @@ const RegisterDriver = () => {
                                                         3
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                         John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
@@ -254,7 +254,7 @@ const RegisterDriver = () => {
                                                         4
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                         John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
@@ -279,7 +279,7 @@ const RegisterDriver = () => {
                                                         5
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                       John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
