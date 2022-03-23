@@ -255,10 +255,6 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
           className=" flex justify-between"
         >
           <Primary
-            name="Route +"
-            styles="lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200 "
-          />
-          <Primary
             name="List "
             onclick={[Function]}
             styles=" lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200"
@@ -285,15 +281,6 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
                 className=" text-primary-500 font-bold text-xl md:text-2xl"
               >
                 Buses
-              </h4>
-            </div>
-            <div
-              className="sub-title"
-            >
-              <h4
-                className="text-secondary-200  font-bold text-xl"
-              >
-                List
               </h4>
             </div>
           </div>

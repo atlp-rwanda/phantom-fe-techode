@@ -48,7 +48,7 @@ const Busesoperat = (props) => {
         setSelectedBusId(select);
     }
 
-    //Form controller 
+    
     const [busId, setBusId] = useState('');
     const [busName, setbusName] = useState('');
     const [route, setRoute] = useState('');
@@ -63,7 +63,6 @@ const Busesoperat = (props) => {
     /* ======== End:: removing skeleton ======= */
 
 
-    //Getting user type 
     const {
         type: userType,
     } = user;
