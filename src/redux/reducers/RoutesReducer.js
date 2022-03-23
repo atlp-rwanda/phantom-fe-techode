@@ -10,8 +10,8 @@ const initialState = [
     distance: 'km5',
     duration: 'min30',
     city:"Kigali",
-    from:{lat: 0, lng: 0},
-    to:{lat: 0, lng: 0}
+    from:{lat: -1.9719517, lng: 30.1317806},
+    to:{lat: -1.9719517, lng: 30.1317806}
   },
   {
     id: 2,
@@ -22,8 +22,8 @@ const initialState = [
     distance: 'km5',
     duration: 'min30',
     city:"Kigali",
-    from:{lat: 0, lng: 0},
-    to:{lat: 0, lng: 0}
+    from:{lat: -1.9719517, lng: 30.1317806},
+    to:{lat: -1.9719517, lng: 30.1317806}
   },
   {
     id: 3,
@@ -34,8 +34,8 @@ const initialState = [
     distance: 'km5',
     duration: 'min30',
     city:"Kigali",
-    from:{lat: 0, lng: 0},
-    to:{lat: 0, lng: 0}
+    from:{lat: -1.9719517, lng: 30.1317806},
+    to:{lat: -1.9719517, lng: 30.1317806}
   },
   {
     id: 4,
@@ -46,8 +46,8 @@ const initialState = [
     distance: 'km5',
     duration: 'min30',
     city:"Kigali",
-    from:{lat: 0, lng: 0},
-    to:{lat: 0, lng: 0}
+    from:{lat: -1.9719517, lng: 30.1317806},
+    to:{lat: -1.9719517, lng: 30.1317806}
   },
   
 ];

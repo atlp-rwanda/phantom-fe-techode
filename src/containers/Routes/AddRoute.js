@@ -71,6 +71,12 @@ function AddRoute(props) {
     setLoadingMap(false);
   }, 1000);
 
+  useEffect(() => {
+    setTimeout(() => {      
+      setLoadingMap(false);
+    },500)
+  },[loadingMap])
+
   const createNewRoute = (e) => {
     e.preventDefault();
     setLoadingMap(false);
@@ -373,7 +379,6 @@ function AddRoute(props) {
                       provider
                         .search({ query: `rwanda ${e.target.value}` })
                         .then(function (result) {
-                          console.log(result);
 
                           if (result.length != 0) {
                             setFrom({
@@ -386,7 +391,6 @@ function AddRoute(props) {
                           }
                         })
                         .catch((error) => {
-                          console.log(error);
                         });
                       /* ============= end:: Searching  route info ========================= */
                     }}
@@ -405,7 +409,6 @@ function AddRoute(props) {
                       provider
                         .search({ query: `rwanda ${e.target.value}` })
                         .then(function (result) {
-                          console.log(result);
 
                           if (result.length != 0) {
                             setEnd({
@@ -418,7 +421,6 @@ function AddRoute(props) {
                           }
                         })
                         .catch((error) => {
-                          console.log(error);
                         });
                       /* ============= end:: Searching  route info ========================= */
                     }}
@@ -539,7 +541,6 @@ function AddRoute(props) {
                       provider
                         .search({ query: `rwanda ${e.target.value}` })
                         .then(function (result) {
-                          console.log(result);
 
                           if (result.length != 0) {
                             setFrom({
@@ -552,7 +553,6 @@ function AddRoute(props) {
                           }
                         })
                         .catch((error) => {
-                          console.log(error);
                         });
                       /* ============= end:: Searching  route info ========================= */
                     }}
@@ -573,7 +573,6 @@ function AddRoute(props) {
                       provider
                         .search({ query: `rwanda ${e.target.value}` })
                         .then(function (result) {
-                          console.log(result);
 
                           if (result.length != 0) {
                             setEnd({
@@ -586,7 +585,6 @@ function AddRoute(props) {
                           }
                         })
                         .catch((error) => {
-                          console.log(error);
                         });
                       /* ============= end:: Searching  route info ========================= */
                     }}
@@ -683,9 +681,6 @@ function AddRoute(props) {
                               Route name
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Route code
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
                               Start Location
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
@@ -693,9 +688,6 @@ function AddRoute(props) {
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
                               Distance
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Duration
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
                               Action
@@ -719,9 +711,6 @@ function AddRoute(props) {
                                 {route.name}
                               </td>
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.code}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
                                 {route.startLocation}
                               </td>
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
@@ -729,9 +718,6 @@ function AddRoute(props) {
                               </td>
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
                                 {route.distance}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.duration}
                               </td>
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
                                 {/* =================== Start:: only admin to see this =================== */}
@@ -754,7 +740,11 @@ function AddRoute(props) {
                                   type={"info"}
                                   svg={more}
                                   onclick={() => {
+                                    setLoadingMap(true);
+                                    setListModal(false);                                    
                                     setProfileInfo(currentPosts[route.id]);
+                                    setFrom(profileInfo.from);
+                                    setEnd(profileInfo.to);
                                   }}
                                 />
                               </td>

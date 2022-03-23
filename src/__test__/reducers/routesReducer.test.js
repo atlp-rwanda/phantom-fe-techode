@@ -18,8 +18,8 @@ describe("routes", () => {
         distance: 'km5',
         duration: 'min30',
         city:"Kigali",
-        from:{lat: 0, lng: 0},
-        to:{lat: 0, lng: 0}
+        from:{lat: -1.9719517, lng: 30.1317806},
+        to:{lat: -1.9719517, lng: 30.1317806}
       },
       {
         id: 2,
@@ -30,8 +30,8 @@ describe("routes", () => {
         distance: 'km5',
         duration: 'min30',
         city:"Kigali",
-        from:{lat: 0, lng: 0},
-        to:{lat: 0, lng: 0}
+        from:{lat: -1.9719517, lng: 30.1317806},
+        to:{lat: -1.9719517, lng: 30.1317806}
       },
       {
         id: 3,
@@ -42,8 +42,8 @@ describe("routes", () => {
         distance: 'km5',
         duration: 'min30',
         city:"Kigali",
-        from:{lat: 0, lng: 0},
-        to:{lat: 0, lng: 0}
+        from:{lat: -1.9719517, lng: 30.1317806},
+        to:{lat: -1.9719517, lng: 30.1317806}
       },
       {
         id: 4,
@@ -54,8 +54,8 @@ describe("routes", () => {
         distance: 'km5',
         duration: 'min30',
         city:"Kigali",
-        from:{lat: 0, lng: 0},
-        to:{lat: 0, lng: 0}
+        from:{lat: -1.9719517, lng: 30.1317806},
+        to:{lat: -1.9719517, lng: 30.1317806}
       },
     ];
 
