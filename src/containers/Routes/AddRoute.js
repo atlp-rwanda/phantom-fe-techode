@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import RouteInfoSkeleton from "./RouteInfoSkeleton";
 import Pagination from "../../components/pagination/Pagination";
 import deleteIcon from "../../assets/svgs/delete.svg";
-import edit from '../../assets/svgs/edit.svg';
+import edit from "../../assets/svgs/edit.svg";
 import more from "../../assets/svgs/more.svg";
 import close from "../../assets/svgs/close.svg";
 import imageBus from "../../assets/img/imageBus.png";
@@ -11,22 +11,27 @@ import vector from "../../assets/img/Vector2.png";
 import profile_admin from "../../assets/img/profile_admin.png";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./Routemap.css";
-import { LebalButton,LebalTextButton,} from "../../components/buttons/LebalButton";
+import {
+  LebalButton,
+  LebalTextButton,
+} from "../../components/buttons/LebalButton";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import { Primary } from "../../components/buttons/Buttons";
 import { DangerButton } from "../../components/buttons/Buttons";
 import { InfoButton } from "../../components/buttons/Buttons";
 import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
-import  GetRouteInfo  from "../../functions/GetRouteInfo";
+import GetRouteInfo from "../../functions/GetRouteInfo";
 import TableSkeleton from "../../components/skeletons/Tables/TableSkeleton";
 import { connect } from "react-redux";
-import { createRoute,updateRouteInfo,deleteRoute} from "../../redux/actions/RoutesAction";
+import {
+  createRoute,
+  updateRouteInfo,
+  deleteRoute,
+} from "../../redux/actions/RoutesAction";
 
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import { OpenStreetMapProvider } from "leaflet-geosearch";
 const provider = new OpenStreetMapProvider();
-
-
 
 function AddRoute(props) {
   const { routes, createRoute, updateRouteInfo, deleteRoute } = props;
@@ -43,9 +48,9 @@ function AddRoute(props) {
   const [postsPerPage] = useState(2);
 
   /* ============= For search =================== */
-    const [ from , setFrom ] = useState({  lat: -1.9447501 , lng: 30.058433});
-    const [ end , setEnd ] = useState({  lat: -1.98507, lng: 30.031855 }); 
-  
+  const [from, setFrom] = useState({ lat: -1.9447501, lng: 30.058433 });
+  const [end, setEnd] = useState({ lat: -1.98507, lng: 30.031855 });
+
   /* ============= For search =================== */
 
   /* ============ Start::  Getting current driver lis ================== */
@@ -80,11 +85,13 @@ function AddRoute(props) {
     if (endLocation.trim().length == "")
       return Notify("end location field should not be empty", "error");
     if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
-      return Notify("For us to calcurate distance you need to be accurate when you adding starting place", "error");
-  
+      return Notify(
+        "For us to calcurate distance you need to be accurate when you adding starting place",
+        "error"
+      );
+
     /* =================================== End:: validation ================================ */
 
-    
     const newRoute = {
       name: name,
       code: code,
@@ -94,7 +101,7 @@ function AddRoute(props) {
       duration: duration,
       city,
       from,
-      to:end
+      to: end,
     };
 
     createRoute(newRoute);
@@ -106,9 +113,9 @@ function AddRoute(props) {
       setEndLocation("");
       setDistance("");
       setDuration("");
-      setFrom({lat: 0, lng: 0});
-      setEnd({lat: 0, lng: 0});
-      setShow(!show)
+      setFrom({ lat: 0, lng: 0 });
+      setEnd({ lat: 0, lng: 0 });
+      setShow(!show);
     }, 1000);
     return Notify("New route have been added", "success");
   };
@@ -140,8 +147,8 @@ function AddRoute(props) {
   const deleteroute = (e) => {
     e.preventDefault();
     deleteRoute({ routeId });
-    setDeleteModal(false)
-    setListModal(true)
+    setDeleteModal(false);
+    setListModal(true);
     return Notify("Delete route successfully", "success");
   };
   const [selectedRoute, setSelectedRouteId] = useState("");
@@ -153,7 +160,7 @@ function AddRoute(props) {
   const closeModel = (e) => {
     e.preventDefault();
     setUpdateModel(!updateModel);
-  }
+  };
   const updateRouteModel = (id = null) => {
     setUpdateModel(!updateModel);
     if (id != null) {
@@ -169,20 +176,17 @@ function AddRoute(props) {
       setDuration(select[0].duration);
       setCity(select[0].city);
       setFrom(select[0].from);
-      setEnd(select[0].to)
+      setEnd(select[0].to);
     }
   };
 
-
-  
-  let count = 0
+  let count = 0;
   useEffect(() => {
-    
-    setProfileInfo(routes[0])
-} , [])       
+    setProfileInfo(routes[0]);
+  }, []);
   const [selectedRouteName, setSelectedRouteName] = useState("");
 
-const [profileInfo, setProfileInfo] = useState("")
+  const [profileInfo, setProfileInfo] = useState("");
   const updateRoute = (e) => {
     e.preventDefault();
 
@@ -196,8 +200,11 @@ const [profileInfo, setProfileInfo] = useState("")
     if (endLocation.trim().length == "")
       return Notify("end location field should not be empty", "error");
     if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
-      return Notify("For us to calcurate distance you need to be accurate when you adding starting place", "error");
-  
+      return Notify(
+        "For us to calcurate distance you need to be accurate when you adding starting place",
+        "error"
+      );
+
     /* =================================== End:: validation ================================ */
 
     const newRouteInfo = {
@@ -210,7 +217,7 @@ const [profileInfo, setProfileInfo] = useState("")
       duration: duration,
       city,
       from,
-      to:end
+      to: end,
     };
     updateRouteInfo(newRouteInfo);
     setTimeout(() => {
@@ -223,8 +230,8 @@ const [profileInfo, setProfileInfo] = useState("")
       setEndLocation("");
       setDistance("");
       setDuration("");
-      setFrom({lat: 0, lng: 0});
-      setEnd({lat: 0, lng: 0});
+      setFrom({ lat: 0, lng: 0 });
+      setEnd({ lat: 0, lng: 0 });
     }, 2000);
     return Notify("route have been updated", "success");
   };
@@ -277,7 +284,6 @@ const [profileInfo, setProfileInfo] = useState("")
                     <button
                       onClick={() => {
                         setDeleteModal(!deleteModal);
-                      
                       }}
                       className="bg-indigo-300 text-blue-500 w-24 h-8 rounded font-bold text-sm"
                     >
@@ -319,7 +325,10 @@ const [profileInfo, setProfileInfo] = useState("")
             <hr className=" bg-secondary-150 border my-3 w-full" />
           </div>
           <div className="card-body  ">
-            <form onSubmit={(e) => updateRoute(e)} className=" sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12">
+            <form
+              onSubmit={(e) => updateRoute(e)}
+              className=" sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12"
+            >
               <div className="input my-3 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
@@ -360,23 +369,26 @@ const [profileInfo, setProfileInfo] = useState("")
                     value={startLocation}
                     onChange={(e) => {
                       setStartLocation(e.target.value);
-                       /* ============= Start:: Searching  route info ======================= */ 
-                        provider.search({ query: `rwanda ${e.target.value}` })
+                      /* ============= Start:: Searching  route info ======================= */
+                      provider
+                        .search({ query: `rwanda ${e.target.value}` })
                         .then(function (result) {
-                          console.log(result)
-                          
-                          if(result.length != 0){
-                            setFrom({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
+                          console.log(result);
+
+                          if (result.length != 0) {
+                            setFrom({
+                              lat: result[0].bounds[0][0],
+                              lng: result[0].bounds[0][1],
+                            });
                             setLoadingMap(true);
-                          }
-                          else{
-                            setFrom({lat: 0, lng: 0});
+                          } else {
+                            setFrom({ lat: 0, lng: 0 });
                           }
                         })
-                        .catch(error =>{
-                          console.log(error)
-                        })
-                      /* ============= end:: Searching  route info ========================= */ 
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                      /* ============= end:: Searching  route info ========================= */
                     }}
                   />
                 </div>
@@ -388,24 +400,27 @@ const [profileInfo, setProfileInfo] = useState("")
                     placeholder="end location"
                     value={endLocation}
                     onChange={(e) => {
-                      setEndLocation(e.target.value)
-                       /* ============= Start:: Searching  route info ======================= */ 
-                       provider.search({ query: `rwanda ${e.target.value}` })
-                       .then(function (result) {
-                         console.log(result)
-                         
-                         if(result.length != 0){
-                          setEnd({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
-                          setLoadingMap(true);
-                         }
-                         else{
-                          setEnd({lat: 0, lng: 0});
-                         }
-                       })
-                       .catch(error =>{
-                         console.log(error)
-                       })
-                     /* ============= end:: Searching  route info ========================= */ 
+                      setEndLocation(e.target.value);
+                      /* ============= Start:: Searching  route info ======================= */
+                      provider
+                        .search({ query: `rwanda ${e.target.value}` })
+                        .then(function (result) {
+                          console.log(result);
+
+                          if (result.length != 0) {
+                            setEnd({
+                              lat: result[0].bounds[0][0],
+                              lng: result[0].bounds[0][1],
+                            });
+                            setLoadingMap(true);
+                          } else {
+                            setEnd({ lat: 0, lng: 0 });
+                          }
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                      /* ============= end:: Searching  route info ========================= */
                     }}
                   />
                 </div>
@@ -426,13 +441,21 @@ const [profileInfo, setProfileInfo] = useState("")
                     className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-9 w-4/5"
                     placeholder="Duration"
                     value={duration}
-                    readOnly                    
+                    readOnly
                   />
                 </div>
                 <div className="w-full flex flex-wrap justify-between items-center mt-4">
-                  <InfoButton  name={`Cancel`} styles='py-2 w-5/12 ' onclick={(e) => closeModel(e)}/>
-                  <Primary  name={`Update`} styles='py-2 w-5/12 ' onClick={!updateModel}/>
-                </div>                
+                  <InfoButton
+                    name={`Cancel`}
+                    styles="py-2 w-5/12 "
+                    onclick={(e) => closeModel(e)}
+                  />
+                  <Primary
+                    name={`Update`}
+                    styles="py-2 w-5/12 "
+                    onClick={!updateModel}
+                  />
+                </div>
               </div>
             </form>
           </div>
@@ -444,7 +467,6 @@ const [profileInfo, setProfileInfo] = useState("")
           show === true ? "block" : "hidden"
         }`}
       >
-       
         <div className="bg-white w-full  lg:h-4/5   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 2xl:h-3/6 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
@@ -453,17 +475,19 @@ const [profileInfo, setProfileInfo] = useState("")
             <div
               className="close-icon w-1/12 cursor-pointer float-right"
               onClick={() => {
-                 setShow(!show)
-                 setLoadingMap(false);
-                }}
+                setShow(!show);
+                setLoadingMap(false);
+              }}
             >
               <img src={close} alt="Phantom" className="float-right" />
             </div>
             <hr className=" bg-secondary-150 border my-3 w-full" />
           </div>
           <div className="card-body ">
-            <form onSubmit={(e) => createNewRoute(e)} className=" py-3 sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12 ">
-              
+            <form
+              onSubmit={(e) => createNewRoute(e)}
+              className=" py-3 sp:px-8 mp:px-5  sm:px-10  md:px-8 lg:px-12 "
+            >
               <div className="input my-3 h-9 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
@@ -474,8 +498,8 @@ const [profileInfo, setProfileInfo] = useState("")
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
-                </div>              
-              </div> 
+                </div>
+              </div>
               <div className="input my-3 h-9 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
@@ -488,7 +512,7 @@ const [profileInfo, setProfileInfo] = useState("")
                   />
                 </div>
               </div>
-              
+
               <div className="input my-3 h-9 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
@@ -501,7 +525,7 @@ const [profileInfo, setProfileInfo] = useState("")
                   />
                 </div>
               </div>
-              <div className="input my-3 h-9 ">                
+              <div className="input my-3 h-9 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
                     type="text"
@@ -510,24 +534,27 @@ const [profileInfo, setProfileInfo] = useState("")
                     placeholder="start location"
                     value={startLocation}
                     onChange={(e) => {
-                      setStartLocation(e.target.value)
-                       /* ============= Start:: Searching  route info ======================= */ 
-                       provider.search({ query: `rwanda ${e.target.value}` })
-                       .then(function (result) {
-                         console.log(result)
-                         
-                         if(result.length != 0){
-                          setFrom({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
-                          setLoadingMap(true);
-                         }
-                         else{
-                          setFrom({lat: 0, lng: 0});
-                         }
-                       })
-                       .catch(error =>{
-                         console.log(error)
-                       })
-                     /* ============= end:: Searching  route info ========================= */ 
+                      setStartLocation(e.target.value);
+                      /* ============= Start:: Searching  route info ======================= */
+                      provider
+                        .search({ query: `rwanda ${e.target.value}` })
+                        .then(function (result) {
+                          console.log(result);
+
+                          if (result.length != 0) {
+                            setFrom({
+                              lat: result[0].bounds[0][0],
+                              lng: result[0].bounds[0][1],
+                            });
+                            setLoadingMap(true);
+                          } else {
+                            setFrom({ lat: 0, lng: 0 });
+                          }
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                      /* ============= end:: Searching  route info ========================= */
                     }}
                   />
                 </div>
@@ -541,28 +568,31 @@ const [profileInfo, setProfileInfo] = useState("")
                     placeholder="end location"
                     value={endLocation}
                     onChange={(e) => {
-                      setEndLocation(e.target.value)
-                     /* ============= Start:: Searching  route info ======================= */ 
-                      provider.search({ query: `rwanda ${e.target.value}` })
-                      .then(function (result) {
-                        console.log(result)
-                        
-                        if(result.length != 0){
-                          setEnd({ lat: result[0].bounds[0][0], lng: result[0].bounds[0][1] });
-                          setLoadingMap(true);
-                        }
-                        else{
-                          setEnd({lat: 0, lng: 0});
-                        }
-                      })
-                      .catch(error =>{
-                        console.log(error)
-                      })
-                   /* ============= end:: Searching  route info ========================= */ 
+                      setEndLocation(e.target.value);
+                      /* ============= Start:: Searching  route info ======================= */
+                      provider
+                        .search({ query: `rwanda ${e.target.value}` })
+                        .then(function (result) {
+                          console.log(result);
+
+                          if (result.length != 0) {
+                            setEnd({
+                              lat: result[0].bounds[0][0],
+                              lng: result[0].bounds[0][1],
+                            });
+                            setLoadingMap(true);
+                          } else {
+                            setEnd({ lat: 0, lng: 0 });
+                          }
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                      /* ============= end:: Searching  route info ========================= */
                     }}
                   />
                 </div>
-              </div> 
+              </div>
 
               <div className="input my-3 h-9 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
@@ -585,15 +615,19 @@ const [profileInfo, setProfileInfo] = useState("")
                     className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full"
                     placeholder="Duration"
                     value={duration}
-                    readOnly                    
+                    readOnly
                   />
-                </div>              
+                </div>
               </div>
 
               <div className="w-full">
                 <div className="flex justify-between gap-5 mt-5">
-                  <Primary name={`Add Route`} styles='py-2' onclick={createNewRoute}/>
-                </div>    
+                  <Primary
+                    name={`Add Route`}
+                    styles="py-2"
+                    onclick={createNewRoute}
+                  />
+                </div>
               </div>
             </form>
           </div>
@@ -604,7 +638,6 @@ const [profileInfo, setProfileInfo] = useState("")
           listModal === true ? "block" : "hidden"
         }`}
       >
-        
         <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
@@ -671,11 +704,11 @@ const [profileInfo, setProfileInfo] = useState("")
                         </thead>
                         <tbody>
                           {currentPosts.map((route) => (
-
-                           
                             <tr
-                            
-                              key={route.id} onClick={() => setProfileInfo(currentPosts[count++])}
+                              key={route.id}
+                              onClick={() =>
+                                setProfileInfo(currentPosts[count++])
+                              }
                               className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100"
                             >
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
@@ -721,11 +754,9 @@ const [profileInfo, setProfileInfo] = useState("")
                                   type={"info"}
                                   svg={more}
                                   onclick={() => {
-                                    setProfileInfo(currentPosts[route.id])
-                                  } }
-                                  
+                                    setProfileInfo(currentPosts[route.id]);
+                                  }}
                                 />
-                                
                               </td>
                             </tr>
                           ))}
@@ -768,7 +799,7 @@ const [profileInfo, setProfileInfo] = useState("")
             <>
               <div className="w-full h-min    md:w-full  rounded-md  m-2">
                 {/* <div className="w-screen overflow-x-scroll  flex flex-col md:flex-row gap-10 lg:flex-row"> */}
-                <div className="scroll-parent p-3 ">                  
+                <div className="scroll-parent p-3 ">
                   <article className="scroll-article ">
                     <img
                       className="h-full  w-2/5 md:w-1/2 md:h-full  "
@@ -797,11 +828,7 @@ const [profileInfo, setProfileInfo] = useState("")
                     </div>
                   </article>
                   <article className="scroll-article ">
-                    <img
-                      className="  "
-                      src={imageBus}
-                      alt=""
-                    />
+                    <img className="  " src={imageBus} alt="" />
                     <div className="flex md:flex flex-col   justify-center">
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
@@ -1014,23 +1041,25 @@ const [profileInfo, setProfileInfo] = useState("")
                   </article>
                 </div>
                 <div className="flex-col md:flex justify-between lg:flex-row mt-10">
-                  <article className="flex flex-col bg-white md:w-4/5 lg:w-1/3 rounded-lg">
-                    <div className=" w-full flex-col items-center justify-center">
-                      <figure className=" w-1/3 mt-3 flex-col items-center justify-center ml-20">
+                  <article className="flex flex-col bg-white md:w-4/5 lg:w-1/3 rounded-lg flex-col items-center justify-center">
+                    
+
+                    <div className=" w-full flex-col items-center w-full  justify-center mt-5">
+                      <figure className="  flex-col ">
+                        <div className="  flex items-center  justify-center ">
                         <img src={profile_admin} alt="" />
-                        <figcaption className=" flex justify-center">
-                          <p className="text-center ml-20 font-bold mt-3">
-                          {profileInfo.name}
-                          </p>
-                        </figcaption>
+                        </div>
+                        <div className="flex justify-center items-center mt-5">
+                          <p className=""> {profileInfo.name}</p>
+                        </div>
                       </figure>
                     </div>
 
-                    <div className="flex flex-row w-5/6 items-center ">
+                    <div className="flex flex-row w-5/6 items-center justify-center gap-5">
                       <figure className="-mt-10">
                         <img src={vector} alt="" />
                       </figure>
-                      <div className="flex flex-col mt-5 ml-3 ">
+                      <div className="flex flex-col mt-5 ">
                         <p className="text-sky-500 font-bold">
                           Route information
                         </p>
@@ -1057,14 +1086,22 @@ const [profileInfo, setProfileInfo] = useState("")
                   <div className=" h-96 w-full mt-5 shadow-2xl  bg-white md:w-4/5 lg:w-3/5  flex justify-center rounded-2xl ">
                     <MapContainer
                       center={{ lat: -1.98507, lng: 30.031855 }}
-                      zoom={13}>
+                      zoom={13}
+                    >
                       <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
 
-                      { !loadingMap && <GetRouteInfo from={from} to={end} setDuration={setDuration} setDistance={setDistance} />  }               
+                      {!loadingMap && (
+                        <GetRouteInfo
+                          from={from}
+                          to={end}
+                          setDuration={setDuration}
+                          setDistance={setDistance}
+                        />
+                      )}
                     </MapContainer>
-                    
                   </div>
                 </div>
               </div>{" "}
