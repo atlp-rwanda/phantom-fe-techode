@@ -7,6 +7,13 @@ export const DangerButton = ({ name ,onclick }) => {
         </button>
      );
 }
+export const WarningButton = ({ name ,onclick }) => {
+    return ( 
+        <button className="w-full p-2 bg-warning-100 rounded text-white shadow hover:bg-warning-100 font-sans font-medium text-1xl " onClick={onclick} >
+            {name}
+        </button>
+     );
+}
 export const SuccessButton = ({ name ,onclick }) => {
     return ( 
         <button className="w-full p-2 bg-green-500 rounded text-white shadow hover:bg-green-400 font-sans font-medium text-1xl " onClick={onclick} >
@@ -41,4 +48,11 @@ export const PermissionButton = ({ name ,onclick , styles, type, svg, alt }) => 
      );
 }
 
-
+export const ActionLabel = ({ name ,onclick , styles, svg, alt }) => {
+    return ( 
+        <button className={` rounded-md text-primary-600 bg-primary-200 font-sans text-sm flex items-center  justify-between p-1 my-1  mx-2 ${styles}`} onClick={onclick}  >
+            {name}
+            <img src={svg} alt={alt} className={`mx-2`} />
+        </button>
+     );
+}

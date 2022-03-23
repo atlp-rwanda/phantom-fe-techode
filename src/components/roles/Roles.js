@@ -474,8 +474,7 @@ const Roles = (props) => {
                     <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
                       {permissionCounter++}
                     </td>
-                    <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                      <LebalTextButton text="J" type="primary" />{" "}
+                    <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">                     
                       {permission.name}
                     </td>
                   </tr>
