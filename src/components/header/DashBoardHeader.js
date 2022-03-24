@@ -14,7 +14,7 @@ const DashBoardHeader = ({ shownav ,show }) => {
       const dispatch = useDispatch();
     return ( 
         <div className="z-0 w-full h-16 md:h-20 shadow-lg bg-gray-50 flex justify-between items-center px-3 sm:px-9 ">
-            <div className={` bagger p-2 z-10 `}  onClick={() => show()} >
+            <div className={` bagger p-2 z-50 `}  onClick={() => show()} >
                 <img src={menu} alt="phantom"  />     
             </div>
             <div className="w-2/3 ml-2 search-input sm:w-1/4 h-8 md:h-9 flex items-center "> 

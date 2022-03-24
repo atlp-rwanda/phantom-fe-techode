@@ -13,13 +13,13 @@ const Home = () => {
     return (
         <div className='min-h-full w-full font-body' style={main.style} >
             <div className='h-full w-full flex-col'>
-            <Header />
-            <Intro />
-            <HowToStart />
-            <Explore />
-            <Services />
-            <Testimonials />
-            <Footer />
+                <Header />
+                <Intro />
+                <HowToStart />
+                <Explore />
+                <Services />
+                <Testimonials />
+                <Footer />
             </div>
         </div>
     );

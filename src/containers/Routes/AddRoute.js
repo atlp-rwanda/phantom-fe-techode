@@ -11,26 +11,18 @@ import vector from "../../assets/img/Vector2.png";
 import profile_admin from "../../assets/img/profile_admin.png";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "./Routemap.css";
-import {
-  LebalButton,
-  LebalTextButton,
-} from "../../components/buttons/LebalButton";
+import { LebalButton } from "../../components/buttons/LebalButton";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import { Primary } from "../../components/buttons/Buttons";
-import { DangerButton } from "../../components/buttons/Buttons";
 import { InfoButton } from "../../components/buttons/Buttons";
 import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
 import GetRouteInfo from "../../functions/GetRouteInfo";
 import TableSkeleton from "../../components/skeletons/Tables/TableSkeleton";
 import { connect } from "react-redux";
-import {
-  createRoute,
-  updateRouteInfo,
-  deleteRoute,
-} from "../../redux/actions/RoutesAction";
-
+import { createRoute,updateRouteInfo,deleteRoute } from "../../redux/actions/RoutesAction";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
+
 const provider = new OpenStreetMapProvider();
 
 function AddRoute(props) {
@@ -930,7 +922,7 @@ function AddRoute(props) {
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className="text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
@@ -957,7 +949,7 @@ function AddRoute(props) {
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className="text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
@@ -984,7 +976,7 @@ function AddRoute(props) {
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className="text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
@@ -1011,7 +1003,7 @@ function AddRoute(props) {
                       <p className="text-center text-primary-500 text-sm  font-bold">
                         Bus
                       </p>
-                      <p className="text-sm  text-primary-500 font-semibold text-sm ml-3">
+                      <p className="text-primary-500 font-semibold text-sm ml-3">
                         Driver:{" "}
                         <span className="text-black font-normal">John</span>
                       </p>
@@ -1030,10 +1022,10 @@ function AddRoute(props) {
                   </article>
                 </div>
                 <div className="flex-col md:flex justify-between lg:flex-row mt-10">
-                  <article className="flex flex-col bg-white md:w-4/5 lg:w-1/3 rounded-lg flex-col items-center justify-center">
+                  <article className="flex bg-white md:w-4/5 lg:w-1/3 rounded-lg flex-col items-center justify-center">
                     
 
-                    <div className=" w-full flex-col items-center w-full  justify-center mt-5">
+                    <div className="flex-col items-center w-full  justify-center mt-5">
                       <figure className="  flex-col ">
                         <div className="  flex items-center  justify-center ">
                         <img src={profile_admin} alt="" />

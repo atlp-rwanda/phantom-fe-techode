@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import SkeletonUpdate from '../components/signInSkeleton/SkeletonUpdate';
-import Login from '../components/signIn/LoginForm'
+import Login from '../containers/SignIn/LoginForm'
 
 describe('Login Component', () => {
     // let wrapper;

@@ -15,7 +15,7 @@ describe('<App />', () => {
     })
     it('should render <App /> with eight <Route />', () => {
 
-        expect(wrapper.find(Route)).toHaveLength(16)
+        expect(wrapper.find(Route)).toHaveLength(17)
     })
     it('should render <App /> with <Router />', () => {
         expect(wrapper.find(Router)).toHaveLength(1)

@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import Image from '../../assets/style/signin-images/Image1.png';
 import leftArrow from "../../assets/Image/left-arrow.svg"
 import '../../assets/style/LoginForm.css';
-import SkeletonUpdate from '../signInSkeleton/SkeletonUpdate';
+import SkeletonUpdate from '../../components/signInSkeleton/SkeletonUpdate';
 import main from '../../assets/js/main'
 import { connect } from 'react-redux';
 import { update } from '../../redux/actions/userActions';
@@ -131,7 +131,7 @@ const LoginForm = (props) => {
                                     </div>
                                     <p className="font-sans font-medium  justify-center text-mainColor my-3">
                                         Dont have an account yet?
-                                        <Link to="/">Sign Up</Link>
+                                        <Link to="/signup">Sign Up</Link>
                                     </p>
                                 </form>
                             </div>    

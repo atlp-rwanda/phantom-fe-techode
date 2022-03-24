@@ -22,10 +22,9 @@ const Navbar = () => {
 
         </div>
 
-        <div
-            onClick={onClick}
-            className={`md:hidden`}
-        ><img src={menu} className='' /></div>
+        <div onClick={onClick} className={`md:hidden`}>
+          <img src={menu} className='' />
+        </div>
 
         <div className={`
             ${!active && 'hidden'}

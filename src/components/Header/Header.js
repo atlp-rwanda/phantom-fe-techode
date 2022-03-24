@@ -11,7 +11,7 @@ const Header = () => {
         <Navbar />
         <div className="absolute -top-0 -left-0 h-full w-full flex items-center justify-center bg-cover bg-center bg-fixed bg-no-repeat">
           <div className="flex flex-col w-auto lg:flex lg:flex-row md:flex md:flex-row flex-wrap items-center justify-between">
-            <div className="flex flex-col w-40 mx-5 md:mt-20 md:w-80">
+            <div className="flex flex-col w-64 mx-5 md:mt-20 md:w-80">
               <div className="flex flex-row">
                 <span className="p-0.5 md:p-1.5">
                   <svg
@@ -86,26 +86,20 @@ const Header = () => {
               </div>
               <div className="flex flex-col py-2.5">
                 <div>
-                  <h1 className="w-full text-white font-bold text-xl ms:text-2xl md:text-4xl lg:text-4xl xl:text-5xl">
+                  <h1 className="w-full text-white font-bold text-2xl md:text-4xl xl:text-5xl">
                     Fast movement and easy.
                   </h1>
                 </div>
                 <div className="py-6">
-                  <h3 className="w-full text-white font-regular ms:text-2xl md:text-2xl lg:text-2xl xl:text-3xl">
+                  <h3 className="w-full text-secondary-40 font-regular text-xl sm:text-2xl md:text-2xl xl:text-3xl">
                     Get notified anytime, anywhere the bus is.
                   </h3>
                 </div>
                 <div className="py-6">
-                  <button
-                    onClick={() => history.push("#explore")}
-                    className="bg-primary-600 hover:bg-primary-400 text-white md:text-xl md:font-bold py-2 px-4 rounded"
-                  >
-                    <Link to="#explore" smooth>Get Started</Link>
-                  </button>
+                  <Link to="#explore" smooth className="bg-primary-600 hover:bg-primary-400 text-white font-sans  md:text-lg  py-2 px-4 rounded" >Get Started</Link>
                 </div>
               </div>
             </div>
-
             <div className="hidden lg:block w-80 h-auto mx-20">
               <img src={bus} className="w-full" />
             </div>
