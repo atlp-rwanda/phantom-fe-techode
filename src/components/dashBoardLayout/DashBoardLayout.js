@@ -18,7 +18,7 @@ const DashBoardLayout = ({ children }) => {
     useEffect(() => {
             window.addEventListener('resize',() =>{
                 handleWindowSizeChange();
-                console.log(window.innerHeight);
+                // console.log(window.innerHeight);
             } );
         return () => {
             window.removeEventListener('resize', handleWindowSizeChange);

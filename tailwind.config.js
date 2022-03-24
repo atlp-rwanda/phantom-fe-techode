@@ -5,6 +5,7 @@ module.exports = {
     purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
     content: [
         "./src/**/*.{js,jsx,ts,tsx}",
+        "./node_modules/flowbite/**/*.js",
       ],
     darkMode: false, // or 'media' or 'class'
     theme: {

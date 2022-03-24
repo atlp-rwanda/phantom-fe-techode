@@ -245,13 +245,7 @@ function AddRoute(props) {
   return (
     <>
       {/* =========================== Start:: Model =============================== */}
-
-      <div
-        className={` z-50 h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
-          deleteModal === true ? "block" : "hidden"
-        }`}
-      >
-        <ToastContainer
+      <ToastContainer
           position="top-right"
           autoClose={5000}
           hideProgressBar
@@ -262,6 +256,11 @@ function AddRoute(props) {
           draggable
           pauseOnHover
         />
+      <div
+        className={` z-50 h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
+          deleteModal === true ? "block" : "hidden"
+        }`}
+      >        
         <div className="bg-white w-full   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">

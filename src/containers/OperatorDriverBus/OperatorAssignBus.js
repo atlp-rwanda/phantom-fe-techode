@@ -13,13 +13,11 @@ import lock from '../../assets/svgs/lebals/lock.svg';
 import deleteIcon from '../../assets/svgs/delete.svg';
 import edit from '../../assets/svgs/edit.svg';
 import add from "../../assets/svgs/lebals/savePrevelage.svg";
-import more from '../../assets/svgs/more.svg';
 import close from '../../assets/svgs/close.svg';
-import prev from '../../assets/svgs/prev.svg';
-import next from '../../assets/svgs/next.svg';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { assignBus, removeBus } from '../../redux/actions/assignBusAction'
 import Pagination from '../../components/pagination/Pagination';
+import { addNotification, removeNotification } from "../../redux/actions/notificationAction"
 
 
 const AssignBuses = (props) => {   
@@ -34,6 +32,15 @@ const AssignBuses = (props) => {
 
     const [currentPage, setCurrentpage] = useState(1)
     const [postsPerPage] = useState(2)
+
+
+/* ============================== start Notification ===================================== */
+
+  const [ Id, setNotificationId ] = useState("")
+  const [ name, setName ] = useState("")
+  const [ message, setMessage ] = useState("")
+
+  const { addNotification, removeNotification } = props
 
     /* ======== Start:: removing skeleton ======= */ 
         useEffect(() => {
@@ -66,6 +73,11 @@ const AssignBuses = (props) => {
         let count = 0
         let driverCounter = 1;
         let busesCounter = 1;
+        let firstChar = ""
+
+        let notificationCounter = 1
+        const notifications = props.notifications
+
         const drivers = props.drivers;
         const buses = props.drivers.buses;
     /* ============ End::  Getting current state ================== */
@@ -80,8 +92,11 @@ const AssignBuses = (props) => {
         type: userType,
       } = useSelector((state) => state.user);
         
-    const assignModal = (id) => {
+    const assignModal = (id, name, message) => {
         setDriverId(id)
+        setNotificationId(id)
+        setName(name)
+        setMessage(`Email sent to ${message}`)
         let newState = !assignB;
         setAssignBus( newState );
     }
@@ -98,28 +113,25 @@ const AssignBuses = (props) => {
 
         /* =================================== End:: validation ================================ */ 
         assignBus({driverId, bus, plate})
-        setTimeout( () => {
-            assignModal();
-        },
-         1000
-        )
-        // sendMail()     
-        return Notify('Bus assigned successfully','success') ;              
+        assignModal()
+        addNotification(message)
+        
+        return Notify('Bus assigned successfully','success') ;
     }
    
     return (
         <> 
         <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />  
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />  
         {/* =========================== Start:: Model =============================== */}        
             <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ assignB === true ? 'block' : 'hidden' }`}>
                 <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
@@ -226,7 +238,7 @@ const AssignBuses = (props) => {
                                                                 onclick={() => assignModal(driver.id) }/>)
                                                             )}
                                                             <PermissionButton type={'success'} svg={add} name={'Assign Bus'}
-                                                            onclick={() => assignModal(driver.id) }/>
+                                                            onclick={() => assignModal(driver.id,driver.driverName, driver.email) }/>
                                                         </div>
                                                     </td>
                                                  
@@ -257,7 +269,9 @@ const AssignBuses = (props) => {
                                 <div className="profile ">
                                     <div className="  border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100">
                                         <p className='text-primary-600 text-xl font-sans font-bold' >
-                                            j
+                                            {
+                                                profileInfo.driverName.charAt(0)
+                                            }
                                         </p>
                                     </div>
                                 </div>    
@@ -319,8 +333,9 @@ const AssignBuses = (props) => {
 }
 const mapStateToProps = (state) => {
     return ({
+        notifications: state.notifications,
         drivers: state.driverBusAssignment,
         buses: state.buses
     })
 }
-export default connect(mapStateToProps, {assignBus, removeBus})(AssignBuses)
+export default connect(mapStateToProps, {assignBus, removeBus, addNotification, removeNotification})(AssignBuses)

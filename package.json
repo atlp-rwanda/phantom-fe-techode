@@ -34,6 +34,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-17-updated": "^1.0.2",
     "express": "^4.17.2",
+    "flowbite": "^1.4.0",
     "formik": "^2.2.9",
     "jest": "^27.5.1",
     "jest-enzyme": "^7.1.2",

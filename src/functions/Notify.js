@@ -10,7 +10,17 @@ const Notify = (messsage , type) => {
                 draggable: true,
                 progress: undefined,
                 });
-            break;    
+            break;
+        case 'info':
+            toast.info(`${messsage}`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                });
+            break;         
         case 'error':
             toast.error(`${messsage}`, {
                 position: "top-right",
