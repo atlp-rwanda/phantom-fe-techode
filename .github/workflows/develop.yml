@@ -2,7 +2,7 @@ name: Continuous Integration
 
 on:
   push:
-    banches:
+    branches:
       - develop
   pull_request:
     branches:
