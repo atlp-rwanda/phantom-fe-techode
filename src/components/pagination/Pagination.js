@@ -23,5 +23,4 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
         </div>
      );
 }
- 
 export default Pagination;

@@ -45,7 +45,6 @@ const Roles = (props) => {
   let permissionCounter = 1;
   const roles = props.roles;
   const permissions = props.permissions;
-  console.log(props)
   /* ============ End::  Getting current state ================== */
 
   const removeModal = () => {

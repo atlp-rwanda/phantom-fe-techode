@@ -36,7 +36,7 @@ describe("Testing => assignBus reducer(state, action)", () => {
                 telephone: "788966656",
                 assignedBus : [
             ]
-            }
+            },
         ]
     })
     it("should return the initialState for no action", () => {
