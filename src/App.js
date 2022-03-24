@@ -18,6 +18,11 @@ import Busesoperat from './containers/busesOp/Busesoperat'
 import BusSimulation from './containers/BusSimulation/BusSimulation';
 
 import OperatorAssignBus from './containers/OperatorDriverBus/OperatorAssignBus'
+import AddRoute from './containers/Routes/AddRoute';
+
+
+
+
 
 
 const App = () => {
@@ -38,6 +43,8 @@ const App = () => {
                 <Route path="/buses" exact component={Busesoperat}/>
                 <Route path="/simulation" exact component={BusSimulation}/>
                 <Route path="/buses" component={RegisterBus} />
+                <Route path="/routes" exact component={AddRoute}/>
+               
                 <Route path="/*"  component={() => ({ "NotFound": 400 })} />
            </Switch>
        </Router>
