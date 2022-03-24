@@ -8,7 +8,8 @@
     "build": "webpack --config ./webpack.config.js --mode='production'",
     "testBuild": "webpack --config ./webpack.config.js ",
     "start": "node server.js",
-    "test": "react-scripts test --coverage a"
+    "test": "react-scripts test --coverage a",
+    "coverage": "react-scripts test --coverage a"
   },
   "repository": {
     "type": "git",
