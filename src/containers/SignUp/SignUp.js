@@ -81,7 +81,7 @@ const SignUp = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.firstname}
                                         className={
-                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 "} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
                                     {formik.touched.firstname && formik.errors.firstname ? (
                                         <div className="text-red-500 text-sm">{formik.errors.firstname}</div>
                                     ) : null}
@@ -96,7 +96,7 @@ const SignUp = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.lastname}
                                         className={
-                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 "} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
                                     {formik.touched.lastname && formik.errors.lastname ? (
                                         <div className="text-red-500 text-sm">{formik.errors.lastname}</div>
                                     ) : null}
@@ -112,7 +112,7 @@ const SignUp = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.telephone}
                                         className={
-                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
                                     {formik.touched.telephone && formik.errors.telephone ? (
                                         <div className="text-red-500 text-sm">{formik.errors.telephone}</div>
                                     ) : null}
@@ -126,7 +126,7 @@ const SignUp = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.email}
                                         className={
-                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 "} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
                                     {formik.touched.email && formik.errors.email ? (
                                         <div className="text-red-500 text-sm">{formik.errors.email}</div>
                                     ) : null}
@@ -140,7 +140,7 @@ const SignUp = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.password}
                                         className={
-                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4"} />
+                                            "w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out my-2"} />
                                     {formik.touched.password && formik.errors.password ? (
                                         <div className="text-red-500 text-sm">{formik.errors.password}</div>
                                     ) : null}

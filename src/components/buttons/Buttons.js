@@ -2,7 +2,7 @@ import React from 'react'
 
 export const DangerButton = ({ name ,onclick }) => {
     return ( 
-        <button className="p-1 md:px-2 border border-danger-600 rounded-md text-danger-600 text-xs  bg-danger-100 hover:border-danger-400 hover:bg-danger-200 mr-2 " onClick={onclick} >
+        <button className="p-2  md:px-5 border border-danger-600 rounded-md text-danger-600 text-xs  bg-danger-100 hover:border-danger-400 hover:bg-danger-200 mr-2 " onClick={onclick} >
             {name}
         </button>
      );

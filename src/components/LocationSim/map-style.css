@@ -6,3 +6,7 @@
 .location-btn{
   z-index: 2000 !important;
 }
+#map>div{
+  height: 100%  !important;
+  width: 100%  !important;
+} 
