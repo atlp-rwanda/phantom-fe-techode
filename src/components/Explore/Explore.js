@@ -25,9 +25,9 @@ const Explore = () => {
           </div>
         
         </div>
-        <div className="w-full" id="map">
+        <div className="w-full min-h-full" id="map">
           {isLoading && <Map />}
-          {!isLoading && <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={true}>
+          {!isLoading && <MapContainer center={[-1.985070, 30.031855]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

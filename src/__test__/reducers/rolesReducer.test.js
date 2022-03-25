@@ -15,12 +15,12 @@ let initialState
 
   });
 
-  it("should return the initialState for no action", () => {
+  it("should return the initialState for no action.", () => {
     const reducer = rolesReducer(undefined, {});
     expect(reducer).toEqual(initialState);
   });
 
-  it("should accept the addition of new role", () => {
+  it("should accept the addition of new role.", () => {
     const state = [
       {
         id: 1,

@@ -2,7 +2,14 @@ import React from 'react'
 
 export const DangerButton = ({ name ,onclick }) => {
     return ( 
-        <button className="w-full p-2 bg-red-500 rounded text-white shadow hover:bg-red-400 font-sans font-medium text-1xl " onClick={onclick} >
+        <button className="p-2  md:px-5 border border-danger-600 rounded-md text-danger-600 text-xs  bg-danger-100 hover:border-danger-400 hover:bg-danger-200 mr-2 " onClick={onclick} >
+            {name}
+        </button>
+     );
+}
+export const WarningButton = ({ name ,onclick }) => {
+    return ( 
+        <button className="w-full p-2 bg-warning-100 rounded text-white shadow hover:bg-warning-100 font-sans font-medium text-1xl " onClick={onclick} >
             {name}
         </button>
      );
@@ -16,7 +23,7 @@ export const SuccessButton = ({ name ,onclick }) => {
 }
 export const InfoButton = ({ name ,onclick, styles }) => {
     return ( 
-        <button className={`w-full p-2 bg-blue-500 rounded text-white shadow hover:bg-blue-400 font-sans font-medium text-1xl ${styles}`} onClick={onclick} >
+        <button className={`p-1 md:px-2 border border-info-600 rounded-md text-info-600 text-xs  bg-info-100 hover:border-info-400 hover:bg-info-200 mr-2 ${styles}`} onClick={onclick} >
             {name}
         </button>
      );
@@ -41,4 +48,11 @@ export const PermissionButton = ({ name ,onclick , styles, type, svg, alt }) => 
      );
 }
 
-
+export const ActionLabel = ({ name ,onclick , styles, svg, alt }) => {
+    return ( 
+        <button className={` rounded-md text-primary-600 bg-primary-200 font-sans text-sm flex items-center  justify-between p-1 my-1  mx-2 ${styles}`} onClick={onclick}  >
+            {name}
+            <img src={svg} alt={alt} className={`mx-2`} />
+        </button>
+     );
+}
