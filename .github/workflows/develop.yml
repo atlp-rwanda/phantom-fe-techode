@@ -19,6 +19,10 @@ jobs:
           node-version: 17.x
       - run: npm install
       - run: npm run test
+      - name: Sending coveralls report
+        uses: coverallsapp/github-action@master
+        with: 
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: send coverage report
         uses: paambaati/codeclimate-action@v2.5.7
         env:
