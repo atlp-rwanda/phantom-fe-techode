@@ -29,7 +29,7 @@ module.exports = {
             {
                 test: /\.(png|j?g|svg|gif|jpg|jpeg)?$/,
                 exclude: /node_modules/,
-                use: 'file-loader?name=./assets/[name].[ext]'
+                use: 'file-loader?name=./assets/images/[name].[ext]'
             }
             
         ],

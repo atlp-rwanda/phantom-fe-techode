@@ -15,10 +15,7 @@ const RanderMyLocation = () => {
         const circle = L.circle(e.latlng, radius);
         setBbox(e.bounds.toBBoxString().split(","));
         console.log(position);
-        // setPosition({
-        //     "lat": bbox[3],
-        //     "lng": bbox[2]
-        // });
+   
       });
     }, [map]);
     return position === null ? null : (

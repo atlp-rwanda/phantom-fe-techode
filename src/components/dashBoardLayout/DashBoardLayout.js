@@ -5,9 +5,8 @@ import '../../assets/style/siderbar.css';
 import main from '../../assets/js/main'
 
 
-const DashBoardLayout = ({ children }) => {
-    const [showNav , setShowNav] = useState(true);
-    const [showModel , setShowModel] = useState(false);
+const DashBoardLayout = ({ children , revealModel }) => {
+    const [showNav , setShowNav] = useState(false);
     const [deviceWidth, setWidth] = useState(window.innerWidth);
 
     const isMobile = deviceWidth <= 768;
@@ -43,7 +42,7 @@ const DashBoardLayout = ({ children }) => {
                 <div className={`max-w-full max-h-full overflow-hidden ${showNav == true ? ` w-full sm:w-9/12 lg:w-10/12 2xl:w-11/12` :  ` w-screen`}`}>
 
                     {/* Start:: header  */}
-                        <DashBoardHeader shownav={showNav} show={showNavSecion} id="header" /> 
+                        <DashBoardHeader revealModel={revealModel} shownav={showNav} show={showNavSecion} id="header" /> 
                     {/* End:: Header */}
 
                     {/* Start:: Content */}
