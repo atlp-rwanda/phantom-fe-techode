@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> ch(deploy): deploying the app
 import axios from "axios";
 
 export const API = axios.create({
@@ -17,4 +21,8 @@ API.interceptors.request.use((req, res) => {
 
 export const forgotPassword= (formData)=>API.post('/accounts/forgot-password',formData);
 export const resetPassword = (token,formData)=>API.post(`/accounts/reset-password/${token}`,formData);
+<<<<<<< HEAD
 export const getSinglePermission = (param)=>API.get(`/permissions/${param}`);
+=======
+export const getSinglePermission = (param)=>API.get(`/permissions/${param}`);
+>>>>>>> ch(deploy): deploying the app
