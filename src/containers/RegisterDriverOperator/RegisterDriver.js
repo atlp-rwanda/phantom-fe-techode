@@ -19,14 +19,17 @@ import drop from '../../assets/svgs/drop.svg';
 import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
 import { useSelector } from 'react-redux';
+import { API as axios } from '../../api/index.js';
+
 const RegisterDriver = () => {   
     const [addDriver , setAddDriver] = useState(false);
     const [loading , setLoading] = useState(true);
     const [firstname , setFirsname] = useState('');
     const [lastname , setLastname] = useState('');
+    const [username , setUsername] = useState('');
     const [telephone , setTelephone ] = useState('');
     const [email , setEmail] = useState('');
-    const [bus, setBus] = useState('RAF000D');
+
 
     /* ======== Start:: removing skeleton ======= */ 
         useEffect(() => {
@@ -46,7 +49,7 @@ const RegisterDriver = () => {
         
     }
     
-    const registerDriver = (e) =>{
+    const registerDriver = async (e) =>{
         e.preventDefault(); 
       
         /* =================================== Start:: validation ================================ */ 
@@ -54,17 +57,38 @@ const RegisterDriver = () => {
             if(lastname.trim().length == '') return Notify('Last name field should not be empty', 'error' ) ;
             if(telephone.trim().length == '') return Notify('Please provide Telphone number', 'error' ) ;
             if(email.trim().length == '') return Notify('Email field required', 'error') ;
-            if(bus.trim().length == '') return Notify('You need to assign atleast on bus to this driver','error') ;
+            if(username.trim().length == '') return Notify('Username field should not be empty','error') ;
 
             let isValidEmail = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
             if(isValidEmail) return Notify('Invalid email address', 'error' ) ;
         /* =================================== End:: validation ================================ */ 
-        setTimeout( () => {
-            removeModel();
-        },
-         5000
-        )
-        return Notify('New driver have been added','success') ;     
+        try {
+            await axios.post(`/users`, {
+                firstname,
+                lastname,
+                username,
+                telephone,
+                userType: "driver",
+                email
+            });
+            
+            setFirsname('');
+            setLastname('');
+            setUsername('');
+            setTelephone('');
+            setEmail('');
+
+            setTimeout( () => {
+                removeModel();
+            },
+             5000
+            )
+            return Notify('New driver have been added','success');
+        } catch(error) {
+            console.log(error)
+            const errors = error.response.data.message || error.message;
+            Notify(errors, 'error')
+        }
               
     }
    
@@ -107,6 +131,11 @@ const RegisterDriver = () => {
                             </div>  
                             <div className="input my-3 h-9 "> 
                                 <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="text" name="username" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ username } placeholder="User name" onChange={ e => setUsername(e.target.value) }  />
+                                </div>                
+                            </div> 
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                     <input type="email" name="email" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) } />                                   
                                 </div>                
                             </div>   
@@ -115,15 +144,7 @@ const RegisterDriver = () => {
                                     <input type="telphone" name="tel" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Telephone" value={telephone} onChange={ e => setTelephone(e.target.value) } />                                   
                                 </div>                
                             </div>  
-                            <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <select id="" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full" placeholder="Asign a bus" onChange={ e => setBus( e.target.value ) } value={bus}   >
-                                        <option value="RAF000D"> RAF000D </option>
-                                        <option value="RAF001D"> RAF001D </option>
-                                        <option value="RAF002D"> RAF002D </option>
-                                    </select>
-                                </div>                
-                            </div>
+                          
                             <div className="w-full">
                                 <Primary name={`Save`} styles='py-2' />
                             </div>

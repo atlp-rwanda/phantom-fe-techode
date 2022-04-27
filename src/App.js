@@ -7,25 +7,25 @@ import {
 } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Login from "./containers/SignIn/LoginForm";
-import Home from "./containers/Home/Home";
-import Logout from "./components/logout/Logout";
-import Profile from "./containers/profile/Profile";
-import NewPassword from "./components/passwordReset/newpassword";
-import RegisterDriver from "./containers/RegisterDriverOperator/RegisterDriver";
-import RegisterOperator from "./containers/RegisterDriverOperator/RegisterOperator";
-import RegisterBus from "./containers/RegisterBus/RegisterBus";
+import Login from "./containers/SignIn/LoginForm.js";
+import Home from "./containers/Home/Home.js";
+import Logout from "./components/logout/Logout.js";
+import Profile from "./containers/profile/Profile.js";
+import NewPassword from "./components/passwordReset/newpassword.js";
+import RegisterDriver from "./containers/RegisterDriverOperator/RegisterDriver.js";
+import RegisterOperator from "./containers/RegisterDriverOperator/RegisterOperator.js";
+import RegisterBus from "./containers/RegisterBus/RegisterBus.js";
 import "react-toastify/dist/ReactToastify.css";
 import "./assets/style/style-skeleton.css";
-import Dashboard from "./containers/Dashboard/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Roles from "./components/roles/Roles";
-import Busesoperat from "./containers/busesOp/Busesoperat";
-import BusSimulation from "./containers/BusSimulation/BusSimulation";
-import OperatorAssignBus from "./containers/OperatorDriverBus/OperatorAssignBus";
-import AddRoute from "./containers/Routes/AddRoute";
-import SignUp from "./containers/SignUp/SignUp";
-import PasswordReset from "./components/passwordReset/passwordereset";
+import Dashboard from "./containers/Dashboard/Dashboard.js";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js";
+import Roles from "./components/roles/Roles.js";
+import Busesoperat from "./containers/busesOp/Busesoperat.js";
+import BusSimulation from "./containers/BusSimulation/BusSimulation.js";
+import OperatorAssignBus from "./containers/OperatorDriverBus/OperatorAssignBus.js";
+import AddRoute from "./containers/Routes/AddRoute.js";
+import SignUp from "./containers/SignUp/SignUp.js";
+import PasswordReset from "./components/passwordReset/passwordereset.js";
 
 const App = (props) => {
   const authentication = props.authentication;
@@ -50,7 +50,7 @@ const App = (props) => {
           }
         />
         <Route
-          path="/newpassword"
+          path={`/newpassword/:${props.token}`}
           render={() =>
             logginStatus ? <Redirect to="/dashboard" /> : <NewPassword />
           }

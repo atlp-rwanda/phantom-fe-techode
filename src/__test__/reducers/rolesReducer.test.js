@@ -44,6 +44,30 @@ let initialState
     expect(JSON.stringify(reducer)).toEqual(JSON.stringify(state));
   });
 
+  it("should accept the addition of new role.", () => {
+    const state = [
+      {
+        id: 1,
+        name: "Admin",
+        permissions:[
+          { id: 1 , permissionName: 'getBus'},
+        ]
+      },
+      {
+        id: 2,
+        name:"Operator",
+        permissions:[]
+      }
+    ];
+
+    const newRole = "Operator";
+      const reducer = rolesReducer(undefined, {
+      type: RoleActions.ADD_ROLE,
+      payload: newRole,
+    });
+    expect(JSON.stringify(reducer)).toEqual(JSON.stringify(state));
+  });
+
   it("should accept the deletion of role", () => {
 
 
