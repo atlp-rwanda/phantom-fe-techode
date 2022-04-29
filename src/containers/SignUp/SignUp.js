@@ -9,6 +9,9 @@ import '../../assets/style/LoginForm.css';
 import SkeletonUpdate from '../../components/signInSkeleton/SkeletonUpdate';
 import main from '../../assets/js/main'
 import { connect } from 'react-redux';
+import Notify from '../../functions/Notify';
+import { ToastContainer } from 'react-toastify';
+import { API as axios } from "../../api";
 
 
 const SignUp = () => {
@@ -44,14 +47,50 @@ const SignUp = () => {
                 .email('Invalid email address')
                 .required('Email required'),
         }),
-        onSubmit: () => {
-            history.push('/login');
+        onSubmit: async () => {
+            setloading(true);
+            try {
+                const { email, password , firstname , lastname } = formik.values;
+                const fullname = firstname + " " + lastname;
+                const username = email.split("@")[0];
+               
+                const response = await axios.post(`/users/login/register`, {
+                    fullname,
+                    email,
+                    username,
+                    password
+                });                
+                Notify("Registered", "success");
+                setTimeout(() => { setloading(false); }, 2000);
+                setTimeout(() => {
+                    history.push('/login');
+                }, 2000)
+            } catch (error) {
+                setTimeout(() => { setloading(false); }, 2000);          
+                if (error.code != "ERR_NETWORK") {
+                    Notify(error.response.data.message, "error");
+                }
+                else{
+                    Notify(error.message, "error");
+                }     
+            }
         },
     });
 
 
     return (
         <div className='lg:flex md:flex w-screen h-screen overflow-hidden' style={main.style}>
+             <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />  
             <div className=" letfSide_bg-color lg:w-5/12 md:w-7/12 flex flex-col p-6 md:p-12 lg:px-24 2xl:p-40 ">                
                 <span className="iconify" onClick={() => { history.goBack() }} >
                     <img src={leftArrow} alt="" />
