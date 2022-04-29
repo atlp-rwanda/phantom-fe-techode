@@ -18,6 +18,7 @@ import close from '../../assets/svgs/close.svg';
 import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
 import { useSelector } from 'react-redux';
+import { API as axios } from '../../api/index.js';
 
 
 const RegisterOperator = () => {   
@@ -25,6 +26,7 @@ const RegisterOperator = () => {
     const [loading , setLoading] = useState(true);
     const [firstname , setFirsname] = useState('');
     const [lastname , setLastname] = useState('');
+    const [username , setUsername] = useState('');
     const [telephone , setTelephone ] = useState('');
     const [email , setEmail] = useState('');
    
@@ -44,24 +46,39 @@ const RegisterOperator = () => {
         type: userType,
       } = useSelector((state) => state.user);   
   
-    const registerOperator = (e) =>{
+    const registerOperator = async (e) =>{
         e.preventDefault();     
         /* =================================== Start:: validation ================================ */ 
             if(firstname.trim().length == '') return Notify('First name field should not be empty', 'error' ) ;
             if(lastname.trim().length == '') return Notify('Last name field should not be empty', 'error' ) ;
             if(telephone.trim().length == '') return Notify('Please provide Telphone number for the operator', 'error' ) ;
             if(email.trim().length == '') return Notify('Email field required', 'error') ;
-        
+            if(username.trim().length == '') return Notify('Username field should not be empty','error') ;
             let isValidEmail = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
             if(isValidEmail) return Notify('Invalid email address', 'error' ) ;
         /* =================================== End:: validation ================================ */ 
         
-        setTimeout( () => {
-            removeModel();
-        },
-         5000
-        )
-        return Notify('New driver have been added','success') ;     
+        try {
+            await axios.post(`/users`, {
+                firstname,
+                lastname,
+                username,
+                telephone,
+                userType: "operator",
+                email
+            });
+            
+            setTimeout( () => {
+                removeModel();
+            },
+             5000
+            )
+            return Notify('New operator have been added','success');
+        } catch(error) {
+            console.log(error)
+            const errors = error.response.data.message || error.message;
+            Notify(errors, 'error')
+        }
     }
     return (
         <>
@@ -99,6 +116,11 @@ const RegisterOperator = () => {
                                     <input type="text" name="lastname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ lastname } placeholder="Last name" onChange={ e => setLastname(e.target.value) }  />
                                 </div>                
                             </div>  
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="text" name="username" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ username } placeholder="User name" onChange={ e => setUsername(e.target.value) }  />
+                                </div>                
+                            </div> 
                             <div className="input my-3 h-9 "> 
                                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                                     <input type="email" name="email" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) } />                                   
