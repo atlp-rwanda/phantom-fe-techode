@@ -15,9 +15,18 @@ import setrole from "../../assets/svgs/lebals/savePrevelage.svg"
 import { PrimaryButton } from "../buttons/Buttons";
 import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
+import axios from "axios";
 
-export default function NewPassword() {
+import { connect } from "react-redux"
+import { resetPassword } from "../../redux/actions/accountActions"
+
+
+function NewPassword(props) {
   const history = useHistory();
+
+  const Url = window.location.href;
+  const Token = Url.split("/")[6]
+
   const formik = useFormik({
     initialValues: {
       newpass: "",
@@ -29,8 +38,10 @@ export default function NewPassword() {
         .required("Required")
         .oneOf([Yup.ref("newpass"), null], "Passwordmust match"),
     }),
-    onSubmit: (values) => {
-      history.push("/reset");
+
+    onSubmit:(values) => {
+      const {newpass} = values
+      props.resetPassword(newpass,Token,history)
     },
   });
 
@@ -64,7 +75,7 @@ export default function NewPassword() {
               <input
                 className="flex justify-center  bg-gray-50   appearance-none rounded w-5/6 md:w-full py-2 px-3 mb-3 text-xs font-semibold text-gray-900 leading-tight "
                 id="newpass"
-                type=""
+                type="password"
                 name="confpass"
                 placeholder="Confirm password"
                 onBlur={formik.handleBlur}
@@ -107,27 +118,6 @@ export default function NewPassword() {
                 <p className="w-1/6">email.example.email.com</p>
               </div>
             </div>
-
-            <div className="mb-5 flex flex-row text-xs">
-              <div className="w-10 h-8 bg-sky-50 snap-center rounded-md outline-black-5">
-                <img className="mt-2 " src={privilege} alt="" />
-              </div>
-
-              <div className="flex flex-col ml-2">
-                <p className="text-blue-500">Priviliges</p>
-                <p>Locate bus</p>
-                <p>Update his own profile</p>
-
-                <p className="text-green-300 mb-3">Set new roles</p>
-              </div>
-            </div>
-
-            <button
-              className="bg-indigo-200 shadow-2xl w-full hover:bg-blue-400 text-xs text-blue-500 font-extrabold py-2 w-full px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Logout from this account{" "}
-            </button>
           </div>
         </div>
       </section>
@@ -137,3 +127,10 @@ export default function NewPassword() {
    
   );
 }
+
+const mapStateToprops = (state) => {
+  return {resetPass: state.resetPassword }
+}
+
+export default connect(mapStateToprops, { resetPassword })(NewPassword)
+

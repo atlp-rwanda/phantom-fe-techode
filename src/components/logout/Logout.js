@@ -93,7 +93,8 @@ const Logout = () => {
                                     </div>
                                 </div>
                                 <div className="px-4">
-                                    <Link to="/" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white">Logout from this account</Link>
+                                    <Link to="/login" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white">Logout from this account</Link>
+                                    {/* <Link to="/login" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white" onClick={()=> localStorage.clear()}>Logout from this account</Link> */}
                                 </div>
                             </section>
                         </div>
