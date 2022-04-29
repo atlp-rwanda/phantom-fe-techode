@@ -2,7 +2,7 @@ import React from 'react'
 
 export const DangerButton = ({ name ,onclick }) => {
     return ( 
-        <button className="p-2  md:px-5 border border-danger-600 rounded-md text-danger-600 text-xs  bg-danger-100 hover:border-danger-400 hover:bg-danger-200 mr-2 " onClick={onclick} >
+        <button className="w-full p-2 bg-danger-500 rounded text-white shadow hover:bg-danger-400 font-sans font-medium text-1xl " onClick={onclick} >
             {name}
         </button>
      );
@@ -28,6 +28,7 @@ export const InfoButton = ({ name ,onclick, styles }) => {
         </button>
      );
 }
+
 export const PrimaryButton = ({ name, onclick }) => {
     return (<button type="submit" onClick={onclick} className="rounded-md bg-primary-600 text-white h-8 md:h-11 w-full md:w-5/6 mt-5 hover:bg-primary-600 mb-10">{name}</button>) 
 }
@@ -48,6 +49,7 @@ export const PermissionButton = ({ name ,onclick , styles, type, svg, alt }) => 
      );
 }
 
+
 export const ActionLabel = ({ name ,onclick , styles, svg, alt }) => {
     return ( 
         <button className={` rounded-md text-primary-600 bg-primary-200 font-sans text-sm flex items-center  justify-between p-1 my-1  mx-2 ${styles}`} onClick={onclick}  >
@@ -56,3 +58,4 @@ export const ActionLabel = ({ name ,onclick , styles, svg, alt }) => {
         </button>
      );
 }
+

@@ -1,17 +1,7 @@
-import axios from "axios"
+import axios from "axios";
 
-const API = axios.create({ 
-    baseURL: "http://localhost:5000/api/v1", 
-    headers: {
-      'Content-Type': 'application/json'
-    }
-})
+export const API = axios.create({
+    baseURL: process.env.API_URL || "https://phantom-be-production.herokuapp.com/api/v1" 
+});
 
-API.interceptors.request.use((req) => {
-  if (localStorage.getItem("token")) {
-    req.headers.Authorization = JSON.parse(localStorage.getItem("auth-token"))
-  }
-  return req
-})
 
-export { API };
