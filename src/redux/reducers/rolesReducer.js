@@ -1,24 +1,58 @@
 import  { RoleActions } from "../constants/roleAction"
 
-const { ADD_ROLE, DELETE_ROLE,DELETE_PERMISSION, ASSIGN_PERMISSION } = RoleActions ;
+const { ADD_ROLE, DELETE_ROLE,DELETE_PERMISSION, ASSIGN_PERMISSION,FETCHING_ROLES  } = RoleActions ;
 
 const roleState = [
     {
-        id:1,
-        name:'Admin',
-        permissions:[
-            { id: 1 , permissionName: 'getBus'},
+        id: 1,
+        rolename: 'Admin',
+        permissions: [
+            {
+                id: 1,
+                permssionName: 'getBus'
+            }
         ]
     }
 ]
 
 export const rolesReducer = (state = roleState , { type , payload}) =>{
     switch (type) {
+        case FETCHING_ROLES:
+            /* state twin */ 
+            let newRoleSet = [];
+            for (let i = 0; i < payload.length; i++) {  
+                let permisionId = 1 ; 
+                /* newRole templete  */ 
+                const newRoleSetTemplete = {
+                    id :  payload[i].id,
+                    rolename: payload[i].rolename,
+                    permissions:[]
+                }
+                /* splitting permission list  */
+                if (payload[i].permissions != null) {
+                    const rolePermissionSet = payload[i].permissions.split(",");
+                    if (rolePermissionSet.length > 0 ) {
+                        for (let j = 0; j < rolePermissionSet.length; j++) {
+                            /* role permssion templete  */ 
+                            const rolePermission = {
+                                id : permisionId,
+                                permissionName: rolePermissionSet[j]
+                            }   
+                            /* update state twin */ 
+                            newRoleSetTemplete.permissions.push(rolePermission);
+                            permisionId++;              
+                        }
+                    }
+                }                
+                newRoleSet.push(newRoleSetTemplete);
+            }            
+            state = newRoleSet;
+            return state;  
         case ADD_ROLE:
             const clonedState = [...state];
             const newRole =  {
                 id:state.length + 1,
-                name:payload,
+                rolename:payload,
                 permissions:[]
             }
             clonedState.push(newRole);
@@ -41,10 +75,10 @@ export const rolesReducer = (state = roleState , { type , payload}) =>{
             state = newClonedState;
             return state;
         case ASSIGN_PERMISSION:
-            const {role_Id, assignedPermission} = payload;
+            const {role_Id : id, assignedPermission} = payload;
             const assignState = [...state];
-            const roleToBeUpdated = assignState.filter(current => current.id == role_Id);
-            const index = assignState.findIndex(current => current.id == role_Id)
+            const roleToBeUpdated = assignState.filter(current => current.id == id);
+            const index = assignState.findIndex(current => current.id == id)
             const updatePermission = [...roleToBeUpdated[0].permissions]
             let assignCounter =  roleToBeUpdated[0].permissions.length;
             assignCounter = assignCounter + 1

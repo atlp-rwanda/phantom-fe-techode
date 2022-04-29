@@ -101,7 +101,7 @@ const SideBar = ({user,shownav}) => {
           
             <img src={line} alt="phantom"  />
 
-            <div className="nav-bar mt-14 flex flex-col align-middle justify-center ">
+            <div className={`nav-bar ${  userType == "admin" ? 'mt-4' :  "mt-14"  } flex flex-col align-middle justify-center `}>
                 <div className="nav-links ">
                     {
                         navLinks.map( nav => (

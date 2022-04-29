@@ -55,7 +55,7 @@ const App = (props) => {
             logginStatus ? <Redirect to="/dashboard" /> : <NewPassword />
           }
         />
-
+        
         <Route
           path="/login"
           render={() =>

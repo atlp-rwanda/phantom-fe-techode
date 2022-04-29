@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import TableRolesSkeleton from '../components/skeletons/Tables/TableRolesSkeleton';
-import { LebalTextButton } from '../components/buttons/LebalButton';
+import { LebalTextButton } from '../components/buttons/LebalButton.js';
 import TablePermissionSkeleton from '../components/skeletons/Tables/TablePermissionsSkeleton';
 
 describe('<Roles />', () =>{
@@ -20,7 +20,7 @@ describe('<Roles />', () =>{
           roles:[
             {
                 id:1,
-                name:'Admin',
+                rolename:'Admin',
                 permissions:[
                     { id: 1 , permissionName: 'getBus'},
                 ]
@@ -46,6 +46,6 @@ describe('<Roles />', () =>{
     });
 
     it('if it should render one TablePermissionSkeleton', () =>{
-      expect(wrapper.find(TablePermissionSkeleton).length).toBe(1);
+      expect(wrapper.find(TablePermissionSkeleton).length).toBe(0);
     });
   });
