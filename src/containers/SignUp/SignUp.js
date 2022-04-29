@@ -77,7 +77,6 @@ const SignUp = () => {
         },
     });
 
-
     return (
         <div className='lg:flex md:flex w-screen h-screen overflow-hidden' style={main.style}>
              <ToastContainer

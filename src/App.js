@@ -50,7 +50,7 @@ const App = (props) => {
           }
         />
         <Route
-          path="/newpassword"
+          path={`/newpassword/:${props.token}`}
           render={() =>
             logginStatus ? <Redirect to="/dashboard" /> : <NewPassword />
           }
