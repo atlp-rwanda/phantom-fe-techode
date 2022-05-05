@@ -66,7 +66,7 @@ const LoginForm = (props) => {
            
             update(userInfo);
             setProfile(userData.userType);
-            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("token", response.data.data.token);
             setTimeout(() => { setLoading(false); }, 2000);
             isAuth(true); 
             history.push("/dashboard");
