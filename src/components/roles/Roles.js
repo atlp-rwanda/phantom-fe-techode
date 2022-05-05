@@ -434,7 +434,7 @@ const Roles = (props) => {
                         </td>
                         <td className=" text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans h-full">
                           <div className="buttons h-full flex flex-col md:flex md:flex-row">
-                            {role.permissions.map( (permission) =>{   
+                            {role.permissions.map((permission) =>{   
                               if(permission.permissionName){
                                 return (<PermissionButton
                                           key={permission.id}

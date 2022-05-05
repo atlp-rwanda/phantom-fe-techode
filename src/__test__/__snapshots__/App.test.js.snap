@@ -55,12 +55,26 @@ exports[`<App /> It should match the snapshot 1`] = `
     />
     <ProtectedRoute
       auth={false}
-      component={[Function]}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
       path="/drivers"
     />
     <ProtectedRoute
       auth={false}
-      component={[Function]}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
       path="/operators"
     />
     <ProtectedRoute
@@ -151,6 +165,18 @@ exports[`<App /> It should match the snapshot 1`] = `
         }
       }
       path="/assign_drivers_buses"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/assign_bus_route"
     />
     <Route
       component={[Function]}

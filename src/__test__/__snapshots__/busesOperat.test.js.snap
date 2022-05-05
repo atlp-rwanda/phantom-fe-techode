@@ -244,7 +244,7 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
       </div>
     </div>
   </div>
-  <DashBoardLayout>
+  <Connect(DashBoardLayout)>
     <div
       className="w-full"
     />
@@ -283,6 +283,6 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
         </div>
       </div>
     </div>
-  </DashBoardLayout>
+  </Connect(DashBoardLayout)>
 </Fragment>
 `;

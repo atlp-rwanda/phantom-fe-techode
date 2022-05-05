@@ -217,6 +217,6 @@ exports[`<BusSimulation /> It should match the bus simulation snapshot 1`] = `
       </div>
     </div>
   </div>
-  <DashBoardLayout />
+  <Connect(DashBoardLayout) />
 </Fragment>
 `;

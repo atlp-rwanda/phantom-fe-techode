@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 import Links from '../links/Links';
 
 import logo from '../../assets/svgs/logo.svg';
@@ -14,11 +15,17 @@ import busLink from '../../assets/svgs/busLink.svg';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { update } from '../../redux/actions/userActions'
+import  checkAuth from '../../functions/checkAuth'
 
-const SideBar = ({user,shownav}) => {
+const SideBar = ({user,shownav, update}) => {
    
     const location = useLocation();
     const { type: userType } = user;
+
+    useEffect(()=> {
+        checkAuth(user, update);
+    })
 
 
     /* ======== Start:: Public routes ===========  */ 
@@ -64,14 +71,29 @@ const SideBar = ({user,shownav}) => {
            
         }   
 
-        if(userType == "operator" || userType == "Operator"|| userType == "admin" ){
-            navLinks[2].to = "assign_drivers_buses";
+        if(userType == "operator" || userType == "Operator" || userType.toLowerCase() == "admin"){
             navLinks.push(
                 {
                     id: navLinks.length + 1,
                     linkName : 'Routes',
                     svgImage : routes,
                     to:'routes'
+                }
+            )
+            navLinks.push(
+                {
+                    id: navLinks.length + 1,
+                    linkName : 'Assign Buses',
+                    svgImage : routes,
+                    to:'assign_drivers_buses'
+                }
+            )
+            navLinks.push(
+                {
+                    id: navLinks.length + 1,
+                    linkName : 'Assign Routes',
+                    svgImage : bus,
+                    to:'assign_bus_route'
                 }
             )
         }
@@ -108,5 +130,5 @@ const mapToState = (state) => {
         user :  state.user
     }
 }
-export default connect(mapToState,{})(SideBar);
+export default connect(mapToState,{update})(SideBar);
 

@@ -17,7 +17,7 @@ import next from '../../assets/svgs/next.svg';
 import { connect } from 'react-redux';
 import { createBus, updateBusInfo, deleteBus, fetchBuses } from "../../redux/actions/busAction";
 import Pagination from "../../components/pagination/Pagination";
-import { API as axios } from "../../api/index"
+import {AUTH as axios } from "../../api/index"
 
 const addNewBus = async (busName, routeCode, plateNumber, setLoading, getAllBuses) => {
     const newBus = {
@@ -26,17 +26,14 @@ const addNewBus = async (busName, routeCode, plateNumber, setLoading, getAllBuse
         platenumber: plateNumber
     }
     try {
-      const response = await axios({
-        method: "POST",
-        url: 'http://localhost:5000/api/v1/buses/register',
-        data: newBus,
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
+      const response = await axios.post(`/buses/register`, newBus, 
+        { 
+            headers: {
             "auth-token": `Bearer ${localStorage.getItem("token")}`,
             "action": "createBus"
+            }
         }
-    })
+      )
       Notify(response.data.message, "success");
     } catch (error) {
       if (error.code != "ERR_NETWORK") {
@@ -57,7 +54,7 @@ const newBus = {
 try {
     const response = await axios({
     method: "PUT",
-    url: `http://localhost:5000/api/v1/buses/${busId}`,
+    url: `/buses/${busId}`,
     data: newBus,
     headers: {
         "Content-Type": "application/json",
@@ -81,7 +78,7 @@ const removeBus = async (busId, setLoading, getAllBuses) => {
     try {
       const response = await axios({
         method: "DELETE",
-        url: `http://localhost:5000/api/v1/buses/${busId}`,
+        url: `/buses/${busId}`,
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",

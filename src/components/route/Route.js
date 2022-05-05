@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchPermissions } from "../../redux/actions/permissionAction";
+import { fetchRoutes } from "../../redux/actions/RoutesAction"
 import TablePermissionSkeleton from "../skeletons/Tables/TablePermissionsSkeleton";
 import { connect } from "react-redux";
 import Notify from "../../functions/Notify";
@@ -7,33 +7,34 @@ import { API as axios } from "../../api/index.js";
 import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
 
-const getPageButton =  (count,getPermssion) => {
+const getPageButton =  (count,getRoute) => {
     const btn = [];
     for (let i = 0; i < count; i++) {
         btn[i] =<div key={i}>
-                    <div  onClick={ async () => { await getPermssion(i);}} className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">{i+1}</div> 
+                    <div  onClick={ async () => { await getRoute(i);}} className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">{i+1}</div> 
                 </div>;
     }
     return btn;
 }
 
-const Permission = ({ permissions,fetchPermissions }) =>{
+const Route = ({ routes, fetchRoutes }) =>{
   
     /* ============== members paggination ================= */
     const [ page , setPage ] = useState(0); 
-    const [ limit , setLimit ] = useState(10);
+    const [ limit , setLimit ] = useState(5);
     const [ totalPage , setTotalPage ] = useState(0);
     const [ loading,setLoading ] = useState(true);
+    // const { fetchRoutes } = props
     
-    const getPermssion = async (currentPage) => {
+    const getRoute = async (currentPage) => {
         setLoading(true);
         setPage(currentPage);
         try {
-            const response = await axios.get(`/permissions?page=${page}&size=${limit}`);
+            const response = await axios.get(`/routes?page=${page}&size=${limit}`);
             const { data } = response.data;
             setLoading(false)
+            fetchRoutes(data)
             setTotalPage(data.totalPage);
-            fetchPermissions(data.permission);
         } catch (error) {
             setTimeout(() => { setLoading(false); }, 2000);     
             if (error.code != "ERR_NETWORK") {
@@ -47,9 +48,10 @@ const Permission = ({ permissions,fetchPermissions }) =>{
     useEffect( ()=> {
         setLoading(false);
         setPage(0)
-        getPermssion();
+        getRoute();
       }, [])
-      let permissionCounter = 1;
+      let routeCounter = 1;
+    //   const routes = props.routes
     return(
         <>
             {loading && (<TablePermissionSkeleton/>)}  
@@ -65,18 +67,24 @@ const Permission = ({ permissions,fetchPermissions }) =>{
                                 # 
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                                Permission name 
+                                Route name 
+                            </th>
+                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                Route code 
                             </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {permissions.map((permission) => (
-                                <tr key={permission.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                            {routes.map((route) => (
+                                <tr key={route.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                     <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                        {permissionCounter++}
+                                        {routeCounter++}
                                     </td>
                                     <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">                     
-                                        {permission.permission_name}
+                                        {route.name}
+                                    </td>
+                                    <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">                     
+                                        {route.code}
                                     </td>
                                 </tr>
                             ))}
@@ -88,7 +96,7 @@ const Permission = ({ permissions,fetchPermissions }) =>{
                                 <img src={prev} alt="Phantomm" />
                             </div>
                             {
-                                getPageButton(totalPage,getPermssion).map(btn => ( btn ))
+                                getPageButton(totalPage,getRoute).map(btn => ( btn ))
                             }
                             <div className={`next flex items-center justify-center cursor-pointer rounded-md bg-secondary-100 hover:bg-secondary-200 w-9 ${ (totalPage - 1) == page ? "hidden" : "" } `}>
                                 <img src={next} alt="Phantomm" />
@@ -104,8 +112,8 @@ const Permission = ({ permissions,fetchPermissions }) =>{
 
 const mapToState = (state) => {
     return {
-      permissions: state.permissions
+      routes: state.routes
     }
    }
    
-export default connect(mapToState, { fetchPermissions })(Permission);
+export default connect(mapToState, { fetchRoutes })(Route);
