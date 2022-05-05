@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { set } from "react-hook-form";
 import { connect } from "react-redux";
 import RouteCard from "../../components/Cards/RouteCard";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
@@ -8,21 +9,21 @@ const Dashboard = (props) => {
     const { user } = props;
     const { type : userType } = user ;
     const [loading , setLoading ] = useState(true);
-    setTimeout(() => {
-       setLoading(false);
-    },2500)
-
-    const places = [ "Kigali" , "Huye" , "Gisenyi" ];
+    const [places , setPlaces] = useState()
+    useEffect(() => {
+        setLoading(false);
+        setPlaces([ "Kigali" , "Huye" , "Gisenyi" ])
+    },[])
 
     return ( 
-        <DashBoardLayout>            
+        <DashBoardLayout>
             {/* ===================== Start: User view ============================  */}
                 
                 {/* ====== Start: skeleton =========  */}
-                    { userType != "driver" && loading && <TrackCard /> }   
+                    {  (userType != "driver" || userType != "Driver") && loading && <TrackCard /> }   
                 {/* ======== End: skeleton =========  */}             
                 {!loading &&
-                    userType != "driver" ?
+                    userType != "driver" && userType != "Driver" ?
                         places.map((place,index) => {
                             return(
                                 <div key={index++} className="w-full sm:w-3/12 md:w-4/12 lg:w-3/12 2xl:w-2/12">
@@ -30,8 +31,6 @@ const Dashboard = (props) => {
                                 </div> 
                             )
                         })
-                          
-                       
                     :""                                    
                 }                
             {/* ======================= End: User view ============================  */}

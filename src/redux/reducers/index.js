@@ -12,6 +12,7 @@ import { RoutesReducer } from "./RoutesReducer";
 import { addNotificationReducer } from "./notificationReducer";
 import {forgotPasswordReducer} from "./forgotPasswordReducer";
 import { resetPasswordReducer } from "./resetPasswordReducer";
+import { RouteDetailReducer } from "./RouteDetailReducer";
 
 const reducers =  combineReducers({
     counters :  counterReducer,
@@ -27,7 +28,8 @@ const reducers =  combineReducers({
     driverBusAssignment: assignBusReducer,
     notifications: addNotificationReducer,
     forgotPass:forgotPasswordReducer,
-    resetPass:resetPasswordReducer
+    resetPass:resetPasswordReducer,
+    routeCoordinate:RouteDetailReducer
 })
 
 export default reducers;

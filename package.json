@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "application that allows simulating bus movements and enabling passengers to track their locations & movements. ",
   "main": "index.js",
+  "engines": {
+    "node": "16.13.2"
+  },
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack --config ./webpack.config.js --mode='production'",
     "testBuild": "webpack --config ./webpack.config.js ",
     "start": "node server.js",
-    "test": "react-scripts test --coverage a",
-    "coverage": "react-scripts test --coverage a"
+    "test": "react-scripts test --coverage a --watchAll=false --detectOpenHandles --forceExit ",
+    "coverage": "react-scripts test --coverage a --watchAll=false --detectOpenHandles --forceExit "
   },
   "repository": {
     "type": "git",
@@ -33,7 +36,6 @@
     "axios": "^0.27.2",
     "browserslist": "^4.19.1",
     "emailjs": "^3.7.0",
-    "enzyme": "^3.11.0",
     "enzyme-adapter-react-17-updated": "^1.0.2",
     "express": "^4.17.2",
     "flowbite": "^1.4.0",
@@ -43,6 +45,7 @@
     "leaflet": "^1.7.1",
     "leaflet-geosearch": "^3.6.0",
     "leaflet-routing-machine": "^3.2.12",
+    "leaflet.marker.slideto": "^0.3.0",
     "leaflet.markercluster": "^1.5.3",
     "mini-css-extract-plugin": "^2.5.3",
     "path": "^0.12.7",
@@ -67,6 +70,7 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "sass-loader": "^12.6.0",
+    "socket.io-client": "^4.5.0",
     "stream": "^0.0.2",
     "tailwindcss": "^3.0.23",
     "yup": "^0.32.11"
@@ -83,6 +87,8 @@
     "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
     "dotenv-webpack": "^7.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",

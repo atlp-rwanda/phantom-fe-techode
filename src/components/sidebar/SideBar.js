@@ -55,7 +55,7 @@ const SideBar = ({user,shownav}) => {
     ]
     /* ======== End:: Public routes ===========  */ 
     const navProtector = () =>{
-        if(userType == "admin"){
+        if(userType == "admin"  || userType == "Admin"){
             navLinks.push( 
                 {
                     id: navLinks.length + 1,
@@ -83,7 +83,17 @@ const SideBar = ({user,shownav}) => {
            
            
         }   
-        if(userType == "operator"){
+        if(userType == ""  || userType == "client"){
+            navLinks.push( 
+                {
+                    id: navLinks.length + 1,
+                    linkName : 'Simulation',
+                    svgImage : userSvg,
+                    to:'simulation'
+                }
+            );
+        } 
+        if(userType == "operator" || userType == "Operator"){
             navLinks[2].to = "assign_drivers_buses"
         }
     }
@@ -101,7 +111,7 @@ const SideBar = ({user,shownav}) => {
           
             <img src={line} alt="phantom"  />
 
-            <div className="nav-bar mt-14 flex flex-col align-middle justify-center ">
+            <div className={`nav-bar ${  userType == "admin" ? 'mt-4' :  "mt-14"  } flex flex-col align-middle justify-center `}>
                 <div className="nav-links ">
                     {
                         navLinks.map( nav => (

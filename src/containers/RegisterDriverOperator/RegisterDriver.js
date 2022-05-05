@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DashBoardLayout from '../../components/dashBoardLayout/DashBoardLayout';
-import { Primary } from '../../components/buttons/Buttons'
-import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton';
+import { Primary } from '../../components/buttons/Buttons.js'
+import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton.js';
 import { ToastContainer } from 'react-toastify';
 import Notify from '../../functions/Notify'
 import { Profile } from '../../components/skeletons/cards/Profile';

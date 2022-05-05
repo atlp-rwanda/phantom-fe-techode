@@ -4,13 +4,13 @@ const { UPDATE, GET_FIRSTNAME, GET_USERNAME ,GET_LASTNAME ,SET_PROFILE } = userA
 
 
 const initialState = {
-    id: 1, 
-    username: 'Doej',
-    firstname: 'John',
-    lastname: 'Doe',
-    telephone: '0700000000',
-    email:'email@gmail.com', 
-    type:'admin',
+    id: 0, 
+    username: '',
+    firstname: '',
+    lastname: '',
+    telephone: '',
+    email:'', 
+    type:'',
     profile:''  
 }
 
@@ -30,11 +30,13 @@ export const userReducer = (state = initialState , { type , payload}) =>{
         case UPDATE: 
             let updates = {...state};
 
+            updates.id = payload.id;
             updates.email = payload.email;
             updates.username = payload.username;
             updates.telephone = payload.phone;
             updates.firstname = payload.firstName;
             updates.lastname = payload.lastName;
+            updates.profile = payload.profile == null ? `https://image.shutterstock.com/z/stock-vector-man-cartoon-icon-over-white-background-colorful-design-vector-illustration-602405828.jpg` : payload.profile ; 
             if(payload.type){
                 updates.type = payload.type
             }

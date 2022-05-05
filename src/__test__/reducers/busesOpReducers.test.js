@@ -8,9 +8,9 @@ describe("Testing => busesReducer(state, action)", () => {
         state = [
                     {
                         id: 1,
-                        busType: "Yutong",
-                        route: 401,
-                        plate: "RAF102F"
+                        bustype: "Yutong",
+                        routecode: 401,
+                        platenumber: "RAF102F"
                     }
                 ];
         store = testStore();

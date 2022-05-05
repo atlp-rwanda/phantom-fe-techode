@@ -23,7 +23,7 @@ describe('<App />', () =>{
       });
   
       it('if it should render one Route', () =>{
-          expect(wrapper.find(Route).length).toBe(6);
+          expect(wrapper.find(Route).length).toBe(7);
         });
       
       it('if it should render ProtectedRoutes', () =>{

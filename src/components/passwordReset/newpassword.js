@@ -96,7 +96,7 @@ function NewPassword(props) {
       </section>
 
       {/* <!===================================User profile ==========================================!> */}
- <section  className="w-4/5  lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex ">
+      <section  className="w-4/5  lg:flex lg:items-center lg:justify-center child-two bg-white h-2/3 mt-10 md:ml-20  lg:w-2/5 lg:h-96 lg:mr-5  lg:mt-20  p-10   md:w-2/3 md:flex ">
         <div className="relative  ">
           <div>
             <div className="flex justify-center">

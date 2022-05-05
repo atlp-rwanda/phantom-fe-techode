@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BusSim from "../../components/BusSim/BusSim";
-import { Primary } from "../../components/buttons/Buttons";
+import { Primary } from "../../components/buttons/Buttons.js";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import LocationSim from "../../components/LocationSim/LocationSim"
 import DriverSim from "../../components/LocationSim/DriverSim";
 import { updateActiveBus , start , speedControl } from '../../redux/actions/ActiveBus'
-
 import close from "../../assets/svgs/close.svg";
 import { connect } from "react-redux";
 import Notify from "../../functions/Notify";
+import checkAuth from "../../functions/checkAuth";
+import { update } from "../../redux/actions/userActions";
+import hundleStartStop,{handleDriverActionsDemo} from "../../functions/driverAction";
+import socket from "../../config/socket";
+
 const BusSimulation = ( props ) => {
-    const { updateActiveBus , start , user , speedControl } = props;
+    const { updateActiveBus , start , user , speedControl , update,routeCoordinate } = props;
     const [ showModel , setShowModel ] = useState(false);
     const [ showModelStart , setShowModelStart ] = useState(false);
     const [ routeLocatorForm , setRouteLocatorForm ] = useState(false);
     const { type: userType } = user ;
+    const [ loading , setLoading ] = useState(true);
     /* ================= Start:: form infromation managimment ============= */ 
     const [passengers , setPassenger ] = useState("");
     const [alighting, setAlighting] = useState("");
@@ -26,32 +31,67 @@ const BusSimulation = ( props ) => {
     const [destination, setDestination] = useState("");
     /* =================== End:: form infromation managimment ============= */ 
 
+    
+    /* ================= Start:: form infromation managimment ============= */ 
+    const [location , setMyLocation ] = useState({});
+    const [busStarted ,setBusStarted] = useState(false);
+    const busEntityId = localStorage.getItem("busEntintyId");
+    /* =================== End:: form infromation managimment ============= */ 
 
+
+    useEffect( async () => {
+        await checkAuth(user,update);
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                setMyLocation({
+                    latitude:position.coords.latitude,
+                    longitude:position.coords.longitude
+                })
+            },
+            function(error) {
+                Notify("Please you need to provide you location ","error");
+            }
+        );
+        setLoading(false)
+    })
+
+  
     /* ================== Start Passenger funstion ======================== */
-    const handleStartTrip = (e) => {
+    const handleStartTrip = async (e) => {
         e.preventDefault();
         if(passengers.trim() == "" ) return Notify("Please make sure passengers field is not empty","error");
-        start({ busId: 1 , passengers });
-        /* speed update */
-            speedControl({ busId: 1 , speed: 89 });
-        /* speed update */
+        if(passengers > 60 ) return Notify("Passengers should be less that","error");
+        await handleDriverActionsDemo(user,start,speedControl,"start",setBusStarted,routeCoordinate,passengers)        
         setPassenger("")
+        revealModel("start");  
     } 
 
     const mapRouteModify = (e) => {
         e.preventDefault();
     }
 
-    const handleAlightTrip = (e) => {
+    const handleAlightTrip = async (e) => {
         e.preventDefault();
-        if(alighting.trim() == "" ) return Notify("Please make sure alighting passengers field is not empty","error");
-        if(joining.trim() == "" ) return Notify("Please make sure joining passengers field is not empty","error");
-        updateActiveBus({driverId: 1, alighting, joining});
-        /* speed update */
-            speedControl({ busId: 1 , speed: 12 });
-        /* speed update */
-        setAlighting("");
-        setJoining("");
+        Notify("")
+        if(alighting.trim() == "" ) return 0;
+        if(joining.trim() == "" ) return 0;
+        if(joining > 60 ) return 0;
+        socket.emit("get_current",{id : busEntityId})
+        socket.on("receive_current_passengers",async (data) =>{
+            if(alighting > Number(data.bus.passengers) ){
+                Notify("")
+                return Notify("Please alighting passengers should be less than "+ alighting,"error");
+            }         
+            else{
+                await handleDriverActionsDemo(user, { updateActiveBus ,alighting, joining } ,speedControl,"alight",setBusStarted,routeCoordinate)  
+                setAlighting("");
+                setJoining("");               
+                revealModel("update"); 
+                Notify("")
+                return Notify("Passengers updated","success")   
+            }  
+        })
+              
     }
     
     const revealModel = ( modelType = "") => {
@@ -81,13 +121,19 @@ const BusSimulation = ( props ) => {
                             <h3 className='font-bold text-sm text-center w-11/12' >
                                 Passengers status
                             </h3>
-                            <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => revealModel("update") } >
+                            <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() =>{
+                                 revealModel("update");
+                                 socket.emit("killAlighting",{ id: busEntityId  });
+                                 }} >
                                 <img src={close} alt="Phantom" className='float-right' />
                             </div>
                             <hr className=' bg-secondary-150 border my-3 w-full' />
                         </div>
                         <div className="card-body">
-                            <form onSubmit={ e => handleAlightTrip(e)} className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
+                            <form onSubmit={ e => { 
+                                handleAlightTrip(e);
+                                socket.emit("killAlighting",{ id: busEntityId  }) 
+                            }} className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
                                 <div className="input my-3 h-9 "> 
                                     <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                         <input type="text" name="firstname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Alghting" value={alighting} onChange={(e) => setAlighting(e.target.value)} />                                   
@@ -164,13 +210,23 @@ const BusSimulation = ( props ) => {
                     </div>                
                 </div>
             {/* ====================================== End:: Departure and destination =============================== */}                 
-            <DashBoardLayout>    
+            <DashBoardLayout>  
                 {
-                    userType != "driver" ?
-                        <LocationSim revealModel={revealModel} showModel={showModel} showModelStart={showModelStart}/>
-                    :
-                        <DriverSim revealModel={revealModel} showModel={showModel} showModelStart={showModelStart}/>                        
-                }                        
+                    !loading &&                     
+                        userType != "driver" && userType != "Driver" ?
+                            <LocationSim myLocation={location} revealModel={revealModel} showModel={showModel} showModelStart={showModelStart}/>
+                        :
+                            ""
+                     
+                }  
+                {
+                    !loading && 
+                        userType == "driver" || userType == "Driver" ?
+                            <DriverSim myLocation={location} revealModel={revealModel} showModel={showModel} showModelStart={showModelStart} busStarted={busStarted} setBusStarted={setBusStarted} />                        
+                        :
+                            ""
+                }    
+                                      
             </DashBoardLayout>
         </>
      );
@@ -179,7 +235,8 @@ const BusSimulation = ( props ) => {
 const mapStateTo = (state) =>{
     return {
         user: state.user,
-        activeBus: state.activeBus
+        activeBus: state.activeBus,
+        routeCoordinate : state.routeCoordinate
     }
 }
-export default connect( mapStateTo , { updateActiveBus , start ,speedControl })(BusSimulation);
+export default connect( mapStateTo , { updateActiveBus , start ,speedControl , update })(BusSimulation);

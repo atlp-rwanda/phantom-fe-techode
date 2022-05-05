@@ -14,41 +14,54 @@ const RouteCard = (props) => {
             endLocation: 'Nyamirambo',
             city: "Kigali",
             from:[-1.944103,30.056790],
-            to:[-1.9801872,30.0413067]
+            to:[-1.9801872,30.0413067],
+            routecode:401
         },
         {           
-            startLocation: 'Nyakibanda',
-            endLocation: 'Karubanda',
-            city: "Huye",
+            startLocation: 'Nyabugogo',
+            endLocation: 'Nyamirambo',
+            city: "Kigali",
             from:[-1.944103,30.056790],
-            to:[-1.9801872,30.0413067]
+            to:[-1.9801872,30.0413067],
+            routecode:406
         },
         {           
             startLocation: 'Downtown',
-            endLocation: 'Kicukiro',
+            endLocation: 'Remera',
+            city: "kigali",
+            from:[-1.944103,30.056790],
+            to:[-1.9801872,30.0413067],
+            routecode:302
+        },
+        {           
+            startLocation: 'Downtown',
+            endLocation: 'Nyanze',
             city: "Kigali",
             from:[-1.944103,30.056790],
-            to:[-1.9801872,30.0413067]
+            to:[-1.9801872,30.0413067],
+            routecode:310
         },
         {           
             startLocation: 'Stadium',
             endLocation: 'Mahoko',
             city: "Gisenyi",
             from:[-1.944103,30.056790],
-            to:[-1.9801872,30.0413067]
+            to:[-1.9801872,30.0413067],
+            routecode:309
         },
         {           
             startLocation: 'Downtown',
             endLocation: 'Remera',
             city: "Kigali",
             from:[-1.944103,30.056790],
-            to:[-1.9801872,30.0413067]
+            to:[-1.9801872,30.0413067],
+            routecode:406
         }
     ])
   
     const history  = useHistory();
-    const track = ( from = [] , to = [] , routeId = 0 ) =>{
-        selectRoute({from,to,routeId})
+    const track = ( from = [] , to = [] , routeId = 0 , routecode ) =>{
+        selectRoute({from,to,routeId,routecode})
         history.push('simulation');
     }
     const showRoute = () => {
@@ -78,7 +91,7 @@ const RouteCard = (props) => {
                                     <div className="flex items-center">
                                         <span className="iconify text-gray-300 mr-1" data-icon="fa-solid:route"></span>
                                         <span className='mr-2' >{ routes.filter(currentRoute => currentRoute.city == placeName  ).length }</span>
-                                        <span>Route</span>
+                                        <span>Routes</span>
                                     </div>                        
                                 </div>
                             </div>
@@ -86,7 +99,7 @@ const RouteCard = (props) => {
                         <div className="expand h-9 bg-noneActive rounded-b-md flex flex-wrap items-center cursor-pointer">
                             <div className="w-4/12 text-center font-sans" >
                                 <span>
-                                    more
+                                    View more
                                 </span>
                             </div>
                             <div className="w-8/12 relative">
@@ -127,7 +140,7 @@ const RouteCard = (props) => {
                                             </div>
                                             <div className="w-2/12 flex items-center justify-center">
                                                 <div className="w-full">
-                                                    <button className="bg-mainColor px-2 py-1 text-white rounded hover:bg-primary-300" onClick={() => track(route.from, route.to , 1)} >
+                                                    <button className="bg-mainColor px-2 py-1 text-white rounded hover:bg-primary-300" onClick={() => track(route.from, route.to , 1,route.routecode)} >
                                                         Track
                                                     </button>
                                                 </div>

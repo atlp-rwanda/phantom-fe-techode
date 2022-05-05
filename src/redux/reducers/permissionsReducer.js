@@ -1,23 +1,7 @@
 import  { PermissionActionType } from "../constants/permissionActionType"
-const { ADD_PERMISSION } = PermissionActionType ;
+const { ADD_PERMISSION , FETCHING_PERMISSION  } = PermissionActionType ;
 
-const permissionState = [
-    {
-        id:1,
-        name:'Get routes',
-    },
-    {
-        id:2,
-        name:'Get buses',
-    },{
-        id:3,
-        name:'Assign buses',
-    },
-    {
-        id:4,
-        name:'createRoute',
-    },
-]
+const permissionState = []
 
 export const permissionsReducer = (state = permissionState, { type , payload}) =>{
     switch (type) { 
@@ -29,7 +13,12 @@ export const permissionsReducer = (state = permissionState, { type , payload}) =
             }
             clonedState.push(newPermission);
             state = clonedState;
-            return state;             
+            return state;  
+        case FETCHING_PERMISSION:
+            let newState = [...state];
+            newState = payload
+            state = newState;
+            return state;              
         default:
             return state;
     }
