@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "application that allows simulating bus movements and enabling passengers to track their locations & movements. ",
   "main": "index.js",
+  "engines": {
+    "node": "16.13.2"
+  },
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack --config ./webpack.config.js --mode='production'",

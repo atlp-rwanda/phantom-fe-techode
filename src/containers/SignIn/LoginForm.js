@@ -18,11 +18,11 @@ import { API as axios } from "../../api";
 
 const LoginForm = (props) => {
     const history = useHistory();
-    const [loading, setloading] = useState(true);  
+    const [loading, setLoading] = useState(true);  
     const { update, isAuth, setProfile } = props;  
     useEffect(() => {
         setTimeout(() => {
-          setloading(false);
+          setLoading(false);
         }, 2000);
     }, []);
 
@@ -46,7 +46,7 @@ const LoginForm = (props) => {
             type: "",
         };
         try {
-            setloading(true);
+            setLoading(true);
             const response = await axios.post(`/users/login`, {
                 email,
                 password,
@@ -67,11 +67,11 @@ const LoginForm = (props) => {
             update(userInfo);
             setProfile(userData.userType);
             localStorage.setItem("token", response.data.token);
-            setTimeout(() => { setloading(false); }, 2000);
+            setTimeout(() => { setLoading(false); }, 2000);
             isAuth(true); 
             history.push("/dashboard");
         } catch (error) {
-          setTimeout(() => { setloading(false); }, 2000);          
+          setTimeout(() => { setLoading(false); }, 2000);          
           if (error.code != "ERR_NETWORK") {
             Notify(error.response.data.message, "error");
           }

@@ -1,11 +1,17 @@
 import  { RoleActions } from "../constants/roleAction"
-const { ADD_ROLE, DELETE_ROLE,DELETE_PERMISSION, ASSIGN_PERMISSION } = RoleActions ;
+const { ADD_ROLE, DELETE_ROLE,DELETE_PERMISSION, ASSIGN_PERMISSION , FETCHING_ROLES } = RoleActions ;
 
 
 
 export const addRole = (payload) =>{
     return {
         type: ADD_ROLE,
+        payload
+    }
+}
+export const fetchRoles = (payload) =>{
+    return {
+        type: FETCHING_ROLES,
         payload
     }
 }
