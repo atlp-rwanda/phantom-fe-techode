@@ -1,4 +1,4 @@
-import { UPDATE , CREATE , DELETE , MORE_INFO } from "../constants/busActionType";
+import { UPDATE , CREATE , DELETE , FETCH_BUSES } from "../constants/busActionType";
 
 export const updateBusInfo = (payload) =>{
     return {
@@ -17,6 +17,12 @@ export const deleteBus = (payload) =>{
 export const createBus = (payload) =>{
     return {
         type: CREATE,
+        payload
+    }
+}
+export const fetchBuses = (payload) =>{
+    return {
+        type: FETCH_BUSES,
         payload
     }
 }

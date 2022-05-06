@@ -15,13 +15,95 @@ import prev from '../../assets/svgs/prev.svg';
 import busPark from '../../assets/Image/busPark.jpg';
 import next from '../../assets/svgs/next.svg';
 import { connect } from 'react-redux';
-import { createBus, updateBusInfo, deleteBus } from "../../redux/actions/busAction";
+import { createBus, updateBusInfo, deleteBus, fetchBuses } from "../../redux/actions/busAction";
 import Pagination from "../../components/pagination/Pagination";
+import { API as axios } from "../../api/index"
+
+const addNewBus = async (busName, routeCode, plateNumber, setLoading, getAllBuses) => {
+    const newBus = {
+        bustype: busName,
+        routecode: routeCode,
+        platenumber: plateNumber
+    }
+    try {
+      const response = await axios({
+        method: "POST",
+        url: 'http://localhost:5000/api/v1/buses/register',
+        data: newBus,
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "auth-token": `Bearer ${localStorage.getItem("token")}`,
+            "action": "createBus"
+        }
+    })
+      Notify(response.data.message, "success");
+    } catch (error) {
+      if (error.code != "ERR_NETWORK") {
+        Notify(error.response.data.message, "error");
+      }
+      else{
+        Notify(error.message, "error");
+      }          
+    }
+  }
+
+const changeBus = async (busId, busName, routeCode, plateNumber,  setLoading, getAllBuses) => {
+const newBus = {
+    bustype: busName,
+    routecode: routeCode,
+    platenumber: plateNumber
+}
+try {
+    const response = await axios({
+    method: "PUT",
+    url: `http://localhost:5000/api/v1/buses/${busId}`,
+    data: newBus,
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "auth-token": `Bearer ${localStorage.getItem("token")}`,
+        "action": "updateBus"
+    }
+})
+    Notify(response.data.message, "success");
+} catch (error) {
+    if (error.code != "ERR_NETWORK") {
+    Notify(error.response.data.message, "error");
+    }
+    else{
+    Notify(error.message, "error");
+    }          
+}
+}
+
+const removeBus = async (busId, setLoading, getAllBuses) => {
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `http://localhost:5000/api/v1/buses/${busId}`,
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "auth-token": `Bearer ${localStorage.getItem("token")}`,
+            "action": "deleteBus"
+        }
+    })
+      Notify(response.data.message, "success");
+    } catch (error) {
+      if (error.code != "ERR_NETWORK") {
+        Notify(error.response.data.message, "error");
+      }
+      else{
+        Notify(error.message, "error");
+      }          
+    }
+  }
 
 const Busesoperat = (props) => {
 
     //State infromation
-    const { user, buses, createBus, updateBusInfo, deleteBus } = props;
+    const { user, buses, createBus, updateBusInfo, deleteBus, fetchBuses } = props;
 
     const [busModel, setBusModel] = useState(false);
 
@@ -32,36 +114,51 @@ const Busesoperat = (props) => {
 
     const [currentPage, setCurrentpage] = useState(1)
     const [postsPerPage] = useState(3)
+
+    const [busId, setBusId] = useState('');
+    const [busName, setbusName] = useState('');
+    const [route, setRoute] = useState('');
+    const [bus, setBus] = useState('');
     //for selecting 
     const [selectedBus, setSelectedBusId] = useState([
         {
             id: 0,
-            busType: "Yutong",
-            plate: "RAF102F",
-            route: "401"
+            bustype: "Yutong",
+            platenumber: "RAF102F",
+            routecode: "401"
         }
     ]);
+
+    const getAllBuses = async () => {
+        setLoading(true);
+        try {
+        const response = await axios.get(`/buses`);
+        const { data } = response.data;
+        setLoading(false);
+        fetchBuses(data.buses);
+        } catch (error) {
+        setTimeout(() => { setLoading(false); }, 2000);     
+        if (error.code != "ERR_NETWORK") {
+            Notify(error, "error");
+        }
+        else{
+            Notify(error.message, "error");
+        }          
+        }
+      }
+
+      /* ======== Start:: removing skeleton ======= */
+      useEffect( async ()=> {
+        setLoading(false);
+        await getAllBuses();
+      }, [])
+    /* ======== End:: removing skeleton ======= */
 
 
     const getSelectedBus = (id) => {
         const select = buses.filter(bus => bus.id == id);
         setSelectedBusId(select);
     }
-
-    
-    const [busId, setBusId] = useState('');
-    const [busName, setbusName] = useState('');
-    const [route, setRoute] = useState('');
-    const [bus, setBus] = useState('');
-
-    /* ======== Start:: removing skeleton ======= */
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000)
-    }, [])
-    /* ======== End:: removing skeleton ======= */
-
 
     const {
         type: userType,
@@ -72,7 +169,7 @@ const Busesoperat = (props) => {
     const currentPosts = buses.slice(indexOfFirstPost, indexOfLastPost);
 
     const paginate = pageNumber => setCurrentpage(pageNumber)
-    let uniqueState = buses.find(element => element.plate == bus);
+    let uniqueState = buses.find(element => element.platenumber == bus);
 
     const removeModel = () => {
         let newState = !createBusModel;
@@ -86,17 +183,14 @@ const Busesoperat = (props) => {
             const select = buses.filter(bus => bus.id == id);
             setSelectedBusId(select);
             setBusId(select[0].id)
-            setBus(select[0].plate);
-            setRoute(select[0].route);
-            setbusName(select[0].busType);
-
+            setBus(select[0].platenumber);
+            setRoute(select[0].routecode);
+            setbusName(select[0].bustype);
         }
-
     }
 
-    const registerBus = (e) => {
+    const registerBus = async (e) => {
         e.preventDefault();
-
         /* =================================== Start:: validation ================================ */
         if (busName.trim().length == '') return Notify('Bus type is required', 'error');
         if (route.trim().length == '') return Notify('Boute is required', 'error');
@@ -104,66 +198,44 @@ const Busesoperat = (props) => {
 
         /* =================================== End:: validation ================================ */
 
-        const newBus = {
-            busType: busName,
-            route,
-            plate: bus
-        }
         if (uniqueState) {
+            setLoading(false)
             Notify("Plate number already exist", "error");
         } else {
-
-            createBus(newBus);
-            setTimeout(() => {
-                removeModel();
-                setBusId(0)
-                setBus("");
-                setRoute("");
-                setbusName("");
-            },
-                2000
-            )
-            return Notify('New Bus have been added', 'success');
+            await addNewBus(busName, route, bus, setLoading, getAllBuses)
+            getAllBuses()
+            removeModel();
+            setBusId(0)
+            setBus("");
+            setRoute("");
+            setbusName("");
         }
 
     }
-    const updateBus = (e) => {
+    const updateBus = async (e) => {
         e.preventDefault();
-
+        setLoading(true)
         /* =================================== Start:: validation ================================ */
         if (busName.trim().length == '') return Notify('Bus Name is required', 'error');
         if (route.toString().trim().length == '') return Notify('Boute is required', 'error');
         if (bus.trim().length == '') return Notify('Plate number is required', 'error');
 
         /* =================================== End:: validation ================================ */
-
-        const newBusInfo = {
-            id: busId,
-            busType: busName,
-            route,
-            plate: bus
-        }
-            updateBusInfo(newBusInfo);
-            setTimeout(() => {
-                setUpdateModel(false);
-                setBusId(0)
-                setBus("");
-                setRoute("");
-                setbusName("");
-            },
-                2000
-            )
-            return Notify('Bus have been updated', 'success');
-
+        setLoading(false)
+        await changeBus(busId, busName, route, bus, setLoading, getAllBuses)
+            getAllBuses()
+            setUpdateModel(false);
+            setBusId(0)
+            setBus("");
+            setRoute("");
+            setbusName("");
     }
-    const deleteAssignedBus = (e) => {
+    const deleteAssignedBus = async (e) => {
         e.preventDefault();
-
-        deleteBus({ busId });
-        setTimeout(() => {
-            deleteBusModel()
-        }, 2000)
-        Notify("Bus has been deleted", "success");
+        setLoading(false)
+        await removeBus(busId, setLoading, getAllBuses)
+        getAllBuses()
+        deleteBusModel()
     }
 
     const deleteBusModel = (bus_Id) => {
@@ -332,13 +404,13 @@ const Busesoperat = (props) => {
                                                             {bus.id}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.busType}
+                                                            {bus.bustype}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.route}
+                                                            {bus.routecode}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.plate}
+                                                            {bus.platenumber}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             <LebalButton type={'primary'} svg={edit} onclick={() => updateBuseModel(bus.id)} />
@@ -352,13 +424,13 @@ const Busesoperat = (props) => {
                                                             {bus.id}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                           {bus.busType}
+                                                           {bus.bustype}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.route}
+                                                            {bus.routecode}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.plate}
+                                                            {bus.platenumber}
                                                         </td>
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
@@ -409,15 +481,15 @@ const Busesoperat = (props) => {
                                             <div className="w-5/6">
                                                 <div className="title flex flex-row font-sans mb-3" >
                                                     <p className='text-xs font-semibold font-sans md:text-sm text-primary-600 md:mr-7'>Bus Type</p>
-                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2 md:pl-10'>{bus.busType}</p>
+                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2 md:pl-10'>{bus.bustype}</p>
                                                 </div>
                                                 <div className="title flex flex-row font-sans mb-3" >
                                                     <p className='text-xs font-semibold font-sans md:text-sm text-primary-600 md:mr-3'>Route Code</p>
-                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.route}</p>
+                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.routecode}</p>
                                                 </div>
                                                 <div className="title flex flex-row font-sans mb-3" >
                                                     <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Plate number</p>
-                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.plate}</p>
+                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.platenumber}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -442,7 +514,7 @@ const mapToState = (state) => {
     }
 }
 
-export default connect(mapToState, { createBus, updateBusInfo, deleteBus })(Busesoperat);
+export default connect(mapToState, { createBus, updateBusInfo, deleteBus, fetchBuses })(Busesoperat);
 
 
 
