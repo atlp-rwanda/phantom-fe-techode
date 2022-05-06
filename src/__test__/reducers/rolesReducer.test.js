@@ -6,17 +6,31 @@ describe("Testing => rolesReducer(state, action)", () => {
 let initialState
   beforeEach(()=>{
     initialState = [
-        {
-          id: 1,
-          name: "Admin",
-          permissions: [{ id: 1, permissionName: "getBus" }],
-        },
-      ];
+      {
+        id: 1,
+        rolename: 'Admin',
+        permissions: [
+            {
+                id: 1,
+                permssionName: 'getBus'
+            }
+        ]
+    }
+    ]
 
   });
 
   it("should return the initialState for no action.", () => {
-    const reducer = rolesReducer(undefined, {});
+    const reducer = rolesReducer(undefined, {
+      id: 1,
+      rolename: 'Admin',
+      permissions: [
+          {
+              id: 1,
+              permssionName: 'getBus'
+          }
+      ]
+  });
     expect(reducer).toEqual(initialState);
   });
 
@@ -24,22 +38,25 @@ let initialState
     const state = [
       {
         id: 1,
-        name: "Admin",
-        permissions:[
-          { id: 1 , permissionName: 'getBus'},
+        rolename: 'Admin',
+        permissions: [
+            {
+                id: 1,
+                permssionName: 'getBus'
+            }
         ]
-      },
-      {
-        id: 2,
-        name:"Driver",
-        permissions:[]
-      },
+    },
+    {
+      id:2,
+      rolename:"Driver",
+      permissions:[]
+    }
     ];
 
     const newRole = "Driver";
       const reducer = rolesReducer(undefined, {
       type: RoleActions.ADD_ROLE,
-      payload: newRole,
+      payload: newRole
     });
     expect(JSON.stringify(reducer)).toEqual(JSON.stringify(state));
   });
@@ -48,16 +65,19 @@ let initialState
     const state = [
       {
         id: 1,
-        name: "Admin",
-        permissions:[
-          { id: 1 , permissionName: 'getBus'},
+        rolename: 'Admin',
+        permissions: [
+            {
+                id: 1,
+                permssionName: 'getBus'
+            }
         ]
-      },
-      {
-        id: 2,
-        name:"Operator",
-        permissions:[]
-      }
+    },
+    {
+      id: 2,
+      rolename: 'Operator',
+      permissions:[]
+    }
     ];
 
     const newRole = "Operator";
@@ -81,12 +101,12 @@ let initialState
 it("should accept the deletion of permission", () => {
 
     const state = [
-        {
-          id: 1,
-          name: "Admin",
-          permissions: [],
-        },
-      ];
+      {
+        id: 1,
+        rolename: 'Admin',
+        permissions: []
+    }
+  ];
 
     const reducer = rolesReducer(initialState, {
       type: RoleActions.DELETE_PERMISSION,
@@ -98,12 +118,21 @@ it("should accept the deletion of permission", () => {
   it("should accept the deletion of permission", () => {
 
     const state = [
-        {
-            id: 1,
-            name: "Admin",
-            permissions: [{ id: 1, permissionName: "getBus" }, { id: 2, permissionName: "GetRoute" }],
-          },
-      ];
+      {
+        id: 1,
+        rolename: 'Admin',
+        permissions: [
+            {
+                id: 1,
+                permssionName: 'getBus'
+            },
+            {
+              id: 2,
+              permissionName: 'GetRoute'
+          }
+        ]
+    }
+  ];
 
     const reducer = rolesReducer(initialState, {
       type: RoleActions.ASSIGN_PERMISSION,

@@ -30,17 +30,9 @@ export const forgotPassword = (formData) => async (dispatch) => {
 export const resetPassword = (password, Token, history) => async (dispatch) => {
 
     try {
-
-        const response = await axios({
-            method: 'post',
-            url: `http://localhost:5000/api/v1/accounts/reset-password/${Token}`,
-            data: {
-                password: password
-            }
-        })
-
+        
+        const response=  await API.resetPassword(Token,{ password: password });
         const { data } = response;
-
         if (data) {
             history.push("/login");
         }

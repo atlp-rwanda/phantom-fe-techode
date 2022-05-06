@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { DangerButton, InfoButton, PermissionButton, Primary } from "../../components/buttons/Buttons";
-import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton'
+import { DangerButton, InfoButton, PermissionButton, Primary } from "../../components/buttons/Buttons.js";
+import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton.js'
 import { ToastContainer } from "react-toastify";
 import Notify from "../../functions/Notify";
 import TableSkeleton from "../../components/skeletons/Tables/RemovePermisionSkeleton"

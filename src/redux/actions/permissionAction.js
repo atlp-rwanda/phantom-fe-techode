@@ -1,10 +1,9 @@
 import  { PermissionActionType } from "../constants/permissionActionType"
-const { ADD_PERMISSION } = PermissionActionType ;
+const {  FETCHING_PERMISSION } = PermissionActionType ;
 
-
-export const addPermission = (payload) =>{
+export const fetchPermissions = (payload) =>{
     return {
-        type: ADD_PERMISSION,
+        type: FETCHING_PERMISSION,
         payload
     }
 }
