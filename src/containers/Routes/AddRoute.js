@@ -20,13 +20,13 @@ import Notify from "../../functions/Notify";
 import GetRouteInfo from "../../functions/GetRouteInfo";
 import TableSkeleton from "../../components/skeletons/Tables/TableSkeleton";
 import { connect } from "react-redux";
-import { createRoute,updateRouteInfo,deleteRoute } from "../../redux/actions/RoutesAction";
+import { createRoute, updateRouteInfo, deleteRoute, fetchRoutes } from "../../redux/actions/RoutesAction";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
+import { API as axios } from "../../api";
 
 const provider = new OpenStreetMapProvider();
-
 function AddRoute(props) {
-  const { routes, createRoute, updateRouteInfo, deleteRoute } = props;
+  const { routes, createRoute, updateRouteInfo, deleteRoute, fetchRoutes } = props;
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [startLocation, setStartLocation] = useState("");
@@ -38,6 +38,7 @@ function AddRoute(props) {
   const [loadingMap, setLoadingMap] = useState(true);
   const [currentPage, setCurrentpage] = useState(1);
   const [postsPerPage] = useState(2);
+  const [assignroutes, setAssignRoutes] = useState("");
 
   /* ============= For search =================== */
   const [from, setFrom] = useState({ lat: -1.9447501, lng: 30.058433 });
@@ -53,6 +54,24 @@ function AddRoute(props) {
   const paginate = (pageNumber) => setCurrentpage(pageNumber);
 
   const [createRouteModel, setCreateRouteModel] = useState(false);
+
+  const getRoutes = async () => {
+    try {
+      const response = await axios.get("/routes")
+      fetchRoutes(response.data.data.routes);
+      setAssignRoutes(response.data.data.routes)
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
+
+  useEffect(() => {
+    getRoutes();
+    setTimeout(() => {
+      setLoadingMap(false);
+    }, 500)
+  }, [loadingMap])
+
   const removeModel = () => {
     let newState = !createRouteModel;
     setCreateRouteModel(newState);
@@ -62,12 +81,6 @@ function AddRoute(props) {
     setLoading(false);
     setLoadingMap(false);
   }, 1000);
-
-  useEffect(() => {
-    setTimeout(() => {      
-      setLoadingMap(false);
-    },500)
-  },[loadingMap])
 
   const createNewRoute = (e) => {
     e.preventDefault();
@@ -103,6 +116,7 @@ function AddRoute(props) {
     };
 
     createRoute(newRoute);
+
     setTimeout(() => {
       removeModel();
       setName("");
@@ -127,10 +141,11 @@ function AddRoute(props) {
     setListModal(newState);
   };
   const [deleteModal, setDeleteModal] = useState(false);
-  const viewDeleteModal = (route_Id, id) => {
+  const viewDeleteModal = (id, route_Id) => {
     let newState = !deleteModal;
     setDeleteModal(newState);
-    setRouteId(id);
+    // setRouteId(id);
+    setRouteId(route_Id);
     setListModal(false);
   };
 
@@ -142,9 +157,16 @@ function AddRoute(props) {
     setListModal(false);
   };
 
-  const deleteroute = (e) => {
+  const deleteroute = async (e) => {
     e.preventDefault();
-    deleteRoute({ routeId });
+    let data = await axios.delete(`/routes/${routeId}`,
+      {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "auth-token": `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+
     setDeleteModal(false);
     setListModal(true);
     return Notify("Delete route successfully", "success");
@@ -159,22 +181,25 @@ function AddRoute(props) {
     e.preventDefault();
     setUpdateModel(!updateModel);
   };
-  const updateRouteModel = (id = null) => {
+  const updateRouteModel = async (id = null) => {
     setUpdateModel(!updateModel);
     if (id != null) {
       viewUpdateModal();
-      const select = routes.filter((route) => route.id == id);
-      setSelectedRouteId(select);
-      setRouteId(select[0].id);
-      setName(select[0].name);
-      setCode(select[0].code);
-      setStartLocation(select[0].startLocation);
-      setEndLocation(select[0].endLocation);
-      setDistance(select[0].distance);
-      setDuration(select[0].duration);
-      setCity(select[0].city);
-      setFrom(select[0].from);
-      setEnd(select[0].to);
+      let data = await axios.get(`/routes/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "auth-token": `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+      setRouteId(id);
+      setName(data.data.data.name);
+      setCode(data.data.data.code);
+      setStartLocation(data.data.data.startLocation);
+      setEndLocation(data.data.data.endLocation);
+      setDistance(data.data.data.distance);
+      setDuration(data.data.data.duration);
+      setCity(data.data.data.city);
     }
   };
 
@@ -183,11 +208,44 @@ function AddRoute(props) {
     setProfileInfo(routes[0]);
   }, []);
   const [selectedRouteName, setSelectedRouteName] = useState("");
-
   const [profileInfo, setProfileInfo] = useState("");
+  const changeRoute = async (routeId, name, code, startLocation, endLocation, distance, duration, city) => {
+    getRoutes();
+    const newRouteInfo = {
+      id: routeId,
+      name: name,
+      code: code,
+      startLocation: startLocation,
+      endLocation: endLocation,
+      distance: distance,
+      duration: duration,
+      city,
+
+    };
+    try {
+      const response = await axios({
+        method: "PUT",
+        url: `http://localhost:5000/api/v1/routes/${routeId}`,
+        data: newRouteInfo,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "auth-token": `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      Notify(response.data.message, "success");
+    } catch (error) {
+      if (error.code != "ERR_NETWORK") {
+        Notify(error.response.data.message, "error");
+      }
+      else {
+        Notify(error.message, "error");
+      }
+    }
+  }
+
   const updateRoute = (e) => {
     e.preventDefault();
-
     /* =================================== Start:: validation ================================ */
     if (name.trim().length == "")
       return Notify("name field should not be empty", "error");
@@ -205,20 +263,10 @@ function AddRoute(props) {
 
     /* =================================== End:: validation ================================ */
 
-    const newRouteInfo = {
-      id: routeId,
-      name: name,
-      code: code,
-      startLocation: startLocation,
-      endLocation: endLocation,
-      distance: distance,
-      duration: duration,
-      city,
-      from,
-      to: end,
-    };
-    updateRouteInfo(newRouteInfo);
+    changeRoute(routeId, name, code, startLocation, endLocation, distance, duration, city)
+    getRoutes()
     setTimeout(() => {
+
       setUpdateModel(false);
       setLoadingMap(false);
       setRouteId(0);
@@ -231,28 +279,26 @@ function AddRoute(props) {
       setFrom({ lat: 0, lng: 0 });
       setEnd({ lat: 0, lng: 0 });
     }, 2000);
-    return Notify("route have been updated", "success");
   };
 
   return (
     <>
       {/* =========================== Start:: Model =============================== */}
       <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div
-        className={` z-50 h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${
-          deleteModal === true ? "block" : "hidden"
-        }`}
-      >        
+        className={` z-50 h-screen  w-screen bg-modelColor  absolute flex items-center justify-center px-4 ${deleteModal === true ? "block" : "hidden"
+          }`}
+      >
         <div className="bg-white w-full   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
@@ -301,9 +347,8 @@ function AddRoute(props) {
       </div>
 
       <div
-        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
-          updateModel === true ? "block" : "hidden"
-        }`}
+        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${updateModel === true ? "block" : "hidden"
+          }`}
       >
         <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
@@ -456,9 +501,8 @@ function AddRoute(props) {
       </div>
 
       <div
-        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
-          show === true ? "block" : "hidden"
-        }`}
+        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${show === true ? "block" : "hidden"
+          }`}
       >
         <div className="bg-white w-full  lg:h-4/5   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 2xl:h-3/6 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
@@ -623,9 +667,8 @@ function AddRoute(props) {
         </div>
       </div>
       <div
-        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${
-          listModal === true ? "block" : "hidden"
-        }`}
+        className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${listModal === true ? "block" : "hidden"
+          }`}
       >
         <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
@@ -672,13 +715,22 @@ function AddRoute(props) {
                               Route name
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                              Route code
+                            </th>
+                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                              City
+                            </th>
+                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                              Distance
+                            </th>
+                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
                               Start Location
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
                               End Location
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Distance
+                              Duration
                             </th>
                             <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
                               Action
@@ -686,7 +738,7 @@ function AddRoute(props) {
                           </tr>
                         </thead>
                         <tbody>
-                          {currentPosts.map((route) => (
+                          {assignroutes?.map((route) => (
                             <tr
                               key={route.id}
                               onClick={() =>
@@ -700,6 +752,15 @@ function AddRoute(props) {
 
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
                                 {route.name}
+                              </td>
+                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                {route.code}
+                              </td>
+                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                {route.city}
+                              </td>
+                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                {route.duration}
                               </td>
                               <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
                                 {route.startLocation}
@@ -731,8 +792,8 @@ function AddRoute(props) {
                                   type={"info"}
                                   svg={more}
                                   onclick={() => {
-                                    setLoadingMap(true);
-                                    setListModal(false);                                    
+                                    setLoadingMap(false);
+                                    setListModal(false);
                                     setProfileInfo(currentPosts[route.id]);
                                     setFrom(profileInfo.from);
                                     setEnd(profileInfo.to);
@@ -1023,12 +1084,12 @@ function AddRoute(props) {
                 </div>
                 <div className="flex-col md:flex justify-between lg:flex-row mt-10">
                   <article className="flex bg-white md:w-4/5 lg:w-1/3 rounded-lg flex-col items-center justify-center">
-                    
+
 
                     <div className="flex-col items-center w-full  justify-center mt-5">
                       <figure className="  flex-col ">
                         <div className="  flex items-center  justify-center ">
-                        <img src={profile_admin} alt="" />
+                          <img src={profile_admin} alt="" />
                         </div>
                         <div className="flex justify-center items-center mt-5">
                           <p className=""> {profileInfo.name}</p>
@@ -1106,4 +1167,5 @@ export default connect(mapToState, {
   createRoute,
   updateRouteInfo,
   deleteRoute,
+  fetchRoutes
 })(AddRoute);
