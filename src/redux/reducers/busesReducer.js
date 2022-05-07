@@ -1,18 +1,31 @@
 
-import { DELETE , CREATE, UPDATE  } from "../constants/busActionType";
+import { DELETE , CREATE, UPDATE, FETCH_BUSES  } from "../constants/busActionType";
 
 
 const initialState = [
     {
         id: 1,
-        busType: "Yutong",
-        route: 401,
-        plate: "RAF102F"
+        bustype: "Yutong",
+        routecode: 401,
+        platenumber: "RAF102F"
     }
 ];
 export  function busesReducer(state = initialState ,  { type , payload }){
 
     switch(type){
+        case FETCH_BUSES:
+            let newBuses = [];
+            for(let i = 0; i < payload.length; i++){
+                const newBusSetTemplete = {
+                    id :  payload[i].id,
+                    bustype: payload[i].bustype,
+                    routecode:payload[i].routecode,
+                    platenumber: payload[i].platenumber,
+                }
+                newBuses.push(newBusSetTemplete);
+            }
+            state = newBuses;
+            return state
         case DELETE:
             const { busId } = payload
             const clonedRemoveState = [...state];
@@ -25,9 +38,9 @@ export  function busesReducer(state = initialState ,  { type , payload }){
             const clonedState = [...state];
             const newBus = {
                 id: state.length + 1,
-                busType: payload.busType,
-                route: payload.route,
-                plate: payload.plate
+                bustype: payload.bustype,
+                routecode: payload.routecode,
+                platenumber: payload.platenumber
             }
             clonedState.push(newBus);
             state = clonedState;

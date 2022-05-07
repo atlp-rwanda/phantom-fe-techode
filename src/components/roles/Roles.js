@@ -118,7 +118,6 @@ const Roles = (props) => {
     }
   }
 
-
   useEffect( async ()=> {
     setLoading(false);
     await getRoles();
