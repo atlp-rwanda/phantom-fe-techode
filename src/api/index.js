@@ -18,3 +18,5 @@ API.interceptors.request.use((req, res) => {
 export const forgotPassword= (formData)=>API.post('/accounts/forgot-password',formData);
 export const resetPassword = (token,formData)=>API.post(`/accounts/reset-password/${token}`,formData);
 export const getSinglePermission = (param)=>API.get(`/permissions/${param}`);
+export const getSingleBuses = (param)=>API.get(`/buses/${param}`);
+
