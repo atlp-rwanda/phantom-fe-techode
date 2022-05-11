@@ -15,7 +15,7 @@ const Intro = () => {
         </div>
         <div className='w-60 ms:w-96 md:w-1/2 items-center mx-10'>
             <h1 className="w-30 text-2xl font-bold text-blue-500 pt-10 font-sans pb-10 mx-auto">Travel With Us</h1>
-            <p className='font-sans text-xl'>when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled it to make a type specimen book when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+            <p className='font-sans text-xl'>Phantom is the App that help you to save your time by tracking bus anywhere and anytime. When you choose our App, the reliability and high quality of our services are guaranteed. Your trust is the most important, and we aim to provide quick and reliable services</p>
         </div>
         </div>
    
