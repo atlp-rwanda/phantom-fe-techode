@@ -6,6 +6,7 @@ import SkeletonUpdate from '../components/skeletons/SkeletonUpdate';
 import SkeletonLogout from '../components/skeletons/SkeletonLogout';
 import TextField from '../components/fields/TextField'
 import { PrimaryButton } from "../components/buttons/Buttons";
+import store from "../redux/store";
 
 describe('<Logout />', () => {
     let wrapper;
@@ -22,11 +23,11 @@ describe('<Logout />', () => {
         expect(wrapper.find(SkeletonUpdate)).toHaveLength(1)
     })
     it('Check if`Textfield component has form`', () => {
-        const wrapper = shallow(<TextField />);
+        const wrapper =  shallow( <TextField store={store}  />).childAt(0).dive();
         expect(wrapper.find('#form')).toHaveLength(1);
     })
     it('Checks for `Primary button in TextField form component`', () => {
-        const wrapper = shallow(<TextField />);
+        const wrapper =  shallow(<TextField store={store}  />).childAt(0).dive();
         expect(wrapper.find(PrimaryButton)).toHaveLength(1);
     })
 })

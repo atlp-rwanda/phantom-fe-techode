@@ -3,13 +3,13 @@ import React, { useEffect } from "react";
 import { PrimaryButton } from "../buttons/Buttons";
 import * as Yup from "yup"
 import Notify from "../../functions/Notify";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { update } from '../../redux/actions/userActions';
 import { useDispatch } from "react-redux";
 
-const TextField = ({ setLoading }) => {
-    const { email , firstname , lastname , telephone , username } = useSelector(state => state.user);    
-    const dispatch = useDispatch();
+const TextField = ({ setLoading , user ,update }) => {
+    const { email , firstname , lastname , telephone , username } = user;    
+    
     const formik = useFormik({
         initialValues:{
             username:username,
@@ -27,7 +27,7 @@ const TextField = ({ setLoading }) => {
         }),
         onSubmit: (values) => { 
             setLoading(true);
-            dispatch(update(formik.values));
+            update(formik.values);
             setTimeout(() => {
                 Notify('Updated', 'success');
                 setLoading(false);
@@ -72,4 +72,9 @@ const TextField = ({ setLoading }) => {
      );
 }
 
-export default TextField;
+const mapStateTo = (state) =>{
+    return {
+        user: state.user
+    }
+}
+export default connect( mapStateTo , { update })(TextField);

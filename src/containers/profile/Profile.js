@@ -96,7 +96,7 @@ const Profile = (props ) => {
                 </div> 
               </section>
               <section className="mt-5 md:pl-20">
-                <TextField setLoading={setLoading} user={user} />
+                <TextField setLoading={setLoading}  />
               </section>
             </div>
           )}
@@ -174,7 +174,7 @@ const Profile = (props ) => {
                   <div className="">
                     <div
                       to="/"
-                      className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-9/12 mt-5  hover:bg-primary-600 hover:text-white"
+                      className="flex items-center cursor-pointer justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-9/12 mt-5  hover:bg-primary-600 hover:text-white"
                       onClick={handleLogout}
                     >
                       Logout from this account
