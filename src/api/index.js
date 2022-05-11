@@ -15,7 +15,8 @@ API.interceptors.request.use((req, res) => {
     if(localStorage.getItem("token")){
         req.headers = {
             Authorization : `Bearer ${localStorage.getItem("token")}`,
-            "auth-token": `Bearer ${localStorage.getItem("token")}`
+            "auth-token": `Bearer ${localStorage.getItem("token")}`,
+            "action": "editProfile"
         }
     } return req
 })

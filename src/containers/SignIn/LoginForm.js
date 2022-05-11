@@ -36,6 +36,7 @@ const LoginForm = (props) => {
     onSubmit: async () => {
         const { email, password } = formik.values;
         const userInfo = {
+            id: "",
             username: "",
             firstName: "",
             lastName: "",
@@ -64,6 +65,9 @@ const LoginForm = (props) => {
             userInfo.email = userData.email;
             userInfo.type = userData.userType; 
             userInfo.profile = userData.profileImage;         
+            userInfo.type = userData.userType;
+            userInfo.id = userData.isVerified.userId
+           
             update(userInfo);
             localStorage.setItem("token", response.data.data.token);
             setTimeout(() => { setLoading(false); }, 2000);
