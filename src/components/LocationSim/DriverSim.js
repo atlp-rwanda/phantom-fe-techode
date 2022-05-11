@@ -22,12 +22,31 @@ const getMyRoute = async (driverId,setData = null) => {
         const response = await axios.get(`/users/${userId}`, {});
         const driver = response.data.data.driver[0];
         const { bus } = driver;
-        let routeId = bus.routeId;   
-        const route = await getSingleRoutes(routeId);
-        setData != null ? setData(route.data.data) : "";
+        /* ========= Start: if a driver has one of the buses =========== */
+            if(bus == null){
+                return Notify("You have not yet received a bus","info");
+            }
+        /* ========= End: if a driver has one of the buses ============ */ 
+
+            let routeId = bus.routeId;  
+
+        /* ========= Start: if a driver bus has one of our route ============ */
+            if(routeId == null){
+                return Notify("Your bus has not yet recieved a route","info");
+            }
+        /* ========= End: if a driver bus has one of our route ============ */   
+
+            const route = await getSingleRoutes(routeId);
+
+        /* ========= Start: if a driver his/her bus has a route =========== */ 
+            if(route.data.data == null){
+                return Notify("Your bus has not yet recieved a route","info");
+            }
+        /* =========== End: if a driver his/her bus has a route =========== */ 
+
+        setData != null ? setData(route.data.data) : null;
         return route
     } catch (error) {
-        console.log(error);
         if (error.code != "ERR_NETWORK") {
             Notify(error.response.data.message, "error");           
         }
@@ -142,7 +161,7 @@ const DriverSim = ( props ) => {
             <div className='w-full rounded-md'>
                 {/* ==================== Start:: Action Buttons ========================================= */}
                 {
-                    userType == "driver" ?                      
+                    userType == "driver" && myRoute.startLocation.latitude != 0  && myRoute.endLocation != 0 ?                      
                         <div className="action-button flex flex-wrap justify-around items-center my-3 ">
                            {
                                !busStarted && 
@@ -177,10 +196,10 @@ const DriverSim = ( props ) => {
                     {/* ==================== Start:: Bus on Map ================================ */}
                     {isLoading && <Map />}
                     {!isLoading && 
-                        <MapContainer center={[location.latitude,location.longitude]} zoom={19} scrollWheelZoom={true}>
+                        <MapContainer center={[location.latitude,location.longitude]} zoom={19} scrollWheelZoom={false}>
                             <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                             <MarkerClusterGroup>
-                                <Marker position={[location.latitude,location.longitude]} icon={iconOnBoardBus}>
+                                { myRoute.startLocation.latitude != 0  && myRoute.endLocation != 0 && <Marker position={[location.latitude,location.longitude]} icon={iconOnBoardBus}>
                                     <Popup  className=" w-40">
                                         <div className='w-full' >
                                             <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >{ user.username }</span>  
@@ -197,7 +216,7 @@ const DriverSim = ( props ) => {
                                         }
                                          
                                     </Popup>     
-                                </Marker>   
+                                </Marker>   }
                                 <RoutingMachine from={[myRouteCoords.startLocation.latitude,myRouteCoords.startLocation.longitude]} to={[myRouteCoords.endLocation.latitude,myRouteCoords.endLocation.longitude]} setCoordinate={addCoordinate} />                                                                               
                             </MarkerClusterGroup>
                         </MapContainer>

@@ -11,7 +11,7 @@ import checkAuth from "../../functions/checkAuth";
 import { update } from "../../redux/actions/userActions";
 import hundleStartStop,{handleDriverActionsDemo} from "../../functions/driverAction";
 import socket from "../../config/socket";
-import Location from "../../components/Location/Location.js";
+import Location from "../../components/Simulation/Location.js";
 
 const Simulation = ( props ) => {
     return (

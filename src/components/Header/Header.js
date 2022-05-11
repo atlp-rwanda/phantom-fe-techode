@@ -11,6 +11,9 @@ import { Icon } from "@iconify/react";
 import Notify from "../../functions/Notify";
 import { connect } from "react-redux";
 import { selectRoute } from '../../redux/actions/selectedRouteAction';
+import getMyLocation from "../../functions/getMyLocation";
+import { faLegal } from "@fortawesome/free-solid-svg-icons";
+;
 
 const provider = new OpenStreetMapProvider();
 const Header = ({ selectRoute }) => {
@@ -21,24 +24,20 @@ const Header = ({ selectRoute }) => {
   const [ routes , setRoutes ] = useState([])
   const [ routeNotFound , setRouteNotFound ] = useState(null);
   const [ suggestion , setSugestion ] = useState([]);
+  const [ isSearching , setIsSearching ] = useState(false);
+  
   useEffect( async () =>{
     const allRoutes = await fetchAllRoute();
     setRoutes([...allRoutes]);
-    navigator.geolocation.getCurrentPosition(
-        function(position) {   
-          const userOrgin = {...origin};
-          userOrgin.lat = position.coords.latitude;
-          userOrgin.lng = position.coords.longitude;
-          setOrigin(userOrgin);
-        },
-        function(error) {
-            return Notify("Please you need to allow us to have your location, ether way more functionality will not be available","error");
-        }
-    );
   },[]);
+
+  useEffect(()=>{
+    getMyLocation(setOrigin);
+  })
 
   const proccessing = (e) => {
     setRouteNotFound(true)
+    setIsSearching(true)
     if(destination != null){
       provider
       .search({ query: `rwanda ${destination}` })
@@ -50,6 +49,7 @@ const Header = ({ selectRoute }) => {
           newDestination.lng =  result[0].bounds[0][1];
           setUserDestination(newDestination)
         } else {
+          setIsSearching(false)
           setRouteNotFound(true)
           let newDestination = {...userDestination};
           newDestination.lat = 0;
@@ -164,19 +164,41 @@ const Header = ({ selectRoute }) => {
                             }                            
                           }}/>                          
                         <div className="w-1/5 flex justify-center">
-                          <img src={search} alt="phantom"  />                        
+                          {routeNotFound == false || destination.trim().length == 0 || isSearching == false ? (<img src={search} alt="phantom"  />): routeNotFound == true ?  (<i className="fa fa-spinner fa-spin fa-1x fa-fw text-mainColor "></i> )  : (<img src={search} alt="phantom"  />)   }
+                                         
                         </div>                    
                       </div>                
                   </div>   
                   <div className={`w-full bg-secondary-40 absolute top-16 rounded-md  ${ destination.trim().length > 4 ?  "" : "hidden" }`}>
                     <div className="flex flex-col ">
                       <div className=" item1 flex items-center my-2 cursor-pointer hover:bg-gray-300 w-12/12 p-2" onClick={() => {                        
-                            localStorage.setItem("origin",JSON.stringify(origin));
-                            localStorage.setItem("destination",JSON.stringify(userDestination));       
-                            selectRoute({from:[origin.lat,origin.lng],to:[userDestination.lat,userDestination.lng],routeId:0,routecode:0});                    
-                            history.push("tracking");
-                           
-                        }}>
+                 
+                          getMyLocation(setOrigin);
+                          if(Object.keys(origin).length === 0 ){
+                            Notify("We were not able to access your location" ,"info");
+                            setTimeout(() =>{
+                              localStorage.setItem("origin",JSON.stringify({lat:0,lng:0}));
+                              selectRoute({from:[origin.lat,origin.lng],to:[userDestination.lat,userDestination.lng],routeId:0,routecode:0});                    
+                            },2200);
+                            return;
+                          }
+                            
+
+                            if(Object.keys(userDestination).length === 0 ){
+                              Notify(`Please, were not able to find your location try city name ${destination}` ,"info");
+                              return;
+                            }    
+
+                            if(routeNotFound == true){
+                              Notify("Your destination has not been found","info");
+                            }
+                            else{
+                              localStorage.setItem("origin",JSON.stringify(origin));
+                              localStorage.setItem("destination",JSON.stringify(userDestination));   
+                              selectRoute({from:[origin.lat,origin.lng],to:[userDestination.lat,userDestination.lng],routeId:0,routecode:0});
+                              history.push("tracking");
+                            }                           
+                          }}>
                         <div className={`h-8 w-8 sm:h-9 sm:w-9 md:h-12 md:w-12 rounded-full bg-mainColor  flex items-center justify-center  cursor-pointer`}  >
                           <Icon icon="akar-icons:location" color={` white `} width="19" height="19" />    
                         </div>

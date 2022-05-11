@@ -28,3 +28,4 @@ export const getSingleBuses = (param)=>API.get(`/buses/${param}`);
 export const getRoutes = (page = 0,size = 0,order = "asc")=>API.get(`/routes?page=${page}&size=${size}&order=${order}`);
 export const getSingleRoutes = (id)=>API.get(`/routes/${id}`);
 export const createRouteOnApi = (route)=>API.post(`/routes/register`,route);
+export const getBuses = (page = 0,size = 0,order = "asc")=>API.get(`/buses?page=${page}&size=${size}&order=${order}`);

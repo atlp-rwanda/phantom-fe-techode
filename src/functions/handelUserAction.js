@@ -7,6 +7,7 @@ const getActiveBus = async (setBuses) => {
         let token = localStorage.getItem("token");
         const response = await axios.get(`/simulation/activebuses`);
         setBuses(response.data.data.buses);  
+        return response.data.data.buses
     } catch (error) {
         if (error.code != "ERR_NETWORK") {
             Notify(error.response.data.message, "error");
@@ -14,6 +15,7 @@ const getActiveBus = async (setBuses) => {
         else{
             Notify(error.message, "error");
         }    
+        return []
     }
    
 }

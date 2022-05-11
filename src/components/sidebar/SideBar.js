@@ -93,8 +93,8 @@ const SideBar = ({user,shownav}) => {
             <div className={`nav-bar ${  userType == "admin" ? 'mt-4' :  "mt-14"  } flex flex-col align-middle justify-center `}>
                 <div className="nav-links ">
                     {
-                        navLinks.map( nav => (
-                            <Links key={nav.id} svgimage={nav.svgImage} linkname={nav.linkName} to={`/${nav.to}`} color={ `/${nav.to}` == location.pathname ? `text-active` : `text-white`}/>
+                        navLinks.map( (nav , index) => (
+                            <Links key={"nav"+index} svgimage={nav.svgImage} linkname={nav.linkName} to={`/${nav.to}`} color={ `/${nav.to}` == location.pathname ? `text-active` : `text-white`}/>
                         ))
                     }                    
                 </div>

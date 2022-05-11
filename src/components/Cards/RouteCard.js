@@ -7,7 +7,7 @@ import { selectRoute } from '../../redux/actions/selectedRouteAction';
 
 const RouteCard = (props) => {
     const [isOpen, setIsOpen] = useState(false);
-    const { user , placeName , selectRoute } = props;
+    const { user , placeName , selectRoute , route : allRoute } = props;
     const [routes, setRoutes] = useState([
         {           
             startLocation: 'Downtown',
@@ -90,7 +90,7 @@ const RouteCard = (props) => {
                                 <div className="body mt-2">
                                     <div className="flex items-center">
                                         <span className="iconify text-gray-300 mr-1" data-icon="fa-solid:route"></span>
-                                        <span className='mr-2' >{ routes.filter(currentRoute => currentRoute.city == placeName  ).length }</span>
+                                        <span className='mr-2' >{ routes.filter(currentRoute => currentRoute.city.toString().toLowerCase() == placeName.toString().toLowerCase()  ).length }</span>
                                         <span>Routes</span>
                                     </div>                        
                                 </div>
@@ -112,9 +112,11 @@ const RouteCard = (props) => {
                 </div> 
                 <Transition show={isOpen} enter="transition-opacity duration-75" enterFrom="opacity-0"  enterTo="opacity-100" leave="transition-opacity duration-150" leaveFrom="opacity-100" leaveTo="opacity-0">
                     {
-                        routes.filter(currentRoute => currentRoute.city == placeName  ).map( (route , index) => {
+                        allRoute.filter(currentRoute => currentRoute.city.toString().toLowerCase() == placeName.toString().toLowerCase()  ).map( (route , index) => {
+                            const fromAndTo = route.name.split("-");
+                            console.log(route.name)
                             return(
-                                <div key={index} className="w-full p-2 ">
+                                <div key={index+"track-card"}  log={index} className="w-full p-2 ">
                                     <div className="bg-white rounded-md my-3 shadow-md m-2 ">
                                         <div className="route-info flex flex-wrap">
                                             <div className="icon py-4 w-4/12">
@@ -124,19 +126,15 @@ const RouteCard = (props) => {
                                                     </div>                        
                                                 </div>
                                             </div>
-                                            <div className="information py-4 w-5/12 text-mainColor font-sans font-semibold">
-                                                <div className="heading">
-                                                    <div className='flex items-center' >
-                                                        <div className='p-1 bg-mainColor h-1 w-1 rounded-full mr-1' ></div> 
-                                                        <span className='text-sm' > { route.startLocation  } </span> 
+                                            <div className="information py-4 w-5/12 text-mainColor font-sans font-semibold ">
+                                                
+                                                    <div className='flex'>
+                                                        <span className='text-sm flex items-center justify-center' > <i className='text-mainColor  rounded-full mr-1 fas fa-dot-circle font-light'></i>  { fromAndTo[0].replace("-"," ") } </span> 
                                                     </div>
-                                                </div>
-                                                <div className="heading">
-                                                    <div className='flex items-center ' >
-                                                        <div className='p-1 bg-mainColor h-1 w-1 rounded-full mr-1' ></div> 
-                                                        <span className='text-sm'> { route.endLocation  } </span> 
-                                                    </div>
-                                                </div>                           
+                                                
+                                                    <div className='flex'>                                                        
+                                                        <span className='text-sm flex items-center justify-center'> <i className='text-mainColor  rounded-full mr-1 fas fa-dot-circle font-light'></i>  { fromAndTo[1]  } </span> 
+                                                    </div>                        
                                             </div>
                                             <div className="w-2/12 flex items-center justify-center">
                                                 <div className="w-full">

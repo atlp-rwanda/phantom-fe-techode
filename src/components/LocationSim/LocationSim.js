@@ -57,6 +57,7 @@ const LocationSim = ( props ) => {
         revealModel("update");   
     }
 
+    
     const handleBusStop = () => {
         Notify("The bus has been stopped" , 'info' );         
     }

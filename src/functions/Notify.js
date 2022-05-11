@@ -14,7 +14,7 @@ const Notify = (messsage , type) => {
         case 'info':
             toast.info(`${messsage}`, {
                 position: "top-right",
-                autoClose: 2000,
+                autoClose: 4000,
                 hideProgressBar: true,
                 closeOnClick: true,
                 draggable: true,
