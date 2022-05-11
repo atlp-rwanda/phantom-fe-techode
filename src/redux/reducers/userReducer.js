@@ -38,7 +38,7 @@ export const userReducer = (state = initialState , { type , payload}) =>{
             updates.lastname = payload.lastName;
             updates.profile = payload.profile == null ? `https://image.shutterstock.com/z/stock-vector-man-cartoon-icon-over-white-background-colorful-design-vector-illustration-602405828.jpg` : payload.profile ; 
             if(payload.type){
-                updates.type = payload.type
+                updates.type = payload.type.toLowerCase()
             }
             state = updates;
             return state;       

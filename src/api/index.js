@@ -5,7 +5,7 @@ export const API = axios.create({
     baseURL: baseUrl,
     headers: {
         'Content-Type': 'application/json',
-        "auth-token": `Bearer ${localStorage.getItem("token")}`
+        
     }
 });
 
@@ -13,7 +13,10 @@ export const API = axios.create({
    
 API.interceptors.request.use((req, res) => {
     if(localStorage.getItem("token")){
-        req.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
+        req.headers = {
+            Authorization : `Bearer ${localStorage.getItem("token")}`,
+            "auth-token": `Bearer ${localStorage.getItem("token")}`
+        }
     } return req
 })
 
@@ -24,4 +27,4 @@ export const getSinglePermission = (param)=>API.get(`/permissions/${param}`);
 export const getSingleBuses = (param)=>API.get(`/buses/${param}`);
 export const getRoutes = (page = 0,size = 0,order = "asc")=>API.get(`/routes?page=${page}&size=${size}&order=${order}`);
 export const getSingleRoutes = (id)=>API.get(`/routes/${id}`);
-
+export const createRouteOnApi = (route)=>API.post(`/routes/register`,route);

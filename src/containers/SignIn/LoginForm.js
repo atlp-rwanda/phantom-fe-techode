@@ -19,7 +19,7 @@ import { API as axios } from "../../api";
 const LoginForm = (props) => {
     const history = useHistory();
     const [loading, setLoading] = useState(true);  
-    const { update, isAuth, setProfile } = props;  
+    const { update, isAuth, setProfile , user} = props;  
     useEffect(() => {
       setLoading(false);
     },[]);
@@ -65,11 +65,16 @@ const LoginForm = (props) => {
             userInfo.type = userData.userType; 
             userInfo.profile = userData.profileImage;         
             update(userInfo);
-            setProfile(userData.userType);
             localStorage.setItem("token", response.data.data.token);
             setTimeout(() => { setLoading(false); }, 2000);
-            isAuth(true); 
-            history.push("/dashboard");
+            if(userInfo.type.toLowerCase() == "driver"){
+              isAuth(true); 
+              history.push("/simulation");
+            }
+            else{
+              isAuth(true); 
+              history.push("/dashboard");
+            }
         } catch (error) {
           setTimeout(() => { setLoading(false); }, 2000);          
           if (error.code != "ERR_NETWORK") {

@@ -309,24 +309,32 @@ const Location = ( props ) => {
                                     {
                                         buses.map( bus => {
                                             let location = JSON.parse(bus.currentLocation);
+                                            let busFromTo = bus.routename !=  null ?  bus.routename.split("-") : "" ;
                                             return(
                                                 <BusTrack key={bus.entityId} icon={bus.status == "stopped" ? iconStoppedBus : bus.status == "on board" ? iconOnBoardBus : iconBus } data={{latitude:location.latitude , longitude: location.longitude}} >
                                                     <Popup  className="w-55">
                                                         <div >
-                                                            <i className="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >{bus.fullname}</span>  
+                                                            <i className="fa fa-road text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >{busFromTo[0]}</span>  
                                                         </div>  
                                                         <div >
-                                                            <i className="fa fa-car text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >{bus.platenumber}</span>  
+                                                            <i className="fa fa-road text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >{busFromTo[1]}</span>  
                                                         </div>  
                                                         <div >
                                                             <i className="fa fa-location-arrow text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >{bus.status}</span>  
-                                                        </div> 
-                                                        <div >
-                                                            <i className="fa fa-road text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >{bus.routecode}</span>  
-                                                        </div>  
+                                                        </div>    
                                                         <div >
                                                             <i className="fa fa-user text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >{bus.passengers}</span>  
-                                                        </div>     
+                                                        </div> 
+                                                        <div >
+                                                            Seats <span className="text-success-400 ml-2 text-sm " >Avaiable</span>  
+                                                        </div>                                                       
+                                                        <div >
+                                                            <i className="fa fa-car text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm " >{bus.platenumber}</span>  
+                                                        </div>  
+                                                        <div >
+                                                            <i className="fa-solid fa-id-card text-mainColor "></i> <span className="text-mainColor ml-2 text-sm cursor-pointer "  onClick={() => console.log(bus) }  >{bus.fullname}</span>  
+                                                        </div>                   
+                                                           
                                                     </Popup>
                                                 </BusTrack>
                                             )

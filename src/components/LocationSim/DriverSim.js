@@ -142,7 +142,7 @@ const DriverSim = ( props ) => {
             <div className='w-full rounded-md'>
                 {/* ==================== Start:: Action Buttons ========================================= */}
                 {
-                    userType == "Driver" ?                      
+                    userType == "driver" ?                      
                         <div className="action-button flex flex-wrap justify-around items-center my-3 ">
                            {
                                !busStarted && 

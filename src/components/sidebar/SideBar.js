@@ -30,24 +30,12 @@ const SideBar = ({user,shownav}) => {
         },
         {
             id: 2,
-            linkName : 'Track',
-            svgImage : busLink,
-            to:'simulation'
-        },
-        {
-            id: 3,
             linkName : 'Drivers',
             svgImage : driver,
             to:'drivers'
         },
         {
-            id: 4,
-            linkName : 'Routes',
-            svgImage : routes,
-            to:'routes'
-        },,
-        {
-            id: 5,
+            id: 3,
             linkName : 'Buses',
             svgImage : bus,
             to:'buses'
@@ -56,14 +44,6 @@ const SideBar = ({user,shownav}) => {
     /* ======== End:: Public routes ===========  */ 
     const navProtector = () =>{
         if(userType == "admin"  || userType == "Admin"){
-            navLinks.push( 
-                {
-                    id: navLinks.length + 1,
-                    linkName : 'users',
-                    svgImage : userSvg,
-                    to:'Users'
-                }
-            );
             navLinks.push( 
                 {
                     id: navLinks.length + 1,
@@ -83,18 +63,17 @@ const SideBar = ({user,shownav}) => {
            
            
         }   
-        if(userType == ""  || userType == "client"){
-            navLinks.push( 
+
+        if(userType == "operator" || userType == "Operator"|| userType == "admin" ){
+            navLinks[2].to = "assign_drivers_buses";
+            navLinks.push(
                 {
                     id: navLinks.length + 1,
-                    linkName : 'Simulation',
-                    svgImage : userSvg,
-                    to:'simulation'
+                    linkName : 'Routes',
+                    svgImage : routes,
+                    to:'routes'
                 }
-            );
-        } 
-        if(userType == "operator" || userType == "Operator"){
-            navLinks[2].to = "assign_drivers_buses"
+            )
         }
     }
     navProtector();

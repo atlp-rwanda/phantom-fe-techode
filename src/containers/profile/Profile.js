@@ -12,12 +12,13 @@ import { OperatorProfile } from "../../components/skeletons/cards/Profile";
 import userLabel from "../../assets/svgs/lebals/luser.svg";
 import lock from "../../assets/svgs/lebals/lock.svg";
 import { useDropzone } from "react-dropzone";
-import { setProfile } from '../../redux/actions/userActions';
+import { setProfile , update } from '../../redux/actions/userActions';
+import checkAuth from "../../functions/checkAuth";
 
 const Profile = (props ) => {
   const history = useHistory()
   const [loading, setLoading] = useState(true);
-  const { user , setProfile } = props;
+  const { user , setProfile , update } = props;
  
   const {
     email,
@@ -30,10 +31,9 @@ const Profile = (props ) => {
   } = user;
 
   /*  ===== Start:: fetching userinfo =====  */
-  useEffect(() => {
-    setTimeout(() => {
+  useEffect( async () => {
       setLoading(false);
-    }, 2000);
+      await checkAuth(user,update);
   }, []);
   /*  ===== End:: fetching userinfo =====  */
 
@@ -96,7 +96,7 @@ const Profile = (props ) => {
                 </div> 
               </section>
               <section className="mt-5 md:pl-20">
-                <TextField setLoading={setLoading} />
+                <TextField setLoading={setLoading} user={user} />
               </section>
             </div>
           )}
@@ -111,7 +111,7 @@ const Profile = (props ) => {
               <div className="profile ">
                 <div className="  border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100">
                   <p className="text-primary-600 text-xl font-sans font-bold">
-                    j
+                   { firstname[0]+"".toString().toUpperCase() }
                   </p>
                 </div>
               </div>
@@ -166,30 +166,11 @@ const Profile = (props ) => {
                   </div>
                   <div className="flex flex-wrap">
                     <p className="text-secondary-200 font-semibold text-xs md:text-sm w-3/4 mb-2">
-                      Operator
+                      {
+                        userType
+                      }
                     </p>
-                    {userType == "admin" ? (
-                      <div className="w-1/4">
-                        <img src={deletePreveleg} alt="phantom" />
-                      </div>
-                    ) : (
-                      ""
-                    )}
                   </div>
-                  {/* =================== Start:: only admin to see this =================== */}
-                  {userType == "admin" ? (
-                    <div className="flex flex-wrap">
-                      <p className="font-semibold text-xs  w-3/4 text-success-500 ">
-                        Add new privilege
-                      </p>
-                      <div className="w-1/4">
-                        <img src={setrole} alt="Phantom" />
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  {/* =================== End:: only admin to see this =================== */}
                   <div className="">
                     <div
                       to="/"
@@ -217,7 +198,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps,{setProfile})(Profile);
+export default connect(mapStateToProps,{setProfile,update})(Profile);
 
 
 

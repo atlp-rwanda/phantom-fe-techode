@@ -27,7 +27,7 @@ const fetchAllRoute =  async () => {
         else{
             Notify("Unable to fetch our routes probably it because of internet network" , "error")
         }  
-        return 0;  
+        return [];  
    }
 }
 
