@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> It should match the snapshot 1`] = `
+<BrowserRouter>
+  <Switch>
+    <Route
+      exact={true}
+      path="/"
+      render={[Function]}
+    />
+    <Route
+      path="/reset"
+      render={[Function]}
+    />
+    <Route
+      path="/newpassword/:undefined"
+      render={[Function]}
+    />
+    <Route
+      path="/login"
+      render={[Function]}
+    />
+    <Route
+      path="/signup"
+      render={[Function]}
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/dashboard"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/routes"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={[Function]}
+      path="/drivers"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={[Function]}
+      path="/operators"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/profile"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/roles"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/buses"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/simulation"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={[Function]}
+      path="/buses"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/routes"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/dashboard_operator"
+    />
+    <ProtectedRoute
+      auth={false}
+      component={
+        Object {
+          "$$typeof": Symbol(react.memo),
+          "WrappedComponent": [Function],
+          "compare": null,
+          "type": [Function],
+        }
+      }
+      path="/assign_drivers_buses"
+    />
+    <Route
+      component={[Function]}
+      path="/*"
+    />
+  </Switch>
+</BrowserRouter>
+`;

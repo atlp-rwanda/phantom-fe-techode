@@ -1,0 +1,7 @@
+export const userActionTypes = {
+    UPDATE : "UPDATE",
+    GET_FIRSTNAME : "GET_FIRSTNAME",
+    GET_USERNAME : "GET_USERNAME",
+    GET_LASTNAME:'GET_LASTNAME',
+    SET_PROFILE:'SET_PROFILE'
+}
