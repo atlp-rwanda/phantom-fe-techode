@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DashBoardLayout from '../../components/dashBoardLayout/DashBoardLayout';
-import { Primary } from '../../components/buttons/Buttons'
-import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton';
+import { Primary } from '../../components/buttons/Buttons.js'
+import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton.js';
 import { ToastContainer } from 'react-toastify';
 import Notify from '../../functions/Notify'
 import { Profile } from '../../components/skeletons/cards/Profile';
@@ -18,14 +18,17 @@ import close from '../../assets/svgs/close.svg';
 import drop from '../../assets/svgs/drop.svg';
 import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
+import { useSelector } from 'react-redux';
+import { API as axios } from '../../api/index.js';
+
 const RegisterDriver = () => {   
     const [addDriver , setAddDriver] = useState(false);
     const [loading , setLoading] = useState(true);
     const [firstname , setFirsname] = useState('');
     const [lastname , setLastname] = useState('');
+    const [username , setUsername] = useState('');
     const [telephone , setTelephone ] = useState('');
     const [email , setEmail] = useState('');
-    const [bus, setBus] = useState('RAF000D');
 
     /* ======== Start:: removing skeleton ======= */ 
         useEffect(() => {
@@ -34,6 +37,10 @@ const RegisterDriver = () => {
             } , 2000)
         } , [])       
     /* ======== End:: removing skeleton ======= */ 
+    const {
+        type: userType,
+      } = useSelector((state) => state.user);
+    
     
     const removeModel = () => {
         let newState = !addDriver;
@@ -41,7 +48,7 @@ const RegisterDriver = () => {
         
     }
     
-    const registerDriver = (e) =>{
+    const registerDriver = async (e) =>{
         e.preventDefault(); 
       
         /* =================================== Start:: validation ================================ */ 
@@ -49,17 +56,38 @@ const RegisterDriver = () => {
             if(lastname.trim().length == '') return Notify('Last name field should not be empty', 'error' ) ;
             if(telephone.trim().length == '') return Notify('Please provide Telphone number', 'error' ) ;
             if(email.trim().length == '') return Notify('Email field required', 'error') ;
-            if(bus.trim().length == '') return Notify('You need to assign atleast on bus to this driver','error') ;
+            if(username.trim().length == '') return Notify('Username field should not be empty','error') ;
 
             let isValidEmail = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
             if(isValidEmail) return Notify('Invalid email address', 'error' ) ;
         /* =================================== End:: validation ================================ */ 
-        setTimeout( () => {
-            removeModel();
-        },
-         5000
-        )
-        return Notify('New driver have been added','success') ;     
+        try {
+            await axios.post(`/users`, {
+                firstname,
+                lastname,
+                username,
+                telephone,
+                userType: "driver",
+                email
+            });
+            
+            setFirsname('');
+            setLastname('');
+            setUsername('');
+            setTelephone('');
+            setEmail('');
+
+            setTimeout( () => {
+                removeModel();
+            },
+             5000
+            )
+            return Notify('New driver have been added','success');
+        } catch(error) {
+            console.log(error)
+            const errors = error.response.data.message || error.message;
+            Notify(errors, 'error')
+        }
               
     }
    
@@ -102,6 +130,11 @@ const RegisterDriver = () => {
                             </div>  
                             <div className="input my-3 h-9 "> 
                                 <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="text" name="username" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ username } placeholder="User name" onChange={ e => setUsername(e.target.value) }  />
+                                </div>                
+                            </div> 
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                     <input type="email" name="email" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) } />                                   
                                 </div>                
                             </div>   
@@ -110,15 +143,7 @@ const RegisterDriver = () => {
                                     <input type="telphone" name="tel" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Telephone" value={telephone} onChange={ e => setTelephone(e.target.value) } />                                   
                                 </div>                
                             </div>  
-                            <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
-                                    <select id="" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full" placeholder="Asign a bus" onChange={ e => setBus( e.target.value ) } value={bus}   >
-                                        <option value="RAF000D"> RAF000D </option>
-                                        <option value="RAF001D"> RAF001D </option>
-                                        <option value="RAF002D"> RAF002D </option>
-                                    </select>
-                                </div>                
-                            </div>
+                          
                             <div className="w-full">
                                 <Primary name={`Save`} styles='py-2' />
                             </div>
@@ -145,9 +170,13 @@ const RegisterDriver = () => {
                                         </h4>
                                     </div> 
                                 </div>
-                                <div className="add-new-record">
-                                    <Primary name="New driver" onclick={removeModel} />
-                                </div>
+                                {userType == "admin" ? (
+                                    <div className="add-new-record">
+                                        <Primary name="New driver" onclick={removeModel} />
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                             <div className="mt-3 mb-10"> 
                                 { loading &&( <TableSkeleton />  )
@@ -160,7 +189,7 @@ const RegisterDriver = () => {
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Driver name</th>
                                                     <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Phone</th>
-                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Action</th>
+                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Action</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -169,31 +198,50 @@ const RegisterDriver = () => {
                                                         1
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                         John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
+                                                 
                                                 </tr>
                                                 <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                        John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type='primary' svg={edit} />
-                                                        <LebalButton type='danger' svg={deleteIcon} />
-                                                        <LebalButton type='info' svg={more} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
+                                                        <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
                                                 <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
@@ -201,14 +249,23 @@ const RegisterDriver = () => {
                                                         3
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                         John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
@@ -217,14 +274,23 @@ const RegisterDriver = () => {
                                                         4
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                         John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
@@ -233,14 +299,22 @@ const RegisterDriver = () => {
                                                         5
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalTextButton text='J' type='primary' /> John doe
+                                                       John doe
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                         2507000000
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                        <LebalButton type={'primary'} svg={edit} />
-                                                        <LebalButton type={'danger'} svg={deleteIcon} />
+                                                    {/* =================== Start:: only admin to see this =================== */}
+                                                      {userType == "admin" ? (
+                                                          <>
+                                                               <LebalButton type={'primary'} svg={edit} />
+                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                          </>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    {/* =================== End:: only admin to see this =================== */}                                                    
                                                         <LebalButton type={'info'} svg={more} />
                                                     </td>
                                                 </tr>
@@ -319,13 +393,26 @@ const RegisterDriver = () => {
                                         <div className="flex flex-wrap">
                                             <p className='text-secondary-200 font-semibold text-xs md:text-sm w-3/4 mb-2'>Driver</p>
                                             <div className="w-1/4">
-                                                <img src={deletePrivelegeIcon} alt="phantom"  />
+                                                {userType == "admin" ? (
+                                                    <img src={deletePrivelegeIcon} alt="phantom"  />
+                                                ) : (
+                                                    ""
+                                                )}                                                   
                                             </div>
                                         </div> 
                                         <div className="flex flex-wrap">
-                                            <p className='font-semibold text-xs  w-3/4 text-success-500'>Add new privilege</p>
-                                            <div className='w-1/4' >                                          
-                                                <img src={privelege} alt="Phantom" />                                           
+                                            {userType == "admin" ? (
+                                               <p className='font-semibold text-xs  w-3/4 text-success-500'>Add new privilege</p>
+                                            ) : (
+                                                ""
+                                            )}    
+                                            
+                                            <div className='w-1/4' >      
+                                                {userType == "admin" ? (
+                                                <img src={privelege} alt="Phantom" />   
+                                                ) : (
+                                                    ""
+                                                )}                                      
                                             </div>
                                         </div>                                       
                                     </div>

@@ -54,7 +54,7 @@ const removePermissionOnRole = async (roleId,permissionId,setLoading) => {
         permissionid: permissionId
       }
     });
-    const { data } = response.data;
+    Notify(`${response.data.message}`, "success");
     setLoading(false); 
   } catch (error) {
     setTimeout(() => { setLoading(false); }, 2000);   
@@ -192,25 +192,24 @@ const Roles = (props) => {
     assignPermissionModal();
   };
 
-  const removeDeletePermissionModal = (role_Id, permissionId, dbPermisionId = 0) => {
+  const removeDeletePermissionModal = (role_Id, permissionId, permissionName ) => {   
+    console.log("permissionId",permissionName)
     let deleteState = !clearPermissionModal;
     setClearPermissionModal(deleteState);
     setPermissionId(permissionId);
     setRoleId(role_Id);
-    setDbPermisionId(dbPermisionId);
   };
 
   const removePermission = (e) => {
     e.preventDefault();
     setTimeout(() => {
       removeDeletePermissionModal();
-    }, 5000);
+    }, 2000);
   };
 
   const deleteAssignedPermission = async () => {
-    await removePermissionOnRole(role_Id,dbPermisionId,setLoading);
+    await removePermissionOnRole(role_Id,permissionId,setLoading);
     deletePermission({ Role_Id: role_Id, permissionId });
-    Notify("Permission has been removed", "success");
     setTimeout(() => {
       removeDeletePermissionModal();
     }, 2000);
@@ -260,7 +259,6 @@ const Roles = (props) => {
         </div>
       </div>
       {/* =========================== End:: Delete Permssion Model =============================== */}
-
       <div
         className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${
           deleteRolePopUp === true ? "block" : "hidden"
@@ -442,8 +440,8 @@ const Roles = (props) => {
                                           key={permission.id}
                                           name={permission.permissionName}
                                           onclick={ async () => { 
-                                            const permisionId = await getPermissionId(permission.permissionName);
-                                            removeDeletePermissionModal(role.id, permission.id ,permisionId)
+                                            // const permisionName = await getPermissionId(permission.permissionName);
+                                            removeDeletePermissionModal(role.id, permission.id ,permission)
                                           }}
                                           type="danger"
                                           styles=""

@@ -11,11 +11,9 @@ const RanderMyLocation = () => {
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
-        const radius = e.accuracy;
-        const circle = L.circle(e.latlng, radius);
+        const radius = 300;      
+        const circle = L.circle(e.latlng, radius).addTo(map);
         setBbox(e.bounds.toBBoxString().split(","));
-        console.log(position);
-   
       });
     }, [map]);
     return position === null ? null : (

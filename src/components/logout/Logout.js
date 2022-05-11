@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import SkeletonUpdate from '../skeletons/SkeletonUpdate';
 import TextField from '../fields/TextField';
 import SkeletonLogout from '../skeletons/SkeletonLogout';
-import profileEdit from '../svgs/profile.svg'
-import info from '../svgs/info.svg'
-import priveleges from "../svgs/priveleges.svg"
-import locate from "../svgs/locate.svg"
-import setrole from "../svgs/setrole.svg"
+import profileEdit from '../../assets/svgs/lebals/profile.svg'
+import info from '../../assets/svgs/lebals/info.svg'
+import priveleges from "../../assets/svgs/lebals/priveleges.svg"
+import locate from "../../assets/svgs/location.svg"
+import setrole from "../../assets/svgs/roles.svg"
 import DashBoardLayout from '../dashBoardLayout/DashBoardLayout';
 import { ToastContainer } from 'react-toastify';
 
@@ -93,7 +93,8 @@ const Logout = () => {
                                     </div>
                                 </div>
                                 <div className="px-4">
-                                    <Link to="/" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white">Logout from this account</Link>
+                                    <Link to="/login" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white">Logout from this account</Link>
+                                    {/* <Link to="/login" className="flex items-center justify-center rounded-md bg-primary-100 text-primary-600 h-8 md:h-11 w-full md:w-3/4 mt-5 md:ml-8 hover:bg-primary-600 hover:text-white" onClick={()=> localStorage.clear()}>Logout from this account</Link> */}
                                 </div>
                             </section>
                         </div>

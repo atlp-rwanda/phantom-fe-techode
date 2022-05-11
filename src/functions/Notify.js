@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 const Notify = (messsage , type) => {
     switch (type){
         case 'success':
@@ -10,7 +10,17 @@ const Notify = (messsage , type) => {
                 draggable: true,
                 progress: undefined,
                 });
-            break;    
+            break;
+        case 'info':
+            toast.info(`${messsage}`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                });
+            break;         
         case 'error':
             toast.error(`${messsage}`, {
                 position: "top-right",
@@ -20,6 +30,19 @@ const Notify = (messsage , type) => {
                 draggable: true,
                 progress: undefined,
                 });     
+            break;
+        case 'info':
+            toast.info(`${messsage}`, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                });     
+            break;
+        case "":
+            toast.dismiss();
             break;
         default:
             break           

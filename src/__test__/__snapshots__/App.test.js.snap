@@ -9,6 +9,11 @@ exports[`<App /> It should match the snapshot 1`] = `
       render={[Function]}
     />
     <Route
+      exact={true}
+      path="/tracking"
+      render={[Function]}
+    />
+    <Route
       path="/reset"
       render={[Function]}
     />

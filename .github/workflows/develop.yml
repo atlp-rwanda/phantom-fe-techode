@@ -2,12 +2,10 @@ name: Continuous Integration
 
 on:
   push:
-    banches:
-      - develop
   pull_request:
     branches:
       - develop
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,9 +13,17 @@ jobs:
     steps:
       - name: Development Code
         uses: actions/checkout@v2
-      - name: Use Node.js 17.x
+      - name: Use Node.js 16.13.2
         uses: actions/setup-node@v1
         with:
-          node-version: 17.x
+          node-version: 16.13.2
       - run: npm install
       - run: npm run test
+      - name: send coverage report
+        uses: paambaati/codeclimate-action@v2.5.7
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_REPORT}}
+      - name: coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

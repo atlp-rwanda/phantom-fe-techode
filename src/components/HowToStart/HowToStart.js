@@ -14,14 +14,11 @@ const HowToStart = () => {
     </div>
 
     <div className='flex flex-row flex-wrap justify-between items-center  md:mx-20 md:p-10 pt-10'>
-
-    <CardToStart title="Step I: Login into your account" stepImage={step1} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled '/>
-    <CardToStart title="Step II: choose your location" stepImage={step2} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled'/>
-    <CardToStart title="Step III Check details of nearest bus" stepImage={step3} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled'/>
-    <CardToStart title="Step IV: Enjoy your Journey" stepImage={step2} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled'/>
-    
-
-    </div>
+      <CardToStart title="Step I: Login into your account" stepImage={step1} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled '/>
+      <CardToStart title="Step II: choose your location" stepImage={step2} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled'/>
+      <CardToStart title="Step III Check details of nearest bus" stepImage={step3} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled'/>
+      <CardToStart title="Step IV: Enjoy your Journey" stepImage={step2} subTitle='when an unknown printer took a galley of type and scrambled it to make a type specimen bookwhen an unknown printer took a galley of type and scrambled'/>   
+   </div>
 
 </div>
   )

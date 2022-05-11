@@ -1,8 +1,10 @@
 import '@testing-library/jest-dom';
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-17-updated';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import "core-js"
 
-configure({ 
+
+Enzyme.configure({ 
     adapter: new Adapter(),
-    disableLifecycleMethods: true
+    esModuleInterop: true,
 });
