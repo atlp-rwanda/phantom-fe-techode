@@ -36,7 +36,7 @@ describe('<BusesOperat />', () =>{
     });
 
     it('if it should render one Profile', () =>{
-        expect(wrapper.find(Profile).length).toBe(1);
+        expect(wrapper.find(Profile).length).toBe(0);
       });
     
     it('if it should render one DashBoardLayout', () =>{

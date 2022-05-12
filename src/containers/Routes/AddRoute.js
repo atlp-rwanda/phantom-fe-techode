@@ -22,8 +22,7 @@ import TableSkeleton from "../../components/skeletons/Tables/TableSkeleton";
 import { connect } from "react-redux";
 import { createRoute, updateRouteInfo, deleteRoute, fetchRoutes } from "../../redux/actions/RoutesAction";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
-import { API as axios, createRouteOnApi } from "../../api";
-import fetchAllRoute from "../../functions/fetchAllRoute";
+import { API as axios } from "../../api";
 
 const provider = new OpenStreetMapProvider();
 function AddRoute(props) {
@@ -38,7 +37,7 @@ function AddRoute(props) {
   const [loading, setLoading] = useState(true);
   const [loadingMap, setLoadingMap] = useState(true);
   const [currentPage, setCurrentpage] = useState(1);
-  const [postsPerPage] = useState(2);
+  const [postsPerPage] = useState(10);
   const [assignroutes, setAssignRoutes] = useState("");
 
   /* ============= For search =================== */
@@ -58,9 +57,9 @@ function AddRoute(props) {
 
   const getRoutes = async () => {
     try {
-      const response = await fetchAllRoute();
-      fetchRoutes(response);
-      setAssignRoutes(response)
+      const response = await axios.get("/routes")
+      fetchRoutes(response.data.data.routes);
+      setAssignRoutes(response.data.data.routes)
     } catch (error) {
       console.log(error.message)
     }
@@ -83,13 +82,13 @@ function AddRoute(props) {
     setLoadingMap(false);
   }, 1000);
 
-  const createNewRoute = async (e) => {
+  const createNewRoute = (e) => {
     e.preventDefault();
     setLoadingMap(false);
 
     /* =================================== Start:: validation ================================ */
-    if (name.trim().length == "" || !name.includes("-"))
-      return Notify(`name field should not be empty and should have " - " to separate starting point and ending point`, "error");
+    if (name.trim().length == "")
+      return Notify("name field should not be empty", "error");
     if (code.toString().trim().length == "")
       return Notify("code field should not be empty", "error");
     if (startLocation.trim().length == "")
@@ -98,7 +97,7 @@ function AddRoute(props) {
       return Notify("end location field should not be empty", "error");
     if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
       return Notify(
-        "For us to caliculate distance you need to be accurate when you adding starting place",
+        "For us to calcurate distance you need to be accurate when you adding starting place",
         "error"
       );
 
@@ -107,28 +106,17 @@ function AddRoute(props) {
     const newRoute = {
       name: name,
       code: code,
-      startLocation: `${from.lat},${from.lng}`,
-      endLocation:  `${end.lat},${end.lng}`,
+      startLocation: startLocation,
+      endLocation: endLocation,
       distance: distance,
       duration: duration,
       city,
       from,
       to: end,
     };
-    
-    try {
-      let response = await createRouteOnApi(newRoute);
-      await getRoutes();
-      Notify("New route have been added", "success")
-    } catch (error) {
-      if (error.code != "ERR_NETWORK") {
-        Notify(error.response.data.message, "error");           
-      }
-      else{
-          Notify("Unable to create routes probably it is because of internet network" , "error")
-      }  
-    }
-    
+
+    createRoute(newRoute);
+
     setTimeout(() => {
       removeModel();
       setName("");
@@ -140,8 +128,8 @@ function AddRoute(props) {
       setFrom({ lat: 0, lng: 0 });
       setEnd({ lat: 0, lng: 0 });
       setShow(!show);
-    }, 1000);
-    return ;
+    }, 500);
+    return Notify("New route have been added", "success");
   };
 
   const [routeId, setRouteId] = useState("");
@@ -175,14 +163,13 @@ function AddRoute(props) {
       {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
-          "auth-token": `Bearer ${localStorage.getItem("token")}`,
-          "action": "deleteRoute"
+          "auth-token": `Bearer ${localStorage.getItem("token")}`
         }
       })
 
     setDeleteModal(false);
     setListModal(true);
-    return Notify("Route has been Deleted successfully", "success");
+    return Notify("Delete route successfully", "success");
   };
   const [selectedRoute, setSelectedRouteId] = useState("");
   const getSelectedRoute = (id) => {
@@ -228,14 +215,24 @@ function AddRoute(props) {
       id: routeId,
       name: name,
       code: code,
-      startLocation: `${from.lat},${from.lng}`,
-      endLocation:  `${end.lat},${end.lng}`,
+      startLocation: startLocation,
+      endLocation: endLocation,
       distance: distance,
       duration: duration,
-      city
+      city,
+
     };
     try {
-      const response = await axios.put(`/routes/${routeId}`,newRouteInfo)
+      const response = await axios({
+        method: "PUT",
+        url: `http://localhost:5000/api/v1/routes/${routeId}`,
+        data: newRouteInfo,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "auth-token": `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       Notify(response.data.message, "success");
     } catch (error) {
       if (error.code != "ERR_NETWORK") {
@@ -247,11 +244,11 @@ function AddRoute(props) {
     }
   }
 
-  const updateRoute = async (e) => {
+  const updateRoute = (e) => {
     e.preventDefault();
     /* =================================== Start:: validation ================================ */
-    if (name.trim().length == "" || !name.includes("-"))
-      return Notify(`name field should not be empty and should have " - " to separate starting point and ending point`, "error");
+    if (name.trim().length == "")
+      return Notify("name field should not be empty", "error");
     if (code.toString().trim().length == "")
       return Notify("code field should not be empty", "error");
     if (startLocation.trim().length == "")
@@ -260,14 +257,14 @@ function AddRoute(props) {
       return Notify("end location field should not be empty", "error");
     if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
       return Notify(
-        "For us to caliculate distance you need to be accurate when you adding starting place",
+        "For us to calcurate distance you need to be accurate when you adding starting place",
         "error"
       );
 
     /* =================================== End:: validation ================================ */
 
     changeRoute(routeId, name, code, startLocation, endLocation, distance, duration, city)
-    await getRoutes();
+    getRoutes()
     setTimeout(() => {
 
       setUpdateModel(false);
@@ -507,7 +504,7 @@ function AddRoute(props) {
         className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${show === true ? "block" : "hidden"
           }`}
       >
-        <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
+        <div className="bg-white w-full mp:w-8/12 sm:w-1/4 md:w-1/2 2xl:w-4/12 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
               Adding new Route
@@ -552,7 +549,6 @@ function AddRoute(props) {
                   />
                 </div>
               </div>
-
               <div className="input my-3 h-9 ">
                 <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
                   <input
@@ -669,158 +665,11 @@ function AddRoute(props) {
           </div>
         </div>
       </div>
-      
       <div
         className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${listModal === true ? "block" : "hidden"
           }`}
       >
-        <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
-          <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
-            <h3 className="font-bold text-sm text-center w-11/12">
-              List of routes
-            </h3>
-            <div
-              className="close-icon w-1/12 cursor-pointer float-right"
-              onClick={() => setListModal(false)}
-            >
-              <img src={close} alt="Phantom" className="float-right" />
-            </div>
-            <hr className=" bg-secondary-150 border my-3 w-full" />
-          </div>
-          <div className="card-body">
-            <div className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12">
-              <div className="w-full">
-                {/*  ==================== Start: Operator content =================== */}
-                <div className="card-header flex items-center justify-between">
-                  <div className="card-title">
-                    <div className="title mb-3">
-                      <h4 className=" text-primary-500 font-bold text-xs md:text-base">
-                        List of Routes
-                      </h4>
-                    </div>
-                    <div className="sub-title">
-                      <h4 className="text-secondary-200  font-bold text-xs">
-                        Routes
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-3 mb-10">
-                  {loading && <TableSkeleton />}
-                  {!loading && (
-                    <>
-                      <table className="min-w-full border-collapse border-0">
-                        <thead>
-                          <tr className="border-b border-b-secondary-100">
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              #
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Route name
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Route code
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              City
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Distance
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Start Location
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              End Location
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Duration
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Action
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {assignroutes?.map((route) => (
-                            <tr
-                              key={route.id}
-                              onClick={() =>
-                                setProfileInfo(currentPosts[count++])
-                              }
-                              className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100"
-                            >
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.id}
-                              </td>
 
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.name}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.code}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.city}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.duration}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.startLocation}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.endLocation}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.distance}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {/* =================== Start:: only admin to see this =================== */}
-
-                                {/* =================== End:: only admin to see this =================== */}
-                                <LebalButton
-                                  type={"primary"}
-                                  svg={edit}
-                                  onclick={() => updateRouteModel(route.id)}
-                                />
-                                <LebalButton
-                                  type={"danger"}
-                                  svg={deleteIcon}
-                                  onclick={() => {
-                                    viewDeleteModal(!deleteModal, route.id);
-                                  }}
-                                />
-
-                                <LebalButton
-                                  type={"info"}
-                                  svg={more}
-                                  onclick={() => {
-                                    setLoadingMap(false);
-                                    setListModal(false);
-                                    setProfileInfo(currentPosts[route.id]);
-                                    setFrom(profileInfo.from);
-                                    setEnd(profileInfo.to);
-                                  }}
-                                />
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                      <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPosts={routes.length}
-                        paginate={paginate}
-                      />
-                    </>
-                  )}
-                </div>
-                {/* ==================== End: Operator content ===================== */}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       {/* =========================== End:: Model =================================== */}
       {/* =========================== Start:: Dashboard =============================== */}
@@ -833,66 +682,155 @@ function AddRoute(props) {
             >
               Route +
             </button>
-            <button
-              onClick={viewListModal}
-              className="w-32 bg-primary-100 h-8 rounded border border-cyan-2 text-primary-500  font-bold md:w-32 text-center shadow-4xl"
-            >
-              List
-            </button>
           </div>
 
           {!loading ? (
             <>
-              <div className="w-full h-min    md:w-full  rounded-md  m-2">
+              <div className="w-full h-min  md:w-full lg:ml-20  rounded-md  m-2">
                 {/* <div className="w-screen overflow-x-scroll  flex flex-col md:flex-row gap-10 lg:flex-row"> */}
-               
-                <div className="flex-col md:flex justify-between lg:flex-row mt-10">
-                  <article className="flex bg-white md:w-4/5 lg:w-1/3 rounded-lg flex-col items-center justify-center">
 
-
-                    <div className="flex-col items-center w-full  justify-center mt-5">
-                      <figure className="  flex-col ">
-                        <div className="  flex items-center  justify-center ">
-                          <img src={profile_admin} alt="" />
-                        </div>
-                        <div className="flex justify-center items-center mt-5">
-                          <p className=""> {profileInfo.name}</p>
-                        </div>
-                      </figure>
+                <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
+                  <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                    <h3 className="font-bold text-sm text-center w-11/12">
+                      List of routes
+                    </h3>
+                    <div
+                      className="close-icon w-1/12 cursor-pointer float-right"
+                      onClick={() => setListModal(false)}
+                    >
                     </div>
+                    <hr className=" bg-secondary-150 border my-3 w-full" />
+                  </div>
+                  <div className="card-body">
+                    <div className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12">
+                      <div className="w-full">
+                        {/*  ==================== Start: Operator content =================== */}
+                        <div className="card-header flex items-center justify-between">
+                          <div className="card-title">
+                            <div className="title mb-3">
+                              <h4 className=" text-primary-500 font-bold text-xs md:text-base">
+                                List of Routes
+                              </h4>
+                            </div>
+                            <div className="sub-title">
+                              <h4 className="text-secondary-200  font-bold text-xs">
+                                Routes
+                              </h4>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3 mb-10">
+                          {loading && <TableSkeleton />}
+                          {!loading && (
+                            <>
+                              <table className="min-w-full border-collapse border-0">
+                                <thead>
+                                  <tr className="border-b border-b-secondary-100">
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      #
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Route name
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Route code
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      City
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Distance
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Start Location
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      End Location
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Duration
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Action
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {assignroutes?.map((route) => (
+                                    <tr
+                                      key={route.id}
+                                      onClick={() =>
+                                        setProfileInfo(currentPosts[count++])
+                                      }
+                                      className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100"
+                                    >
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.id}
+                                      </td>
 
-                    <div className="flex flex-row w-5/6 items-center justify-center gap-5">
-                      <figure className="-mt-10">
-                        <img src={vector} alt="" />
-                      </figure>
-                      <div className="flex flex-col mt-5 ">
-                        <p className="text-sky-500 font-bold">
-                          Route information
-                        </p>
-                        <p>
-                          Start: <span>{profileInfo.startLocation}</span>{" "}
-                        </p>
-                        <p>
-                          Finish: <span> {profileInfo.endLocation}</span>
-                        </p>
-                        <p>
-                          Distance: <span> {profileInfo.distance}</span>{" "}
-                        </p>
-                        <p>
-                          Duration: <span>{profileInfo.duration}</span>{" "}
-                        </p>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.name}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.code}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.city}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.duration}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.startLocation}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.endLocation}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.distance}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {/* =================== Start:: only admin to see this =================== */}
 
-                        <p className="text-sky-500 font-bold mt-3 mb-2">
-                          Locate
-                        </p>
+                                        {/* =================== End:: only admin to see this =================== */}
+                                        <LebalButton
+                                          type={"primary"}
+                                          svg={edit}
+                                          onclick={() => updateRouteModel(route.id)}
+                                        />
+                                        <LebalButton
+                                          type={"danger"}
+                                          svg={deleteIcon}
+                                          onclick={() => {
+                                            viewDeleteModal(!deleteModal, route.id);
+                                          }}
+                                        />
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                              <Pagination
+                                postsPerPage={postsPerPage}
+                                totalPosts={routes.length}
+                                paginate={paginate}
+                              />
+                            </>
+                          )}
+                        </div>
+                        {/* ==================== End: Operator content ===================== */}
                       </div>
                     </div>
-                  </article>
+                  </div>
+                </div>
 
-                  <div className=" h-96 w-full mt-5 shadow-2xl  bg-white md:w-4/5 lg:w-3/5  flex justify-center rounded-2xl ">
+                <div className="flex-col md:flex justify-between lg:mr-60 lg:flex-row mt-10">
+                  <div className=" h-full w-full md:w-full lg:w-full  flex justify-center rounded-2xl"
+                    id="map">
                     <MapContainer
                       center={{ lat: -1.98507, lng: 30.031855 }}
                       zoom={13}
+                      scrollWheelZoom={false}
                     >
                       <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -913,7 +851,7 @@ function AddRoute(props) {
               </div>{" "}
             </>
           ) : (
-            <RouteInfoSkeleton />
+            <TableSkeleton />
           )}
         </div>
       </DashBoardLayout>
