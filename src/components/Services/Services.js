@@ -17,22 +17,19 @@ const Services = () => {
         <CardService
           image={map}
           serviceTitle="Tracking"
-          serviceContent="Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's"
+          serviceContent="Track active buses from your route and plan accordingly."
         />
 
         <CardService
           image={route}
           serviceTitle="Routes"
-          serviceContent="Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's"
+          serviceContent="Find the easiest route to your destination by providing only your destination location."
         />
 
         <CardService
           image={stop}
           serviceTitle="Bus stop"
-          serviceContent="Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's"
+          serviceContent="Avoid waiting several minutes for a bus you don't know when it's coming."
         />
       </div>
     </div>

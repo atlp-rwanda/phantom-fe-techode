@@ -44,9 +44,7 @@ const Footer = () => {
           Let's get connected
         </h1>
         <p className="md:text-xl text-gray-400 md:pr-10 ">
-          when an unknown printer took a galley of type and scrambled it to make
-          a type specimen bookwhen an unknown printer took a galley of type and
-          scrambled
+        Thanks for using our app! We hope that you have found what you needed on our website. If not, please feel free to contact us using any of the methods below.
         </p>
         <div className="flex flex-col mt-2">
           <span className="flex flex-col md:flex md:flex-row w-full">
