@@ -140,8 +140,8 @@ function AddRoute(props) {
       setFrom({ lat: 0, lng: 0 });
       setEnd({ lat: 0, lng: 0 });
       setShow(!show);
-    }, 1000);
-    return ;
+    }, 500);
+    return Notify("New route have been added", "success");
   };
 
   const [routeId, setRouteId] = useState("");
@@ -674,153 +674,7 @@ function AddRoute(props) {
         className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${listModal === true ? "block" : "hidden"
           }`}
       >
-        <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
-          <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
-            <h3 className="font-bold text-sm text-center w-11/12">
-              List of routes
-            </h3>
-            <div
-              className="close-icon w-1/12 cursor-pointer float-right"
-              onClick={() => setListModal(false)}
-            >
-              <img src={close} alt="Phantom" className="float-right" />
-            </div>
-            <hr className=" bg-secondary-150 border my-3 w-full" />
-          </div>
-          <div className="card-body">
-            <div className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12">
-              <div className="w-full">
-                {/*  ==================== Start: Operator content =================== */}
-                <div className="card-header flex items-center justify-between">
-                  <div className="card-title">
-                    <div className="title mb-3">
-                      <h4 className=" text-primary-500 font-bold text-xs md:text-base">
-                        List of Routes
-                      </h4>
-                    </div>
-                    <div className="sub-title">
-                      <h4 className="text-secondary-200  font-bold text-xs">
-                        Routes
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-3 mb-10">
-                  {loading && <TableSkeleton />}
-                  {!loading && (
-                    <>
-                      <table className="min-w-full border-collapse border-0">
-                        <thead>
-                          <tr className="border-b border-b-secondary-100">
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              #
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Route name
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Route code
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              City
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Distance
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Start Location
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              End Location
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Duration
-                            </th>
-                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
-                              Action
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {assignroutes?.map((route) => (
-                            <tr
-                              key={route.id}
-                              onClick={() =>
-                                setProfileInfo(currentPosts[count++])
-                              }
-                              className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100"
-                            >
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.id}
-                              </td>
 
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.name}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.code}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.city}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.duration}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.startLocation}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.endLocation}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {route.distance}
-                              </td>
-                              <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
-                                {/* =================== Start:: only admin to see this =================== */}
-
-                                {/* =================== End:: only admin to see this =================== */}
-                                <LebalButton
-                                  type={"primary"}
-                                  svg={edit}
-                                  onclick={() => updateRouteModel(route.id)}
-                                />
-                                <LebalButton
-                                  type={"danger"}
-                                  svg={deleteIcon}
-                                  onclick={() => {
-                                    viewDeleteModal(!deleteModal, route.id);
-                                  }}
-                                />
-
-                                <LebalButton
-                                  type={"info"}
-                                  svg={more}
-                                  onclick={() => {
-                                    setLoadingMap(false);
-                                    setListModal(false);
-                                    setProfileInfo(currentPosts[route.id]);
-                                    setFrom(profileInfo.from);
-                                    setEnd(profileInfo.to);
-                                  }}
-                                />
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                      <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPosts={routes.length}
-                        paginate={paginate}
-                      />
-                    </>
-                  )}
-                </div>
-                {/* ==================== End: Operator content ===================== */}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       {/* =========================== End:: Model =================================== */}
       {/* =========================== Start:: Dashboard =============================== */}
@@ -833,18 +687,13 @@ function AddRoute(props) {
             >
               Route +
             </button>
-            <button
-              onClick={viewListModal}
-              className="w-32 bg-primary-100 h-8 rounded border border-cyan-2 text-primary-500  font-bold md:w-32 text-center shadow-4xl"
-            >
-              List
-            </button>
           </div>
 
           {!loading ? (
             <>
-              <div className="w-full h-min    md:w-full  rounded-md  m-2">
+              <div className="w-full h-min  md:w-full lg:ml-20  rounded-md  m-2">
                 {/* <div className="w-screen overflow-x-scroll  flex flex-col md:flex-row gap-10 lg:flex-row"> */}
+<<<<<<< HEAD
                
                 <div className="flex-col md:flex justify-between lg:flex-row mt-10">
                   <article className="flex bg-white md:w-4/5 lg:w-1/3 rounded-lg flex-col items-center justify-center">
@@ -888,11 +737,151 @@ function AddRoute(props) {
                       </div>
                     </div>
                   </article>
+=======
 
-                  <div className=" h-96 w-full mt-5 shadow-2xl  bg-white md:w-4/5 lg:w-3/5  flex justify-center rounded-2xl ">
+                <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
+                  <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                    <h3 className="font-bold text-sm text-center w-11/12">
+                      List of routes
+                    </h3>
+                    <div
+                      className="close-icon w-1/12 cursor-pointer float-right"
+                      onClick={() => setListModal(false)}
+                    >
+                    </div>
+                    <hr className=" bg-secondary-150 border my-3 w-full" />
+                  </div>
+                  <div className="card-body">
+                    <div className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12">
+                      <div className="w-full">
+                        {/*  ==================== Start: Operator content =================== */}
+                        <div className="card-header flex items-center justify-between">
+                          <div className="card-title">
+                            <div className="title mb-3">
+                              <h4 className=" text-primary-500 font-bold text-xs md:text-base">
+                                List of Routes
+                              </h4>
+                            </div>
+                            <div className="sub-title">
+                              <h4 className="text-secondary-200  font-bold text-xs">
+                                Routes
+                              </h4>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3 mb-10">
+                          {loading && <TableSkeleton />}
+                          {!loading && (
+                            <>
+                              <table className="min-w-full border-collapse border-0">
+                                <thead>
+                                  <tr className="border-b border-b-secondary-100">
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      #
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Route name
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Route code
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      City
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Distance
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Start Location
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      End Location
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Duration
+                                    </th>
+                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2">
+                                      Action
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {assignroutes?.map((route) => (
+                                    <tr
+                                      key={route.id}
+                                      onClick={() =>
+                                        setProfileInfo(currentPosts[count++])
+                                      }
+                                      className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100"
+                                    >
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.id}
+                                      </td>
+
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.name}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.code}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.city}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.duration}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.startLocation}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.endLocation}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {route.distance}
+                                      </td>
+                                      <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                                        {/* =================== Start:: only admin to see this =================== */}
+
+                                        {/* =================== End:: only admin to see this =================== */}
+                                        <LebalButton
+                                          type={"primary"}
+                                          svg={edit}
+                                          onclick={() => updateRouteModel(route.id)}
+                                        />
+                                        <LebalButton
+                                          type={"danger"}
+                                          svg={deleteIcon}
+                                          onclick={() => {
+                                            viewDeleteModal(!deleteModal, route.id);
+                                          }}
+                                        />
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                              <Pagination
+                                postsPerPage={postsPerPage}
+                                totalPosts={routes.length}
+                                paginate={paginate}
+                              />
+                            </>
+                          )}
+                        </div>
+                        {/* ==================== End: Operator content ===================== */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+>>>>>>> #TP-18 ft:(simulate) bus motion integration
+
+                <div className="flex-col md:flex justify-between lg:mr-60 lg:flex-row mt-10">
+                  <div className=" h-full w-full md:w-full lg:w-full  flex justify-center rounded-2xl"
+                    id="map">
                     <MapContainer
                       center={{ lat: -1.98507, lng: 30.031855 }}
                       zoom={13}
+                      scrollWheelZoom={false}
                     >
                       <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -913,7 +902,7 @@ function AddRoute(props) {
               </div>{" "}
             </>
           ) : (
-            <RouteInfoSkeleton />
+            <TableSkeleton />
           )}
         </div>
       </DashBoardLayout>

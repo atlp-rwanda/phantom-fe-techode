@@ -247,23 +247,9 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
   <DashBoardLayout>
     <div
       className="w-full"
-    >
-      <div
-        className=" w-full lg:w-1/2 -lg:mb-96 lg:mt-8 md:w-1/2"
-      >
-        <div
-          className=" flex justify-between"
-        >
-          <Primary
-            name="List "
-            onclick={[Function]}
-            styles=" lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200"
-          />
-        </div>
-      </div>
-    </div>
+    />
     <div
-      className=" lg:-mt-44 w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2"
+      className=" lg:-mt-44 w-4/5 h-min  lg:w-full bg-white rounded-md p-4 m-2"
     >
       <div
         className="w-full"
@@ -280,14 +266,14 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
               <h4
                 className=" text-primary-500 font-bold text-xl md:text-2xl"
               >
-                Buses
+                List of Buses
               </h4>
             </div>
           </div>
           <Primary
             name="Add a new bus"
             onclick={[Function]}
-            styles=" lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200"
+            styles=" lg:w-1/12 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200"
           />
         </div>
         <div
@@ -295,15 +281,6 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
         >
           <TableSkeleton />
         </div>
-      </div>
-    </div>
-    <div
-      className=" lg:-mt-44 w-full h-min lg:w-4/12 bg-white rounded-md m-2 "
-    >
-      <div
-        className="w-full"
-      >
-        <Profile />
       </div>
     </div>
   </DashBoardLayout>

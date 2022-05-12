@@ -113,7 +113,7 @@ const Busesoperat = (props) => {
     const [loading, setLoading] = useState(true);
 
     const [currentPage, setCurrentpage] = useState(1)
-    const [postsPerPage] = useState(3)
+    const [postsPerPage] = useState(5)
 
     const [busId, setBusId] = useState('');
     const [busName, setbusName] = useState('');
@@ -359,13 +359,8 @@ const Busesoperat = (props) => {
             <DashBoardLayout>
 
                 <div className="w-full" >
-                    <div className=" w-full lg:w-1/2 -lg:mb-96 lg:mt-8 md:w-1/2">
-                        <div className=" flex justify-between">
-                            <Primary name={`List `} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={handleList} />
-                        </div>
-                    </div>
                 </div>
-                <div className=" lg:-mt-44 w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
+                <div className=" lg:-mt-44 w-4/5 h-min  lg:w-full bg-white rounded-md p-4 m-2">
                     <div className="w-full">
 
                         {/* Start:  Bus content */}
@@ -374,11 +369,11 @@ const Busesoperat = (props) => {
                             <div className="card-title">
                                 <div className="title mb-3">
                                     <h4 className=' text-primary-500 font-bold text-xl md:text-2xl' >
-                                        Buses
+                                        List of Buses
                                     </h4>
                                 </div>
                             </div>
-                            {!isList && (<Primary name={`Add a new bus`} styles=' lg:w-1/4 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel} />)}
+                            {!isList && (<Primary name={`Add a new bus`} styles=' lg:w-1/12 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel} />)}
                         </div>
                         <div className="mt-3 mb-10">
                             {loading && (<TableSkeleton />)
@@ -396,9 +391,7 @@ const Busesoperat = (props) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            {!isList ?
-                                                currentPosts.map(bus => (
+                                                {currentPosts.map((bus) => (
                                                     <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             {bus.id}
@@ -415,30 +408,9 @@ const Busesoperat = (props) => {
                                                         <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                             <LebalButton type={'primary'} svg={edit} onclick={() => updateBuseModel(bus.id)} />
                                                             <LebalButton type={'danger'} svg={deleteIcon} onclick={() => deleteBusModel(bus.id)} />
-                                                            <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
                                                         </td>
                                                     </tr>
-                                                )) : currentPosts.map((bus) => (
-                                                    <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.id}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                           {bus.bustype}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.routecode}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.platenumber}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            <LebalButton type={'info'} svg={more} onclick={() => getSelectedBus(bus.id)} />
-                                                        </td>
-                                                    </tr>
-                                                ))
-
-                                            }
+                                                ))}  
                                         </tbody>
                                     </table>
                                     {/* ======================= START:: PAGINATION ============================ */}
@@ -455,50 +427,6 @@ const Busesoperat = (props) => {
 
                         </div>
                         {/* End:  Bus content */}
-                    </div>
-                </div>
-                <div className=" lg:-mt-44 w-full h-min lg:w-4/12 bg-white rounded-md m-2 ">
-                    <div className="w-full">
-                        {/* =================== Start: Bus Information ==================== */}
-                        {loading && (<Profile />)}
-                        {!loading && (
-                            <div className=" flex flex-col items-center justify-center">
-                                <div className="profile ">
-                                    <div className="w-20 h-20 mt-4 rounded-full flex items-center justify-center bg-primary-100">
-
-                                        <img src={busPark} alt="Bus" className="w-20 h-20 rounded-full flex items-center justify-center bg-primary-100" />
-
-                                    </div>
-                                </div>
-                                <div className="mt-6">
-                                    <div className="profiler-name">
-                                        <p className=' text-xs font-semibold font-sans md:text-xl text-secondary-300'>Bus Information</p>
-                                    </div>
-                                </div>
-                                {
-                                    selectedBus.map(bus => (
-                                        <div key={bus.id} className="driver-info w-full flex items-center ml-16 justify-between mt-4 px-6">
-                                            <div className="w-5/6">
-                                                <div className="title flex flex-row font-sans mb-3" >
-                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600 md:mr-7'>Bus Type</p>
-                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2 md:pl-10'>{bus.bustype}</p>
-                                                </div>
-                                                <div className="title flex flex-row font-sans mb-3" >
-                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600 md:mr-3'>Route Code</p>
-                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.routecode}</p>
-                                                </div>
-                                                <div className="title flex flex-row font-sans mb-3" >
-                                                    <p className='text-xs font-semibold font-sans md:text-sm text-primary-600'>Plate number</p>
-                                                    <p className='text-secondary-200 font-semibold text-sm w-1/2  md:pl-10'>{bus.platenumber}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        )}
-
-                        {/* ===================== End: Bus Information ==================== */}
                     </div>
                 </div>
             </DashBoardLayout>
