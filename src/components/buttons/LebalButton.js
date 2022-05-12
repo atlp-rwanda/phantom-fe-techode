@@ -7,7 +7,6 @@ export const LebalButton = ({ type ,svg, onclick }) => {
      );
 }
  
-, style = "" 
 const buttonMaker = (color , text, style = "" , onclick ) => {
     switch(color){
         case "info":

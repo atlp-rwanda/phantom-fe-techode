@@ -32,34 +32,9 @@ export const  fetchRoutes = (payload) => {
 
 export const createRoute = async (payload) => {
 
-    const route = {
-        name: payload.name,
-        code: payload.code,
-        city: payload.city,
-        startLocation: payload.startLocation,
-        endLocation: payload.endLocation,
-        duration: payload.duration,
-        distance: payload.distance
-    }
-    try {
-        const response = await axios({
-            method: "POST",
-            url: `http://localhost:5000/api/v1/routes/register`,
-            data: route,
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "auth-token": `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-        Notify(`${response.data.message}`, "success");
-        return {
-            type: CREATE,
-            payload
-        }
-
-    } catch (error) {
-        console.log(error)
+    return {
+        type: CREATE,
+        payload
     }
 
 }

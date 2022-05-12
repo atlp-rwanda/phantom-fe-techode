@@ -30,24 +30,12 @@ const SideBar = ({user,shownav}) => {
         },
         {
             id: 2,
-            linkName : 'Track',
-            svgImage : busLink,
-            to:'simulation'
-        },
-        {
-            id: 3,
             linkName : 'Drivers',
             svgImage : driver,
             to:'drivers'
         },
         {
-            id: 4,
-            linkName : 'Routes',
-            svgImage : routes,
-            to:'routes'
-        },,
-        {
-            id: 5,
+            id: 3,
             linkName : 'Buses',
             svgImage : bus,
             to:'buses'
@@ -55,15 +43,7 @@ const SideBar = ({user,shownav}) => {
     ]
     /* ======== End:: Public routes ===========  */ 
     const navProtector = () =>{
-        if(userType == "admin"){
-            navLinks.push( 
-                {
-                    id: navLinks.length + 1,
-                    linkName : 'users',
-                    svgImage : userSvg,
-                    to:'Users'
-                }
-            );
+        if(userType == "admin"  || userType == "Admin"){
             navLinks.push( 
                 {
                     id: navLinks.length + 1,
@@ -83,8 +63,17 @@ const SideBar = ({user,shownav}) => {
            
            
         }   
-        if(userType == "operator"){
-            navLinks[2].to = "assign_drivers_buses"
+
+        if(userType == "operator" || userType == "Operator"|| userType == "admin" ){
+            navLinks[2].to = "assign_drivers_buses";
+            navLinks.push(
+                {
+                    id: navLinks.length + 1,
+                    linkName : 'Routes',
+                    svgImage : routes,
+                    to:'routes'
+                }
+            )
         }
     }
     navProtector();
@@ -104,8 +93,8 @@ const SideBar = ({user,shownav}) => {
             <div className={`nav-bar ${  userType == "admin" ? 'mt-4' :  "mt-14"  } flex flex-col align-middle justify-center `}>
                 <div className="nav-links ">
                     {
-                        navLinks.map( nav => (
-                            <Links key={nav.id} svgimage={nav.svgImage} linkname={nav.linkName} to={`/${nav.to}`} color={ `/${nav.to}` == location.pathname ? `text-active` : `text-white`}/>
+                        navLinks.map( (nav , index) => (
+                            <Links key={"nav"+index} svgimage={nav.svgImage} linkname={nav.linkName} to={`/${nav.to}`} color={ `/${nav.to}` == location.pathname ? `text-active` : `text-white`}/>
                         ))
                     }                    
                 </div>

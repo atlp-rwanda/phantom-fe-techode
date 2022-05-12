@@ -26,6 +26,7 @@ import OperatorAssignBus from "./containers/OperatorDriverBus/OperatorAssignBus.
 import AddRoute from "./containers/Routes/AddRoute.js";
 import SignUp from "./containers/SignUp/SignUp.js";
 import PasswordReset from "./components/passwordReset/passwordereset.js";
+import Simulation from "./containers/Simulation/Simulation.js";
 
 const App = (props) => {
   const authentication = props.authentication;
@@ -40,6 +41,13 @@ const App = (props) => {
           path="/"
           render={() =>
             logginStatus ? <Redirect to="/dashboard" /> : <Home />
+          }
+        />
+         <Route
+          exact
+          path="/tracking"
+          render={() =>
+            <Simulation />
           }
         />
 

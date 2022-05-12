@@ -1,6 +1,6 @@
 import  { activeBusActionTypes } from "../constants/activeBusActionTypes"
 
-const { UPDATE_ACTIVE_BUS, START,SPEED_CONTROLLER } = activeBusActionTypes ;
+const { UPDATE_ACTIVE_BUS, START,SPEED_CONTROLLER,ACTIVATE_DRIVERS } = activeBusActionTypes ;
 
 const initialState = [
         {
@@ -16,6 +16,16 @@ const initialState = [
 
 export const activeBusReducer = (state = initialState , { type , payload}) =>{
     switch (type) {
+        // case ACTIVATE_DRIVERS:
+        //     const stateTwin = [...state];
+        //     const stateTwinToUpdate = stateTwin.filter(alightInfo => alightInfo.driver.id == payload.driverId);
+        //     const indexToAlight = stateTwin.findIndex(alightInfo => alightInfo.driver.id == payload.driverId);
+        //     stateTwinToUpdate[0].passengers = Number(stateTwinToUpdate[0].passengers) +  (payload.joining - payload.alighting);
+        //     stateTwinToUpdate[0].driver = payload.driver;
+        //     stateTwinToUpdate[0].bus = payload.bus;
+        //     stateTwinToUpdate[0].location  = payload.location ;
+        //     stateTwin[indexToAlight] = stateTwinToUpdate[0];
+        //     state = stateTwin;
         case UPDATE_ACTIVE_BUS:
             const alightState = [...state];
             const alightToBeUpdated = alightState.filter(alightInfo => alightInfo.driver.id == payload.driverId);

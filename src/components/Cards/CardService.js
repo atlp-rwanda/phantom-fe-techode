@@ -3,7 +3,6 @@ import "./CardService.css"
 
 const CardService = ({image, serviceTitle, serviceContent}) => {
   return (
-
     <div className="ph-card-service w-60 h-60  mx-auto md:w-60 md:h-80 px-2.5 md:mx-2.5 mb-5 sm:p-8 p-4 max-w-sm items-center justify-center bg-white rounded-lg border shadow-md">
       <div className="w-10 h-10 md:w-16 md:h-16 items-center justify-center rounded-full mx-auto bg-transparent">
         <img src={image} className='w-full h-full p-0.5' />
@@ -15,7 +14,6 @@ const CardService = ({image, serviceTitle, serviceContent}) => {
         {serviceContent}
       </p>
     </div>
-
   )
 }
 

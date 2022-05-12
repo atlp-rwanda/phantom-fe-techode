@@ -22,7 +22,8 @@ import TableSkeleton from "../../components/skeletons/Tables/TableSkeleton";
 import { connect } from "react-redux";
 import { createRoute, updateRouteInfo, deleteRoute, fetchRoutes } from "../../redux/actions/RoutesAction";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
-import { API as axios } from "../../api";
+import { API as axios, createRouteOnApi } from "../../api";
+import fetchAllRoute from "../../functions/fetchAllRoute";
 
 const provider = new OpenStreetMapProvider();
 function AddRoute(props) {
@@ -57,9 +58,9 @@ function AddRoute(props) {
 
   const getRoutes = async () => {
     try {
-      const response = await axios.get("/routes")
-      fetchRoutes(response.data.data.routes);
-      setAssignRoutes(response.data.data.routes)
+      const response = await fetchAllRoute();
+      fetchRoutes(response);
+      setAssignRoutes(response)
     } catch (error) {
       console.log(error.message)
     }
@@ -82,13 +83,13 @@ function AddRoute(props) {
     setLoadingMap(false);
   }, 1000);
 
-  const createNewRoute = (e) => {
+  const createNewRoute = async (e) => {
     e.preventDefault();
     setLoadingMap(false);
 
     /* =================================== Start:: validation ================================ */
-    if (name.trim().length == "")
-      return Notify("name field should not be empty", "error");
+    if (name.trim().length == "" || !name.includes("-"))
+      return Notify(`name field should not be empty and should have " - " to separate starting point and ending point`, "error");
     if (code.toString().trim().length == "")
       return Notify("code field should not be empty", "error");
     if (startLocation.trim().length == "")
@@ -97,7 +98,7 @@ function AddRoute(props) {
       return Notify("end location field should not be empty", "error");
     if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
       return Notify(
-        "For us to calcurate distance you need to be accurate when you adding starting place",
+        "For us to caliculate distance you need to be accurate when you adding starting place",
         "error"
       );
 
@@ -106,17 +107,28 @@ function AddRoute(props) {
     const newRoute = {
       name: name,
       code: code,
-      startLocation: startLocation,
-      endLocation: endLocation,
+      startLocation: `${from.lat},${from.lng}`,
+      endLocation:  `${end.lat},${end.lng}`,
       distance: distance,
       duration: duration,
       city,
       from,
       to: end,
     };
-
-    createRoute(newRoute);
-
+    
+    try {
+      let response = await createRouteOnApi(newRoute);
+      await getRoutes();
+      Notify("New route have been added", "success")
+    } catch (error) {
+      if (error.code != "ERR_NETWORK") {
+        Notify(error.response.data.message, "error");           
+      }
+      else{
+          Notify("Unable to create routes probably it is because of internet network" , "error")
+      }  
+    }
+    
     setTimeout(() => {
       removeModel();
       setName("");
@@ -129,7 +141,7 @@ function AddRoute(props) {
       setEnd({ lat: 0, lng: 0 });
       setShow(!show);
     }, 1000);
-    return Notify("New route have been added", "success");
+    return ;
   };
 
   const [routeId, setRouteId] = useState("");
@@ -163,13 +175,14 @@ function AddRoute(props) {
       {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
-          "auth-token": `Bearer ${localStorage.getItem("token")}`
+          "auth-token": `Bearer ${localStorage.getItem("token")}`,
+          "action": "deleteRoute"
         }
       })
 
     setDeleteModal(false);
     setListModal(true);
-    return Notify("Delete route successfully", "success");
+    return Notify("Route has been Deleted successfully", "success");
   };
   const [selectedRoute, setSelectedRouteId] = useState("");
   const getSelectedRoute = (id) => {
@@ -215,24 +228,14 @@ function AddRoute(props) {
       id: routeId,
       name: name,
       code: code,
-      startLocation: startLocation,
-      endLocation: endLocation,
+      startLocation: `${from.lat},${from.lng}`,
+      endLocation:  `${end.lat},${end.lng}`,
       distance: distance,
       duration: duration,
-      city,
-
+      city
     };
     try {
-      const response = await axios({
-        method: "PUT",
-        url: `http://localhost:5000/api/v1/routes/${routeId}`,
-        data: newRouteInfo,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "auth-token": `Bearer ${localStorage.getItem("token")}`
-        }
-      })
+      const response = await axios.put(`/routes/${routeId}`,newRouteInfo)
       Notify(response.data.message, "success");
     } catch (error) {
       if (error.code != "ERR_NETWORK") {
@@ -244,11 +247,11 @@ function AddRoute(props) {
     }
   }
 
-  const updateRoute = (e) => {
+  const updateRoute = async (e) => {
     e.preventDefault();
     /* =================================== Start:: validation ================================ */
-    if (name.trim().length == "")
-      return Notify("name field should not be empty", "error");
+    if (name.trim().length == "" || !name.includes("-"))
+      return Notify(`name field should not be empty and should have " - " to separate starting point and ending point`, "error");
     if (code.toString().trim().length == "")
       return Notify("code field should not be empty", "error");
     if (startLocation.trim().length == "")
@@ -257,14 +260,14 @@ function AddRoute(props) {
       return Notify("end location field should not be empty", "error");
     if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
       return Notify(
-        "For us to calcurate distance you need to be accurate when you adding starting place",
+        "For us to caliculate distance you need to be accurate when you adding starting place",
         "error"
       );
 
     /* =================================== End:: validation ================================ */
 
     changeRoute(routeId, name, code, startLocation, endLocation, distance, duration, city)
-    getRoutes()
+    await getRoutes();
     setTimeout(() => {
 
       setUpdateModel(false);
@@ -504,7 +507,7 @@ function AddRoute(props) {
         className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${show === true ? "block" : "hidden"
           }`}
       >
-        <div className="bg-white w-full  lg:h-4/5   mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 2xl:h-3/6 rounded-lg p-4 pb-8">
+        <div className="bg-white w-full  mp:w-8/12  md:w-full  xl:w-4/5 2xl:w-4/5 rounded-lg p-4 pb-8">
           <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-sm text-center w-11/12">
               Adding new Route
@@ -666,6 +669,7 @@ function AddRoute(props) {
           </div>
         </div>
       </div>
+      
       <div
         className={`z-50 h-screen w-screen  bg-modelColor absolute flex items-center justify-center px-4 ${listModal === true ? "block" : "hidden"
           }`}
@@ -841,247 +845,7 @@ function AddRoute(props) {
             <>
               <div className="w-full h-min    md:w-full  rounded-md  m-2">
                 {/* <div className="w-screen overflow-x-scroll  flex flex-col md:flex-row gap-10 lg:flex-row"> */}
-                <div className="scroll-parent p-3 ">
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className="  text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img className="  " src={imageBus} alt="" />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className=" text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className="  text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className=" text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className=" text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className="text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className="text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className="text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="scroll-article ">
-                    <img
-                      className="h-full  w-2/5 md:w-1/2 md:h-full  "
-                      src={imageBus}
-                      alt=""
-                    />
-                    <div className="flex md:flex flex-col   justify-center">
-                      <p className="text-center text-primary-500 text-sm  font-bold">
-                        Bus
-                      </p>
-                      <p className="text-primary-500 font-semibold text-sm ml-3">
-                        Driver:{" "}
-                        <span className="text-black font-normal">John</span>
-                      </p>
-                      <p className=" text-primary-500 font-semibold ml-3 text-sm">
-                        Plate:{" "}
-                        <span className="text-black font-normal">
-                          RAE 0000F
-                        </span>
-                      </p>
-                      <div className="flex items-center justify-center w-full  md:mt-0 ">
-                        <div className="bg-primary-100 rounded w-1/5 h-6 border border-cyan-2 flex items-center justify-center">
-                          <img className="" src={location_route} alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </div>
+               
                 <div className="flex-col md:flex justify-between lg:flex-row mt-10">
                   <article className="flex bg-white md:w-4/5 lg:w-1/3 rounded-lg flex-col items-center justify-center">
 

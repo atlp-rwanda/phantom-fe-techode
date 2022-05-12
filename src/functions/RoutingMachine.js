@@ -1,9 +1,10 @@
 import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
+import { useEffect, useState } from "react";
 
 const createRoutineMachineLayer = (props) => {
-  const { from , to } = props;
+  const { from , to ,setCoordinate} = props;
   const instance = L.Routing.control({
     waypoints: [
       L.latLng(from[0],from[1]),
@@ -19,6 +20,11 @@ const createRoutineMachineLayer = (props) => {
     fitSelectedRoutes: true,
     showAlternatives: false
   });
+  instance.on('routesfound', function(e) {
+    var routes = e.routes;
+    var summary = routes[0].summary;
+    setCoordinate(routes[0].coordinates)
+  });
 
   return instance;
 };
@@ -30,6 +36,7 @@ export const getRouteInfo = (props) => {
   let routeInfo = {
     distance: 0,
     duration: 0,
+    summary:[],
   }
   const instance = L.Routing.control({
     waypoints: [
@@ -41,6 +48,7 @@ export const getRouteInfo = (props) => {
   instance.on('routesfound', function(e) {
     var routes = e.routes;
     var summary = routes[0].summary;
+    routeInfo.summary = routes[0] ;
     routeInfo.distance = summary.totalDistance / 1000 ;
     routeInfo.duration = Math.round(summary.totalTime % 3600 / 60) ;
   });

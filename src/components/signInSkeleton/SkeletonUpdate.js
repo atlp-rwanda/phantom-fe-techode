@@ -3,7 +3,6 @@ import SkeletonElement from "./SkeletonElement";
 
 const SkeletonUpdate = () => {
     return ( 
-
             <div className="flex  h-screen animate-pulse">
                 <section className="lg:w-5/12 md:w-7/12 w-full lg:flex md:flex flex lg:flex-col flex-col md:flex-col lg:items-center md:items-center items-center animate-pulse">
                     <SkeletonElement type="title" styles="lg:mt-9 lg:ml-26 md:ml-56 md:mt-24 mt-16"/>

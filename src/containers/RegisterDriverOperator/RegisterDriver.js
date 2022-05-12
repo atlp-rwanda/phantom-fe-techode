@@ -30,7 +30,6 @@ const RegisterDriver = () => {
     const [telephone , setTelephone ] = useState('');
     const [email , setEmail] = useState('');
 
-
     /* ======== Start:: removing skeleton ======= */ 
         useEffect(() => {
             setTimeout(() => {

@@ -1,10 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbars/navbar/Navbar";
 import bus from "../../assets/images/bus.png";
 import "./Header.css";
-import { HashLink as Link } from "react-router-hash-link";
+import { useHistory } from "react-router-dom";
+import { Primary } from "../buttons/Buttons";
+import search from '../../assets/svgs/search.svg';
+import { OpenStreetMapProvider } from "leaflet-geosearch";
+import fetchAllRoute from '../../functions/fetchAllRoute';
+import { Icon } from "@iconify/react";
+import Notify from "../../functions/Notify";
+import { connect } from "react-redux";
+import { selectRoute } from '../../redux/actions/selectedRouteAction';
+import getMyLocation from "../../functions/getMyLocation";
+import { faLegal } from "@fortawesome/free-solid-svg-icons";
+;
 
-const Header = () => {
+const provider = new OpenStreetMapProvider();
+const Header = ({ selectRoute }) => {
+  const history = useHistory();
+  const [ destination  , setDestination ] = useState("");
+  const [ origin , setOrigin ] = useState({});
+  const [ userDestination , setUserDestination ] = useState({});
+  const [ routes , setRoutes ] = useState([])
+  const [ routeNotFound , setRouteNotFound ] = useState(null);
+  const [ suggestion , setSugestion ] = useState([]);
+  const [ isSearching , setIsSearching ] = useState(false);
+  
+  useEffect( async () =>{
+    const allRoutes = await fetchAllRoute();
+    setRoutes([...allRoutes]);
+  },[]);
+
+  useEffect(()=>{
+    getMyLocation(setOrigin);
+  })
+
+  const proccessing = (e) => {
+    setRouteNotFound(true)
+    setIsSearching(true)
+    if(destination != null){
+      provider
+      .search({ query: `rwanda ${destination}` })
+      .then(function (result) {       
+        if (result.length != 0) {
+          setRouteNotFound(false)
+          let newDestination = {...userDestination};
+          newDestination.lat = result[0].bounds[0][0];
+          newDestination.lng =  result[0].bounds[0][1];
+          setUserDestination(newDestination)
+        } else {
+          setIsSearching(false)
+          setRouteNotFound(true)
+          let newDestination = {...userDestination};
+          newDestination.lat = 0;
+          newDestination.lng = 0;
+          setUserDestination(newDestination);
+        }
+      })
+      .catch((error) => {
+        setRouteNotFound(true)
+      });
+    }
+  }
   return (
     <div className="phBackground -z-30 min-h-full font-body">
       <div className="h-screen flex-col">
@@ -95,8 +152,79 @@ const Header = () => {
                     Get notified anytime, anywhere the bus is.
                   </h3>
                 </div>
-                <div className="py-6">
-                  <Link to="#explore" smooth className="bg-primary-600 hover:bg-primary-400 text-white font-sans  md:text-lg  py-2 px-4 rounded" >Get Started</Link>
+                <div className="py-6 flex items-center flex-wrap relative ">
+                  <div className="w-full search-input h-12 flex items-center"> 
+                      <div className="grouped-input bg-secondary-40 flex items-center shadow h-full w-full rounded-md">
+                          <input autoComplete="off" type="text" name="search" className={`h-full bg-transparent border-0 outline-none px-5 font-sans font-normal ${routeNotFound == false ? "text-success-600" : routeNotFound == true ? " text-danger-500 " : "text-secondary-50" } w-4/5`} placeholder="Where to..." value={destination} onChange={(e) => {
+                            setDestination(e.target.value);
+                            if(destination.trim().length > 3){
+                              proccessing(destination);
+                              const regex = new RegExp(`^${destination}`, 'i');
+                              setSugestion(routes.sort().filter(value => regex.test(value.name)));
+                            }                            
+                          }}/>                          
+                        <div className="w-1/5 flex justify-center">
+                          {routeNotFound == false || destination.trim().length == 0 || isSearching == false ? (<img src={search} alt="phantom"  />): routeNotFound == true ?  (<i className="fa fa-spinner fa-spin fa-1x fa-fw text-mainColor "></i> )  : (<img src={search} alt="phantom"  />)   }
+                                         
+                        </div>                    
+                      </div>                
+                  </div>   
+                  <div className={`w-full bg-secondary-40 absolute top-16 rounded-md  ${ destination.trim().length > 4 ?  "" : "hidden" }`}>
+                    <div className="flex flex-col ">
+                      <div className=" item1 flex items-center my-2 cursor-pointer hover:bg-gray-300 w-12/12 p-2" onClick={() => {                        
+                 
+                          getMyLocation(setOrigin);
+                          if(Object.keys(origin).length === 0 ){
+                            Notify("We were not able to access your location" ,"info");
+                            setTimeout(() =>{
+                              localStorage.setItem("origin",JSON.stringify({lat:0,lng:0}));
+                              selectRoute({from:[origin.lat,origin.lng],to:[userDestination.lat,userDestination.lng],routeId:0,routecode:0});                    
+                            },2200);
+                            return;
+                          }
+                            
+
+                            if(Object.keys(userDestination).length === 0 ){
+                              Notify(`Please, were not able to find your location try city name ${destination}` ,"info");
+                              return;
+                            }    
+
+                            if(routeNotFound == true){
+                              Notify("Your destination has not been found","info");
+                            }
+                            else{
+                              localStorage.setItem("origin",JSON.stringify(origin));
+                              localStorage.setItem("destination",JSON.stringify(userDestination));   
+                              selectRoute({from:[origin.lat,origin.lng],to:[userDestination.lat,userDestination.lng],routeId:0,routecode:0});
+                              history.push("tracking");
+                            }                           
+                          }}>
+                        <div className={`h-8 w-8 sm:h-9 sm:w-9 md:h-12 md:w-12 rounded-full bg-mainColor  flex items-center justify-center  cursor-pointer`}  >
+                          <Icon icon="akar-icons:location" color={` white `} width="19" height="19" />    
+                        </div>
+                        <div className=" text-active ml-3 hover:text-primary-300 "> Current location - { destination } </div>
+                      </div>
+                      {
+                        suggestion.map(value => {
+                          return(
+                              <div key={value.id} className=" item1 flex items-center my-2 cursor-pointer hover:bg-gray-300 max-w-full p-2" onClick={() => {
+                                let from = value.startLocation.split(",");
+                                let to =  value.endLocation.split(",");
+                                localStorage.setItem("origin",JSON.stringify({lat:from[0],lng:from[1]}));
+                                localStorage.setItem("destination",JSON.stringify({ lat:to[0],lng:to[1]})); 
+                                selectRoute({from,to,routeId:value.id,routecode:value.code});
+                                history.push("tracking");
+                              }}>
+                              <div className={`h-9 w-9 rounded-full bg-mainColor  flex items-center justify-center  cursor-pointer`}  onClick={() => {}}>
+                                  <Icon icon="akar-icons:location" color={` white `} width="19" height="19" />    
+                              </div>
+                              <div className=" text-active ml-3 hover:text-primary-300  "> { value.name } </div>
+                            </div>
+                          )
+                        })
+                      }                      
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,4 +238,12 @@ const Header = () => {
   );
 };
 
-export default Header;
+
+
+const mapToState = (state) => {
+  return{
+      user:state.user,
+      selectedRoute:state.selectedRoute
+  }
+}
+export default connect( mapToState ,{ selectRoute })(Header);

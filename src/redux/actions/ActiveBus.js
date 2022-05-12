@@ -22,3 +22,12 @@ export const speedControl = (payload) => {
         payload
     }
 }
+
+
+
+export const activateDriver = (payload) => {
+    return {
+        type: "ACTIVATE_DRIVERS",
+        payload
+    }
+}
