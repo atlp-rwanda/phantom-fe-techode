@@ -419,7 +419,7 @@ const Location = ( props ) => {
                                                             <i className="fa fa-user text-mainColor"></i> <span className="text-gray-400 ml-2 text-sm" >{bus.passengers}</span>  
                                                         </div> 
                                                         <div >
-                                                            Seats <span className={`${bus.passengers == 90 ? "text-danger-400" : "text-success-400"} ml-2 text-sm `} >{ bus.passengers == 90 ? "Not available" : "Available" } </span>  
+                                                            Seats <span className={`${bus.passengers == 60 ? "text-danger-400" : "text-success-400"} ml-2 text-sm `} >{ bus.passengers == 60 ? "Not available" : "Available" } </span>  
                                                         </div>                                                       
                                                         <div >
                                                             <i className="fa fa-car text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm " >{bus.platenumber}</span>  
