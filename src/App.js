@@ -130,11 +130,6 @@ const App = (props) => {
           auth={authentication.auth}
         />
         <ProtectedRoute
-          path="/dashboard_operator"
-          component={Dashboard}
-          auth={authentication.auth}
-        />
-        <ProtectedRoute
           path="/assign_drivers_buses"
           component={OperatorAssignBus}
           auth={authentication.auth}

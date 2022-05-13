@@ -419,7 +419,7 @@ const RegisterDriver = (props) => {
                                                     </td>
                                                     <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                     {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == 'admin' ? (
+                                                      {userType == "admin" || userType == "operator"  ? (
                                                           <>
                                                                <LebalButton type={'primary'} svg={edit} onclick={() => {removeUpdateModel(user.id)}}/>
                                                                <LebalButton type={'danger'} svg={deleteIcon} onclick={() => {removeDeleteModel(user.id)}}/>

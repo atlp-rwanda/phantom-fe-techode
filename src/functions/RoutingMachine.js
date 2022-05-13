@@ -2,10 +2,13 @@ import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
 import { useEffect, useState } from "react";
+import { useMap } from "react-leaflet";
 
 const createRoutineMachineLayer = (props) => {
   const { from , to ,setCoordinate} = props;
-  const instance = L.Routing.control({
+  const map = useMap();
+
+  var instance = L.Routing.control({
     waypoints: [
       L.latLng(from[0],from[1]),
       L.latLng(to[0],to[1])
@@ -21,9 +24,11 @@ const createRoutineMachineLayer = (props) => {
     showAlternatives: false
   });
   instance.on('routesfound', function(e) {
+
     var routes = e.routes;
     var summary = routes[0].summary;
     setCoordinate(routes[0].coordinates)
+    map.flyTo(routes[0].coordinates[0], 13)
   });
 
   return instance;

@@ -8,17 +8,22 @@ import setrole from "../../assets/svgs/lebals/savePrevelage.svg";
 import DashBoardLayout from "../../components/dashBoardLayout/DashBoardLayout";
 import { ToastContainer } from "react-toastify";
 import { connect } from "react-redux";
+
+import Notify from '../../functions/Notify'
 import { OperatorProfile } from "../../components/skeletons/cards/Profile";
 import userLabel from "../../assets/svgs/lebals/luser.svg";
 import lock from "../../assets/svgs/lebals/lock.svg";
 import { useDropzone } from "react-dropzone";
 import { setProfile , update } from '../../redux/actions/userActions';
 import checkAuth from "../../functions/checkAuth";
+import Axios from 'axios';
+import { API as axios } from "../../api/index"
 
-const Profile = (props ) => {
+const Profile = (props) => {
   const history = useHistory()
   const [loading, setLoading] = useState(true);
   const { user , setProfile , update } = props;
+  const [image, setImage] = useState('')
  
   const {
     email,
@@ -34,7 +39,7 @@ const Profile = (props ) => {
   useEffect( async () => {
       setLoading(false);
       await checkAuth(user,update);
-  }, []);
+  });
   /*  ===== End:: fetching userinfo =====  */
 
   /*=============================Upload==================== */
@@ -54,6 +59,14 @@ const Profile = (props ) => {
         })
       );
       setProfile(newFile[0].preview);
+      const formData = new FormData()
+      formData.append('file', newFile[0])
+      formData.append('upload_preset', "zs4drxpk")
+
+      Axios.post('https://api.cloudinary.com/v1_1/andela-techode/image/upload', formData).then((response) => {
+        setImage(response.data.secure_url)
+      })
+
     },
   });
 
@@ -64,6 +77,8 @@ const Profile = (props ) => {
     }, 1000)
    
   }
+
+  
 
   return (
     <DashBoardLayout>
@@ -96,8 +111,9 @@ const Profile = (props ) => {
                 </div> 
               </section>
               <section className="mt-5 md:pl-20">
-                <TextField setLoading={setLoading}  />
+                <TextField setLoading={setLoading} image={image} />
               </section>
+            
             </div>
           )}
         </div>

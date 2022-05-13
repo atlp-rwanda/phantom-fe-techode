@@ -33,7 +33,7 @@ const SideBar = ({user,shownav, update}) => {
         {   id: 1,
             linkName : userType == "admin" || userType == "operator"  ? 'Dashboard' : "Home" ,
             svgImage : dashboard,
-            to: userType == "admin" || userType == "driver"  || userType == "" ? 'dashboard' : "dashboard_operator"
+            to: userType == "admin" || userType == "operator" ? 'dashboard' : "simulation"
         },
         {
             id: 2,
@@ -101,7 +101,7 @@ const SideBar = ({user,shownav, update}) => {
     navProtector();
     return ( 
         <div className={`text-2lg text-black  main-bg-gradient h-screen pt-5 px-4 transition-all ${shownav == true ? `` :  `sidebar none-active`}`}>
-            <div className="flex items-center justify-center flex-col mt-8 mb-4">
+            <div className="flex items-center justify-center flex-col mt-4 mb-4">
                 <div className="logo">
                     <img src={logo} alt="phantom"  />
                 </div>

@@ -20,6 +20,7 @@ const BusSimulation = ( props ) => {
     const [ routeLocatorForm , setRouteLocatorForm ] = useState(false);
     const { type: userType } = user ;
     const [ loading , setLoading ] = useState(true);
+    const [isLoadingMap ,setIsLoadingMap] = useState(true);
     /* ================= Start:: form infromation managimment ============= */ 
     const [passengers , setPassenger ] = useState("");
     const [alighting, setAlighting] = useState("");
@@ -62,6 +63,7 @@ const BusSimulation = ( props ) => {
         if(passengers.trim() == "" ) return Notify("Please make sure passengers field is not empty","error");
         if(passengers > 60 ) return Notify("Passengers should be less that","error");
         await handleDriverActionsDemo(user,start,speedControl,"start",setBusStarted,routeCoordinate,passengers)        
+        setIsLoadingMap(false);
         setPassenger("")
         revealModel("start");  
     } 
@@ -222,7 +224,7 @@ const BusSimulation = ( props ) => {
                 {
                     !loading && 
                         userType == "driver" || userType == "Driver" ?
-                            <DriverSim myLocation={location} revealModel={revealModel} showModel={showModel} showModelStart={showModelStart} busStarted={busStarted} setBusStarted={setBusStarted} />                        
+                            <DriverSim myLocation={location} revealModel={revealModel} showModel={showModel} showModelStart={showModelStart} busStarted={busStarted} setBusStarted={setBusStarted} isLoadingMap={isLoadingMap} setIsLoadingMap={setIsLoadingMap} />                        
                         :
                             ""
                 }    

@@ -26,7 +26,6 @@ export const assignRouteBusReducer = (state = assignRouteState, {type, payload }
         case assignRouteActionType.ASSIGN_ROUTE:
             const clonedState = [...state]
             const { busId, plate, routeName} = payload
-            console.log(routeName)
             let name = routeName.split('*')
             const busToBeAssigned = clonedState.filter(current => current.id == busId)
             console.log("bus to be assigned ", busToBeAssigned)

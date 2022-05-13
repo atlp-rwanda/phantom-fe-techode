@@ -408,7 +408,7 @@ const Roles = (props) => {
             {/* Skeleton  */}
             {loading && (<TableRolesSkeleton/>)}
               {!loading && (
-              <>
+              <div className="py-6 flex items-center flex-wrap relative overflow-auto" >
                 <table className="min-w-full border-collapse border-0">
                   <thead>
                     <tr className="border-b border-b-secondary-100">
@@ -421,12 +421,15 @@ const Roles = (props) => {
                       <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2 md:text-left md:pl-20">
                         Permissions
                       </th>
+                      <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2 md:text-left md:pl-20">
+                        Action
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {roles.map((role) => (
-                      <tr key={roleCounter}   className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100" >
-                        <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
+                      <tr key={roleCounter}   className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100  " >
+                        <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans px-4 ">
                           {roleCounter++}
                         </td>
                         <td className="text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans">
@@ -444,7 +447,7 @@ const Roles = (props) => {
                                             removeDeletePermissionModal(role.id, permission.id ,permission)
                                           }}
                                           type="danger"
-                                          styles=""
+                                          styles=" px-6 "
                                           svg={deletePermissionSVG}
                                       />
                                 )
@@ -471,7 +474,7 @@ const Roles = (props) => {
                     ))}
                   </tbody>
                 </table>
-              </>
+              </div>
             )}
           
           </div>

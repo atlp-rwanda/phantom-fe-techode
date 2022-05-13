@@ -33,3 +33,11 @@
         transform: translateX(100%);
     }
 }
+
+.bg-modelColor{
+    z-index: 9000000000;
+}
+
+.bg-modelColor>div{
+    z-index: 90000000001;
+}

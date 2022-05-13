@@ -19,6 +19,8 @@ import Pagination from '../../components/pagination/Pagination';
 import Route from '../../components/route/Route';
 import { API as axios } from "../../api/index"
 import { set } from 'react-hook-form';
+import fetchAllRoute from '../../functions/fetchAllRoute';
+import fetchAllBuses from '../../functions/fetchAllBuses';
 
 const assignRouteBus = async (plateNumber,routeCode, setLoading) => {
     setLoading(true);
@@ -49,16 +51,18 @@ const AssignBuses = (props) => {
     const [profileInfo, setProfileInfo] = useState("")
     const [clearRouteModal, setClearRouteModal] = useState(false)
     const [currentPage, setCurrentpage] = useState(1)
-    const [postsPerPage] = useState(2)
+    const [postsPerPage] = useState(5)
     const [type, setType] = useState("")
     const [plate, setPlate] = useState("")
     const [route, setRoute] = useState(false)
+    
     const getRoutes = async () => {
         setLoading(true);
         try {
           const response = await axios.get(`/routes`);
           setLoading(false);
-          fetchRoutes(response.data.data.routes);
+          const allROute = await fetchAllRoute()
+          fetchRoutes(allROute);
         } catch (error) {
           setTimeout(() => { setLoading(false); }, 2000);     
           if (error.code != "ERR_NETWORK") {
@@ -73,8 +77,9 @@ const AssignBuses = (props) => {
     setLoading(true);
     try {
         const response = await axios.get(`/buses`);
+        const getAllBuses = await fetchAllBuses()
         setLoading(false);
-        fetchBuses(response.data.data.buses);
+        fetchBuses(getAllBuses);
         
     } catch (error) {
         setTimeout(() => { setLoading(false); }, 2000);     

@@ -27,7 +27,7 @@ describe('<App />', () =>{
         });
       
       it('if it should render ProtectedRoutes', () =>{
-        expect(wrapper.find(ProtectedRoute).length).toBe(13);
+        expect(wrapper.find(ProtectedRoute).length).toBe(12);
       });
   
       it('if it should render one Router', () =>{
