@@ -1,6 +1,6 @@
 import  { userActionTypes } from "../constants/userActionTypes"
 
-const { UPDATE, GET_FIRSTNAME, GET_USERNAME ,GET_LASTNAME ,SET_PROFILE } = userActionTypes;
+const { UPDATE, GET_FIRSTNAME, GET_USERNAME ,GET_LASTNAME ,SET_PROFILE, FETCHING_USERS } = userActionTypes;
 
 
 const initialState = {
@@ -13,7 +13,28 @@ const initialState = {
     type:'',
     profile:''  
 }
+const allDrivers = []
 
+export const usersReducer = (state = allDrivers, { type, payload}) => {
+    switch (type) {
+        case FETCHING_USERS:
+            let newUsers = [];
+            for(let i = 0; i < payload.length; i++){
+                const newUserSetTemplete = {
+                    id :  payload[i].id,
+                    username: payload[i].username,
+                    fullname:payload[i].fullname,
+                    email: payload[i].email,
+                    telephone: payload[i].telephone,
+                }
+                newUsers.push(newUserSetTemplete);
+            }
+            state = newUsers;
+            return state    
+        default:
+            return state;
+    }
+}
 export const userReducer = (state = initialState , { type , payload}) =>{
     switch (type) {
         case GET_USERNAME:
@@ -37,6 +58,7 @@ export const userReducer = (state = initialState , { type , payload}) =>{
             updates.firstname = payload.firstName;
             updates.lastname = payload.lastName;
             updates.profile = payload.profile == null ? `https://image.shutterstock.com/z/stock-vector-man-cartoon-icon-over-white-background-colorful-design-vector-illustration-602405828.jpg` : payload.profile ; 
+            updates.id = payload.id;
             if(payload.type){
                 updates.type = payload.type.toLowerCase()
             }

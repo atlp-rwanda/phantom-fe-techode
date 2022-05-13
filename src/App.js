@@ -23,6 +23,7 @@ import Roles from "./components/roles/Roles.js";
 import Busesoperat from "./containers/busesOp/Busesoperat.js";
 import BusSimulation from "./containers/BusSimulation/BusSimulation.js";
 import OperatorAssignBus from "./containers/OperatorDriverBus/OperatorAssignBus.js";
+import AssignBusRoute from "./containers/assignBusRoute/AssignBusRoute.js";
 import AddRoute from "./containers/Routes/AddRoute.js";
 import SignUp from "./containers/SignUp/SignUp.js";
 import PasswordReset from "./components/passwordReset/passwordereset.js";
@@ -138,6 +139,11 @@ const App = (props) => {
           component={OperatorAssignBus}
           auth={authentication.auth}
         />
+          <ProtectedRoute
+          path="/assign_bus_route"
+          component={AssignBusRoute} 
+          auth={authentication.auth}
+          />
         <Route path="/*" component={() => ({ NotFound: 400 })} />
       </Switch>
     </Router>

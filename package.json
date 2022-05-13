@@ -11,7 +11,7 @@
     "build": "webpack --config ./webpack.config.js --mode='production'",
     "testBuild": "webpack --config ./webpack.config.js ",
     "start": "node server.js",
-    "test": "react-scripts test --coverage a --watchAll=false  --forceExit  --detectOpenHandles  ",
+    "test": "react-scripts test --coverage a --watchAll=false  --forceExit  --detectOpenHandles ",
     "coverage": "react-scripts test --coverage a --watchAll=false  --forceExit  --detectOpenHandles "
   },
   "repository": {

@@ -343,14 +343,7 @@ const unassignBusToDriver = async (driverId, busId) => {
                                                     <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans h-full'> 
                                                         <div className='buttons h-full flex flex-col md:flex md:flex-row'>
                                                             {/* =================== Start:: only admin to see this =================== */}
-                                                            {userType == "admin" ? (
-                                                                <>
-                                                                    <LebalButton type={'primary'} svg={edit} />
-                                                                    <LebalButton type={'danger'} svg={deleteIcon} />
-                                                                </>
-                                                                ) : (
-                                                                    ""
-                                                                )}
+                                                            
                                                             {/* =================== End:: only admin to see this =================== */}
                                                           
                                                            
@@ -390,9 +383,6 @@ const unassignBusToDriver = async (driverId, busId) => {
                                 <div className="profile ">
                                     <div className="  border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100">
                                         <p className='text-primary-600 text-xl font-sans font-bold' >
-                                            {
-                                                // profileInfo.driverName.charAt(0)
-                                            }
                                         </p>
                                     </div>
                                 </div>    

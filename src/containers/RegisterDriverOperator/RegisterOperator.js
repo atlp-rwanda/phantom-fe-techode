@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import DashBoardLayout from '../../components/dashBoardLayout/DashBoardLayout';
-import { Primary } from '../../components/buttons/Buttons.js'
+import { InfoButton, Primary } from '../../components/buttons/Buttons.js'
 import { LebalButton, LebalTextButton } from '../../components/buttons/LebalButton.js';
-import {ToastContainer } from 'react-toastify';
-import Notify from '../../functions/Notify';
-import { OperatorProfile } from '../../components/skeletons/cards/Profile';
+import { ToastContainer } from 'react-toastify';
+import Notify from '../../functions/Notify'
+import { Profile } from '../../components/skeletons/cards/Profile';
 import TableSkeleton from '../../components/skeletons/Tables/TableSkeleton';
 
 import userLabel from '../../assets/svgs/lebals/luser.svg';
@@ -15,49 +15,167 @@ import deleteIcon from '../../assets/svgs/delete.svg';
 import edit from '../../assets/svgs/edit.svg';
 import more from '../../assets/svgs/more.svg';
 import close from '../../assets/svgs/close.svg';
+import drop from '../../assets/svgs/drop.svg';
 import prev from '../../assets/svgs/prev.svg';
 import next from '../../assets/svgs/next.svg';
-import { useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { API as axios } from '../../api/index.js';
+import { fetchRoles} from "../../redux/actions/roleAction";
+import { update,fetchUsers } from '../../redux/actions/userActions'
+import Pagination from '../../components/pagination/Pagination';
 
-
-const RegisterOperator = () => {   
+const RegisterOperator = (props) => {   
+    const { roles, fetchRoles, users, fetchUsers } = props
     const [addOperator , setAddOperator] = useState(false);
+    const [deleteOperator , setDeleteOperator] = useState(false)
     const [loading , setLoading] = useState(true);
     const [firstname , setFirsname] = useState('');
     const [lastname , setLastname] = useState('');
     const [username , setUsername] = useState('');
     const [telephone , setTelephone ] = useState('');
     const [email , setEmail] = useState('');
-   
-    /* ======== Start:: removing skeleton ======= */ 
-        useEffect(() => {
+    const [first, setFirst] = useState('');
+    const[fullname, setFullname] = useState('');
+    const [id, setId] = useState(null);
+    const [updateOperator , setUpdateOperator] = useState(false);
+    const [currentPage, setCurrentpage] = useState(1)
+    const [postsPerPage] = useState(10)
+    const [ addPrive, setAddPrivelege ] = useState(false)
+    const [ giveRoleId, setGiveRoleId ] = useState('')
+
+    const getRoles = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(`/roles`);
+          const { data } = response.data;
+          setLoading(false);
+          fetchRoles(data.rows);
+        } catch (error) {
+          setTimeout(() => { setLoading(false); }, 2000);     
+          if (error.code != "ERR_NETWORK") {
+            Notify(error, "error");
+          }
+          else{
+            Notify(error.message, "error");
+          }          
+        }
+      }
+    const getUsers = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(`/users`);
+          const { data } = response.data;
+          const operators = data.users.filter((operator) => {
+             
+          if(operator.isDeleted === false &&  operator.userType.toLowerCase() === "operator"){
+                  return operator
+              }
+            })
+          await fetchUsers(operators)
+          setLoading(false);
+        } catch (error) {
+          setTimeout(() => { setLoading(false); }, 2000);     
+          if (error.code != "ERR_NETWORK") {
+            Notify(error, "error");
+          }
+          else{
+            Notify(error.message, "error");
+          }          
+        }
+      }
+
+      const removeOperator = async () => {
+        setLoading(true);
+        try{
+            await axios.delete(`/users/${id}`);
+            setLoading(false)
             setTimeout(() => {
-                setLoading(false); 
-            } , 3000)
+                removeDeleteModel()
+            }, 1000)
+            getUsers()
+          } catch(e) {
+            setLoading(false);
+            Notify(`${e.response.data.message}`, "error");
+          }   
+      }
+
+    /* ======== Start:: removing skeleton ======= */ 
+        useEffect(async () => {
+            await getRoles()
+            await getUsers()
+            setLoading(false); 
         } , [])       
     /* ======== End:: removing skeleton ======= */ 
-
-    const removeModel = () => {
-        let newState = !addOperator;
-        setAddOperator( newState );       
-    }
     const {
         type: userType,
-      } = useSelector((state) => state.user);   
-  
+      } = useSelector((state) => state.user);
+    let operatorCounter = 1
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentUsers = users.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = pageNumber => setCurrentpage(pageNumber)
+    
+    const removeModel = () => {
+        let newState = !addOperator;
+        setAddOperator( newState );
+        
+    }
+    const privelegeModal = () => {
+        let newState = !addPrive
+        setAddPrivelege(newState);
+    }
+    const removeUpdateModel = (id) => {
+        const singleUser = users.filter(user => user.id === id)
+        singleUser.map(user => {
+            let fname = user.fullname.split(' ')[0];
+            let lname = user.fullname.split(' ')[1];
+            setFirsname(fname)
+            setLastname(lname)
+            setUsername(user.username)
+            setTelephone(user.telephone)
+            setEmail(user.email)
+        })
+        setId(id)
+        let newState = !updateOperator;
+        setUpdateOperator( newState );
+    }
+    const removeMore = (id) => {
+        const singleUser = users.filter(user => user.id === id)
+        singleUser.map(user => {
+            let f = user.fullname.charAt(0).toUpperCase()
+            setFullname(user.fullname)
+            setFirst(f)
+            setTelephone(user.telephone)
+            setEmail(user.email)
+            setId(id)
+        })
+    }
+    const removeDeleteModel = (id) => {
+        setId(id)
+        let newState = !deleteOperator
+        setDeleteOperator( newState );
+        const singleUser = users.filter(user => user.id === id)
+        singleUser.map(user => {
+            setFullname(user.fullname)
+        })
+    }
+
+    
     const registerOperator = async (e) =>{
-        e.preventDefault();     
+        e.preventDefault(); 
+      
         /* =================================== Start:: validation ================================ */ 
             if(firstname.trim().length == '') return Notify('First name field should not be empty', 'error' ) ;
             if(lastname.trim().length == '') return Notify('Last name field should not be empty', 'error' ) ;
-            if(telephone.trim().length == '') return Notify('Please provide Telphone number for the operator', 'error' ) ;
+            if(telephone.trim().length == '') return Notify('Please provide Telphone number', 'error' ) ;
             if(email.trim().length == '') return Notify('Email field required', 'error') ;
             if(username.trim().length == '') return Notify('Username field should not be empty','error') ;
+
             let isValidEmail = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
             if(isValidEmail) return Notify('Invalid email address', 'error' ) ;
         /* =================================== End:: validation ================================ */ 
-        
         try {
             await axios.post(`/users`, {
                 firstname,
@@ -68,36 +186,142 @@ const RegisterOperator = () => {
                 email
             });
             
+            setFirsname('');
+            setLastname('');
+            setUsername('');
+            setTelephone('');
+            setEmail('');
+
             setTimeout( () => {
                 removeModel();
             },
-             5000
+             1000
             )
+            getUsers()
             return Notify('New operator have been added','success');
         } catch(error) {
             console.log(error)
             const errors = error.response.data.message || error.message;
             Notify(errors, 'error')
         }
+              
     }
+    const updateOperatorFunc = async (e) =>{
+        e.preventDefault(); 
+        
+        /* =================================== Start:: validation ================================ */ 
+            if(firstname.trim().length == '') return Notify('First name field should not be empty', 'error' ) ;
+            if(lastname.trim().length == '') return Notify('Last name field should not be empty', 'error' ) ;
+            if(telephone.trim().length == '') return Notify('Please provide Telphone number', 'error' ) ;
+            if(email.trim().length == '') return Notify('Email field required', 'error') ;
+            if(username.trim().length == '') return Notify('Username field should not be empty','error') ;
+
+            let isValidEmail = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
+            if(isValidEmail) return Notify('Invalid email address', 'error' ) ;
+        /* =================================== End:: validation ================================ */ 
+        try {
+            await axios.put(`/users/${id}`, {
+                firstname,
+                lastname,
+                username,
+                telephone,
+                email
+            });
+            
+            setFirsname('');
+            setLastname('');
+            setUsername('');
+            setTelephone('');
+            setEmail('');
+
+            setTimeout( () => {
+                removeUpdateModel();
+            },
+            1000
+            )
+            getUsers()
+            return Notify('New Operator have been updated','success');
+        } catch(error) {
+            console.log(error)
+            const errors = error.response.data.message || error.message;
+            Notify(errors, 'error')
+        }
+              
+    }
+    
+    const assignPrivelege = async (e) => {
+        e.preventDefault()
+        if(!Number(id) || !Number(giveRoleId)){
+            Notify("Please select an Operator", 'error')
+        } else {
+            try{
+                const response = await axios.put(`/roles/assign/users`, {
+                    "userId": id,
+                    "roleId": giveRoleId
+                })
+                privelegeModal()
+                Notify(response.data.message, 'success')
+            } catch(error){
+                Notify("Privelege already assigned", 'error')
+                privelegeModal()
+            }
+        }
+    }
+   
     return (
-        <>
-        {/* =========================== Start:: Model =============================== */}
-            <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addOperator === true ? 'block' : 'hidden' }`}>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover /> 
+        <>  
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
+        {/* =========================== Start:: privelege Model =============================== */}        
+        <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addPrive === true ? 'block' : 'hidden' }`}>
+                <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
+                    <div className="card-body">
+                        <form onSubmit={(e) => assignPrivelege(e)} action="/operators" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
+                            <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                                <h3 className="font-bold text-sm text-center w-11/12">
+                                    Add a privelege
+                                </h3>
+                                <div
+                                className="close-icon w-1/12 cursor-pointer float-right"
+                                onClick={() => privelegeModal()}
+                                >
+                                <img src={close} alt="Phantom" className="float-right" />
+                                </div>
+                                <hr className=" bg-secondary-150 border my-3 w-full" />
+                            </div>
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <select id="" name="search" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-full" placeholder="Assign a bus" onChange={ e => setGiveRoleId( e.target.value ) }>
+                                        <option value="">Select privelege</option>
+                                        {roles.filter(value => value.rolename.toLowerCase() == 'operator').map((role) => (
+                                            <option key={role.id} value={role.id}>{role.rolename}</option>
+                                        ) )}
+                                    </select>
+                                </div>                
+                            </div>
+                            <div className="w-full">
+                                <Primary name={`Add`} styles='py-2' />
+                            </div>
+                        </form>
+                    </div>
+                </div>                
+            </div>
+        {/* =========================== Start:: privelege Model =============================== */}
+        {/* =========================== Start:: Model =============================== */}        
+            <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ addOperator === true ? 'block' : 'hidden' }`}> 
                 <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
                     <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
                         <h3 className='font-bold text-sm text-center w-11/12' >
-                            Adding new operator
+                            Adding new Operator
                         </h3>
                         <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => removeModel() } >
                             <img src={close} alt="Phantom" className='float-right' />
@@ -105,14 +329,14 @@ const RegisterOperator = () => {
                         <hr className=' bg-secondary-150 border my-3 w-full' />
                     </div>
                     <div className="card-body">
-                        <form onSubmit={registerOperator} action="/Operators" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12'>
+                        <form onSubmit={(e) => registerOperator(e)} action="/operators" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
                             <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                     <input type="text" name="firstname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="First name" value={ firstname } onChange={ e => setFirsname(e.target.value) } />                                   
                                 </div>                
                             </div>  
                             <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                     <input type="text" name="lastname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ lastname } placeholder="Last name" onChange={ e => setLastname(e.target.value) }  />
                                 </div>                
                             </div>  
@@ -122,226 +346,207 @@ const RegisterOperator = () => {
                                 </div>                
                             </div> 
                             <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                     <input type="email" name="email" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) } />                                   
                                 </div>                
                             </div>   
                             <div className="input my-3 h-9 "> 
-                                <div className="grouped-input bg-secondary-40 flex items-center h-full w-full rounded-md">
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
                                     <input type="telphone" name="tel" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Telephone" value={telephone} onChange={ e => setTelephone(e.target.value) } />                                   
                                 </div>                
-                            </div>                          
+                            </div>  
+                          
                             <div className="w-full">
                                 <Primary name={`Save`} styles='py-2' />
                             </div>
                         </form>
                     </div>
-                </div>                
-            </div>        
-        {/* =========================== End:: Model =================================== */}   
-        {/* =========================== Start:: Dashboard =============================== */} 
-            <DashBoardLayout>
+                </div>           
+            </div>
+        {/* =========================== Start:: Model =============================== */}   
+        {/* =========================== Start:: Delete Model =============================== */}        
+        <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${ updateOperator === true ? 'block' : 'hidden' }`}>
+                <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
+                    <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                        <h3 className='font-bold text-sm text-center w-11/12' >
+                            Update Operator
+                        </h3>
+                        <div className="close-icon w-1/12 cursor-pointer float-right" onClick={() => removeUpdateModel() } >
+                            <img src={close} alt="Phantom" className='float-right' />
+                        </div>
+                        <hr className=' bg-secondary-150 border my-3 w-full' />
+                    </div>
+                    <div className="card-body">
+                        <form onSubmit={(e) => updateOperatorFunc(e)} action="/operators" className=' sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12' >
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="text" name="firstname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="First name" value={ firstname } onChange={ e => setFirsname(e.target.value) } />                                   
+                                </div>                
+                            </div>  
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="text" name="lastname" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ lastname } placeholder="Last name" onChange={ e => setLastname(e.target.value) }  />
+                                </div>                
+                            </div>  
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="text" name="username" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" value={ username } placeholder="User name" onChange={ e => setUsername(e.target.value) }  />
+                                </div>                
+                            </div> 
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="email" name="email" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Email" value={email} onChange={ e => setEmail(e.target.value) } disabled/>                                   
+                                </div>                
+                            </div>   
+                            <div className="input my-3 h-9 "> 
+                                <div className="grouped-input bg-secondary-40 flex items-center  h-full w-full rounded-md">
+                                    <input type="telphone" name="tel" className=" bg-transparent border-0 outline-none px-5 font-sans text-xs text-secondary-50 h-5 w-4/5" placeholder="Telephone" value={telephone} onChange={ e => setTelephone(e.target.value) } />                                   
+                                </div>                
+                            </div>  
+                            
+                            <div className="w-full">
+                                <Primary name={`Update`} styles='py-2' />
+                            </div>
+                        </form>
+                    </div>
+                </div>           
+            </div>
+        {/* =========================== Start:: Update Model =============================== */} 
+        <div className={`h-screen w-screen bg-modelColor absolute flex items-center justify-center px-4 ${
+                deleteOperator === true ? "block" : "hidden"
+                }`}
+                >        
+            <div className="bg-white w-full  mp:w-8/12  md:w-6/12  xl:w-4/12 2xl:w-3/12 rounded-lg p-4 pb-8">
+            <div className="card-title w-full text-mainColor flex  flex-wrap justify-center items-center  ">
+                <h3 className="font-bold text-sm text-center w-11/12 text-danger-500">
+                Removing Operator
+                </h3>
+                <hr className=" bg-secondary-150 border my-3 w-full" />
+            </div>
+            <div className="card-body">
+                <h2 className="md:ml-12 text-secondary-500 mt-3 mb-6 text-xs md:text-sm">
+                Are you sure you want to Delete this Operator   <span className="text-mainColor">{fullname}</span>
+                </h2>
+                <div
+                className=" sp:px-8 mp:px-5 sm:px-10  md:px-8 lg:px-12"
+                >
+                <div className="w-full flex justify-between">
+                    <InfoButton
+                    name={`Cancel`}
+                    onclick={(e) => setDeleteOperator(false)}
+                    styles="py-2 md:w-1/3 w-1/2 bg-primary-200 hover:bg-primary-100 text-primary-500"
+                    />
+                    <Primary onclick={() =>{
+                    removeOperator()
+                    }} name={`Remove`} styles="bg-danger-200 hover:bg-danger-100 py-2 text-danger-500 md:w-1/3 w-1/2" />
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        {/* =========================== End:: DElete Modal =============================== */}  
+            <DashBoardLayout>  
                 <div className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2">
                     <div className="w-full">
-                        {/*  ==================== Start: Operator content =================== */}
+                        {/* Start:  Driver content */}
                             <div className="card-header flex items-center justify-between">                        
                                 <div className="card-title">
                                     <div className="title mb-3">
                                         <h4 className=' text-primary-500 font-bold text-xs md:text-base' >
-                                            List of operators
+                                            List of Operators
                                         </h4>
                                     </div> 
                                     <div className="sub-title">
                                         <h4 className='text-secondary-200  font-bold text-xs' >
-                                            Operators
+                                            Operator
                                         </h4>
                                     </div> 
                                 </div>
                                 {userType == "admin" ? (
                                     <div className="add-new-record">
-                                        <Primary name="New Operator" onclick={ () => removeModel() }  />
+                                        <Primary name="New operator" onclick={removeModel} />
                                     </div>
                                 ) : (
                                     ""
                                 )}
                             </div>
-                            <div className="mt-3 mb-10">
-                            { loading &&( <TableSkeleton />  ) }
-                            { !loading &&( 
-                                <>
-                                    <table className="min-w-full border-collapse border-0"  >
-                                        <thead>
-                                            <tr className="border-b border-b-secondary-100" >
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Operator name</th>
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Phone</th>
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    1
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    <LebalTextButton text='J' type='primary' /> John doe
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    2507000000
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}                                                    
-                                                        <LebalButton type={'info'} svg={more} />
-                                                </td>
-                                            </tr>
-                                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    1
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    <LebalTextButton text='J' type='primary' /> John doe
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    2507000000
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}                                                    
-                                                        <LebalButton type={'info'} svg={more} />
-                                                </td>
-                                            </tr>
-                                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    2
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    <LebalTextButton text='J' type='primary' /> John doe
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    2507000000
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}                                                    
-                                                        <LebalButton type={'info'} svg={more} />
-                                                </td>
-                                            </tr>
-                                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    3
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    <LebalTextButton text='J' type='primary' /> John doe
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    2507000000
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
-                                                          <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
-                                                          </>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    {/* =================== End:: only admin to see this =================== */}                                                    
-                                                        <LebalButton type={'info'} svg={more} />
+                            <div className="mt-3 mb-10"> 
+                                { loading &&( <TableSkeleton />  )
+                                }
+                                { !loading &&(
+                                    <>
+                                        <table className="min-w-full border-collapse border-0"  >
+                                            <thead>
+                                                <tr className="border-b border-b-secondary-100" >
+                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
+                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Driver name</th>
+                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Phone</th>
+                                                    <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Action</th>                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {currentUsers.map((user) => (
+                                                <tr key={operatorCounter} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {operatorCounter++}
                                                     </td>
-                                            </tr>
-                                            <tr className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    4
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    <LebalTextButton text='J' type='primary' /> John doe
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                    2507000000
-                                                </td>
-                                                <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                    {user.fullname}
+                                                    </td>
+                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {user.telephone}
+                                                    </td>
+                                                    <td  className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
                                                     {/* =================== Start:: only admin to see this =================== */}
-                                                      {userType == "admin" ? (
+                                                      {userType == 'admin' ? (
                                                           <>
-                                                               <LebalButton type={'primary'} svg={edit} />
-                                                               <LebalButton type={'danger'} svg={deleteIcon} />
+                                                               <LebalButton type={'primary'} svg={edit} onclick={() => {removeUpdateModel(user.id)}}/>
+                                                               <LebalButton type={'danger'} svg={deleteIcon} onclick={() => {removeDeleteModel(user.id)}}/>
                                                           </>
                                                         ) : (
                                                             ""
                                                         )}
-                                                    {/* =================== End:: only admin to see this =================== */}                                                    
-                                                        <LebalButton type={'info'} svg={more} />
+                                                    {/* =================== End:: only admin to see this =================== */}
+                                                        <LebalButton type={'info'} svg={more} onclick={() => {removeMore(user.id)}}/>
                                                     </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div className="w-full flex items-center justify-center ">
-                                        <div className="w-11/12 sm:w-6/12 md:w-6/12 p-1 px-4 shadow flex justify-between mt-3">
-                                            <div className="next flex items-center justify-center rounded-md cursor-pointer hover:bg-secondary-100 w-9">
-                                                <img src={prev} alt="Phantomm" />
-                                            </div>
-                                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">1</div>
-                                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">2</div>
-                                            <div className="flex items-center justify-center rounded-md cursor-pointer bg-primary-600 w-8 text-white">3</div>
-                                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">...</div>
-                                            <div className="text-gray-400  hover:flex hover:items-center hover:justify-center hover:rounded-md cursor-pointer hover:bg-primary-400 hover:w-8 hover:text-white">12</div>
-                                            <div className="next flex items-center justify-center cursor-pointer rounded-md bg-secondary-100 hover:bg-secondary-200 w-9">
-                                                <img src={next} alt="Phantomm" />
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                </>
-                             ) }
-                                
+                                                 
+                                                </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                        <Pagination 
+                                            postsPerPage={postsPerPage}
+                                            totalPosts={users.length}
+                                            paginate={paginate}
+                                        />        
+                                    </>
+                                                                      
+                                    )
+                                }
+                               
                             </div>   
-                        {/* ==================== End: Operator content ===================== */}                 
+                        {/* End:  Driver content */}                 
                     </div>
                 </div>
                 <div className=" w-full h-min lg:w-4/12 bg-white rounded-md m-2 py-12">
                     <div className="w-full">
-                        {/* ==================== Start: Operator profile ================== */}
-                        { loading &&( <OperatorProfile />  ) }
+                        {/* =================== Start: Driver profile ==== ================ */}
+                        { loading &&( <Profile />  ) }                       
                         { !loading &&( 
-                            <div className=" flex flex-col items-center justify-center ">
+                            <div className=" flex flex-col items-center justify-center">
                                 <div className="profile ">
                                     <div className="  border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100">
                                         <p className='text-primary-600 text-xl font-sans font-bold' >
-                                            j
+                                            {first || 'X'}
                                         </p>
                                     </div>
                                 </div>    
                                 <div className="mt-6">
                                     <div className="profiler-name">
-                                        <p className=' text-xs font-semibold font-sans md:text-sm text-secondary-300'> Sezerano J Chrysostome</p>                                    
+                                        <p className=' text-xs font-semibold font-sans md:text-sm text-secondary-300'>{fullname || 'xxxxxxxxxxxxxxxx'}</p>                                    
                                     </div>
                                 </div>   
-                                <div className="Operator-info w-full flex justify-between mt-4  px-6">
+                                <div className="driver-info w-full flex justify-between mt-4  px-6">
                                     <div className="w-1/6 ">
                                         <button className='p-2 md:p-3 border border-primary-600 rounded-md  bg-primary-100' >
                                             <img src={userLabel} alt="Phantom" />                                                                        
@@ -352,14 +557,14 @@ const RegisterOperator = () => {
                                             <p className='text-primary-600 font-semibold mb-2 text-sm w-full ' >User information</p>
                                         </div>   
                                         <div className="flex flex-wrap">
-                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>250700000000</p>
+                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>{telephone || '070000000'}</p>
                                         </div> 
                                         <div className="flex flex-wrap">
-                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>email@site.net</p>
+                                            <p className='text-secondary-200 font-semibold text-xs  w-full'>{email || 'email@example.com'}</p>
                                         </div>                                       
                                     </div>
                                 </div>
-                                <div className="Operator-info w-full flex justify-between mt-4  px-6">
+                                <div className="driver-info w-full flex justify-between mt-4  px-6">
                                     <div className="w-1/6 ">
                                         <button className='p-2 md:p-3 border border-primary-600 rounded-md  bg-primary-100' >
                                             <img src={lock} alt="Phantom" />                                                                        
@@ -373,38 +578,46 @@ const RegisterOperator = () => {
                                             <p className='text-secondary-200 font-semibold text-xs md:text-sm w-3/4 mb-2'>Operator</p>
                                             <div className="w-1/4">
                                                 {userType == "admin" ? (
-                                                    <img src={deletePrivelegeIcon} alt="phantom"  />
+                                                    <img src={deletePrivelegeIcon} alt="phantom"  className="hidden"/>
                                                 ) : (
                                                     ""
-                                                )}                                               
+                                                )}                                                   
                                             </div>
                                         </div> 
                                         <div className="flex flex-wrap">
                                             {userType == "admin" ? (
-                                                <p className='font-semibold text-xs  w-3/4 text-success-500 '>Add new privilege</p> 
+                                               <p className='font-semibold text-xs  w-3/4 text-success-500 cursor-pointer' onClick={() => privelegeModal()}>Add privilege</p>
                                             ) : (
                                                 ""
-                                            )}                                                
-                                            <div className='w-1/4' >  
+                                            )}    
+                                            
+                                            <div className='w-1/4' >      
                                                 {userType == "admin" ? (
-                                                    <img src={privelege} alt="Phantom" />  
+                                                <img src={privelege} alt="Phantom" />   
                                                 ) : (
                                                     ""
-                                                )}                                     
+                                                )}                                      
                                             </div>
                                         </div>                                       
                                     </div>
                                 </div>
-                            </div>    
-                          ) }
+                            </div>   
+                        )}
                             
-                        {/* =================== End: Operator Profile ==================== */}
+                        {/* ===================== End: Driver profile ==== ================ */}
                     </div>               
                 </div>         
-            </DashBoardLayout>     
-        {/* =========================== End:: Dashboard ================================ */}               
+            </DashBoardLayout>
+        {/* =========================== End:: Dashboard =============================== */}                    
         </>
     );
 }
+const mapToState = (state) => {
+    return {
+      user: state.user,
+      users: state.users,
+      roles: state.roles
+    }
+   }
  
-export default RegisterOperator;
+export default connect(mapToState, {fetchUsers, fetchRoles})(RegisterOperator);

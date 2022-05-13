@@ -10,17 +10,20 @@ import locate from "../../assets/svgs/location.svg"
 import setrole from "../../assets/svgs/roles.svg"
 import DashBoardLayout from '../dashBoardLayout/DashBoardLayout';
 import { ToastContainer } from 'react-toastify';
+import { connect } from "react-redux";
 
-const Logout = () => {
-
+const Logout = (props) => {
+    
     const [profile, setProfile] = useState(true);
-
+    console.log('userId: ')
     useEffect(() => {
       setTimeout(() => {
         setProfile(false);
       }, 2000)
     }, [])
-  
+
+   
+
     return ( 
         <DashBoardLayout>
             <ToastContainer
@@ -105,5 +108,11 @@ const Logout = () => {
         </DashBoardLayout>
      );
 }
+
+const mapToState = (state) => {
+    return {
+      user: state.user,
+    };
+  };
  
-export default Logout;
+export default connect(mapToState,{})(Logout);

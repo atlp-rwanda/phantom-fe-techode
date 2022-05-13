@@ -1,6 +1,6 @@
 import  { userActionTypes } from "../constants/userActionTypes"
 
-const { UPDATE, GET_FIRSTNAME, GET_USERNAME, GET_LASTNAME ,SET_PROFILE } = userActionTypes;
+const { UPDATE, GET_FIRSTNAME, GET_USERNAME, GET_LASTNAME ,SET_PROFILE, FETCHING_USERS } = userActionTypes;
 export const update = (payload) =>{
     return {
         type: UPDATE,
@@ -32,6 +32,12 @@ export const getLastname = () =>{
 export const setProfile = (payload) =>{
     return {
         type: SET_PROFILE,
+        payload
+    }
+}
+export const fetchUsers = (payload) =>{
+    return {
+        type: FETCHING_USERS,
         payload
     }
 }
