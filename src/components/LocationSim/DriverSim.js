@@ -14,14 +14,21 @@ import { addCoordinate } from '../../redux/actions/routeDetailActons'
 import hundleStartStop,{handleDriverActionsDemo} from '../../functions/driverAction';
 import socket from '../../config/socket';
 import { API as axios, getSingleRoutes } from "../../api/";
+import {  isAuth } from '../../redux/actions/isAuthAction';
 
 
-const getMyRoute = async (driverId,setData = null) => {
+const getMyRoute = async (driverId,setData = null,isLoading = null ) => {
+    isLoading(true);
     try {      
         let userId = driverId ;
         const response = await axios.get(`/users/${userId}`, {});
         const driver = response.data.data.driver[0];
+        if(response.data.data.driver.length == 0){
+            localStorage.setItem("Logged","");
+            location.href("/login");
+        }
         const { bus } = driver;
+        
         /* ========= Start: if a driver has one of the buses =========== */
             if(bus == null){
                 return Notify("You have not yet received a bus","info");
@@ -43,8 +50,9 @@ const getMyRoute = async (driverId,setData = null) => {
                 return Notify("Your bus has not yet recieved a route","info");
             }
         /* =========== End: if a driver his/her bus has a route =========== */ 
-
+        
         setData != null ? setData(route.data.data) : null;
+        isLoading(false)
         return route
     } catch (error) {
         if (error.code != "ERR_NETWORK") {
@@ -57,7 +65,7 @@ const getMyRoute = async (driverId,setData = null) => {
 }
 
 const DriverSim = ( props ) => {
-    const { revealModel , showModel , showModelStart , activeBus , user,speedControl,myLocation,setBusStarted,busStarted,addCoordinate,routeCoordinate } = props;
+    const { isLoadingMap,setIsLoadingMap,revealModel , showModel , showModelStart , activeBus , user,speedControl,myLocation,setBusStarted,busStarted,addCoordinate,routeCoordinate , isAuth } = props;
     /* ============ Start: Getting user =============== */ 
     const { type: userType , fullname } = user ;
     const [location , setMyLocation ] = useState({
@@ -86,29 +94,27 @@ const DriverSim = ( props ) => {
     });
     /* ============== End: Getting user =============== */ 
     const [isLoading ,setIsLoading] = useState(true);
-
+   
 
     useEffect( async () => {
-        await getMyRoute(user.id,setMyRoute);        
+        setIsLoading(false)
+        setIsLoadingMap(false)
+        await getMyRoute(user.id,setMyRoute,setIsLoadingMap);        
         navigator.geolocation.getCurrentPosition(
             function(position) {
                 setMyLocation({
                     latitude:position.coords.latitude,
                     longitude:position.coords.longitude
                 });
-                setIsLoading(false)
             },
             function(error) {
                 Notify("Please you need to provide us your location ","error");
-                setIsLoading(false)
             }
         );               
     },[])
 
     useEffect( async () => {  
-        const myRouteCoordsTemp = {
-            ...myRouteCoords
-        }  
+        const myRouteCoordsTemp = {...myRouteCoords}  
         let startPosition = myRoute.startLocation.toString().split(",");
         let endPosition = myRoute.endLocation.toString().split(",");
         myRouteCoordsTemp.startLocation = {
@@ -122,7 +128,8 @@ const DriverSim = ( props ) => {
         setMyRouteCoords(myRouteCoordsTemp);
     },[myRoute])
 
-    const handleBusStart = () => {    
+    const handleBusStart = () => { 
+        
         activeBus[0].busStatus = "Starting";
         revealModel("start");   
     }
@@ -192,14 +199,14 @@ const DriverSim = ( props ) => {
                 {/* ==================== Start:: Bus similation ================================ */}
                 
                 <div className=" h-full simulation -mt-20">               
-                    <div className={`w-full h-full p-3 top-0 ${ showModel == true || showModelStart == true ? "hidden" : "" }`} id="map">
+                    <div className={`w-full h-full py-3 top-0 ${ showModel == true || showModelStart == true ? "hidden" : "" }`} id="map">
                     {/* ==================== Start:: Bus on Map ================================ */}
                     {isLoading && <Map />}
-                    {!isLoading && 
+                    {!isLoading  &&
                         <MapContainer center={[location.latitude,location.longitude]} zoom={19} scrollWheelZoom={false}>
                             <TileLayer  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                             <MarkerClusterGroup>
-                                { myRoute.startLocation.latitude != 0  && myRoute.endLocation != 0 && <Marker position={[location.latitude,location.longitude]} icon={iconOnBoardBus}>
+                                { !isLoadingMap && myRoute.startLocation.latitude != 0  && myRoute.endLocation != 0 && <Marker position={[location.latitude,location.longitude]} icon={iconOnBoardBus}>
                                     <Popup  className=" w-40">
                                         <div className='w-full' >
                                             <i class="fa-solid fa-id-card text-mainColor "></i> <span className="text-gray-400 ml-2 text-sm" >{ user.username }</span>  
@@ -217,7 +224,12 @@ const DriverSim = ( props ) => {
                                          
                                     </Popup>     
                                 </Marker>   }
-                                <RoutingMachine from={[myRouteCoords.startLocation.latitude,myRouteCoords.startLocation.longitude]} to={[myRouteCoords.endLocation.latitude,myRouteCoords.endLocation.longitude]} setCoordinate={addCoordinate} />                                                                               
+                                {
+                                    !isLoadingMap && ( 
+                                        <RoutingMachine from={[myRouteCoords.startLocation.latitude,myRouteCoords.startLocation.longitude]} to={[myRouteCoords.endLocation.latitude,myRouteCoords.endLocation.longitude]} setCoordinate={addCoordinate} />
+                                    ) 
+                                }
+                                
                             </MarkerClusterGroup>
                         </MapContainer>
                     }
@@ -238,4 +250,4 @@ const mapStateTo = (state) =>{
         routeCoordinate:state.routeCoordinate
     }
 }
-export default connect( mapStateTo , {speedControl,addCoordinate})(DriverSim);
+export default connect( mapStateTo , {speedControl,addCoordinate,isAuth})(DriverSim);

@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
 import SideBar from '../sidebar/SideBar';
 import DashBoardHeader from '../header/DashBoardHeader';
 import '../../assets/style/siderbar.css';
 import main from '../../assets/js/main'
 
+import { update } from '../../redux/actions/userActions'
+import  checkAuth from '../../functions/checkAuth'
 
-const DashBoardLayout = ({ children , revealModel }) => {
+const DashBoardLayout = ({ children , revealModel, update, user }) => {
     const [showNav , setShowNav] = useState(false);
     const [deviceWidth, setWidth] = useState(window.innerWidth);
+    const [loading, setLoading] = useState(true)
 
     const isMobile = deviceWidth <= 768;
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
         if(isMobile) setShowNav(false);     
     }
+
+    useEffect(async () => {
+        await checkAuth(user, update)
+        setLoading(false);
+    });
+
+
     useEffect(() => {
             window.addEventListener('resize',() =>{
                 handleWindowSizeChange();
@@ -29,6 +40,7 @@ const DashBoardLayout = ({ children , revealModel }) => {
         setShowNav(show);
     }
     return ( 
+        !loading &&
         <div className="flex flex-wrap w-screen h-screen overflow-hidden "   style={main.style} >
             {/* =============  Start::left ================= */}
                 <div className= {`transition-all z-40 ${showNav == true ? `absolute sm:relative w-4/12 sm:w-3/12 lg:w-2/12 2xl:w-1/12` :  ` sidebar none-active`}` } >
@@ -55,5 +67,11 @@ const DashBoardLayout = ({ children , revealModel }) => {
         </div>
     );
 }
+
+const mapToState = (state) => {
+    return{
+        user: state.user
+    }    
+}
  
-export default DashBoardLayout;
+export default connect(mapToState, { update})(DashBoardLayout);

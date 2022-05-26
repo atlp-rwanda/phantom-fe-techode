@@ -244,15 +244,12 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
       </div>
     </div>
   </div>
-  <DashBoardLayout>
+  <Connect(DashBoardLayout)>
     <div
-      className="w-full"
-    />
-    <div
-      className=" lg:-mt-44 w-4/5 h-min  lg:w-full bg-white rounded-md p-4 m-2"
+      className=" w-full rounded-md h-full relative"
     >
       <div
-        className="w-full"
+        className=" bg-white rounded-md p-4 "
       >
         <div
           className="card-header flex items-center justify-between"
@@ -270,11 +267,6 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
               </h4>
             </div>
           </div>
-          <Primary
-            name="Add a new bus"
-            onclick={[Function]}
-            styles=" lg:w-1/12 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200"
-          />
         </div>
         <div
           className="mt-3 mb-10"
@@ -283,6 +275,6 @@ exports[`<BusesOperat /> It should match the snapshot 1`] = `
         </div>
       </div>
     </div>
-  </DashBoardLayout>
+  </Connect(DashBoardLayout)>
 </Fragment>
 `;

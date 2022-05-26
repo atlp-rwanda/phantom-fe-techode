@@ -255,7 +255,7 @@ exports[`<Roles /> It should match the snapshot 1`] = `
       </div>
     </div>
   </div>
-  <DashBoardLayout>
+  <Connect(DashBoardLayout)>
     <div
       className="w-full h-min  lg:w-7/12 bg-white rounded-md p-4 m-2"
     >
@@ -319,6 +319,6 @@ exports[`<Roles /> It should match the snapshot 1`] = `
         />
       </div>
     </div>
-  </DashBoardLayout>
+  </Connect(DashBoardLayout)>
 </Fragment>
 `;

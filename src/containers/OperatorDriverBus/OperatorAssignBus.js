@@ -19,6 +19,7 @@ import { assignBus, removeBus } from '../../redux/actions/assignBusAction'
 import Pagination from '../../components/pagination/Pagination';
 import { addNotification, removeNotification } from "../../redux/actions/notificationAction"
 import { API as axios } from "../../api/index.js";
+import fetchAllBuses from '../../functions/fetchAllBuses';
 
 
 const AssignBuses = (props) => {   
@@ -27,7 +28,7 @@ const AssignBuses = (props) => {
     const [assignD , setAssignBuz] = useState(false);
     const [loading , setLoading] = useState(true);
     const [bus, setBus] = useState('');
-    const[plate, setPlate] = useState('')
+    const [plate, setPlate] = useState('')
     const [driverId, setDriverId] = useState("")
     const { assignBus, removeBus } = props
     const [profileInfo, setProfileInfo] = useState("")
@@ -49,6 +50,7 @@ const AssignBuses = (props) => {
 
 
 const getDrivers = async () => {
+    setLoading(true)
     try {
         const response = await axios.get(`/users`);
         const allDrivers = response.data.data.users.filter(driver => driver.userType.toLowerCase() == 'driver');
@@ -60,9 +62,11 @@ const getDrivers = async () => {
             data.busId = busOnDriver.data.data.driver[0].bus.id
         })
         setOurDrivers(allDrivers);
-        const manyBuses = await axios.get(`/buses`);
-        setAllBuses(manyBuses.data.data.buses)
+        const buses = await fetchAllBuses();
+        setAllBuses(buses);
+        setLoading(false)
     } catch (error) {    
+        setLoading(false)
         if (error.code != "ERR_NETWORK") {
             Notify(error.response.data.message, "error");
         }
@@ -79,6 +83,7 @@ const assignBusToDriver = async (driverId, giveBusId) => {
                 busId: giveBusId
         });
         Notify('Bus assigned successfully','success') ;
+        getDrivers();
     } catch(error) {
         if (error.code != "ERR_NETWORK") {
             Notify(error.response.data.message, "error");
@@ -96,48 +101,27 @@ const unassignBusToDriver = async (driverId, busId) => {
                 busId: busId
         });
         Notify('Bus unassigned successfully','success') ;
+        getDrivers();
     } catch(error) {
         if (error.code != "ERR_NETWORK") {
             Notify(error.response.data.message, "error");
-            }
-            else{
+        }
+        else{
             Notify(error.message, "error");
-            }  
+        }  
     }
 }
 
 
     /* ======== Start:: removing skeleton ======= */ 
-        useEffect(async () => {
-            setTimeout(() => {
-                setLoading(false); 
-            } , 2000)
+        useEffect(async () => {          
+            setLoading(false); 
             await getDrivers();
             setProfileInfo(drivers[0])
         } , [])       
     /* ======== End:: removing skeleton ======= */ 
 
-    /* ========== Start::  Getting current state ================== */
-
-        const assignedBus = [
-            {
-                id: 1,
-                busName: "HYUNDAI",
-                plateNumber: "DFG0001"
-            },
-            {
-                id: 2,
-                busName: "BENZ",
-                plateNumber: "DFG0002"
-            },
-            {
-                id: 3,
-                busName: "TOYOTA",
-                plateNumber: "DFG0003"
-            }
-        ]
-
-      
+    /* ========== Start::  Getting current state ================== */      
 
         let count = 0
         let driverCounter = 1;
@@ -150,7 +134,9 @@ const unassignBusToDriver = async (driverId, busId) => {
         const drivers = props.drivers;
         const buses = props.drivers.buses;
     /* ============ End::  Getting current state ================== */
+
     /* ============ Start::  Getting current driver lis ================== */
+    
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = ourDrivers.slice(indexOfFirstPost, indexOfLastPost);
@@ -304,13 +290,6 @@ const unassignBusToDriver = async (driverId, busId) => {
                                         </h4>
                                     </div> 
                                 </div>
-                                {userType == "admin" ? (
-                                    <div className="add-new-record">
-                                        <Primary name="New driver" onclick={assignModal} />
-                                    </div>
-                                ) : (
-                                    ""
-                                )}
                             </div>
                             <div className="mt-3 mb-10"> 
                                 { loading &&( <TableSkeleton />  )
@@ -343,14 +322,7 @@ const unassignBusToDriver = async (driverId, busId) => {
                                                     <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans h-full'> 
                                                         <div className='buttons h-full flex flex-col md:flex md:flex-row'>
                                                             {/* =================== Start:: only admin to see this =================== */}
-                                                            {userType == "admin" ? (
-                                                                <>
-                                                                    <LebalButton type={'primary'} svg={edit} />
-                                                                    <LebalButton type={'danger'} svg={deleteIcon} />
-                                                                </>
-                                                                ) : (
-                                                                    ""
-                                                                )}
+                                                            
                                                             {/* =================== End:: only admin to see this =================== */}
                                                           
                                                            
@@ -390,9 +362,6 @@ const unassignBusToDriver = async (driverId, busId) => {
                                 <div className="profile ">
                                     <div className="  border border-primary-600 w-16 h-16 rounded-full flex items-center justify-center bg-primary-100">
                                         <p className='text-primary-600 text-xl font-sans font-bold' >
-                                            {
-                                                // profileInfo.driverName.charAt(0)
-                                            }
                                         </p>
                                     </div>
                                 </div>    

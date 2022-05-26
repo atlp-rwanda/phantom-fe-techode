@@ -17,7 +17,8 @@ import next from '../../assets/svgs/next.svg';
 import { connect } from 'react-redux';
 import { createBus, updateBusInfo, deleteBus, fetchBuses } from "../../redux/actions/busAction";
 import Pagination from "../../components/pagination/Pagination";
-import { API as axios } from "../../api/index"
+import {AUTH as axios } from "../../api/index"
+import fetchAllBuses from "../../functions/fetchAllBuses.js";
 
 const addNewBus = async (busName, routeCode, plateNumber, setLoading, getAllBuses) => {
     const newBus = {
@@ -26,17 +27,14 @@ const addNewBus = async (busName, routeCode, plateNumber, setLoading, getAllBuse
         platenumber: plateNumber
     }
     try {
-      const response = await axios({
-        method: "POST",
-        url: 'http://localhost:5000/api/v1/buses/register',
-        data: newBus,
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
+      const response = await axios.post(`/buses/register`, newBus, 
+        { 
+            headers: {
             "auth-token": `Bearer ${localStorage.getItem("token")}`,
             "action": "createBus"
+            }
         }
-    })
+      )
       Notify(response.data.message, "success");
     } catch (error) {
       if (error.code != "ERR_NETWORK") {
@@ -57,7 +55,7 @@ const newBus = {
 try {
     const response = await axios({
     method: "PUT",
-    url: `http://localhost:5000/api/v1/buses/${busId}`,
+    url: `/buses/${busId}`,
     data: newBus,
     headers: {
         "Content-Type": "application/json",
@@ -81,7 +79,7 @@ const removeBus = async (busId, setLoading, getAllBuses) => {
     try {
       const response = await axios({
         method: "DELETE",
-        url: `http://localhost:5000/api/v1/buses/${busId}`,
+        url: `/buses/${busId}`,
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -132,18 +130,17 @@ const Busesoperat = (props) => {
     const getAllBuses = async () => {
         setLoading(true);
         try {
-        const response = await axios.get(`/buses`);
-        const { data } = response.data;
-        setLoading(false);
-        fetchBuses(data.buses);
+            const response = await fetchAllBuses()
+            setLoading(false);
+            fetchBuses(response);
         } catch (error) {
-        setTimeout(() => { setLoading(false); }, 2000);     
-        if (error.code != "ERR_NETWORK") {
-            Notify(error, "error");
-        }
-        else{
-            Notify(error.message, "error");
-        }          
+            setTimeout(() => { setLoading(false); }, 2000);     
+            if (error.code != "ERR_NETWORK") {
+                Notify(error, "error");
+            }
+            else{
+                Notify(error.message, "error");
+            }          
         }
       }
 
@@ -357,78 +354,85 @@ const Busesoperat = (props) => {
             </div>
             {/* =========================== End:: DeleteBusModel =============================== */}
             <DashBoardLayout>
+            <div className=" w-full rounded-md h-full relative">
+                <div className=" bg-white rounded-md p-4 ">
 
-                <div className="w-full" >
-                </div>
-                <div className=" lg:-mt-44 w-4/5 h-min  lg:w-full bg-white rounded-md p-4 m-2">
-                    <div className="w-full">
+                    {/* Start:  Bus content */}
 
-                        {/* Start:  Bus content */}
-
-                        <div className="card-header flex items-center justify-between">
-                            <div className="card-title">
-                                <div className="title mb-3">
-                                    <h4 className=' text-primary-500 font-bold text-xl md:text-2xl' >
-                                        List of Buses
-                                    </h4>
-                                </div>
+                    <div className="card-header flex items-center justify-between">
+                        <div className="card-title">
+                            <div className="title mb-3">
+                                <h4 className=' text-primary-500 font-bold text-xl md:text-2xl' >
+                                    List of Buses
+                                </h4>
                             </div>
-                            {!isList && (<Primary name={`Add a new bus`} styles=' lg:w-1/12 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel} />)}
                         </div>
-                        <div className="mt-3 mb-10">
-                            {loading && (<TableSkeleton />)
-                            }
-                            {!loading && (
-                                <>
-                                    <table className="min-w-full border-collapse border-0"  >
-                                        <thead>
-                                            <tr className="border-b border-b-secondary-100" >
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Bus Type</th>
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Route</th>
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Plate</th>
-                                                <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                {currentPosts.map((bus) => (
-                                                    <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.id}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.bustype}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.routecode}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            {bus.platenumber}
-                                                        </td>
-                                                        <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
-                                                            <LebalButton type={'primary'} svg={edit} onclick={() => updateBuseModel(bus.id)} />
-                                                            <LebalButton type={'danger'} svg={deleteIcon} onclick={() => deleteBusModel(bus.id)} />
-                                                        </td>
-                                                    </tr>
-                                                ))}  
-                                        </tbody>
-                                    </table>
-                                    {/* ======================= START:: PAGINATION ============================ */}
-                                    <Pagination
-                                        postsPerPage={postsPerPage}
-                                        totalPosts={buses.length}
-                                        paginate={paginate}
-                                    />
-                                    {/* ======================== START:: PAGINATION ============================ */}
-                                </>
-
-                            )
-                            }
-
-                        </div>
-                        {/* End:  Bus content */}
+                        {
+                            userType == "admin" ? <Primary name={`Add a new bus`} styles=' lg:w-1/12 md:w-1/4 sm:w-1/4 w-1/4 font-sans font-bold bg-primary-400 hover:bg-primary-200' onclick={removeModel} /> : <>{ userType}</>
+                        }
+                        
                     </div>
+                    <div className="mt-3 mb-10">
+                        {loading && (<TableSkeleton />)
+                        }
+                        {!loading && (
+                            <>
+                                <table className="min-w-full border-collapse border-0"  >
+                                    <thead>
+                                        <tr className="border-b border-b-secondary-100" >
+                                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >#</th>
+                                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Bus Type</th>
+                                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Route</th>
+                                            <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >Plate</th>
+                                            {
+                                                userType == "admin" || userType == "operator" ?  <th className="text-xs  md:text-md md:font-bold text-mainColor font-sans pt-6 pb-2"  >action</th>  : <> </>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {currentPosts.map((bus) => (
+                                                <tr key={bus.id} className="h-16 text-right border-b border-b-secondary-100 cursor-pointer hover:bg-gray-100">
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {bus.id}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {bus.bustype}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {bus.routecode}
+                                                    </td>
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        {bus.platenumber}
+                                                    </td>
+                                                    {
+                                                userType == "admin" || userType == "operator" ? 
+                                                    <td className='text-secondary-200 font-sans text-xs text-center md:text-sm md:font-sans'>
+                                                        <LebalButton type={'primary'} svg={edit} onclick={() => updateBuseModel(bus.id)} />
+                                                        <LebalButton type={'danger'} svg={deleteIcon} onclick={() => deleteBusModel(bus.id)} />
+                                                    </td>
+                                                 : <></>
+                                            }
+                                                    
+                                                </tr>
+                                            ))}  
+                                    </tbody>
+                                </table>
+                                {/* ======================= START:: PAGINATION ============================ */}
+                                <Pagination
+                                    postsPerPage={postsPerPage}
+                                    totalPosts={buses.length}
+                                    paginate={paginate}
+                                />
+                                {/* ======================== START:: PAGINATION ============================ */}
+                            </>
+
+                        )
+                        }
+
+                    </div>
+                    {/* End:  Bus content */}
                 </div>
+            </div>
             </DashBoardLayout>
 
         </>

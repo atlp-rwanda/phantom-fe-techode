@@ -21,16 +21,16 @@ export function RoutesReducer(state = initialState, { type, payload }) {
       let newRoutes = []
       for (let i = 0; i < payload.length; i++) {
         const newBustemplate = {
-          id: state.length + 1,
-          name:payload[i].name,
-          code: payload[i].code,
-          startLocation: payload[i].startLocation,
-          endLocation: payload[i].endLocation,
-          distance: payload[i].distance,
-          duration: payload[i].duration,
-          city:payload[i].city,
-          from:payload[i].from,
-          to:payload[i].to
+        id: payload[i].id,
+        name:payload[i].name,
+        code: payload[i].code,
+        startLocation: payload[i].startLocation,
+        endLocation: payload[i].endLocation,
+        distance: payload[i].distance,
+        duration: payload[i].duration,
+        city:payload[i].city,
+        from:payload[i].from,
+        to:payload[i].to
         }
         newRoutes.push(newBustemplate)
       }

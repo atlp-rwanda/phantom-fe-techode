@@ -52,11 +52,7 @@ const Navbar = () => {
                 Login
               </Link>
             </li>
-            <li>
-              <Link to="/signup" className="flex w-full text-white font-semibold hover:text-primary-600 cursor-pointer pt-2.5 px-2.5">
-                Signup
-              </Link>
-            </li>
+            
           </ul>
         </div>
       </div>

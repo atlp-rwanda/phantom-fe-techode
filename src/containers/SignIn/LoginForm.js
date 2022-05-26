@@ -184,10 +184,6 @@ const LoginForm = (props) => {
                         Login
                       </button>
                     </div>
-                    <p className="font-sans font-medium  justify-center text-mainColor my-3">
-                      Dont have an account yet?
-                      <Link to="/signup">Sign Up</Link>
-                    </p>
                   </form>
                 </div>
               </div>

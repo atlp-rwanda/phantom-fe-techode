@@ -23,6 +23,7 @@ import { connect } from "react-redux";
 import { createRoute, updateRouteInfo, deleteRoute, fetchRoutes } from "../../redux/actions/RoutesAction";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 import { API as axios } from "../../api";
+import fetchAllRoute from "../../functions/fetchAllRoute";
 
 const provider = new OpenStreetMapProvider();
 function AddRoute(props) {
@@ -41,8 +42,8 @@ function AddRoute(props) {
   const [assignroutes, setAssignRoutes] = useState("");
 
   /* ============= For search =================== */
-  const [from, setFrom] = useState({ lat: -1.9447501, lng: 30.058433 });
-  const [end, setEnd] = useState({ lat: -1.98507, lng: 30.031855 });
+  const [from, setFrom] = useState({ lat: 0, lng: 0 });
+  const [end, setEnd] = useState({ lat: 0, lng: 0 });
 
   /* ============= For search =================== */
 
@@ -57,16 +58,16 @@ function AddRoute(props) {
 
   const getRoutes = async () => {
     try {
-      const response = await axios.get("/routes")
-      fetchRoutes(response.data.data.routes);
-      setAssignRoutes(response.data.data.routes)
+      const response = await fetchAllRoute()
+      fetchRoutes(response);
+      setAssignRoutes(response)
     } catch (error) {
       console.log(error.message)
     }
   };
 
-  useEffect(() => {
-    getRoutes();
+  useEffect( async () => {
+    await getRoutes();
     setTimeout(() => {
       setLoadingMap(false);
     }, 500)
@@ -82,7 +83,7 @@ function AddRoute(props) {
     setLoadingMap(false);
   }, 1000);
 
-  const createNewRoute = (e) => {
+  const createNewRoute = async (e) => {
     e.preventDefault();
     setLoadingMap(false);
 
@@ -106,8 +107,8 @@ function AddRoute(props) {
     const newRoute = {
       name: name,
       code: code,
-      startLocation: startLocation,
-      endLocation: endLocation,
+      startLocation: `${from.lat},${from.lng}`,
+      endLocation: `${end.lat},${end.lng}`,
       distance: distance,
       duration: duration,
       city,
@@ -115,7 +116,27 @@ function AddRoute(props) {
       to: end,
     };
 
-    createRoute(newRoute);
+    try {
+      let data = await axios.post(`/routes/register`,newRoute,
+      {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "auth-token": `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      Notify("Route have been updated", "success");
+      await getRoutes();
+
+    } catch (error) {
+      console.log(error);
+      if (error.code != "ERR_NETWORK") {
+        Notify(error.response.data.message, "error");
+      }
+      else{
+        Notify(error.message, "error");
+      }    
+    }
+  
 
     setTimeout(() => {
       removeModel();
@@ -167,8 +188,8 @@ function AddRoute(props) {
         }
       })
 
-    setDeleteModal(false);
-    setListModal(true);
+    setDeleteModal(!deleteModal);
+    await getRoutes();
     return Notify("Delete route successfully", "success");
   };
   const [selectedRoute, setSelectedRouteId] = useState("");
@@ -210,30 +231,28 @@ function AddRoute(props) {
   const [selectedRouteName, setSelectedRouteName] = useState("");
   const [profileInfo, setProfileInfo] = useState("");
   const changeRoute = async (routeId, name, code, startLocation, endLocation, distance, duration, city) => {
-    getRoutes();
+   
     const newRouteInfo = {
       id: routeId,
       name: name,
       code: code,
-      startLocation: startLocation,
-      endLocation: endLocation,
+      startLocation: `${from.lat},${from.lng}`,
+      endLocation: `${end.lat},${end.lng}`,
       distance: distance,
       duration: duration,
       city,
 
     };
     try {
-      const response = await axios({
-        method: "PUT",
-        url: `http://localhost:5000/api/v1/routes/${routeId}`,
-        data: newRouteInfo,
+      let data = await axios.put(`/routes/${routeId}`,newRouteInfo,
+      {
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
           "auth-token": `Bearer ${localStorage.getItem("token")}`
         }
       })
-      Notify(response.data.message, "success");
+      Notify("Route have been updated", "success");
+      // await getRoutes();
     } catch (error) {
       if (error.code != "ERR_NETWORK") {
         Notify(error.response.data.message, "error");
@@ -256,15 +275,14 @@ function AddRoute(props) {
     if (endLocation.trim().length == "")
       return Notify("end location field should not be empty", "error");
     if (from.lat == 0 || from.lat == 0 || end.lat == 0 || end.lat == 0)
-      return Notify(
-        "For us to calcurate distance you need to be accurate when you adding starting place",
-        "error"
-      );
+        return Notify(
+          "For us to calcurate distance you need to be accurate when you adding starting place",
+          "error"
+        );
 
     /* =================================== End:: validation ================================ */
 
     changeRoute(routeId, name, code, startLocation, endLocation, distance, duration, city)
-    getRoutes()
     setTimeout(() => {
 
       setUpdateModel(false);
@@ -756,7 +774,7 @@ function AddRoute(props) {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {assignroutes?.map((route) => (
+                                  {currentPosts?.map((route) => (
                                     <tr
                                       key={route.id}
                                       onClick={() =>

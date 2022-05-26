@@ -12,6 +12,7 @@ const Dashboard = (props) => {
     const [loading , setLoading ] = useState(true);
     const [places , setPlaces] = useState([]);
     const [route , setAllRoute] = useState([]);
+    
     useEffect( () => {
         setPlaces([]);        
         const allPlace = [];  

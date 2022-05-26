@@ -5,11 +5,16 @@ export const API = axios.create({
     baseURL: baseUrl,
     headers: {
         'Content-Type': 'application/json',
-        
+        "auth-token": `Bearer ${localStorage.getItem("token")}`
     }
 });
 
-
+export const AUTH = axios.create({
+    baseURL: baseUrl,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
    
 API.interceptors.request.use((req, res) => {
     if(localStorage.getItem("token")){
